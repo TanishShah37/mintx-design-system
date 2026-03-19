@@ -1,5 +1,4 @@
 import React from "react";
-import { cn } from "../../tokens/cn";
 
 export interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   variant?: "default" | "muted" | "brand";
@@ -9,22 +8,34 @@ export interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement>
 export const Link: React.FC<LinkProps> = ({
   variant = "default",
   underline = "hover",
-  className,
+  style,
   children,
   ...props
 }) => {
+  const colorMap = {
+    default: "var(--text-primary, #E8EDE8)",
+    muted: "var(--text-secondary, #748A83)",
+    brand: "#00B38A",
+  };
+
   return (
     <a
-      className={cn(
-        "transition-colors duration-200 cursor-pointer",
-        variant === "default" && "text-foreground hover:text-foreground/80",
-        variant === "muted" && "text-muted-foreground hover:text-foreground",
-        variant === "brand" && "text-primary hover:text-primary/80",
-        underline === "none" && "no-underline",
-        underline === "hover" && "no-underline hover:underline",
-        underline === "always" && "underline",
-        className
-      )}
+      style={{
+        color: colorMap[variant],
+        textDecoration: underline === "always" ? "underline" : "none",
+        cursor: "pointer",
+        transition: "opacity 0.15s",
+        fontFamily: "var(--font-body)",
+        ...style,
+      }}
+      onMouseEnter={(e) => {
+        (e.currentTarget as HTMLElement).style.opacity = "0.75";
+        if (underline === "hover") (e.currentTarget as HTMLElement).style.textDecoration = "underline";
+      }}
+      onMouseLeave={(e) => {
+        (e.currentTarget as HTMLElement).style.opacity = "1";
+        if (underline === "hover") (e.currentTarget as HTMLElement).style.textDecoration = "none";
+      }}
       {...props}
     >
       {children}

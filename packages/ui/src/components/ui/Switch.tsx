@@ -1,6 +1,5 @@
 import React from "react";
 import * as SwitchPrimitive from "@radix-ui/react-switch";
-import { cn } from "../../tokens/cn";
 
 export interface SwitchProps extends React.ComponentPropsWithoutRef<typeof SwitchPrimitive.Root> {
   label?: string;
@@ -9,27 +8,54 @@ export interface SwitchProps extends React.ComponentPropsWithoutRef<typeof Switc
 export const Switch = React.forwardRef<
   React.ElementRef<typeof SwitchPrimitive.Root>,
   SwitchProps
->(({ className, label, ...props }, ref) => (
-  <div className="flex items-center gap-3 group cursor-pointer">
-    <SwitchPrimitive.Root
-      className={cn(
-        "peer inline-flex h-6 w-11 shrink-0 cursor-pointer items-center rounded-full border-2 border-transparent transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/20 disabled:cursor-not-allowed disabled:opacity-50 data-[state=checked]:bg-primary data-[state=unchecked]:bg-muted hover:data-[state=unchecked]:bg-muted/80",
-        className
+>(({ label, style, ...props }, ref) => {
+  const [checked, setChecked] = React.useState(props.defaultChecked ?? false);
+  const isChecked = props.checked !== undefined ? props.checked : checked;
+
+  return (
+    <div style={{ display: "flex", alignItems: "center", gap: 12, cursor: props.disabled ? "not-allowed" : "pointer", opacity: props.disabled ? 0.5 : 1 }}>
+      <SwitchPrimitive.Root
+        ref={ref}
+        {...props}
+        onCheckedChange={(v) => {
+          setChecked(v);
+          props.onCheckedChange?.(v);
+        }}
+        style={{
+          position: "relative",
+          display: "inline-flex",
+          alignItems: "center",
+          width: 44,
+          height: 24,
+          borderRadius: 12,
+          background: isChecked ? "#00B38A" : "var(--bg-overlay, #1A2624)",
+          border: `1.5px solid ${isChecked ? "#00B38A" : "var(--border-default, #2A3836)"}`,
+          cursor: props.disabled ? "not-allowed" : "pointer",
+          outline: "none",
+          transition: "background 0.2s, border-color 0.2s",
+          flexShrink: 0,
+          ...style,
+        }}
+      >
+        <SwitchPrimitive.Thumb
+          style={{
+            display: "block",
+            width: 18,
+            height: 18,
+            borderRadius: "50%",
+            background: "#fff",
+            boxShadow: "0 1px 4px rgba(0,0,0,0.3)",
+            transform: isChecked ? "translateX(22px)" : "translateX(2px)",
+            transition: "transform 0.2s",
+          }}
+        />
+      </SwitchPrimitive.Root>
+      {label && (
+        <span style={{ fontSize: 14, color: "var(--text-primary, #E8EDE8)", fontFamily: "var(--font-body)", userSelect: "none" }}>
+          {label}
+        </span>
       )}
-      {...props}
-      ref={ref}
-    >
-      <SwitchPrimitive.Thumb
-        className={cn(
-          "pointer-events-none block h-5 w-5 rounded-full bg-background shadow-lg ring-0 transition-transform data-[state=checked]:translate-x-5 data-[state=unchecked]:translate-x-0"
-        )}
-      />
-    </SwitchPrimitive.Root>
-    {label && (
-      <label className="text-sm font-medium leading-none cursor-pointer select-none group-data-[disabled]:cursor-not-allowed group-data-[disabled]:opacity-70">
-        {label}
-      </label>
-    )}
-  </div>
-));
-Switch.displayName = SwitchPrimitive.Root.displayName;
+    </div>
+  );
+});
+Switch.displayName = "Switch";

@@ -1,6 +1,5 @@
 import React from "react";
 import * as SliderPrimitive from "@radix-ui/react-slider";
-import { cn } from "../../tokens/cn";
 
 export interface SliderProps extends React.ComponentPropsWithoutRef<typeof SliderPrimitive.Root> {
   label?: string;
@@ -10,23 +9,67 @@ export interface SliderProps extends React.ComponentPropsWithoutRef<typeof Slide
 export const Slider = React.forwardRef<
   React.ElementRef<typeof SliderPrimitive.Root>,
   SliderProps
->(({ className, label, error, ...props }, ref) => (
-  <div className="flex flex-col gap-3 w-full">
-    {label && <label className="text-sm font-medium leading-none">{label}</label>}
+>(({ label, error, style, ...props }, ref) => (
+  <div style={{ display: "flex", flexDirection: "column", gap: 10, width: "100%" }}>
+    {label && (
+      <span style={{ fontSize: 13, fontWeight: 600, color: "var(--text-secondary, #748A83)", fontFamily: "var(--font-body)" }}>
+        {label}
+      </span>
+    )}
     <SliderPrimitive.Root
       ref={ref}
-      className={cn(
-        "relative flex w-full touch-none select-none items-center group",
-        className
-      )}
       {...props}
+      style={{
+        position: "relative",
+        display: "flex",
+        alignItems: "center",
+        width: "100%",
+        height: 20,
+        touchAction: "none",
+        userSelect: "none",
+        opacity: props.disabled ? 0.5 : 1,
+        cursor: props.disabled ? "not-allowed" : "pointer",
+        ...style,
+      }}
     >
-      <SliderPrimitive.Track className="relative h-1.5 w-full grow overflow-hidden rounded-full bg-muted">
-        <SliderPrimitive.Range className="absolute h-full bg-primary" />
+      <SliderPrimitive.Track
+        style={{
+          position: "relative",
+          height: 4,
+          width: "100%",
+          flexGrow: 1,
+          borderRadius: 99,
+          background: "var(--bg-overlay, #1A2624)",
+          overflow: "hidden",
+        }}
+      >
+        <SliderPrimitive.Range
+          style={{
+            position: "absolute",
+            height: "100%",
+            background: "linear-gradient(90deg, #00B38A, #10C9A0)",
+            borderRadius: 99,
+          }}
+        />
       </SliderPrimitive.Track>
-      <SliderPrimitive.Thumb className="block h-5 w-5 rounded-full border-2 border-primary bg-background shadow-lg transition-transform focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/20 disabled:pointer-events-none disabled:opacity-50 hover:scale-110 active:scale-95" />
+      <SliderPrimitive.Thumb
+        style={{
+          display: "block",
+          width: 20,
+          height: 20,
+          borderRadius: "50%",
+          background: "#00B38A",
+          border: "2.5px solid var(--bg-surface, #111918)",
+          boxShadow: "0 0 0 2px rgba(0,179,138,0.3), 0 2px 8px rgba(0,0,0,0.3)",
+          cursor: props.disabled ? "not-allowed" : "grab",
+          outline: "none",
+          transition: "transform 0.15s, box-shadow 0.15s",
+        }}
+      />
     </SliderPrimitive.Root>
-    {error && <p className="text-xs font-medium text-red-500">{error}</p>}
+    {error && (
+      <p style={{ fontSize: 12, color: "#EF4444", margin: 0 }}>{error}</p>
+    )}
   </div>
 ));
-Slider.displayName = SliderPrimitive.Root.displayName;
+Slider.displayName = "Slider";

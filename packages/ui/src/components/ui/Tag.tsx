@@ -1,5 +1,4 @@
 import React from "react";
-import { cn } from "../../tokens/cn";
 import { X } from "lucide-react";
 
 export interface TagProps {
@@ -9,7 +8,36 @@ export interface TagProps {
   variant?: "default" | "primary" | "secondary" | "outline";
   size?: "sm" | "md";
   className?: string;
+  style?: React.CSSProperties;
 }
+
+const variantStyles: Record<string, React.CSSProperties> = {
+  default: {
+    background: "rgba(255,255,255,0.06)",
+    color: "var(--text-secondary, #748A83)",
+    border: "1px solid transparent",
+  },
+  primary: {
+    background: "rgba(0,179,138,0.12)",
+    color: "#00B38A",
+    border: "1px solid rgba(0,179,138,0.25)",
+  },
+  secondary: {
+    background: "rgba(255,255,255,0.08)",
+    color: "var(--text-primary, #E8EDE8)",
+    border: "1px solid rgba(255,255,255,0.1)",
+  },
+  outline: {
+    background: "transparent",
+    color: "var(--text-primary, #E8EDE8)",
+    border: "1px solid var(--border-default, #2A3836)",
+  },
+};
+
+const sizeStyles: Record<string, React.CSSProperties> = {
+  sm: { height: 24, padding: "0 8px", fontSize: 10 },
+  md: { height: 28, padding: "0 12px", fontSize: 11 },
+};
 
 export const Tag: React.FC<TagProps> = ({
   label,
@@ -17,41 +45,47 @@ export const Tag: React.FC<TagProps> = ({
   onClick,
   variant = "default",
   size = "md",
-  className,
+  style,
 }) => {
-  const variantClasses = {
-    default: "bg-muted text-muted-foreground",
-    primary: "bg-primary/10 text-primary border-primary/20",
-    secondary: "bg-secondary/10 text-secondary border-secondary/20",
-    outline: "bg-transparent border border-border text-foreground",
-  };
-
-  const sizeClasses = {
-    sm: "h-6 px-2 text-[10px]",
-    md: "h-8 px-3 text-xs",
-  };
-
   return (
     <div
       onClick={onClick}
-      className={cn(
-        "inline-flex items-center gap-1.5 rounded-full font-bold uppercase tracking-wider transition-all",
-        variantClasses[variant],
-        sizeClasses[size],
-        onClick && "cursor-pointer hover:opacity-80 active:scale-95",
-        className
-      )}
+      style={{
+        display: "inline-flex",
+        alignItems: "center",
+        gap: 6,
+        borderRadius: 99,
+        fontWeight: 700,
+        fontFamily: "var(--font-body)",
+        textTransform: "uppercase",
+        letterSpacing: "0.05em",
+        cursor: onClick ? "pointer" : "default",
+        userSelect: "none",
+        transition: "opacity 0.15s",
+        ...variantStyles[variant],
+        ...sizeStyles[size],
+        ...style,
+      }}
     >
       <span>{label}</span>
       {onRemove && (
         <button
-          onClick={(e) => {
-            e.stopPropagation();
-            onRemove();
+          onClick={(e) => { e.stopPropagation(); onRemove(); }}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            width: 14,
+            height: 14,
+            borderRadius: "50%",
+            border: "none",
+            background: "rgba(255,255,255,0.1)",
+            cursor: "pointer",
+            padding: 0,
+            color: "currentColor",
           }}
-          className="hover:bg-foreground/10 rounded-full p-0.5 transition-colors"
         >
-          <X size={size === "sm" ? 10 : 12} />
+          <X size={size === "sm" ? 8 : 10} />
         </button>
       )}
     </div>

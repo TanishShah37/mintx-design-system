@@ -1,45 +1,19 @@
 import React from "react";
-import { cva, type VariantProps } from "class-variance-authority";
 import type { ProgressProps } from "../../types";
-import { cn } from "../../tokens/cn";
 
-const trackVariants = cva(
-  "w-full bg-neutral-800 overflow-hidden rounded-full",
-  {
-    variants: {
-      size: {
-        xs: "h-[3px]",
-        sm: "h-[6px]",
-        md: "h-[10px]",
-      },
-    },
-    defaultVariants: {
-      size: "sm",
-    },
-  }
-);
+const colorMap: Record<string, string> = {
+  brand: "#00B38A",
+  green: "#22C55E",
+  red: "#EF4444",
+  amber: "#F59E0B",
+  blue: "#3B82F6",
+};
 
-const fillVariants = cva(
-  "h-full rounded-full transition-[width] duration-600 ease-[cubic-bezier(0.16,1,0.3,1)]",
-  {
-    variants: {
-      color: {
-        brand: "bg-mint-500",
-        green: "bg-green-500",
-        red: "bg-red-500",
-        amber: "bg-amber-500",
-        blue: "bg-blue-500",
-      },
-      animated: {
-        true: "animate-shimmer bg-[length:200%_100%] bg-gradient-to-r from-transparent via-white/25 to-transparent",
-      },
-    },
-    defaultVariants: {
-      color: "brand",
-      animated: false,
-    },
-  }
-);
+const sizeMap: Record<string, number> = {
+  xs: 3,
+  sm: 6,
+  md: 10,
+};
 
 export const Progress: React.FC<ProgressProps> = ({
   value,
@@ -53,28 +27,51 @@ export const Progress: React.FC<ProgressProps> = ({
   style,
 }) => {
   const pct = Math.min(100, Math.max(0, (value / max) * 100));
+  const trackHeight = sizeMap[size] ?? 6;
+  const fillColor = colorMap[color] ?? "#00B38A";
 
   return (
-    <div className={cn("flex flex-col gap-sp-1 w-full", className)} style={style}>
+    <div
+      className={className}
+      style={{ display: "flex", flexDirection: "column", gap: 4, width: "100%", ...style }}
+    >
       {(label || showValue) && (
-        <div className="flex justify-between items-center mb-1">
-          {label && <span className="text-xs font-medium text-neutral-600">{label}</span>}
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 4 }}>
+          {label && (
+            <span style={{ fontSize: 12, fontWeight: 500, color: "var(--text-secondary, #9BACA6)" }}>
+              {label}
+            </span>
+          )}
           {showValue && (
-            <span className="text-xs font-mono text-neutral-400 ml-2">{Math.round(pct)}%</span>
+            <span style={{ fontSize: 12, fontFamily: "monospace", color: "var(--text-tertiary, #5A706A)" }}>
+              {Math.round(pct)}%
+            </span>
           )}
         </div>
       )}
       <div
-        className={trackVariants({ size })}
         role="progressbar"
         aria-valuenow={value}
         aria-valuemin={0}
         aria-valuemax={max}
         aria-label={label}
+        style={{
+          width: "100%",
+          height: trackHeight,
+          background: "rgba(255,255,255,0.08)",
+          borderRadius: 9999,
+          overflow: "hidden",
+        }}
       >
         <div
-          className={fillVariants({ color, animated })}
-          style={{ width: `${pct}%` }}
+          style={{
+            height: "100%",
+            width: `${pct}%`,
+            background: fillColor,
+            borderRadius: 9999,
+            transition: "width 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
+            boxShadow: `0 0 8px ${fillColor}66`,
+          }}
         />
       </div>
     </div>

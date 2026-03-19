@@ -1,93 +1,69 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Nudge, type NudgeProps } from "../../components/ui/Nudge";
+import { Nudge } from "../../components/ui/Nudge";
 import { NudgesPanel } from "../../components/ui/NudgesPanel";
 import React, { useState } from "react";
 
-const meta: Meta<typeof Nudge> = {
-  title: "UI/Nudge",
-  component: Nudge,
+const meta: Meta = {
+  title: "UI/Nudges",
   tags: ["autodocs"],
 };
-
 export default meta;
-type Story = StoryObj<typeof Nudge>;
 
-export const Info: Story = {
-  args: {
-    id: "nudge-1",
-    title: "New Feature Available",
-    description: "You can now export your portfolio as a CSV file for easier tracking.",
-    variant: "info",
-    actionLabel: "Try it now",
-    onAction: (id) => console.log("Action on:", id),
-    onClose: (id) => console.log("Close:", id),
+const sampleNudges = [
+  {
+    id: "1",
+    variant: "info" as const,
+    title: "Volume Breakout Detected",
+    description: "TCS volume is 3× the 20-day average — unusual institutional activity detected.",
+    actionLabel: "View Chart →",
   },
-};
-
-export const Warning: Story = {
-  args: {
-    id: "nudge-2",
-    title: "Account Verification",
-    description: "Please verify your email to unlock all trading features.",
-    variant: "warning",
-    actionLabel: "Verify Email",
+  {
+    id: "2",
+    variant: "warning" as const,
+    title: "Portfolio Concentration Risk",
+    description: "IT sector now represents 52% of your portfolio — consider diversifying.",
+    actionLabel: "Rebalance →",
   },
-};
-
-export const Success: Story = {
-  args: {
-    id: "nudge-3",
-    title: "Trade Executed",
-    description: "Your buy order for 0.5 BTC has been successfully completed.",
-    variant: "success",
+  {
+    id: "3",
+    variant: "success" as const,
+    title: "Order Executed",
+    description: "Buy 100 RELIANCE @ ₹2450.00 confirmed. Estimated settlement: T+2.",
   },
-};
+];
 
-export const PanelDemo: Story = {
-  render: () => {
-    const [nudges, setNudges] = useState<NudgeProps[]>([
-      {
-        id: "1",
-        title: "Welcome to Mintx",
-        description: "Start by exploring the latest market trends and top gainers.",
-        variant: "info",
-        actionLabel: "Explore Markets",
-      },
-      {
-        id: "2",
-        title: "Market Alert",
-        description: "Bitcoin has reached a new monthly high of $65,000.",
-        variant: "warning",
-      },
-    ]);
-
-    const handleClose = (id: string) => {
-      setNudges((prev) => prev.filter((n) => n.id !== id));
-    };
-
-    return (
-      <div className="h-[400px] w-full relative bg-slate-100 dark:bg-slate-900 rounded-xl overflow-hidden">
-        <div className="p-8">
-          <h2 className="text-2xl font-bold mb-4">Dashboard Preview</h2>
-          <p className="opacity-60">Nudges will appear in the bottom-right corner.</p>
-          <button 
-            onClick={() => setNudges([{
-              id: Math.random().toString(),
-              title: "Random Alert",
-              description: "This is a dynamically added nudge.",
-              variant: "neutral" as const,
-            }, ...nudges])}
-            className="mt-4 px-4 py-2 bg-primary text-primary-foreground rounded-lg"
-          >
-            Add Nudge
-          </button>
-        </div>
-        <NudgesPanel
-          nudges={nudges}
-          onClose={handleClose}
-          position="bottom-right"
+export const NudgeVariants: StoryObj = {
+  name: "Nudge (Single)",
+  render: () => (
+    <div style={{ display: "flex", flexDirection: "column", gap: 12, maxWidth: 420 }}>
+      {sampleNudges.map((n) => (
+        <Nudge
+          key={n.id}
+          {...n}
+          onClose={(id: string) => console.log("close", id)}
+          onAction={(id: string) => console.log("action", id)}
         />
+      ))}
+    </div>
+  ),
+};
+
+export const NudgesPanelDemo: StoryObj = {
+  name: "NudgesPanel",
+  render: () => (
+    <div style={{ position: "relative", height: 400, border: "1px dashed rgba(255,255,255,0.1)", borderRadius: 12, overflow: "hidden" }}>
+      <p style={{ padding: 24, color: "var(--text-tertiary, #748A83)", fontSize: 13 }}>
+        The NudgesPanel renders floating nudges in a fixed corner. Below is a simulated preview.
+      </p>
+      <div style={{ display: "flex", flexDirection: "column", gap: 12, padding: 16 }}>
+        {sampleNudges.map((n) => (
+          <Nudge
+            key={n.id}
+            {...n}
+            onClose={(id: string) => console.log("close", id)}
+          />
+        ))}
       </div>
-    );
-  },
+    </div>
+  ),
 };

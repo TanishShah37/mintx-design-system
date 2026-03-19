@@ -1,6 +1,5 @@
 import React from "react";
-import { cn } from "../../tokens/cn";
-import { ChevronRight, Home } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { Link } from "./Link";
 
 export interface BreadcrumbItem {
@@ -16,40 +15,60 @@ export interface BreadcrumbsProps extends React.HTMLAttributes<HTMLElement> {
 
 export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
   items,
-  separator = <ChevronRight size={14} className="opacity-40" />,
-  className,
+  separator = <ChevronRight size={13} color="var(--text-tertiary, #4A6260)" />,
+  style,
   ...props
 }) => {
   return (
     <nav
       aria-label="Breadcrumb"
-      className={cn("flex items-center text-sm", className)}
+      style={{ display: "flex", alignItems: "center", ...style }}
       {...props}
     >
-      <ol className="flex items-center gap-2 list-none p-0 m-0">
+      <ol style={{ display: "flex", alignItems: "center", gap: 6, listStyle: "none", padding: 0, margin: 0, flexWrap: "wrap" }}>
         {items.map((item, index) => {
           const isLast = index === items.length - 1;
-          
+
           return (
             <React.Fragment key={item.label}>
-              <li className="flex items-center gap-2">
+              <li style={{ display: "flex", alignItems: "center", gap: 4 }}>
                 {item.href && !isLast ? (
                   <Link
                     href={item.href}
                     variant="muted"
-                    className="flex items-center gap-1.5 transition-opacity hover:opacity-100"
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 4,
+                      fontSize: 13,
+                      fontFamily: "var(--font-body)",
+                    }}
                   >
                     {item.icon}
                     {item.label}
                   </Link>
                 ) : (
-                  <span className={cn("flex items-center gap-1.5 font-medium", isLast ? "text-foreground" : "text-muted-foreground")}>
+                  <span
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 4,
+                      fontSize: 13,
+                      fontWeight: isLast ? 600 : 400,
+                      color: isLast ? "var(--text-primary, #E8EDE8)" : "var(--text-secondary, #748A83)",
+                      fontFamily: "var(--font-body)",
+                    }}
+                  >
                     {item.icon}
                     {item.label}
                   </span>
                 )}
               </li>
-              {!isLast && <li aria-hidden="true">{separator}</li>}
+              {!isLast && (
+                <li aria-hidden="true" style={{ display: "flex", alignItems: "center", lineHeight: 1, fontSize: 12, color: "var(--text-tertiary, #4A6260)" }}>
+                  {typeof separator === "string" ? separator : separator}
+                </li>
+              )}
             </React.Fragment>
           );
         })}

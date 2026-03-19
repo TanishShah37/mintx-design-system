@@ -1,6 +1,4 @@
 import React from "react";
-import { cn } from "../../tokens/cn";
-import { Button } from "./Button";
 import { ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react";
 
 export interface PaginationProps {
@@ -14,9 +12,8 @@ export const Pagination: React.FC<PaginationProps> = ({
   currentPage,
   totalPages,
   onPageChange,
-  className,
 }) => {
-  const getPages = () => {
+  const getPages = (): (number | "ellipsis")[] => {
     const pages: (number | "ellipsis")[] = [];
     if (totalPages <= 7) {
       for (let i = 1; i <= totalPages; i++) pages.push(i);
@@ -32,55 +29,77 @@ export const Pagination: React.FC<PaginationProps> = ({
     return pages;
   };
 
+  const btnBase: React.CSSProperties = {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    width: 36,
+    height: 36,
+    borderRadius: 8,
+    border: "none",
+    cursor: "pointer",
+    fontFamily: "var(--font-body)",
+    fontSize: 13,
+    fontWeight: 600,
+    transition: "all 0.15s",
+    outline: "none",
+  };
+
   return (
-    <nav
-      role="navigation"
-      aria-label="pagination"
-      className={cn("flex items-center justify-center gap-1", className)}
-    >
-      <Button
-        variant="ghost"
-        size="sm"
-        iconOnly
-        onClick={() => onPageChange(currentPage - 1)}
+    <nav role="navigation" aria-label="pagination" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 4 }}>
+      <button
+        style={{
+          ...btnBase,
+          background: "var(--bg-overlay, #1A2624)",
+          color: currentPage === 1 ? "var(--text-tertiary, #4A6260)" : "var(--text-secondary, #748A83)",
+          cursor: currentPage === 1 ? "not-allowed" : "pointer",
+          opacity: currentPage === 1 ? 0.4 : 1,
+        }}
+        onClick={() => currentPage > 1 && onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
-        className="rounded-lg"
+        aria-label="Previous"
       >
         <ChevronLeft size={16} />
-      </Button>
+      </button>
 
       {getPages().map((page, index) => (
         <React.Fragment key={index}>
           {page === "ellipsis" ? (
-            <div className="flex h-9 w-9 items-center justify-center">
-              <MoreHorizontal size={16} className="opacity-40" />
+            <div style={{ ...btnBase, background: "transparent", cursor: "default" }}>
+              <MoreHorizontal size={16} color="var(--text-tertiary, #4A6260)" />
             </div>
           ) : (
-            <Button
-              variant={currentPage === page ? "primary" : "ghost"}
-              size="sm"
+            <button
+              style={{
+                ...btnBase,
+                background: currentPage === page ? "#00B38A" : "var(--bg-overlay, #1A2624)",
+                color: currentPage === page ? "#fff" : "var(--text-secondary, #748A83)",
+                boxShadow: currentPage === page ? "0 2px 8px rgba(0,179,138,0.3)" : "none",
+              }}
               onClick={() => onPageChange(page as number)}
-              className={cn(
-                "h-9 w-9 p-0 rounded-lg font-bold transition-all",
-                currentPage === page ? "shadow-md" : "hover:bg-muted"
-              )}
+              aria-label={`Page ${page}`}
+              aria-current={currentPage === page ? "page" : undefined}
             >
               {page}
-            </Button>
+            </button>
           )}
         </React.Fragment>
       ))}
 
-      <Button
-        variant="ghost"
-        size="sm"
-        iconOnly
-        onClick={() => onPageChange(currentPage + 1)}
+      <button
+        style={{
+          ...btnBase,
+          background: "var(--bg-overlay, #1A2624)",
+          color: currentPage === totalPages ? "var(--text-tertiary, #4A6260)" : "var(--text-secondary, #748A83)",
+          cursor: currentPage === totalPages ? "not-allowed" : "pointer",
+          opacity: currentPage === totalPages ? 0.4 : 1,
+        }}
+        onClick={() => currentPage < totalPages && onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
-        className="rounded-lg"
+        aria-label="Next"
       >
         <ChevronRight size={16} />
-      </Button>
+      </button>
     </nav>
   );
 };

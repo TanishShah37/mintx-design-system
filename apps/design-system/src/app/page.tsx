@@ -81,12 +81,13 @@ import {
   Nudge,
   NudgesPanel,
   Tag,
-  TagGroup,
   Rating,
-  Avatar,
   Badge,
   Chip,
   Tooltip,
+  TooltipProvider,
+  TooltipTrigger,
+  TooltipContent,
   Accordion,
   AccordionItem,
   AccordionTrigger,
@@ -100,6 +101,17 @@ import {
   TableCell,
   TableCaption,
   Card as UiCard,
+  CheckBox,
+  RadioGroup,
+  RadioGroupItem,
+  Switch,
+  Slider,
+  Pagination,
+  Breadcrumbs,
+  IconButton,
+  Avatar,
+  AvatarImage,
+  AvatarFallback,
 } from "@mintx/ui";
 
 // ─── Inline mini-implementations for the live demo ───────────────────────────
@@ -245,6 +257,8 @@ const sections = [
   "buttons",
   "badges",
   "cards",
+  "forms",
+  "navigation",
   "ui-primitives",
   "financial",
   "mobile",
@@ -1319,6 +1333,231 @@ export default function MintxDesignSystem() {
           </section>
         )}
 
+        {/* ── FORMS ────────────────────────────────── */}
+        {activeTab === "forms" && (
+          <section>
+            <SectionHeader
+              tag="Input Components"
+              title="Form Controls"
+              desc="CheckBox, Radio, Switch, Slider, Rating, Avatar, Chip — all accessible and theme-aware."
+            />
+
+            <div className="resp-grid" style={{ gap: 24, marginBottom: 24 }}>
+              <UiCard variant="raised" padding="lg">
+                <h3 style={{ fontSize: 16, fontWeight: 700, marginBottom: 16 }}>CheckBox</h3>
+                <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                  <CheckBox label="Enable notifications" defaultChecked />
+                  <CheckBox label="Auto-invest enabled" />
+                  <CheckBox label="Disabled option" disabled />
+                  <CheckBox label="With error" error="Please accept terms" />
+                </div>
+              </UiCard>
+
+              <UiCard variant="raised" padding="lg">
+                <h3 style={{ fontSize: 16, fontWeight: 700, marginBottom: 16 }}>Radio Group</h3>
+                <RadioGroup defaultValue="sip" style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                  <RadioGroupItem value="sip" label="SIP (Monthly)" />
+                  <RadioGroupItem value="lumpsum" label="Lumpsum" />
+                  <RadioGroupItem value="staggered" label="Staggered" />
+                  <RadioGroupItem value="disabled" label="Disabled (locked)" disabled />
+                </RadioGroup>
+              </UiCard>
+
+              <UiCard variant="raised" padding="lg">
+                <h3 style={{ fontSize: 16, fontWeight: 700, marginBottom: 16 }}>Switch</h3>
+                <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+                  <Switch label="Dark mode" defaultChecked />
+                  <Switch label="Live price alerts" />
+                  <Switch label="2FA Authentication" defaultChecked />
+                  <Switch label="Disabled" disabled />
+                </div>
+              </UiCard>
+
+              <UiCard variant="raised" padding="lg">
+                <h3 style={{ fontSize: 16, fontWeight: 700, marginBottom: 16 }}>Slider</h3>
+                <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+                  <Slider label="Risk Level" defaultValue={[40]} min={0} max={100} step={5} />
+                  <Slider label="SIP Amount (₹1k–₹50k)" defaultValue={[15000]} min={1000} max={50000} step={500} />
+                  <Slider label="Disabled" defaultValue={[30]} disabled />
+                </div>
+              </UiCard>
+            </div>
+
+            <div className="resp-grid" style={{ gap: 24, marginBottom: 24 }}>
+              <UiCard variant="raised" padding="lg">
+                <h3 style={{ fontSize: 16, fontWeight: 700, marginBottom: 16 }}>Rating</h3>
+                <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                  <Rating value={4} />
+                  <Rating value={3.5} />
+                  <Rating value={5} size="lg" />
+                  <Rating value={2} size="sm" />
+                </div>
+              </UiCard>
+
+              <UiCard variant="raised" padding="lg">
+                <h3 style={{ fontSize: 16, fontWeight: 700, marginBottom: 16 }}>Avatar</h3>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 16, alignItems: "center" }}>
+                  {[
+                    { src: "https://i.pravatar.cc/80?img=1", fallback: "TS", size: 56 },
+                    { src: "https://i.pravatar.cc/80?img=5", fallback: "RP", size: 44 },
+                    { src: undefined, fallback: "KS", size: 44 },
+                    { src: undefined, fallback: "DS", size: 32 },
+                    { src: "https://i.pravatar.cc/80?img=8", fallback: "U", size: 64 },
+                  ].map((av, i) => (
+                    <Avatar key={i} style={{ width: av.size, height: av.size }} className="">
+                      {av.src && <AvatarImage src={av.src} />}
+                      <AvatarFallback>{av.fallback}</AvatarFallback>
+                    </Avatar>
+                  ))}
+                </div>
+              </UiCard>
+
+              <UiCard variant="raised" padding="lg">
+                <h3 style={{ fontSize: 16, fontWeight: 700, marginBottom: 16 }}>Chip</h3>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+                  <Chip label="Large Cap" />
+                  <Chip label="Removable" onDelete={() => {}} />
+                  <Chip label="Outlined" variant="outline" />
+                  <Chip label="Primary" variant="filled" color="primary" />
+                  <Chip label="Success" variant="filled" color="success" />
+                  <Chip label="Warning" variant="filled" color="warning" />
+                  <Chip label="Error" variant="filled" color="error" />
+                </div>
+              </UiCard>
+
+              <UiCard variant="raised" padding="lg">
+                <h3 style={{ fontSize: 16, fontWeight: 700, marginBottom: 16 }}>Tooltip</h3>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <button style={{ padding: "8px 16px", background: "var(--bg-brand-soft)", color: "var(--text-brand)", borderRadius: 8, border: "none", cursor: "pointer", fontWeight: 600, fontSize: 13 }}>
+                          Hover me (top)
+                        </button>
+                      </TooltipTrigger>
+                      <TooltipContent>Buy order confirmed — RELIANCE @ ₹2450</TooltipContent>
+                    </Tooltip>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <button style={{ padding: "8px 16px", background: "var(--bg-overlay)", color: "var(--text-primary)", borderRadius: 8, border: "1px solid var(--border-default)", cursor: "pointer", fontSize: 13 }}>
+                          Hover (bottom)
+                        </button>
+                      </TooltipTrigger>
+                      <TooltipContent side="bottom">NSE: 09:15–15:30 IST</TooltipContent>
+                    </Tooltip>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <button style={{ padding: "8px 16px", background: "var(--bg-overlay)", color: "var(--text-primary)", borderRadius: 8, border: "1px solid var(--border-default)", cursor: "pointer", fontSize: 13 }}>
+                          Hover (right)
+                        </button>
+                      </TooltipTrigger>
+                      <TooltipContent side="right">SIP = Systematic Investment Plan</TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                </div>
+              </UiCard>
+            </div>
+
+            <UiCard variant="raised" padding="lg">
+              <h3 style={{ fontSize: 16, fontWeight: 700, marginBottom: 16 }}>Accordion</h3>
+              <Accordion type="single" collapsible defaultValue="item-1">
+                <AccordionItem value="item-1">
+                  <AccordionTrigger>What is SIP?</AccordionTrigger>
+                  <AccordionContent>
+                    Systematic Investment Plan (SIP) lets you invest a fixed amount in mutual funds at regular intervals — weekly, monthly, or quarterly — averaging your purchase cost over time.
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="item-2">
+                  <AccordionTrigger>How does Mintx protect my data?</AccordionTrigger>
+                  <AccordionContent>
+                    All data is encrypted at rest (AES-256) and in transit (TLS 1.3). We are SOC 2 Type II certified and do not sell or share your data with third parties.
+                  </AccordionContent>
+                </AccordionItem>
+                <AccordionItem value="item-3">
+                  <AccordionTrigger>What markets are supported?</AccordionTrigger>
+                  <AccordionContent>
+                    Currently NSE and BSE for Indian equities, F&O, and mutual funds. International markets (NYSE, NASDAQ) are coming in Q3 2025.
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+            </UiCard>
+          </section>
+        )}
+
+        {/* ── NAVIGATION ──────────────────────────── */}
+        {activeTab === "navigation" && (
+          <section>
+            <SectionHeader
+              tag="Navigation Components"
+              title="Navigation & Layout"
+              desc="Breadcrumbs, Pagination, IconButton — accessible navigation primitives for complex interfaces."
+            />
+
+            <div className="resp-grid" style={{ gap: 24, marginBottom: 24 }}>
+              <UiCard variant="raised" padding="lg">
+                <h3 style={{ fontSize: 16, fontWeight: 700, marginBottom: 16 }}>Breadcrumbs</h3>
+                <Breadcrumbs
+                  items={[
+                    { label: "Home", href: "#" },
+                    { label: "Markets", href: "#" },
+                    { label: "Equities", href: "#" },
+                    { label: "RELIANCE" },
+                  ]}
+                />
+                <div style={{ marginTop: 16 }}>
+                  <Breadcrumbs
+                    items={[
+                      { label: "Dashboard", href: "#" },
+                      { label: "Portfolio", href: "#" },
+                      { label: "Holdings" },
+                    ]}
+                    separator="›"
+                  />
+                </div>
+              </UiCard>
+
+              <UiCard variant="raised" padding="lg">
+                <h3 style={{ fontSize: 16, fontWeight: 700, marginBottom: 16 }}>Icon Button</h3>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
+                  <IconButton icon={<Bell size={18} />} aria-label="Notifications" variant="ghost" />
+                  <IconButton icon={<Settings size={18} />} aria-label="Settings" variant="ghost" />
+                  <IconButton icon={<Search size={18} />} aria-label="Search" variant="primary" />
+                  <IconButton icon={<Plus size={18} />} aria-label="Add" variant="primary" size="lg" />
+                  <IconButton icon={<X size={18} />} aria-label="Close" variant="danger" />
+                  <IconButton icon={<Moon size={18} />} aria-label="Theme" variant="secondary" />
+                </div>
+              </UiCard>
+            </div>
+
+            <UiCard variant="raised" padding="lg" style={{ marginBottom: 24 }}>
+              <h3 style={{ fontSize: 16, fontWeight: 700, marginBottom: 20 }}>Pagination</h3>
+              <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+                <Pagination
+                  totalPages={10}
+                  currentPage={3}
+                  onPageChange={() => {}}
+                />
+                <Pagination
+                  totalPages={5}
+                  currentPage={1}
+                  onPageChange={() => {}}
+                />
+              </div>
+            </UiCard>
+
+            <UiCard variant="raised" padding="lg">
+              <h3 style={{ fontSize: 16, fontWeight: 700, marginBottom: 16 }}>Tag</h3>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
+                <Tag label="NIFTY 50" />
+                <Tag label="Large Cap" onRemove={() => {}} />
+                <Tag label="Growth" variant="primary" />
+                <Tag label="Dividend" onRemove={() => {}} variant="secondary" />
+                <Tag label="ETF" variant="outline" />
+              </div>
+            </UiCard>
+          </section>
+        )}
+
         {/* ── UI PRIMITIVES ────────────────────────── */}
         {activeTab === "ui-primitives" && (
           <section>
@@ -1847,7 +2086,6 @@ export default function MintxDesignSystem() {
               title="Communication"
               desc="Alerts, loaders, and progress indicators to keep users informed about system status and actions."
             />
-            <div className="bg-red-500 p-2 text-white text-center mb-4 rounded-md">Tailwind Test: If you see red, App Tailwind is working</div>
             <div className="resp-grid" style={{ gap: 24 }}>
               <UiCard variant="raised" padding="lg">
                 <h3 style={{ fontSize: 16, fontWeight: 700, marginBottom: 16 }}>Alerts</h3>

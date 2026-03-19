@@ -1,56 +1,86 @@
 import React from "react";
-import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "../../tokens/cn";
 import { AlertCircle, CheckCircle2, Info, XCircle } from "lucide-react";
 
-const alertVariants = cva(
-  "relative w-full rounded-2xl border p-4 [&>svg~*]:pl-9 [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-foreground",
-  {
-    variants: {
-      variant: {
-        default: "bg-background text-foreground",
-        destructive:
-          "border-destructive/50 text-destructive dark:border-destructive [&>svg]:text-destructive",
-        success: "border-green-500/50 text-green-500 [&>svg]:text-green-500 bg-green-500/5",
-        warning: "border-yellow-500/50 text-yellow-500 [&>svg]:text-yellow-500 bg-yellow-500/5",
-        info: "border-primary/50 text-primary [&>svg]:text-primary bg-primary/5",
-      },
-    },
-    defaultVariants: {
-      variant: "default",
-    },
-  }
-);
-
-const icons = {
-  default: <Info size={20} />,
-  destructive: <XCircle size={20} />,
-  success: <CheckCircle2 size={20} />,
-  warning: <AlertCircle size={20} />,
-  info: <Info size={20} />,
+const variantStyles: Record<string, React.CSSProperties> = {
+  default: {
+    background: "rgba(255,255,255,0.04)",
+    border: "1px solid rgba(232,239,237,0.12)",
+    color: "var(--text-primary, #E8EFED)",
+  },
+  info: {
+    background: "rgba(0,179,138,0.08)",
+    border: "1px solid rgba(0,179,138,0.3)",
+    color: "#3DDCBA",
+  },
+  success: {
+    background: "rgba(34,197,94,0.08)",
+    border: "1px solid rgba(34,197,94,0.3)",
+    color: "#22C55E",
+  },
+  warning: {
+    background: "rgba(251,191,36,0.08)",
+    border: "1px solid rgba(251,191,36,0.3)",
+    color: "#FBBF24",
+  },
+  destructive: {
+    background: "rgba(239,68,68,0.08)",
+    border: "1px solid rgba(239,68,68,0.3)",
+    color: "#EF4444",
+  },
 };
 
-interface AlertProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof alertVariants> {
+const icons: Record<string, React.ReactNode> = {
+  default: <Info size={18} />,
+  info: <Info size={18} />,
+  success: <CheckCircle2 size={18} />,
+  warning: <AlertCircle size={18} />,
+  destructive: <XCircle size={18} />,
+};
+
+interface AlertProps extends React.HTMLAttributes<HTMLDivElement> {
+  variant?: "default" | "info" | "success" | "warning" | "destructive";
   title?: string;
   description?: string;
 }
 
 export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
-  ({ className, variant = "default", title, description, children, ...props }, ref) => (
-    <div
-      ref={ref}
-      role="alert"
-      className={cn(alertVariants({ variant }), className)}
-      {...props}
-    >
-      {icons[variant || "default"]}
-      {title && <h5 className="mb-1 font-bold leading-none tracking-tight">{title}</h5>}
-      {description && <div className="text-sm opacity-90 leading-relaxed">{description}</div>}
-      {children}
-    </div>
-  )
+  ({ className, variant = "default", title, description, children, style, ...props }, ref) => {
+    const vs = variantStyles[variant] ?? variantStyles.default;
+    return (
+      <div
+        ref={ref}
+        role="alert"
+        className={className}
+        style={{
+          display: "flex",
+          alignItems: "flex-start",
+          gap: 12,
+          padding: "12px 16px",
+          borderRadius: 14,
+          ...vs,
+          ...style,
+        }}
+        {...props}
+      >
+        <span style={{ color: vs.color as string, flexShrink: 0, marginTop: 1 }}>
+          {icons[variant ?? "default"]}
+        </span>
+        <div style={{ flex: 1 }}>
+          {title && (
+            <p style={{ fontWeight: 600, fontSize: 14, marginBottom: description ? 2 : 0, color: vs.color as string }}>
+              {title}
+            </p>
+          )}
+          {description && (
+            <p style={{ fontSize: 13, opacity: 0.85, lineHeight: 1.5, color: vs.color as string }}>
+              {description}
+            </p>
+          )}
+          {children}
+        </div>
+      </div>
+    );
+  }
 );
 
 Alert.displayName = "Alert";
