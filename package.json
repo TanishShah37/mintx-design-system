@@ -1,0 +1,34 @@
+{
+  "name": "mintx-design-system",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "lint": "turbo lint",
+    "dev:design-system": "turbo dev --filter=@mintx/design-system",
+    "dev:storybook": "turbo storybook --filter=@mintx/ui",
+    "build:design-system": "turbo build --filter=@mintx/design-system"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.17",
+    "turbo": "^2.4.4",
+    "typescript": "^5.7.3",
+    "@storybook/addon-essentials": "^8.6.2",
+    "@storybook/addon-interactions": "^8.6.2",
+    "@storybook/addon-links": "^8.6.2",
+    "@storybook/blocks": "^8.6.2",
+    "@storybook/react": "^8.6.2",
+    "@storybook/react-vite": "^8.6.2",
+    "@storybook/test": "^8.6.2",
+    "@vitejs/plugin-react": "^4.3.4",
+    "storybook": "^8.6.2",
+    "vite": "^6.2.0"
+  },
+  "packageManager": "npm@11.6.2"
+}

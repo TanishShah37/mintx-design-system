@@ -10,3 +10,5 @@ musr-stories/*.md
 mintx/apps/design-system/node_modules
 
 node_modules
+
+mintx/design-system/node_modules
