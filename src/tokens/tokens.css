@@ -1,0 +1,198 @@
+/* ═══════════════════════════════════════════════════════════
+   MINTX DESIGN SYSTEM — MASTER TOKENS v1.0
+   Wealth intelligence. Built for every Indian investor.
+═══════════════════════════════════════════════════════════ */
+
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Mono:wght@400;500&display=swap');
+
+:root {
+  /* ── MINT BRAND SCALE ── */
+  --mint-50:  #E6FBF5;
+  --mint-100: #BFFAE9;
+  --mint-200: #7DEFD2;
+  --mint-300: #3DDCBA;
+  --mint-400: #10C9A0;  /* ★ Primary brand */
+  --mint-500: #00B38A;
+  --mint-600: #008F6E;
+  --mint-700: #006B52;
+  --mint-800: #004736;
+  --mint-900: #00231A;
+
+  /* ── NEUTRAL SCALE (green-tinted) ── */
+  --n-0:   #FFFFFF;
+  --n-50:  #F5F8F7;
+  --n-100: #EBF0EE;
+  --n-150: #D8E0DE;
+  --n-200: #C2CECA;
+  --n-300: #9BACA6;
+  --n-400: #748A83;
+  --n-500: #55706A;
+  --n-600: #3A524D;
+  --n-700: #253733;
+  --n-800: #141F1D;
+  --n-850: #0D1614;
+  --n-900: #080E0D;
+  --n-950: #040807;
+
+  /* ── SEMANTIC COLOURS ── */
+  --green-400: #22C55E;
+  --green-500: #16A34A;
+  --red-400:   #F87171;
+  --red-500:   #DC2626;
+  --amber-400: #FBBF24;
+  --amber-500: #D97706;
+  --blue-400:  #60A5FA;
+  --blue-500:  #2563EB;
+  --purple-400:#A78BFA;
+
+  /* ── TYPOGRAPHY ── */
+  --font-display: 'Syne', sans-serif;
+  --font-body:    'DM Sans', sans-serif;
+  --font-mono:    'DM Mono', monospace;
+
+  /* ── TYPE SCALE ── */
+  --text-xs:   11px; --lh-xs: 1.5;
+  --text-sm:   13px; --lh-sm: 1.55;
+  --text-base: 15px; --lh-base: 1.6;
+  --text-lg:   17px; --lh-lg: 1.55;
+  --text-xl:   20px; --lh-xl: 1.45;
+  --text-2xl:  24px; --lh-2xl: 1.35;
+  --text-3xl:  30px; --lh-3xl: 1.25;
+  --text-4xl:  38px; --lh-4xl: 1.15;
+  --text-5xl:  48px; --lh-5xl: 1.1;
+  --text-6xl:  60px; --lh-6xl: 1.05;
+
+  /* ── SPACING (4px base) ── */
+  --sp-1: 4px;   --sp-2: 8px;   --sp-3: 12px;
+  --sp-4: 16px;  --sp-5: 20px;  --sp-6: 24px;
+  --sp-8: 32px;  --sp-10: 40px; --sp-12: 48px;
+  --sp-16: 64px; --sp-20: 80px;
+
+  /* ── BORDER RADIUS ── */
+  --r-xs:  4px;
+  --r-sm:  6px;
+  --r-md:  10px;
+  --r-lg:  14px;
+  --r-xl:  20px;
+  --r-2xl: 28px;
+  --r-full: 9999px;
+
+  /* ── MOTION ── */
+  --ease-out:    cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-fast: 120ms;
+  --dur-base: 200ms;
+  --dur-slow: 350ms;
+  --dur-page: 600ms;
+}
+
+/* ── LIGHT MODE (default) ── */
+:root,
+[data-theme="light"] {
+  --bg-base:       #F5F8F7;
+  --bg-surface:    #FFFFFF;
+  --bg-elevated:   #FFFFFF;
+  --bg-overlay:    rgba(20, 31, 29, 0.06);
+  --bg-brand:      var(--mint-400);
+  --bg-brand-soft: var(--mint-50);
+
+  --text-primary:   #141F1D;
+  --text-secondary: #3A524D;
+  --text-tertiary:  #748A83;
+  --text-disabled:  #9BACA6;
+  --text-inverse:   #FFFFFF;
+  --text-brand:     var(--mint-600);
+  --text-success:   var(--green-500);
+  --text-danger:    var(--red-500);
+  --text-warning:   var(--amber-500);
+  --text-info:      var(--blue-500);
+
+  --border-subtle:  rgba(20, 31, 29, 0.07);
+  --border-default: rgba(20, 31, 29, 0.12);
+  --border-strong:  rgba(20, 31, 29, 0.22);
+  --border-brand:   var(--mint-400);
+
+  --shadow-sm:    0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md:    0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.05);
+  --shadow-lg:    0 12px 32px rgba(0,0,0,0.10), 0 4px 8px rgba(0,0,0,0.06);
+  --shadow-xl:    0 24px 48px rgba(0,0,0,0.12), 0 8px 16px rgba(0,0,0,0.07);
+  --shadow-brand: 0 4px 16px rgba(0, 179, 138, 0.25);
+}
+
+/* ── DARK MODE ── */
+[data-theme="dark"] {
+  --bg-base:       #080E0D;
+  --bg-surface:    #0D1614;
+  --bg-elevated:   #141F1D;
+  --bg-overlay:    rgba(255, 255, 255, 0.05);
+  --bg-brand:      var(--mint-400);
+  --bg-brand-soft: rgba(0, 179, 138, 0.12);
+
+  --text-primary:   #E8EFED;
+  --text-secondary: #9BACA6;
+  --text-tertiary:  #5A706A;
+  --text-disabled:  #3A524D;
+  --text-inverse:   #080E0D;
+  --text-brand:     var(--mint-300);
+  --text-success:   var(--green-400);
+  --text-danger:    var(--red-400);
+  --text-warning:   var(--amber-400);
+  --text-info:      var(--blue-400);
+
+  --border-subtle:  rgba(232, 239, 237, 0.06);
+  --border-default: rgba(232, 239, 237, 0.10);
+  --border-strong:  rgba(232, 239, 237, 0.18);
+  --border-brand:   var(--mint-400);
+
+  --shadow-sm:    0 1px 3px rgba(0,0,0,0.30), 0 1px 2px rgba(0,0,0,0.20);
+  --shadow-md:    0 4px 12px rgba(0,0,0,0.40), 0 2px 4px rgba(0,0,0,0.25);
+  --shadow-lg:    0 12px 32px rgba(0,0,0,0.50), 0 4px 8px rgba(0,0,0,0.30);
+  --shadow-xl:    0 24px 48px rgba(0,0,0,0.60), 0 8px 16px rgba(0,0,0,0.35);
+  --shadow-brand: 0 4px 20px rgba(0, 179, 138, 0.35);
+}
+
+/* ── GLOBAL RESET ── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
+  line-height: var(--lh-base);
+  color: var(--text-primary);
+  background: var(--bg-base);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition:
+    background var(--dur-slow) var(--ease-smooth),
+    color var(--dur-slow) var(--ease-smooth);
+}
+
+/* ── REVEAL ANIMATIONS ── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@keyframes pulse-live {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.5); }
+  50%       { box-shadow: 0 0 0 6px rgba(34, 197, 94, 0); }
+}
+
+@keyframes gentle-pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.55; }
+}

@@ -1,0 +1,14 @@
+.logo {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.logo--full {
+  display: inline-flex;
+  align-items: center;
+}
+
+.logo-wordmark {
+  display: inline-block;
+}

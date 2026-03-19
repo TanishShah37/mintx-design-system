@@ -1,0 +1,10 @@
+mintx/node_modules
+
+*.html
+musr-stories/*.md
+.npm-cache
+.next
+.turbo
+.DS_Store
+
+mintx/apps/design-system/node_modules

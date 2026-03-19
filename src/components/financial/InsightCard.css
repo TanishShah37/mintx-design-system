@@ -1,0 +1,53 @@
+.insight-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-left: 3px solid var(--mint-400);
+  border-radius: 0 var(--r-lg) var(--r-lg) 0;
+  padding: var(--sp-5);
+  transition:
+    border-color var(--dur-base) var(--ease-out),
+    box-shadow var(--dur-base) var(--ease-out),
+    transform var(--dur-base) var(--ease-out);
+}
+
+.insight-card--interactive {
+  cursor: pointer;
+}
+.insight-card--interactive:hover {
+  box-shadow: var(--shadow-brand);
+  transform: translateY(-2px);
+}
+.insight-card--interactive:focus-visible {
+  outline: 2px solid var(--mint-400);
+  outline-offset: 2px;
+}
+
+.insight-card__tag {
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-brand);
+  margin-bottom: var(--sp-2);
+}
+
+.insight-card__title {
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--text-primary);
+  line-height: 1.4;
+  margin-bottom: var(--sp-2);
+}
+
+.insight-card__body {
+  font-size: var(--text-sm);
+  color: var(--text-secondary);
+  line-height: var(--lh-sm);
+}
+
+.insight-card__badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-2);
+  margin-top: var(--sp-3);
+}

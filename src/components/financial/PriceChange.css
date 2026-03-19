@@ -1,0 +1,23 @@
+.price-change {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  font-weight: 500;
+  line-height: 1;
+}
+
+.price-change--up   { color: var(--green-400); }
+.price-change--down { color: var(--red-400); }
+.price-change--flat { color: var(--text-tertiary); }
+
+.price-change__icon {
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.price-change__value {
+  font-variant-numeric: tabular-nums;
+}

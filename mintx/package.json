@@ -1,0 +1,22 @@
+{
+  "name": "mintx",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "dev": "turbo dev",
+    "build": "turbo build",
+    "lint": "turbo lint",
+    "dev:coming-soon": "turbo dev --filter=@mintx/coming-soon",
+    "dev:storybook": "turbo dev --filter=@mintx/design-system",
+    "build:coming-soon": "turbo build --filter=@mintx/coming-soon",
+    "build:storybook": "turbo build --filter=@mintx/design-system"
+  },
+  "devDependencies": {
+    "turbo": "^2.4.4",
+    "typescript": "^5.7.3"
+  },
+  "packageManager": "npm@11.6.2"
+}

@@ -1,0 +1,142 @@
+/* ── TAB CONTAINER ── */
+.tabs {
+  display: flex;
+  position: relative;
+}
+
+/* ── DEFAULT (segmented pill track) ── */
+.tabs--default {
+  gap: 2px;
+  background: var(--bg-base);
+  border: 1px solid var(--border-default);
+  border-radius: var(--r-lg);
+  padding: 3px;
+  width: fit-content;
+}
+.tabs--default .tabs__item {
+  background: transparent;
+  color: var(--text-tertiary);
+  border-radius: var(--r-md);
+}
+.tabs--default .tabs__item:hover:not(.tabs__item--disabled) {
+  color: var(--text-primary);
+}
+.tabs--default .tabs__item--active {
+  background: var(--bg-surface);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-sm);
+  font-weight: 600;
+}
+
+/* ── BRAND (active = mint fill) ── */
+.tabs--brand {
+  gap: 2px;
+  background: var(--bg-base);
+  border: 1px solid var(--border-default);
+  border-radius: var(--r-lg);
+  padding: 3px;
+  width: fit-content;
+}
+.tabs--brand .tabs__item {
+  background: transparent;
+  color: var(--text-tertiary);
+  border-radius: var(--r-md);
+}
+.tabs--brand .tabs__item:hover:not(.tabs__item--disabled) {
+  color: var(--text-primary);
+}
+.tabs--brand .tabs__item--active {
+  background: var(--mint-400);
+  color: #001A13;
+  font-weight: 700;
+  box-shadow: var(--shadow-brand);
+}
+
+/* ── PILLS (floating pill buttons) ── */
+.tabs--pills {
+  gap: var(--sp-1);
+  width: fit-content;
+}
+.tabs--pills .tabs__item {
+  background: transparent;
+  color: var(--text-secondary);
+  border-radius: var(--r-full);
+  border: 1px solid transparent;
+}
+.tabs--pills .tabs__item:hover:not(.tabs__item--disabled) {
+  background: var(--bg-overlay);
+  color: var(--text-primary);
+}
+.tabs--pills .tabs__item--active {
+  background: var(--bg-brand-soft);
+  color: var(--text-brand);
+  border-color: rgba(0,179,138,0.25);
+}
+
+/* ── UNDERLINE ── */
+.tabs--underline {
+  gap: 0;
+  border-bottom: 1px solid var(--border-subtle);
+  width: 100%;
+}
+.tabs--underline .tabs__item {
+  background: transparent;
+  color: var(--text-tertiary);
+  border-radius: 0;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+}
+.tabs--underline .tabs__item:hover:not(.tabs__item--disabled) {
+  color: var(--text-primary);
+}
+.tabs--underline .tabs__item--active {
+  color: var(--text-brand);
+  border-bottom-color: var(--mint-400);
+  font-weight: 600;
+}
+
+/* ── SHARED ITEM ── */
+.tabs__item {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-family: var(--font-body);
+  font-weight: 500;
+  cursor: pointer;
+  border: none;
+  white-space: nowrap;
+  transition:
+    background var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out),
+    box-shadow var(--dur-fast);
+}
+.tabs__item:focus-visible {
+  outline: 2px solid var(--mint-400);
+  outline-offset: 2px;
+}
+
+/* ── DISABLED ── */
+.tabs__item--disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* ── SIZES ── */
+.tabs--sm .tabs__item { font-size: var(--text-xs);   padding: 5px 12px; }
+.tabs--md .tabs__item { font-size: var(--text-sm);   padding: 7px 16px; }
+
+/* ── ICON + BADGE ── */
+.tabs__icon { display: inline-flex; align-items: center; }
+.tabs__badge {
+  font-size: 10px;
+  font-weight: 700;
+  background: var(--bg-overlay);
+  border-radius: var(--r-full);
+  padding: 1px 6px;
+  color: var(--text-tertiary);
+}
+.tabs__item--active .tabs__badge {
+  background: rgba(0,179,138,0.15);
+  color: var(--text-brand);
+}

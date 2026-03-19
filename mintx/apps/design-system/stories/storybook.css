@@ -1,7 +1,0 @@
-@import "tailwindcss";
-@import "@mintx/ui/tokens.css";
-
-body {
-  font-family: var(--font-body);
-  -webkit-font-smoothing: antialiased;
-}
