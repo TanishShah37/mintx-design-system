@@ -1,5 +1,106 @@
 "use client";
 import React, { useState } from "react";
+import { 
+  Search, 
+  ChevronUp, 
+  ChevronDown, 
+  ChevronsUpDown,
+  Filter,
+  ArrowUpRight,
+  ArrowDownLeft,
+  ArrowRight,
+  Plus,
+  Layout,
+  Layers,
+  Zap,
+  Shield,
+  Clock,
+  ExternalLink,
+  ChevronRight,
+  Sun,
+  Moon,
+  TrendingUp,
+  PieChart,
+  Users,
+  MessageSquare,
+  Sparkles,
+  Smartphone,
+  Globe,
+  Star,
+  FileText,
+  Copy,
+  PlusCircle,
+  AlertCircle,
+  AlertTriangle,
+  Info,
+  Check,
+  MoreVertical,
+  Menu,
+  X,
+  CreditCard,
+  Target,
+  Bell,
+  Wallet,
+  LogOut,
+  Settings,
+  BarChart
+} from "lucide-react";
+import { 
+  AssetLibrary, 
+  DataTable, 
+  ColumnDef, 
+  AdvancedRealTimeChart, 
+  TechnicalAnalysis, 
+  MarketOverview, 
+  SymbolOverviewMini,
+  TickerTape,
+  AreaChart,
+  CandlestickChart,
+  BaselineChart,
+  VolumeChart,
+  Alert,
+  Loader,
+  Progress,
+  Skeleton,
+  Toast,
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+  DialogTrigger,
+  Backdrop,
+  NotiStackProvider,
+  useToast,
+  Carousel,
+  FadeIn,
+  SlideIn,
+  ScaleIn,
+  RemixIcon,
+  Nudge,
+  NudgesPanel,
+  Tag,
+  TagGroup,
+  Rating,
+  Avatar,
+  Badge,
+  Chip,
+  Tooltip,
+  Accordion,
+  AccordionItem,
+  AccordionTrigger,
+  AccordionContent,
+  Table,
+  TableHeader,
+  TableBody,
+  TableFooter,
+  TableHead,
+  TableRow,
+  TableCell,
+  TableCaption,
+  Card as UiCard,
+} from "@mintx/ui";
 
 // ─── Inline mini-implementations for the live demo ───────────────────────────
 // (In the real project these come from @mintx/ui)
@@ -99,14 +200,75 @@ const Sparkline = ({ data, dir }: { data: number[]; dir: PriceDir }) => {
   );
 };
 
-// ─── Sample data ───────────────────────────────────────────────────────────
+// ─── Sample data for sparklines ──────────────────────────────────────────
 const spkUp = [35, 30, 32, 25, 20, 22, 15, 10, 8];
 const spkDown = [8, 12, 10, 18, 22, 20, 28, 32, 35];
 const spkFlat = [22, 20, 24, 21, 23, 22, 20, 24, 22];
 
+// ── Sample Data for Lightweight Charts ────────────────────────────────────
+const lwcLineData = [
+  { time: "2024-12-01", value: 32.51 },
+  { time: "2024-12-02", value: 31.11 },
+  { time: "2024-12-03", value: 27.02 },
+  { time: "2024-12-04", value: 27.32 },
+  { time: "2024-12-05", value: 25.17 },
+  { time: "2024-12-06", value: 28.89 },
+  { time: "2024-12-07", value: 25.46 },
+  { time: "2024-12-08", value: 23.92 },
+  { time: "2024-12-09", value: 22.68 },
+  { time: "2024-12-10", value: 22.67 },
+  { time: "2024-12-11", value: 27.57 },
+  { time: "2024-12-12", value: 24.11 },
+  { time: "2024-12-13", value: 30.74 },
+];
+
+const lwcCandleData = [
+  { time: "2024-12-01", open: 141.77, high: 170.39, low: 120.25, close: 145.72 },
+  { time: "2024-12-02", open: 145.72, high: 147.90, low: 137.41, close: 140.43 },
+  { time: "2024-12-03", open: 140.43, high: 143.04, low: 136.31, close: 138.29 },
+  { time: "2024-12-04", open: 138.29, high: 138.29, low: 128.47, close: 133.51 },
+  { time: "2024-12-05", open: 133.51, high: 146.53, low: 132.65, close: 142.36 },
+  { time: "2024-12-06", open: 142.36, high: 145.24, low: 140.74, close: 142.42 },
+  { time: "2024-12-07", open: 142.42, high: 152.78, low: 142.42, close: 148.74 },
+  { time: "2024-12-08", open: 148.74, high: 151.44, low: 145.97, close: 149.61 },
+  { time: "2024-12-09", open: 149.61, high: 154.99, low: 149.61, close: 152.09 },
+  { time: "2024-12-10", open: 152.09, high: 153.13, low: 144.13, close: 148.60 },
+  { time: "2024-12-11", open: 148.60, high: 151.10, low: 142.32, close: 144.92 },
+  { time: "2024-12-12", open: 144.92, high: 149.27, low: 140.52, close: 148.11 },
+  { time: "2024-12-13", open: 148.11, high: 152.00, low: 146.00, close: 150.00 },
+];
+
+// ── Sections ───────────────────────────────────────────────────────────────
+const sections = [
+  "instructions",
+  "tokens",
+  "buttons",
+  "badges",
+  "cards",
+  "ui-primitives",
+  "financial",
+  "mobile",
+  "layout",
+  "feedback",
+  "misc",
+  "charts",
+  "icons",
+  "illustrations",
+  "typography",
+];
+
+// ── Chart Tabs for Sidebar ──────────────────────────────────────────────────
+const ChartTabs = [
+  { id: "area", label: "Area Chart", icon: "TrendingUp" },
+  { id: "candles", label: "Candlestick", icon: "BarChart" },
+  { id: "baseline", label: "Baseline", icon: "Zap" },
+  { id: "volume", label: "Volume Hist", icon: "Layers" },
+];
+
 export default function MintxDesignSystem() {
   const [theme, setTheme] = useState<Theme>("dark");
-  const [activeTab, setActiveTab] = useState("tokens");
+  const [activeTab, setActiveTab] = useState(sections[0]);
+  const [activeChartTab, setActiveChartTab] = useState("area");
   const [toggleOn, setToggleOn] = useState(true);
   const [progress, setProgress] = useState(68);
   const [activeNav, setActiveNav] = useState("home");
@@ -200,16 +362,82 @@ export default function MintxDesignSystem() {
     "--dur-base": "200ms",
   } as React.CSSProperties;
 
-  // ── Sections ───────────────────────────────────────────────────────────────
-  const sections = [
-    "tokens",
-    "buttons",
-    "badges",
-    "cards",
-    "inputs",
-    "financial",
-    "mobile",
-    "typography",
+  // ── Data for Table Demo ──────────────────────────────────────────────────
+  interface Transaction {
+    id: string;
+    asset: string;
+    type: "buy" | "sell";
+    amount: string;
+    status: "completed" | "pending" | "failed";
+    date: string;
+    risk: number; // 0-100
+    isHighlight?: boolean;
+  }
+
+  const tableColumns: ColumnDef<Transaction>[] = [
+    {
+      id: "asset",
+      header: "Asset",
+      accessorKey: "asset",
+      sortable: true,
+    },
+    {
+      id: "type",
+      header: "Type",
+      accessorKey: "type",
+      cell: (item: Transaction) => (
+        <span className={item.type === "buy" ? "text-green-500 font-medium" : "text-red-500 font-medium"}>
+          {item.type.toUpperCase()}
+        </span>
+      ),
+      sortable: true,
+    },
+    {
+      id: "amount",
+      header: "Amount",
+      accessorKey: "amount",
+      sortable: true,
+    },
+    {
+      id: "status",
+      header: "Status",
+      accessorKey: "status",
+      cell: (item: Transaction) => {
+        const variants: Record<string, BadgeVariant> = {
+          completed: "green",
+          pending: "amber",
+          failed: "red",
+        };
+        return <BadgeEl v={variants[item.status] || "neutral"} sz="sm">{item.status}</BadgeEl>;
+      },
+    },
+    {
+      id: "risk",
+      header: "Risk Score",
+      accessorKey: "risk",
+      cell: (item: Transaction) => (
+        <div style={{ display: "flex", alignItems: "center", gap: 8, minWidth: 100 }}>
+          <ProgressEl value={item.risk} color={item.risk > 70 ? "red" : item.risk > 30 ? "amber" : "brand"} label={`${item.risk}% risk`} />
+          <span style={{ fontSize: 11, fontFamily: "var(--font-mono)", color: "var(--text-tertiary)" }}>{item.risk}%</span>
+        </div>
+      ),
+      sortable: true,
+    },
+    {
+      id: "date",
+      header: "Date",
+      accessorKey: "date",
+      sortable: true,
+    },
+  ];
+
+  const tableData: Transaction[] = [
+    { id: "1", asset: "RELIANCE", type: "buy", amount: "₹24,500", status: "completed", date: "2024-03-12", risk: 24, isHighlight: true },
+    { id: "2", asset: "TCS", type: "sell", amount: "₹12,200", status: "completed", date: "2024-03-11", risk: 12 },
+    { id: "3", asset: "INFY", type: "buy", amount: "₹8,400", status: "pending", date: "2024-03-11", risk: 45 },
+    { id: "4", asset: "ZOMATO", type: "buy", amount: "₹1,200", status: "completed", date: "2024-03-10", risk: 85 },
+    { id: "5", asset: "HDFCBANK", type: "sell", amount: "₹45,000", status: "failed", date: "2024-03-09", risk: 15 },
+    { id: "6", asset: "ADANIENT", type: "buy", amount: "₹92,000", status: "completed", date: "2024-03-08", risk: 92 },
   ];
 
   // ── Render ─────────────────────────────────────────────────────────────────
@@ -236,12 +464,70 @@ export default function MintxDesignSystem() {
         @keyframes fadeUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
         .skel{background:var(--bg-overlay);border-radius:4px;position:relative;overflow:hidden}
         .skel::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent 25%,rgba(255,255,255,0.06) 50%,transparent 75%);background-size:200% 100%;animation:shimmer 1.5s infinite}
+        
+        /* Responsive utilities */
+        .tab-scroll {
+          overflow-x: auto;
+          scrollbar-width: none; /* Firefox */
+          -ms-overflow-style: none; /* IE 10+ */
+        }
+        .tab-scroll::-webkit-scrollbar {
+          display: none; /* WebKit */
+        }
+        
+        .resp-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 16px;
+        }
+        
+        .resp-grid-3 {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 16px;
+        }
+        
+        .resp-grid-4 {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 16px;
+        }
+        
+        @media (max-width: 1024px) {
+          .resp-grid-4 {
+            grid-template-columns: 1fr 1fr;
+          }
+        }
+        
+        @media (max-width: 800px) {
+          .resp-grid, .resp-grid-3, .resp-grid-4 {
+            grid-template-columns: 1fr;
+          }
+          .hide-mobile {
+            display: none !important;
+          }
+        }
+        
+        @media (max-width: 1024px) {
+           .header-content {
+             flex-direction: column;
+             height: auto !important;
+             padding: 12px var(--sp-6) !important;
+             gap: 12px;
+           }
+           .header-tabs {
+             width: 100%;
+             order: 3;
+             justify-content: flex-start !important;
+           }
+        }
       `}</style>
 
       {/* ══════════════════════════════════════════════
           STICKY HEADER
       ══════════════════════════════════════════════ */}
       <header
+        className="header-content"
         style={{
           position: "sticky",
           top: 0,
@@ -270,6 +556,7 @@ export default function MintxDesignSystem() {
             Mint<span style={{ color: MINT }}>x</span>
           </span>
           <span
+            className="hide-mobile"
             style={{
               fontSize: 11,
               color: "var(--text-tertiary)",
@@ -283,6 +570,7 @@ export default function MintxDesignSystem() {
 
         {/* Section tabs */}
         <div
+          className="header-tabs tab-scroll"
           style={{
             display: "flex",
             gap: 2,
@@ -312,6 +600,7 @@ export default function MintxDesignSystem() {
                 boxShadow: activeTab === s ? "var(--shadow-sm)" : "none",
                 transition: "all 0.15s",
                 textTransform: "capitalize",
+                whiteSpace: "nowrap",
               }}
             >
               {s}
@@ -319,26 +608,52 @@ export default function MintxDesignSystem() {
           ))}
         </div>
 
-        {/* Theme toggle */}
-        <button
-          onClick={() => setTheme(isDark ? "light" : "dark")}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 6,
-            padding: "5px 14px",
-            borderRadius: 999,
-            border: "1px solid var(--border-default)",
-            background: "none",
-            color: "var(--text-tertiary)",
-            fontSize: 12,
-            fontWeight: 500,
-            fontFamily: "var(--font-body)",
-            transition: "all 0.15s",
-          }}
-        >
-          {isDark ? "☀ Light" : "◑ Dark"}
-        </button>
+        {/* Theme toggle & Storybook */}
+        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+          <a
+            href="/storybook"
+            target="_blank"
+            rel="noreferrer"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 6,
+              padding: "5px 14px",
+              borderRadius: 999,
+              border: "1px solid var(--border-default)",
+              background: "var(--bg-overlay)",
+              color: "var(--text-secondary)",
+              fontSize: 12,
+              fontWeight: 500,
+              fontFamily: "var(--font-body)",
+              textDecoration: "none",
+              transition: "all 0.15s",
+            }}
+            onMouseOver={(e) => (e.currentTarget.style.background = "var(--border-strong)")}
+            onMouseOut={(e) => (e.currentTarget.style.background = "var(--bg-overlay)")}
+          >
+            📘 Storybook
+          </a>
+          <button
+            onClick={() => setTheme(isDark ? "light" : "dark")}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 6,
+              padding: "5px 14px",
+              borderRadius: 999,
+              border: "1px solid var(--border-default)",
+              background: "none",
+              color: "var(--text-tertiary)",
+              fontSize: 12,
+              fontWeight: 500,
+              fontFamily: "var(--font-body)",
+              transition: "all 0.15s",
+            }}
+          >
+            {isDark ? "☀ Light" : "◑ Dark"}
+          </button>
+        </div>
       </header>
 
       {/* ══════════════════════════════════════════════
@@ -433,6 +748,18 @@ export default function MintxDesignSystem() {
       <div
         style={{ maxWidth: 1100, margin: "0 auto", padding: "48px 32px 80px" }}
       >
+        {/* ── INSTRUCTIONS ────────────────────────── */}
+        {activeTab === "instructions" && (
+          <section>
+            <SectionHeader
+              tag="Getting Started"
+              title="Design System Instructions"
+              desc="How to install, configure, and use the Mintx Design System in your projects."
+            />
+            <GeneralInstructions />
+          </section>
+        )}
+
         {/* ── TOKENS ──────────────────────────────── */}
         {activeTab === "tokens" && (
           <section>
@@ -510,10 +837,8 @@ export default function MintxDesignSystem() {
 
             {/* Semantic + Token table side by side */}
             <div
+              className="resp-grid"
               style={{
-                display: "grid",
-                gridTemplateColumns: "1fr 1fr",
-                gap: 16,
                 marginBottom: 32,
               }}
             >
@@ -630,9 +955,8 @@ export default function MintxDesignSystem() {
                   Spacing &amp; Radius Scale
                 </div>
                 <div
+                  className="resp-grid"
                   style={{
-                    display: "grid",
-                    gridTemplateColumns: "1fr 1fr",
                     gap: 12,
                   }}
                 >
@@ -762,9 +1086,8 @@ export default function MintxDesignSystem() {
                 Elevation (Shadows)
               </div>
               <div
+                className="resp-grid-4"
                 style={{
-                  display: "grid",
-                  gridTemplateColumns: "repeat(4,1fr)",
                   gap: 16,
                 }}
               >
@@ -996,25 +1319,23 @@ export default function MintxDesignSystem() {
           </section>
         )}
 
-        {/* ── INPUTS ──────────────────────────────── */}
-        {activeTab === "inputs" && (
+        {/* ── UI PRIMITIVES ────────────────────────── */}
+        {activeTab === "ui-primitives" && (
           <section>
             <SectionHeader
               tag="Components"
-              title="Form Elements"
-              desc="Input, Select, Toggle — all with label, hint, error states and full accessibility."
+              title="UI Primitives"
+              desc="The core building blocks of the Mintx interface — all fully accessible and theme-aware."
             />
 
             <div
+              className="resp-grid"
               style={{
-                display: "grid",
-                gridTemplateColumns: "1fr 1fr",
-                gap: 16,
                 marginBottom: 16,
               }}
             >
               <Card>
-                <Label>Text Inputs</Label>
+                <Label>Form Elements</Label>
                 <div
                   style={{ display: "flex", flexDirection: "column", gap: 16 }}
                 >
@@ -1023,117 +1344,82 @@ export default function MintxDesignSystem() {
                     placeholder="RELIANCE, TCS, INFY…"
                     hint="Enter NSE ticker symbol"
                   />
-                  <InputEl
-                    label="Email address"
-                    placeholder="you@mintx.trade"
-                    type="email"
+                  <SelectEl
+                    label="Timeframe"
+                    options={["1D", "1W", "1M", "3M", "1Y", "All"]}
                   />
-                  <InputEl
-                    label="Error state"
-                    placeholder="Invalid input"
-                    error="This field is required"
-                  />
+                  <div style={{ display: "flex", gap: 20 }}>
+                     <ToggleEl
+                       label="Push notifications"
+                       checked={toggleOn}
+                       onChange={setToggleOn}
+                     />
+                     <ToggleEl label="Pro features" checked={false} />
+                  </div>
                 </div>
               </Card>
 
               <Card>
-                <Label>Select &amp; Toggle</Label>
-                <div
-                  style={{ display: "flex", flexDirection: "column", gap: 16 }}
-                >
-                  <SelectEl
-                    label="Timeframe"
-                    options={["1D", "1W", "1M", "3M", "1Y", "All"]}
-                    hint="Chart timeframe"
-                  />
-                  <SelectEl
-                    label="Sector"
-                    options={[
-                      "All Sectors",
-                      "IT",
-                      "Banking",
-                      "FMCG",
-                      "Pharma",
-                      "Auto",
-                      "Energy",
-                    ]}
-                  />
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      gap: 10,
-                      paddingTop: 8,
-                    }}
-                  >
-                    <ToggleEl
-                      label="Push notifications"
-                      checked={toggleOn}
-                      onChange={setToggleOn}
-                    />
-                    <ToggleEl
-                      label="Dark mode"
-                      checked={isDark}
-                      onChange={(v) => setTheme(v ? "dark" : "light")}
-                    />
-                    <ToggleEl label="Pro features" checked={false} />
+                <Label>Status &amp; Feedback</Label>
+                <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+                  <div style={{ display: "flex", gap: 20 }}>
+                    <StatusEl s="live" label="Market Live" />
+                    <StatusEl s="paused" label="Market Closed" />
                   </div>
+                  <div style={{ display: "flex", gap: 12 }}>
+                    <div style={{ width: 40, height: 40, borderRadius: 99, background: "var(--bg-brand-soft)", display: "flex", alignItems: "center", justifyContent: "center", color: "var(--text-brand)", fontWeight: 700 }}>TS</div>
+                    <div style={{ width: 40, height: 40, borderRadius: 99, background: "var(--bg-overlay)", border: "1px solid var(--border-subtle)" }} />
+                    <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+                       <div style={{ height: 12, width: 120, background: "var(--bg-overlay)", borderRadius: 4 }} />
+                       <div style={{ height: 10, width: 80, background: "var(--bg-overlay)", borderRadius: 4, opacity: 0.5 }} />
+                    </div>
+                  </div>
+                  <ProgressEl
+                    value={progress}
+                    color="brand"
+                    label={`Portfolio completion — ${progress}%`}
+                  />
                 </div>
               </Card>
             </div>
 
-            {/* Alerts */}
-            <Card>
-              <Label>Alerts</Label>
-              <div
-                style={{ display: "flex", flexDirection: "column", gap: 10 }}
-              >
-                {(
-                  [
-                    "info",
-                    "success",
-                    "warning",
-                    "danger",
-                    "brand",
-                  ] as AlertVariant[]
-                ).map((v) => (
-                  <AlertEl key={v} v={v} />
-                ))}
-              </div>
-            </Card>
+            {/* Layout Primitives */}
+            <div className="resp-grid" style={{ gap: 16, marginBottom: 16 }}>
+               <Card>
+                 <Label>Navigation Tabs</Label>
+                 <div style={{ display: "flex", background: "var(--bg-base)", padding: 4, borderRadius: 10, gap: 4 }}>
+                    <div style={{ flex: 1, textAlign: "center", padding: "6px 0", background: "var(--bg-surface)", borderRadius: 6, fontSize: 13, fontWeight: 600, color: "var(--text-primary)" }}>Summary</div>
+                    <div style={{ flex: 1, textAlign: "center", padding: "6px 0", borderRadius: 6, fontSize: 13, fontWeight: 500, color: "var(--text-tertiary)" }}>Holdings</div>
+                    <div style={{ flex: 1, textAlign: "center", padding: "6px 0", borderRadius: 6, fontSize: 13, fontWeight: 500, color: "var(--text-tertiary)" }}>Orders</div>
+                 </div>
+               </Card>
+               <Card>
+                  <Label>Alerts</Label>
+                  <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
+                     <AlertEl v="info" />
+                     <AlertEl v="success" />
+                  </div>
+               </Card>
+            </div>
 
-            {/* Progress */}
-            <Card style={{ marginTop: 16 }}>
-              <Label>Progress Bars</Label>
-              <div
-                style={{ display: "flex", flexDirection: "column", gap: 14 }}
-              >
-                <ProgressEl
-                  value={progress}
-                  color="brand"
-                  label={`Portfolio completion — ${progress}%`}
+            {/* Data Management */}
+            <div style={{ marginTop: 24 }}>
+               <Card>
+                  <Label>Interactive Data Table</Label>
+                  <div style={{ marginTop: 12 }}>
+                <DataTableEl 
+                   columns={tableColumns} 
+                   data={tableData} 
+                   searchKey="asset" 
+                   searchPlaceholder="Filter by asset name (e.g. RELIANCE)..."
+                   highlightKey="isHighlight"
                 />
-                <ProgressEl value={82} color="green" label="Risk score — 82%" />
-                <ProgressEl
-                  value={37}
-                  color="red"
-                  label="Drawdown risk — 37%"
-                />
-                <ProgressEl
-                  value={60}
-                  color="amber"
-                  label="Volatility index — 60%"
-                />
-                <input
-                  type="range"
-                  min={0}
-                  max={100}
-                  value={progress}
-                  onChange={(e) => setProgress(+e.target.value)}
-                  style={{ width: "100%", accentColor: MINT, marginTop: 4 }}
-                />
-              </div>
-            </Card>
+                  </div>
+                  <p style={{ fontSize: 12, color: "var(--text-tertiary)", marginTop: 16 }}>
+                    Supports sorting (click headers), filtering (search box), and row highlighting (e.g. recent transactions).
+                  </p>
+               </Card>
+            </div>
           </section>
         )}
 
@@ -1148,10 +1434,8 @@ export default function MintxDesignSystem() {
 
             {/* Market metrics */}
             <div
+              className="resp-grid-4"
               style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(4,1fr)",
-                gap: 12,
                 marginBottom: 16,
               }}
             >
@@ -1187,10 +1471,8 @@ export default function MintxDesignSystem() {
 
             {/* Stock cards */}
             <div
+              className="resp-grid-3"
               style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(3,1fr)",
-                gap: 12,
                 marginBottom: 16,
               }}
             >
@@ -1222,21 +1504,11 @@ export default function MintxDesignSystem() {
 
             {/* Insight cards */}
             <div
+              className="resp-grid"
               style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(2,1fr)",
                 gap: 12,
               }}
             >
-              <InsightCardEl
-                tag="Fibonacci Zone"
-                title="RELIANCE at 61.8% retracement — key support"
-                body="RELIANCE is trading at ₹2,847, aligning with the 61.8% Fibonacci retracement from the Sept–Nov swing. This is a historically watched support zone. Not a buy recommendation."
-                badges={[
-                  { label: "Illustrative only", v: "neutral" },
-                  { label: "Technical tool", v: "blue" },
-                ]}
-              />
               <InsightCardEl
                 tag="Volume Breakout"
                 title="TCS Volume 3× average — unusual activity detected"
@@ -1246,6 +1518,43 @@ export default function MintxDesignSystem() {
                   { label: "Volume signal", v: "mint" },
                 ]}
               />
+            </div>
+
+            {/* TradingView Widgets */}
+            <div style={{ marginTop: 48 }}>
+              <SectionHeader
+                tag="Live Market Data"
+                title="TradingView Widgets"
+                desc="Embeddable real-time charts and analysis from TradingView. The marquee below is also a component."
+              />
+              
+              <div style={{ marginBottom: 24 }}>
+                <TickerTape theme={theme} />
+              </div>
+
+              <div className="resp-grid-2" style={{ gap: 24, marginBottom: 24 }}>
+                <Card>
+                  <Label>Advanced Chart</Label>
+                  <div style={{ height: 450, marginTop: 12, borderRadius: 8, overflow: 'hidden' }}>
+                    <AdvancedRealTimeChart symbol="NASDAQ:NVDA" theme={theme} height={450} />
+                  </div>
+                </Card>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+                  <Card>
+                    <Label>Technical Analysis</Label>
+                    <div style={{ marginTop: 12 }}>
+                      <TechnicalAnalysis symbol="NASDAQ:NVDA" theme={theme} height={320} />
+                    </div>
+                  </Card>
+                </div>
+              </div>
+
+              <Card>
+                <Label>Market Overview</Label>
+                <div style={{ marginTop: 12 }}>
+                  <MarketOverview theme={theme} height={400} />
+                </div>
+              </Card>
             </div>
           </section>
         )}
@@ -1260,9 +1569,8 @@ export default function MintxDesignSystem() {
             />
 
             <div
+              className="resp-grid"
               style={{
-                display: "grid",
-                gridTemplateColumns: "1fr 1fr",
                 gap: 16,
               }}
             >
@@ -1529,6 +1837,235 @@ export default function MintxDesignSystem() {
                 </Card>
               </div>
             </div>
+          </section>
+        )}
+        {/* ── FEEDBACK ───────────────────────────── */}
+        {activeTab === "feedback" && (
+          <section>
+            <SectionHeader
+              tag="Status & Feedback"
+              title="Communication"
+              desc="Alerts, loaders, and progress indicators to keep users informed about system status and actions."
+            />
+            <div className="bg-red-500 p-2 text-white text-center mb-4 rounded-md">Tailwind Test: If you see red, App Tailwind is working</div>
+            <div className="resp-grid" style={{ gap: 24 }}>
+              <UiCard variant="raised" padding="lg">
+                <h3 style={{ fontSize: 16, fontWeight: 700, marginBottom: 16 }}>Alerts</h3>
+                <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+                  <Alert variant="info" title="Market Update" description="Trading will be halted for 15 minutes due to circuit breaker." />
+                  <Alert variant="success" title="Order Executed" description="Buy 100 RELIANCE @ ₹2450.00 successful." />
+                  <Alert variant="warning" title="KYC Pending" description="Please complete your KYC to avoid account restrictions." />
+                  <Alert variant="destructive" title="System Error" description="Unable to connect to live data stream. Retrying..." />
+                </div>
+              </UiCard>
+
+              <UiCard variant="raised" padding="lg">
+                <h3 style={{ fontSize: 16, fontWeight: 700, marginBottom: 16 }}>Progress & Loading</h3>
+                <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
+                  <div>
+                    <span style={{ fontSize: 12, color: "var(--text-tertiary)", display: "block", marginBottom: 8 }}>Progress Bar</span>
+                    <Progress value={65} color="brand" label="Portfolio Completion" showValue />
+                  </div>
+                  <div>
+                    <span style={{ fontSize: 12, color: "var(--text-tertiary)", display: "block", marginBottom: 8 }}>Loading States</span>
+                    <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
+                      <Loader size="md" />
+                      <Loader size="sm" />
+                      <Skeleton className="h-4 w-32" />
+                    </div>
+                  </div>
+                </div>
+              </UiCard>
+            </div>
+          </section>
+        )}
+
+        {/* ── MISC ───────────────────────────────── */}
+        {activeTab === "misc" && (
+          <section>
+            <SectionHeader
+              tag="Miscellaneous"
+              title="Extended Kit"
+              desc="Animations, carousel, and advanced iconography for richer interactive experiences."
+            />
+            <div className="resp-grid" style={{ gap: 24 }}>
+              <UiCard variant="raised" padding="lg">
+                <h3 style={{ fontSize: 16, fontWeight: 700, marginBottom: 16 }}>Carousel</h3>
+                <Carousel>
+                  {[1, 2, 3].map((i) => (
+                    <div key={i} style={{ height: 200, display: "flex", alignItems: "center", justifyItems: "center", background: "var(--bg-base)", borderRadius: 12, border: "1px solid var(--border-default)" }}>
+                      <p style={{ width: "100%", textAlign: "center", fontSize: 24, fontWeight: 700, color: "var(--text-brand)" }}>Slide {i}</p>
+                    </div>
+                  ))}
+                </Carousel>
+              </UiCard>
+
+              <UiCard variant="raised" padding="lg">
+                <h3 style={{ fontSize: 16, fontWeight: 700, marginBottom: 16 }}>Animations & Icons</h3>
+                <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
+                  <div style={{ display: "flex", gap: 12 }}>
+                    <FadeIn><Badge variant="mint">Fade In</Badge></FadeIn>
+                    <SlideIn direction="up"><Badge variant="blue">Slide Up</Badge></SlideIn>
+                    <ScaleIn><Badge variant="purple">Scale In</Badge></ScaleIn>
+                  </div>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 16 }}>
+                    <RemixIcon name="ri-home-line" size={24} color="var(--text-brand)" />
+                    <RemixIcon name="ri-user-line" size={24} />
+                    <RemixIcon name="ri-settings-4-line" size={24} />
+                    <RemixIcon name="ri-notification-3-line" size={24} />
+                  </div>
+                </div>
+              </UiCard>
+            </div>
+          </section>
+        )}
+
+        {/* ── LAYOUT ────────────────────────── */}
+        {activeTab === "layout" && (
+          <section>
+            <SectionHeader
+              tag="Navigation & Layout"
+              title="Interface Shell"
+              desc="The framework that wraps the content — including the sidebar navigation and brand mark."
+            />
+            <div className="resp-grid" style={{ gap: 24 }}>
+               <Card>
+                 <Label>Sidebar Component</Label>
+                 <div style={{ display: "flex", gap: 16, height: 400, border: "1px solid var(--border-subtle)", borderRadius: 12, overflow: "hidden", background: "var(--bg-base)" }}>
+                    <div style={{ width: 64, background: "var(--bg-surface)", borderRight: "1px solid var(--border-subtle)", display: "flex", flexDirection: "column", alignItems: "center", padding: "16px 0", gap: 12 }}>
+                       <div style={{ width: 32, height: 32, background: "var(--bg-brand-soft)", borderRadius: 8 }} />
+                       <div style={{ width: 22, height: 22, background: "var(--bg-overlay)", borderRadius: 6 }} />
+                       <div style={{ width: 22, height: 22, background: "var(--bg-overlay)", borderRadius: 6 }} />
+                       <div style={{ width: 22, height: 22, background: "var(--bg-overlay)", borderRadius: 6 }} />
+                    </div>
+                    <div style={{ flex: 1, padding: 24 }}>
+                       <div style={{ height: 24, width: 200, background: "var(--bg-overlay)", borderRadius: 12, marginBottom: 16 }} />
+                       <div style={{ height: 150, width: "100%", background: "var(--bg-overlay)", borderRadius: 12, opacity: 0.5 }} />
+                    </div>
+                 </div>
+               </Card>
+            </div>
+          </section>
+        )}
+
+        {/* ── CHARTS ────────────────────────────────── */}
+        {activeTab === "charts" && (
+          <section>
+            <SectionHeader
+              tag="Financial Visuals"
+              title="State-of-the-Art Charts"
+              desc="High-performance TradingView library charts built directly into our design system. No iframes."
+            />
+
+            <div style={{ display: "flex", gap: 32, alignItems: "flex-start", marginTop: 24 }}>
+              {/* Sidebar */}
+              <div style={{ width: 240, flexShrink: 0, display: "flex", flexDirection: "column", gap: 4 }}>
+                {ChartTabs.map((ct) => {
+                  const Icon = ct.id === "area" ? TrendingUp : 
+                             ct.id === "candles" ? BarChart : 
+                             ct.id === "baseline" ? Zap : Layers;
+                  const isActive = activeChartTab === ct.id;
+                  
+                  return (
+                    <button
+                      key={ct.id}
+                      onClick={() => setActiveChartTab(ct.id)}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        gap: 12,
+                        padding: "10px 16px",
+                        borderRadius: 12,
+                        border: "none",
+                        background: isActive ? "rgba(230, 30, 80, 1)" : "transparent",
+                        color: isActive ? "#fff" : "var(--text-secondary)",
+                        cursor: "pointer",
+                        transition: "all 0.2s",
+                        textAlign: "left",
+                        fontWeight: 500,
+                        fontSize: 14,
+                      }}
+                    >
+                      <Icon 
+                        size={18} 
+                        style={{ 
+                          color: isActive ? "#fff" : "var(--text-brand)",
+                          opacity: isActive ? 1 : 0.7 
+                        }} 
+                      />
+                      {ct.label}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Content */}
+              <div style={{ flex: 1, minWidth: 0 }}>
+                {activeChartTab === "area" && (
+                  <Card>
+                    <Label>Asset Performance - Area</Label>
+                    <div style={{ height: 450, marginTop: 16 }}>
+                      <AreaChart data={lwcLineData} theme={theme} height={450} />
+                    </div>
+                  </Card>
+                )}
+
+                {activeChartTab === "candles" && (
+                  <Card>
+                    <Label>Market Dynamics - Candlestick</Label>
+                    <div style={{ height: 450, marginTop: 16 }}>
+                      <CandlestickChart data={lwcCandleData} theme={theme} height={450} />
+                    </div>
+                  </Card>
+                )}
+
+                {activeChartTab === "baseline" && (
+                  <Card>
+                    <Label>Price Relative to Baseline</Label>
+                    <div style={{ height: 450, marginTop: 16 }}>
+                      <BaselineChart data={lwcLineData} theme={theme} height={450} />
+                    </div>
+                  </Card>
+                )}
+
+                {activeChartTab === "volume" && (
+                  <Card>
+                    <Label>Trading Volume Histogram</Label>
+                    <div style={{ height: 450, marginTop: 16 }}>
+                      <VolumeChart 
+                        data={lwcLineData.map(d => ({ ...d, color: d.value > 25 ? '#00B38A80' : '#EF444480' }))} 
+                        theme={theme} 
+                        height={450} 
+                      />
+                    </div>
+                  </Card>
+                )}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* ── ICONS ───────────────────────────────── */}
+        {activeTab === "icons" && (
+          <section>
+            <SectionHeader
+              tag="Icon Library"
+              title="Icons"
+              desc="Search and copy Lucide icons used across the Mintx platform."
+            />
+            <AssetLibrary showHeader={false} mode="icons" />
+          </section>
+        )}
+
+        {/* ── ILLUSTRATIONS ────────────────────────── */}
+        {activeTab === "illustrations" && (
+          <section>
+            <SectionHeader
+              tag="Illustration Library"
+              title="Illustrations"
+              desc="SVG illustrations for onboarding, empty states, and marketing."
+            />
+            <AssetLibrary showHeader={false} mode="illustrations" />
           </section>
         )}
 
@@ -2601,9 +3138,8 @@ function StockCardEl({
         <Sparkline data={spk} dir={dir} />
       </div>
       <div
+        className="resp-grid-3"
         style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(3,1fr)",
           gap: 8,
           paddingTop: 12,
           borderTop: "1px solid var(--border-subtle)",
@@ -2711,6 +3247,278 @@ function InsightCardEl({
           </BadgeEl>
         ))}
       </div>
+    </div>
+  );
+}
+
+function DataTableEl<TData,>({
+  columns,
+  data,
+  searchKey,
+  searchPlaceholder = "Search...",
+  highlightKey,
+}: {
+  columns: ColumnDef<TData>[];
+  data: TData[];
+  searchKey?: keyof TData;
+  searchPlaceholder?: string;
+  highlightKey?: keyof TData;
+}) {
+  const [searchValue, setSearchValue] = React.useState("");
+  const [sortConfig, setSortConfig] = React.useState<{
+    key: string;
+    direction: "asc" | "desc" | null;
+  }>({ key: "", direction: null });
+
+  const filteredData = React.useMemo(() => {
+    if (!searchKey || !searchValue) return data;
+    return data.filter((item) => {
+      const value = item[searchKey];
+      return String(value).toLowerCase().includes(searchValue.toLowerCase());
+    });
+  }, [data, searchKey, searchValue]);
+
+  const sortedData = React.useMemo(() => {
+    if (!sortConfig.key || !sortConfig.direction) return filteredData;
+    return [...filteredData].sort((a, b) => {
+      const aValue = a[sortConfig.key as keyof TData];
+      const bValue = b[sortConfig.key as keyof TData];
+      if (aValue < bValue) return sortConfig.direction === "asc" ? -1 : 1;
+      if (aValue > bValue) return sortConfig.direction === "asc" ? 1 : -1;
+      return 0;
+    });
+  }, [filteredData, sortConfig]);
+
+  const handleSort = (key: string) => {
+    let direction: "asc" | "desc" | null = "asc";
+    if (sortConfig.key === key && sortConfig.direction === "asc") direction = "desc";
+    else if (sortConfig.key === key && sortConfig.direction === "desc") direction = null;
+    setSortConfig({ key, direction });
+  };
+
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+      {searchKey && (
+        <div style={{ position: "relative", maxWidth: 320 }}>
+          <Search
+            size={16}
+            style={{
+              position: "absolute",
+              left: 14,
+              top: "50%",
+              transform: "translateY(-50%)",
+              color: "var(--text-tertiary)",
+              pointerEvents: "none",
+            }}
+          />
+          <input
+            value={searchValue}
+            onChange={(e) => setSearchValue(e.target.value)}
+            placeholder={searchPlaceholder}
+            style={{
+              width: "100%",
+              padding: "9px 14px 9px 40px",
+              background: "var(--bg-base)",
+              border: "1px solid var(--border-default)",
+              borderRadius: 10,
+              fontSize: 13,
+              color: "var(--text-primary)",
+              outline: "none",
+              transition: "border-color 0.15s",
+            }}
+            onFocus={(e) => (e.currentTarget.style.borderColor = MINT)}
+            onBlur={(e) => (e.currentTarget.style.borderColor = "var(--border-default)")}
+          />
+        </div>
+      )}
+
+      <div
+        style={{
+          border: "1px solid var(--border-subtle)",
+          borderRadius: 14,
+          background: "var(--bg-surface)",
+          overflow: "hidden",
+        }}
+      >
+        <div style={{ overflowX: "auto" }}>
+          <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left" }}>
+            <thead>
+              <tr style={{ background: "var(--bg-overlay)", borderBottom: "1px solid var(--border-subtle)" }}>
+                {columns.map((col) => (
+                  <th
+                    key={col.id}
+                    onClick={() => col.sortable && handleSort(String(col.accessorKey || col.id))}
+                    style={{
+                      padding: "12px 16px",
+                      fontSize: 11,
+                      fontWeight: 700,
+                      textTransform: "uppercase",
+                      letterSpacing: "0.08em",
+                      color: "var(--text-secondary)",
+                      cursor: col.sortable ? "pointer" : "default",
+                      whiteSpace: "nowrap",
+                    }}
+                  >
+                    <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+                      {col.header}
+                      {col.sortable && (
+                        <span style={{ color: "var(--text-tertiary)", opacity: sortConfig.key === (col.accessorKey || col.id) ? 1 : 0.3 }}>
+                          {sortConfig.key === (col.accessorKey || col.id) ? (
+                            sortConfig.direction === "asc" ? <ChevronUp size={12} /> :
+                            sortConfig.direction === "desc" ? <ChevronDown size={12} /> :
+                            <ChevronsUpDown size={12} />
+                          ) : (
+                            <ChevronsUpDown size={12} />
+                          )}
+                        </span>
+                      )}
+                    </div>
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {sortedData.length > 0 ? (
+                sortedData.map((row, i) => {
+                  const isHighlighted = highlightKey && row[highlightKey];
+                  return (
+                    <tr
+                      key={i}
+                      style={{
+                        borderBottom: "1px solid var(--border-subtle)",
+                        background: isHighlighted ? "var(--bg-brand-soft)" : "transparent",
+                        transition: "background 0.1s",
+                      }}
+                    >
+                      {columns.map((col) => (
+                        <td key={col.id} style={{ padding: "14px 16px", fontSize: 13, color: "var(--text-primary)" }}>
+                          {col.cell ? col.cell(row) : (col.accessorKey ? String(row[col.accessorKey]) : null)}
+                        </td>
+                      ))}
+                    </tr>
+                  );
+                })
+              ) : (
+                <tr>
+                  <td
+                    colSpan={columns.length}
+                    style={{ padding: 48, textAlign: "center", color: "var(--text-tertiary)", fontSize: 13 }}
+                  >
+                    No matching records found.
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 4px" }}>
+        <div style={{ fontSize: 12, color: "var(--text-tertiary)" }}>
+          Showing <b style={{ color: "var(--text-secondary)" }}>{sortedData.length}</b> of <b>{data.length}</b> records
+        </div>
+        <div style={{ display: "flex", gap: 8, marginLeft: "auto" }}>
+          <button
+            style={{
+              padding: "5px 12px",
+              borderRadius: 8,
+              border: "1px solid var(--border-default)",
+              background: "var(--bg-surface)",
+              fontSize: 12,
+              fontWeight: 500,
+              color: "var(--text-primary)",
+            }}
+          >
+            Previous
+          </button>
+          <button
+            style={{
+              padding: "5px 12px",
+              borderRadius: 8,
+              border: "1px solid var(--border-default)",
+              background: "var(--bg-surface)",
+              fontSize: 12,
+              fontWeight: 500,
+              color: "var(--text-primary)",
+            }}
+          >
+            Next
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── General Instructions Component ────────────────────────────────────────
+
+function GeneralInstructions() {
+  return (
+    <div style={{ display: "flex", flexDirection: "column", gap: 32 }}>
+      <Card>
+        <h3 style={{ fontFamily: "var(--font-display)", fontSize: 20, fontWeight: 700, marginBottom: 16 }}>1. Installation</h3>
+        <p style={{ fontSize: 14, color: "var(--text-secondary)", marginBottom: 12 }}>
+          Install the package from your private registry or link it locally in your monorepo.
+        </p>
+        <pre style={{ background: "var(--bg-elevated)", padding: 12, borderRadius: 8, fontSize: 13, color: "var(--text-brand)", border: "1px solid var(--border-subtle)", overflowX: "auto" }}>
+          npm install @mintx/ui
+        </pre>
+      </Card>
+
+      <Card>
+        <h3 style={{ fontFamily: "var(--font-display)", fontSize: 20, fontWeight: 700, marginBottom: 16 }}>2. Tailwind Configuration</h3>
+        <p style={{ fontSize: 14, color: "var(--text-secondary)", marginBottom: 12 }}>
+          Ensure Tailwind scans the Mintx package for class names to include necessary styles.
+        </p>
+        <pre style={{ background: "var(--bg-elevated)", padding: 12, borderRadius: 8, fontSize: 13, color: "var(--text-brand)", border: "1px solid var(--border-subtle)", overflowX: "auto" }}>
+{`// tailwind.config.ts
+const config: Config = {
+  content: [
+    "./app/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    "./node_modules/@mintx/ui/src/**/*.{ts,tsx}", // ✅ Add this
+  ],
+  // ...
+};`}
+        </pre>
+      </Card>
+
+      <Card>
+        <h3 style={{ fontFamily: "var(--font-display)", fontSize: 20, fontWeight: 700, marginBottom: 16 }}>3. Setup Styles & Theme</h3>
+        <p style={{ fontSize: 14, color: "var(--text-secondary)", marginBottom: 12 }}>
+          Import the token CSS and wrap your app with the ThemeProvider in your root layout.
+        </p>
+        <pre style={{ background: "var(--bg-elevated)", padding: 12, borderRadius: 8, fontSize: 13, color: "var(--text-brand)", border: "1px solid var(--border-subtle)", marginBottom: 12, overflowX: "auto" }}>
+{`import "@mintx/ui/src/tokens/tokens.css";
+import { ThemeProvider } from "@mintx/ui";`}
+        </pre>
+        <pre style={{ background: "var(--bg-elevated)", padding: 12, borderRadius: 8, fontSize: 13, color: "var(--text-brand)", border: "1px solid var(--border-subtle)", overflowX: "auto" }}>
+{`<ThemeProvider defaultTheme="dark">
+  {children}
+</ThemeProvider>`}
+        </pre>
+      </Card>
+
+      <Card>
+        <h3 style={{ fontFamily: "var(--font-display)", fontSize: 20, fontWeight: 700, marginBottom: 16 }}>4. Usage Example</h3>
+        <p style={{ fontSize: 14, color: "var(--text-secondary)", marginBottom: 12 }}>
+          Import components and use them directly with type-safe props.
+        </p>
+        <pre style={{ background: "var(--bg-elevated)", padding: 12, borderRadius: 8, fontSize: 13, color: "var(--text-brand)", border: "1px solid var(--border-subtle)", overflowX: "auto" }}>
+{`import { Button, Alert, StockCard } from "@mintx/ui";
+
+export default function Page() {
+  return (
+    <div className="p-8">
+      <Alert variant="brand" title="Signal">
+        New Fibonacci zone detected.
+      </Alert>
+      <Button variant="primary">Trade Now</Button>
+    </div>
+  );
+}`}
+        </pre>
+      </Card>
     </div>
   );
 }

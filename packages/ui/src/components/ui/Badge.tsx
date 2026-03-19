@@ -1,66 +1,48 @@
 import React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-import type { BadgeProps } from "../../types";
 import { cn } from "../../tokens/cn";
 
 const badgeVariants = cva(
-  "inline-flex items-center gap-1.5 font-medium leading-none whitespace-nowrap overflow-hidden transition-colors border",
+  "inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-bold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 uppercase tracking-wider",
   {
     variants: {
       variant: {
-        mint: "bg-mint-50 text-mint-600 border-mint-200/50",
-        green: "bg-green-50 text-green-600 border-green-200/50",
-        red: "bg-red-50 text-red-600 border-red-200/50",
-        amber: "bg-amber-50 text-amber-600 border-amber-200/50",
-        blue: "bg-blue-50 text-blue-600 border-blue-200/50",
-        purple: "bg-purple-50 text-purple-600 border-purple-200/50",
-        neutral: "bg-neutral-100 text-neutral-600 border-neutral-200/50",
-        outline: "bg-transparent text-neutral-500 border-neutral-200",
+        default:
+          "border-transparent bg-primary text-primary-foreground shadow hover:bg-primary/80",
+        secondary:
+          "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80",
+        destructive:
+          "border-transparent bg-destructive text-destructive-foreground shadow hover:bg-destructive/80",
+        outline: "text-foreground border-border",
+        success: "border-transparent bg-green-500/10 text-green-500",
+        warning: "border-transparent bg-yellow-500/10 text-yellow-500",
+        error: "border-transparent bg-red-500/10 text-red-500",
+        mint: "border-transparent bg-[#10C9A0]/10 text-[#10C9A0]",
+        blue: "border-transparent bg-blue-500/10 text-blue-500",
+        purple: "border-transparent bg-purple-500/10 text-purple-500",
+        neutral: "border-transparent bg-neutral-500/10 text-neutral-500",
       },
       size: {
-        sm: "text-[10px] px-1.5 py-0.5 rounded-sm",
-        md: "text-xs px-2 py-1 rounded-md",
-        lg: "text-sm px-2.5 py-1.5 rounded-lg",
+        sm: "px-2 py-0.5 text-[10px]",
+        md: "px-2.5 py-0.5 text-xs",
+        lg: "px-3 py-1 text-sm",
       },
     },
     defaultVariants: {
-      variant: "mint",
+      variant: "default",
       size: "md",
     },
   }
 );
 
-export const Badge: React.FC<BadgeProps> = ({
-  variant = "mint",
-  size = "md",
-  dot = false,
-  className,
-  style,
-  children,
-}) => (
-  <span
-    className={cn(badgeVariants({ variant, size }), className)}
-    style={style}
-  >
-    {dot && (
-      <span 
-        className={cn(
-          "w-1.5 h-1.5 rounded-full",
-          {
-            "bg-mint-400": variant === "mint",
-            "bg-green-400": variant === "green",
-            "bg-red-400": variant === "red",
-            "bg-amber-400": variant === "amber",
-            "bg-blue-400": variant === "blue",
-            "bg-purple-400": variant === "purple",
-            "bg-neutral-400": variant === "neutral" || variant === "outline",
-          }
-        )} 
-        aria-hidden="true" 
-      />
-    )}
-    {children}
-  </span>
-);
+export interface BadgeProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof badgeVariants> {}
 
-Badge.displayName = "Badge";
+function Badge({ className, variant, size, ...props }: BadgeProps) {
+  return (
+    <div className={cn(badgeVariants({ variant, size }), className)} {...props} />
+  );
+}
+
+export { Badge, badgeVariants };

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Button } from "./Button";
+import { Button } from "../../components/ui/Button";
 import { Plus, Loader2 } from "lucide-react";
 import React from "react";
 

@@ -1,0 +1,519 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Mintx Design System / Installation & Publishing" />
+
+<div style={{ fontFamily: "'DM Sans', sans-serif", maxWidth: 820, padding: "48px 0" }}>
+
+# Installation & Publishing Guide
+
+Complete reference for local development setup, consuming `@mintx/ui` in an app, and publishing the package to npm.
+
+---
+
+## Repository Structure
+
+```
+mintx-design-system/          # Turborepo monorepo root
+├── apps/
+│   └── design-system/        # Next.js docs app (localhost:3000)
+├── packages/
+│   └── ui/                   # @mintx/ui — the component library
+│       ├── src/
+│       │   ├── components/
+│       │   │   ├── ui/       # Button, Badge, Card, Input, …
+│       │   │   ├── financial/# StockCard, MetricCard, …
+│       │   │   ├── layout/   # Sidebar, MintxLogo, …
+│       │   │   └── mobile/   # BottomNav, SupportLiveBar
+│       │   ├── tokens/       # tokens.css, tokens.ts, cn.ts
+│       │   ├── types/        # index.ts — all prop interfaces
+│       │   └── index.ts      # barrel export
+│       └── package.json
+├── tailwind.config.ts
+├── package.json              # Turborepo root
+└── turbo.json
+```
+
+---
+
+## Local Development
+
+### Prerequisites
+
+- Node.js ≥ 18.18.0
+- npm ≥ 10
+
+### 1. Clone and install
+
+```bash
+git clone https://github.com/your-org/mintx-design-system.git
+cd mintx-design-system
+npm install
+```
+
+### 2. Run the design-system docs app
+
+```bash
+npm run dev
+# → http://localhost:3000
+```
+
+### 3. Run Storybook
+
+```bash
+npm run dev:storybook
+# → http://localhost:6006
+```
+
+Or run both concurrently:
+
+```bash
+npm run dev & npm run dev:storybook
+```
+
+### 4. Build everything
+
+```bash
+npm run build
+```
+
+---
+
+## Consuming @mintx/ui in Your App
+
+### Option A — npm install (after publishing)
+
+```bash
+npm install @mintx/ui
+```
+
+### Option B — Local monorepo workspace link
+
+If your app is inside the same monorepo:
+
+```json
+// your-app/package.json
+{
+  "dependencies": {
+    "@mintx/ui": "*"
+  }
+}
+```
+
+Then `npm install` at the root — Turborepo workspace resolution handles the rest.
+
+### Option C — npm link (external project)
+
+```bash
+# In the ui package
+cd packages/ui
+npm link
+
+# In your app
+npm link @mintx/ui
+```
+
+---
+
+## Tailwind Configuration
+
+Your consuming app's `tailwind.config.ts` must include the Mintx package content path and extend the theme:
+
+```ts
+import type { Config } from "tailwindcss";
+
+const config: Config = {
+  content: [
+    "./app/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    // Scan Mintx UI for class names used inside the library
+    "./node_modules/@mintx/ui/src/**/*.{ts,tsx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        mint: {
+          50:  "#E6FBF5",
+          100: "#BFFAE9",
+          200: "#7DEFD2",
+          300: "#3DDCBA",
+          400: "#10C9A0",  // ★ Primary brand
+          500: "#00B38A",
+          600: "#008F6E",
+          700: "#006B52",
+          800: "#004736",
+          900: "#00231A",
+        },
+        neutral: {
+          50:  "#F5F8F7",
+          100: "#EBF0EE",
+          200: "#C2CECA",
+          300: "#9BACA6",
+          400: "#748A83",
+          500: "#55706A",
+          600: "#3A524D",
+          700: "#253733",
+          800: "#141F1D",
+          850: "#0D1614",
+          900: "#080E0D",
+        },
+        surface: {
+          DEFAULT: "var(--bg-surface)",
+          elevated: "var(--bg-elevated)",
+          base: "var(--bg-base)",
+        },
+        brand: {
+          DEFAULT: "var(--mint-400, #10C9A0)",
+        },
+      },
+      fontFamily: {
+        display: ["Syne", "sans-serif"],
+        body:    ["DM Sans", "sans-serif"],
+        mono:    ["DM Mono", "monospace"],
+      },
+      spacing: {
+        "sp-1": "4px",  "sp-2": "8px",  "sp-3": "12px",
+        "sp-4": "16px", "sp-5": "20px", "sp-6": "24px",
+        "sp-8": "32px", "sp-10": "40px",
+      },
+      borderRadius: {
+        xs: "4px", sm: "6px", md: "10px",
+        lg: "14px", xl: "20px", "2xl": "28px",
+      },
+      animation: {
+        "pulse-live": "pulse-live 1.8s ease infinite",
+        shimmer:      "shimmer 2s linear infinite",
+        "fade-up":    "fadeUp 0.5s ease-out forwards",
+      },
+      keyframes: {
+        "pulse-live": {
+          "0%, 100%": { boxShadow: "0 0 0 0 rgba(34,197,94,0.5)" },
+          "50%":       { boxShadow: "0 0 0 6px rgba(34,197,94,0)" },
+        },
+        shimmer: {
+          "0%":   { backgroundPosition: "200% 0" },
+          "100%": { backgroundPosition: "-200% 0" },
+        },
+        fadeUp: {
+          from: { opacity: "0", transform: "translateY(16px)" },
+          to:   { opacity: "1", transform: "translateY(0)" },
+        },
+      },
+    },
+  },
+  plugins: [],
+};
+
+export default config;
+```
+
+---
+
+## Font Setup
+
+### Next.js App Router
+
+```tsx
+// app/layout.tsx
+import { Syne, DM_Sans, DM_Mono } from "next/font/google";
+import "@mintx/ui/src/tokens/tokens.css";
+
+const syne = Syne({
+  subsets: ["latin"],
+  weight: ["700", "800"],
+  variable: "--font-display",
+});
+
+const dmSans = DM_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  variable: "--font-body",
+});
+
+const dmMono = DM_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500"],
+  variable: "--font-mono",
+});
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en" className={`${syne.variable} ${dmSans.variable} ${dmMono.variable}`}>
+      <body>
+        <ThemeProvider defaultTheme="dark">
+          {children}
+        </ThemeProvider>
+      </body>
+    </html>
+  );
+}
+```
+
+---
+
+## Publishing to npm
+
+### Step 1 — Prepare `package.json`
+
+Update `packages/ui/package.json`:
+
+```json
+{
+  "name": "@mintx/ui",
+  "version": "1.0.0",
+  "description": "Mintx Design System — Wealth intelligence UI for every Indian investor",
+  "author": "Mintx Technologies",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-org/mintx-design-system"
+  },
+  "keywords": ["mintx", "design-system", "react", "tailwind", "fintech", "india"],
+
+  "main":   "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types":  "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./tokens": "./src/tokens/tokens.css"
+  },
+  "files": ["dist", "src/tokens/tokens.css"],
+
+  "sideEffects": false,
+
+  "peerDependencies": {
+    "react":     "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0",
+    "tailwindcss": "^3.4.0"
+  }
+}
+```
+
+### Step 2 — Add a build script with tsup
+
+Install tsup as a dev dependency:
+
+```bash
+npm install --save-dev tsup -w packages/ui
+```
+
+Add to `packages/ui/package.json`:
+
+```json
+{
+  "scripts": {
+    "build":      "tsup",
+    "build:watch":"tsup --watch",
+    "storybook":  "storybook dev -p 6006",
+    "build-storybook": "storybook build"
+  }
+}
+```
+
+Create `packages/ui/tsup.config.ts`:
+
+```ts
+import { defineConfig } from "tsup";
+
+export default defineConfig({
+  entry: ["src/index.ts"],
+  format: ["cjs", "esm"],
+  dts: true,               // Generate .d.ts declaration files
+  splitting: false,
+  sourcemap: true,
+  clean: true,
+  external: ["react", "react-dom"],
+  treeshake: true,
+  minify: false,           // Keep readable — minify in consuming app's bundler
+});
+```
+
+### Step 3 — Build the package
+
+```bash
+# From monorepo root
+npm run build --filter=@mintx/ui
+
+# Or inside packages/ui
+cd packages/ui && npm run build
+```
+
+This produces:
+
+```
+packages/ui/dist/
+├── index.js       # CommonJS
+├── index.mjs      # ES Module
+├── index.d.ts     # TypeScript declarations
+└── index.js.map   # Source maps
+```
+
+### Step 4 — Login to npm
+
+```bash
+npm login
+# Enter your npm username, password, and OTP
+```
+
+If publishing under an organisation scope (`@mintx`):
+
+```bash
+# Ensure the @mintx org exists on npmjs.com
+# Set up org at: https://www.npmjs.com/org/create
+```
+
+### Step 5 — Dry run (always do this first)
+
+```bash
+cd packages/ui
+npm publish --dry-run
+```
+
+Verify the output:
+
+```
+npm notice 📦  @mintx/ui@1.0.0
+npm notice === Tarball Contents ===
+npm notice 12.4kB dist/index.js
+npm notice  8.1kB dist/index.mjs
+npm notice 18.2kB dist/index.d.ts
+npm notice  2.1kB src/tokens/tokens.css
+npm notice === Tarball Details ===
+npm notice name:     @mintx/ui
+npm notice version:  1.0.0
+npm notice filename: mintx-ui-1.0.0.tgz
+npm notice total files: 6
+```
+
+### Step 6 — Publish
+
+**Public scoped package:**
+
+```bash
+npm publish --access public
+```
+
+**Private package (org members only):**
+
+```bash
+npm publish --access restricted
+```
+
+### Step 7 — Tag releases
+
+```bash
+# Stable release
+git tag v1.0.0
+git push origin v1.0.0
+
+# Beta / RC
+npm publish --tag beta
+npm publish --tag rc
+```
+
+### Step 8 — Version bumps
+
+Use npm version for semantic bumps:
+
+```bash
+# Patch — bug fixes (1.0.0 → 1.0.1)
+npm version patch
+
+# Minor — new components, backward compatible (1.0.0 → 1.1.0)
+npm version minor
+
+# Major — breaking changes (1.0.0 → 2.0.0)
+npm version major
+```
+
+Then publish again:
+
+```bash
+npm publish --access public
+```
+
+---
+
+## CI/CD Publish with GitHub Actions
+
+Create `.github/workflows/publish.yml`:
+
+```yaml
+name: Publish @mintx/ui
+
+on:
+  push:
+    tags:
+      - "v*"
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: "https://registry.npmjs.org"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build package
+        run: npm run build --filter=@mintx/ui
+
+      - name: Publish to npm
+        run: npm publish --access public
+        working-directory: packages/ui
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+```
+
+Add your `NPM_TOKEN` in GitHub repo → Settings → Secrets → Actions.
+
+---
+
+## Storybook Deploy (Chromatic)
+
+```bash
+# Install Chromatic
+npm install --save-dev chromatic -w packages/ui
+
+# Publish Storybook to Chromatic
+npx chromatic --project-token=YOUR_TOKEN --build-script-name=build-storybook
+```
+
+Add to GitHub Actions:
+
+```yaml
+- name: Publish Storybook to Chromatic
+  uses: chromaui/action@latest
+  with:
+    projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+    workingDir: packages/ui
+```
+
+---
+
+## Changelog Convention
+
+Use [Conventional Commits](https://www.conventionalcommits.org/):
+
+```bash
+feat(StockCard): add compact prop for dense layouts
+fix(Badge): correct dot alignment in Firefox
+docs(Sidebar): update collapsed state story
+chore(deps): upgrade framer-motion to 12.x
+```
+
+Generate changelog with:
+
+```bash
+npx conventional-changelog-cli -p angular -i CHANGELOG.md -s
+```
+
+</div>

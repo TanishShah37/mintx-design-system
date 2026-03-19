@@ -1,0 +1,199 @@
+import { Meta, ColorPalette, ColorItem } from "@storybook/blocks";
+
+<Meta title="Mintx Design System / Design Tokens" />
+
+<div style={{ fontFamily: "'DM Sans', sans-serif", maxWidth: 820, padding: "48px 0" }}>
+
+# Design Tokens
+
+All Mintx components consume CSS custom properties defined in `tokens.css`. This ensures consistent light/dark mode switching, single-source-of-truth colour management, and zero JavaScript cost for theming.
+
+---
+
+## Mint Brand Scale
+
+The Mintx brand green — a desaturated, teal-leaning mint derived from the intersection of trust (green), clarity (teal), and intelligence (cool undertone). The 400 step is the primary interactive colour.
+
+<ColorPalette>
+  <ColorItem
+    title="Mint"
+    subtitle="--mint-[50–900]"
+    colors={{
+      "50":  "#E6FBF5",
+      "100": "#BFFAE9",
+      "200": "#7DEFD2",
+      "300": "#3DDCBA",
+      "400 ★": "#10C9A0",
+      "500": "#00B38A",
+      "600": "#008F6E",
+      "700": "#006B52",
+      "800": "#004736",
+      "900": "#00231A",
+    }}
+  />
+</ColorPalette>
+
+---
+
+## Neutral Scale (green-tinted)
+
+The neutral palette has a deliberate green tint — it reads as "off-white / off-black" rather than pure grey, maintaining brand coherence across all UI surfaces.
+
+<ColorPalette>
+  <ColorItem
+    title="Neutral"
+    subtitle="--n-[0–950]"
+    colors={{
+      "0":   "#FFFFFF",
+      "50":  "#F5F8F7",
+      "100": "#EBF0EE",
+      "200": "#C2CECA",
+      "300": "#9BACA6",
+      "400": "#748A83",
+      "500": "#55706A",
+      "600": "#3A524D",
+      "700": "#253733",
+      "800": "#141F1D",
+      "850": "#0D1614",
+      "900": "#080E0D",
+    }}
+  />
+</ColorPalette>
+
+---
+
+## Semantic Colours
+
+Fixed-purpose colours for financial data direction and UI state. Never change these for theming — they carry meaning.
+
+<ColorPalette>
+  <ColorItem
+    title="Gain / Bullish"
+    subtitle="green-400, green-500"
+    colors={{ "green-400": "#22C55E", "green-500": "#16A34A" }}
+  />
+  <ColorItem
+    title="Loss / Bearish"
+    subtitle="red-400, red-500"
+    colors={{ "red-400": "#F87171", "red-500": "#DC2626" }}
+  />
+  <ColorItem
+    title="Caution / Warning"
+    subtitle="amber-400, amber-500"
+    colors={{ "amber-400": "#FBBF24", "amber-500": "#D97706" }}
+  />
+  <ColorItem
+    title="Info / Neutral"
+    subtitle="blue-400, blue-500"
+    colors={{ "blue-400": "#60A5FA", "blue-500": "#2563EB" }}
+  />
+  <ColorItem
+    title="Premium / Purple"
+    subtitle="purple-400"
+    colors={{ "purple-400": "#A78BFA" }}
+  />
+</ColorPalette>
+
+---
+
+## Semantic Tokens (CSS Variables)
+
+These are the tokens components actually use — they adapt between light and dark mode automatically.
+
+### Background Tokens
+
+| Token | Light | Dark | Use |
+|---|---|---|---|
+| `--bg-base` | `#F5F8F7` | `#080E0D` | Page background |
+| `--bg-surface` | `#FFFFFF` | `#0D1614` | Card, panel surfaces |
+| `--bg-elevated` | `#FFFFFF` | `#141F1D` | Modals, dropdowns |
+| `--bg-overlay` | `rgba(20,31,29,0.06)` | `rgba(255,255,255,0.05)` | Hover states, overlays |
+| `--bg-brand-soft` | `#E6FBF5` | `rgba(0,179,138,0.12)` | Active badge bg, soft CTA |
+
+### Text Tokens
+
+| Token | Light | Dark | Use |
+|---|---|---|---|
+| `--text-primary` | `#141F1D` | `#E8EFED` | Headlines, strong labels |
+| `--text-secondary` | `#3A524D` | `#9BACA6` | Body copy, descriptions |
+| `--text-tertiary` | `#748A83` | `#5A706A` | Metadata, hints, disabled labels |
+| `--text-brand` | `#008F6E` | `#3DDCBA` | Links, active nav, brand accent |
+
+### Border Tokens
+
+| Token | Light | Dark | Use |
+|---|---|---|---|
+| `--border-subtle` | `rgba(20,31,29,0.07)` | `rgba(232,239,237,0.06)` | Dividers, subtle separators |
+| `--border-default` | `rgba(20,31,29,0.12)` | `rgba(232,239,237,0.10)` | Card borders, input borders |
+| `--border-strong` | `rgba(20,31,29,0.22)` | `rgba(232,239,237,0.18)` | Focused inputs, strong dividers |
+
+### Shadow Tokens
+
+| Token | Value (Dark) | Use |
+|---|---|---|
+| `--shadow-sm` | `0 1px 3px rgba(0,0,0,0.30)` | Cards, inputs |
+| `--shadow-md` | `0 4px 12px rgba(0,0,0,0.40)` | Dropdowns, raised elements |
+| `--shadow-lg` | `0 12px 32px rgba(0,0,0,0.50)` | Modals, drawers |
+| `--shadow-brand` | `0 4px 20px rgba(0,179,138,0.35)` | Primary CTAs, focus glow |
+
+---
+
+## Spacing Scale
+
+4px base unit. All spacing tokens map to `sp-N` Tailwind utilities.
+
+| Token | Value | Tailwind class |
+|---|---|---|
+| `--sp-1` | 4px | `p-sp-1`, `m-sp-1`, `gap-sp-1` |
+| `--sp-2` | 8px | `p-sp-2` |
+| `--sp-3` | 12px | `p-sp-3` |
+| `--sp-4` | 16px | `p-sp-4` |
+| `--sp-5` | 20px | `p-sp-5` |
+| `--sp-6` | 24px | `p-sp-6` |
+| `--sp-8` | 32px | `p-sp-8` |
+| `--sp-10` | 40px | `p-sp-10` |
+
+---
+
+## Border Radius Scale
+
+| Token | Value | Tailwind | Use |
+|---|---|---|---|
+| `--r-xs` | 4px | `rounded-xs` | Small badges, micro chips |
+| `--r-sm` | 6px | `rounded-sm` | Compact buttons, inputs |
+| `--r-md` | 10px | `rounded-md` | Default buttons, inputs |
+| `--r-lg` | 14px | `rounded-lg` | Cards, panels |
+| `--r-xl" | 20px | `rounded-xl` | Large cards, modals |
+| `--r-2xl` | 28px | `rounded-2xl` | Hero cards, full-bleed panels |
+| `--r-full` | 9999px | `rounded-full` | Pills, badges, avatar borders |
+
+---
+
+## Motion Tokens
+
+| Token | Value | Use |
+|---|---|---|
+| `--ease-out` | `cubic-bezier(0.16,1,0.3,1)` | Standard UI transitions |
+| `--ease-spring` | `cubic-bezier(0.34,1.56,0.64,1)` | Toggle thumb, spring confirms |
+| `--dur-fast` | `120ms` | Hover states, immediate feedback |
+| `--dur-base` | `200ms` | Standard transitions |
+| `--dur-slow` | `350ms" | Page transitions, large reveals |
+
+---
+
+## Typography Scale
+
+| Token | Size | Line-height | Use |
+|---|---|---|---|
+| `--text-xs` | 11px | 1.5 | Metadata, captions |
+| `--text-sm` | 13px | 1.55 | Secondary labels, hints |
+| `--text-base` | 15px | 1.6 | Body copy (default) |
+| `--text-lg` | 17px | 1.55 | Large body, intro text |
+| `--text-xl` | 20px | 1.45 | Section subheadings |
+| `--text-2xl` | 24px | 1.35 | H2 headings |
+| `--text-3xl` | 30px | 1.25 | H1 headings |
+| `--text-4xl` | 38px | 1.15 | Page titles |
+| `--text-5xl` | 48px | 1.1 | Hero headlines |
+| `--text-6xl` | 60px | 1.05 | Brand/display text |
+
+</div>

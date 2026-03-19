@@ -1,100 +1,79 @@
-import React, { useId } from "react";
-import { cva, type VariantProps } from "class-variance-authority";
-import type { SelectProps } from "../../types";
+import React from "react";
+import * as SelectPrimitive from "@radix-ui/react-select";
+import { Check, ChevronDown } from "lucide-react";
 import { cn } from "../../tokens/cn";
 
-const selectVariants = cva(
-  "w-full font-body text-neutral-900 bg-surface border border-neutral-200 rounded-md outline-none appearance-none pr-[36px] cursor-pointer transition-all duration-120 hover:not-disabled:border-neutral-400 focus:not-error:border-mint-400 focus:not-error:ring-4 focus:not-error:ring-mint-400/15 disabled:opacity-50 disabled:cursor-not-allowed",
-  {
-    variants: {
-      size: {
-        sm: "text-sm py-1.5 px-3",
-        md: "text-base py-[9px] px-3.5",
-        lg: "text-lg py-3 px-4",
-      },
-      error: {
-        true: "border-red-500! focus:ring-4 focus:ring-red-500/15",
-      },
-    },
-    defaultVariants: {
-      size: "md",
-    },
-  }
-);
+export const Select = SelectPrimitive.Root;
+export const SelectValue = SelectPrimitive.Value;
 
-export const Select: React.FC<SelectProps> = ({
-  options,
-  value,
-  placeholder,
-  label,
-  hint,
-  error,
-  disabled = false,
-  onChange,
-  size = "md",
-  className,
-  style,
-}) => {
-  const uid = useId();
-  const hasError = !!error;
+export const SelectTrigger = React.forwardRef<
+  React.ElementRef<typeof SelectPrimitive.Trigger>,
+  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Trigger>
+>(({ className, children, ...props }, ref) => (
+  <SelectPrimitive.Trigger
+    ref={ref}
+    className={cn(
+      "flex h-11 w-full items-center justify-between rounded-xl border border-border bg-background px-3 py-2 text-sm shadow-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary disabled:cursor-not-allowed disabled:opacity-50 transition-all",
+      className
+    )}
+    {...props}
+  >
+    {children}
+    <SelectPrimitive.Icon asChild>
+      <ChevronDown className="h-4 w-4 opacity-50" />
+    </SelectPrimitive.Icon>
+  </SelectPrimitive.Trigger>
+));
+SelectTrigger.displayName = SelectPrimitive.Trigger.displayName;
 
-  return (
-    <div className={cn("flex flex-col gap-sp-1", className)} style={style}>
-      {label && (
-        <label htmlFor={uid} className="text-sm font-medium text-neutral-600">
-          {label}
-        </label>
+export const SelectContent = React.forwardRef<
+  React.ElementRef<typeof SelectPrimitive.Content>,
+  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Content>
+>(({ className, children, position = "popper", ...props }, ref) => (
+  <SelectPrimitive.Portal>
+    <SelectPrimitive.Content
+      ref={ref}
+      className={cn(
+        "relative z-50 min-w-[8rem] overflow-hidden rounded-xl border bg-background/80 backdrop-blur-md text-popover-foreground shadow-xl animate-in fade-in zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
+        position === "popper" &&
+          "data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1",
+        className
       )}
-      <div className="relative">
-        <select
-          id={uid}
-          className={cn(selectVariants({ size, error: hasError }))}
-          value={value}
-          disabled={disabled}
-          onChange={(e) => onChange?.(e.target.value)}
-          aria-invalid={hasError}
-          aria-describedby={
-            error ? `${uid}-error` : hint ? `${uid}-hint` : undefined
-          }
-        >
-          {placeholder && (
-            <option value="" disabled>
-              {placeholder}
-            </option>
-          )}
-          {options.map((opt) => (
-            <option key={opt.value} value={opt.value} disabled={opt.disabled}>
-              {opt.label}
-            </option>
-          ))}
-        </select>
-        <span className="absolute right-3 top-1/2 -translate-y-1/2 text-neutral-400 pointer-events-none flex items-center" aria-hidden="true">
-          <svg
-            width="12"
-            height="12"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <polyline points="6 9 12 15 18 9" />
-          </svg>
-        </span>
-      </div>
-      {hint && !error && (
-        <span id={`${uid}-hint`} className="text-[11px] text-neutral-400">
-          {hint}
-        </span>
-      )}
-      {error && (
-        <span id={`${uid}-error`} className="text-[11px] text-red-500" role="alert">
-          {error}
-        </span>
-      )}
-    </div>
-  );
-};
+      position={position}
+      {...props}
+    >
+      <SelectPrimitive.Viewport
+        className={cn(
+          "p-1.5",
+          position === "popper" &&
+            "h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]"
+        )}
+      >
+        {children}
+      </SelectPrimitive.Viewport>
+    </SelectPrimitive.Content>
+  </SelectPrimitive.Portal>
+));
+SelectContent.displayName = SelectPrimitive.Content.displayName;
 
-Select.displayName = "Select";
+export const SelectItem = React.forwardRef<
+  React.ElementRef<typeof SelectPrimitive.Item>,
+  React.ComponentPropsWithoutRef<typeof SelectPrimitive.Item>
+>(({ className, children, ...props }, ref) => (
+  <SelectPrimitive.Item
+    ref={ref}
+    className={cn(
+      "relative flex w-full cursor-default select-none items-center rounded-lg py-2 pl-8 pr-2.5 text-sm outline-none transition-colors focus:bg-muted focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+      className
+    )}
+    {...props}
+  >
+    <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
+      <SelectPrimitive.ItemIndicator>
+        <Check className="h-4 w-4 text-primary stroke-[3]" />
+      </SelectPrimitive.ItemIndicator>
+    </span>
+    <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
+  </SelectPrimitive.Item>
+));
+SelectItem.displayName = SelectPrimitive.Item.displayName;

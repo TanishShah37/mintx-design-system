@@ -10,3 +10,7 @@ musr-stories/*.md
 mintx/apps/design-system/node_modules
 
 node_modules
+stories.*.js
+.storybook-static
+apps/design-system/*stories.js
+apps/design-system/public/storybook/*

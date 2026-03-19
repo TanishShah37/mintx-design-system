@@ -32,7 +32,14 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
 }) => {
   const [theme, setThemeState] = useState<Theme>(defaultTheme ?? "dark");
 
-  // Hydrate from localStorage / system pref on mount
+  // Sync theme state if defaultTheme prop changes (e.g., from Storybook globals)
+  useEffect(() => {
+    if (defaultTheme) {
+      setThemeState(defaultTheme);
+    }
+  }, [defaultTheme]);
+
+  // Hydrate from localStorage / system pref on mount if no default provided
   useEffect(() => {
     if (!defaultTheme) {
       setThemeState(getInitialTheme());

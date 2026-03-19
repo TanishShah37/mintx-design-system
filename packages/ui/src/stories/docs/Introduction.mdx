@@ -1,0 +1,210 @@
+import { Meta } from "@storybook/blocks";
+
+<Meta title="Mintx Design System / Introduction" />
+
+<div style={{ fontFamily: "'DM Sans', sans-serif", maxWidth: 800, padding: "48px 0" }}>
+
+<div style={{
+  display: "inline-flex", alignItems: "center", gap: 8,
+  background: "rgba(0,179,138,0.1)", border: "1px solid rgba(0,179,138,0.25)",
+  borderRadius: 999, padding: "4px 14px", marginBottom: 24
+}}>
+  <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#10C9A0", display: "inline-block" }} />
+  <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", color: "#008F6E" }}>
+    Mintx UI v1.0 · Storybook
+  </span>
+</div>
+
+# Mintx Design System
+
+**Wealth intelligence. Built for every Indian investor.**
+
+Mintx UI is a production-grade React component library built on **Tailwind CSS**, **Radix UI**, and **Class Variance Authority (CVA)**. Every component is Mintx-token-aware, WCAG 2.2 AA compliant, and tested with dark/light mode out of the box.
+
+---
+
+## What's in this Storybook
+
+| Category | Components | Coverage |
+|---|---|---|
+| **UI Primitives** | Button, Badge, Card, Input, Select, Toggle, Alert, Progress, Tabs, Skeleton, Avatar, Status | ✅ 100% |
+| **Financial** | StockCard, MetricCard, InsightCard, Sparkline, PriceChange | ✅ 100% |
+| **Layout** | MintxLogo, Sidebar, ThemeProvider, ThemeToggle | ✅ 100% |
+| **Mobile** | BottomNav, SupportLiveBar | ✅ 100% |
+
+---
+
+## Quick Start
+
+### 1. Install the package
+
+```bash
+# From npm (once published — see Publishing Guide)
+npm install @mintx/ui
+
+# Or link locally in the monorepo
+npm install
+```
+
+### 2. Configure Tailwind
+
+Add to your `tailwind.config.ts`:
+
+```ts
+import type { Config } from "tailwindcss";
+
+const config: Config = {
+  content: [
+    "./app/**/*.{ts,tsx}",
+    "./components/**/*.{ts,tsx}",
+    // ✅ Scan the Mintx package for class names
+    "./node_modules/@mintx/ui/src/**/*.{ts,tsx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        mint: {
+          50: "#E6FBF5",
+          400: "#10C9A0",   // ★ Primary brand
+          600: "#008F6E",
+          // ... full scale in tailwind.config.ts
+        },
+      },
+      fontFamily: {
+        display: ["Syne", "sans-serif"],
+        body:    ["DM Sans", "sans-serif"],
+        mono:    ["DM Mono", "monospace"],
+      },
+    },
+  },
+};
+export default config;
+```
+
+### 3. Add the token stylesheet
+
+In your root `layout.tsx` or `_app.tsx`:
+
+```tsx
+import "@mintx/ui/src/tokens/tokens.css";
+```
+
+This injects all CSS custom properties for both light and dark themes — background, text, border, shadow, and semantic colour tokens.
+
+### 4. Wrap with ThemeProvider
+
+```tsx
+import { ThemeProvider } from "@mintx/ui";
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="en">
+      <body>
+        <ThemeProvider defaultTheme="dark">
+          {children}
+        </ThemeProvider>
+      </body>
+    </html>
+  );
+}
+```
+
+### 5. Import and use components
+
+```tsx
+import { Button, Alert, StockCard } from "@mintx/ui";
+
+export default function HomePage() {
+  return (
+    <div className="p-8">
+      <Alert variant="brand" title="Market Update">
+        NIFTY 50 is trading at an all-time high.
+      </Alert>
+
+      <Button variant="primary" className="mt-4">
+        View Markets
+      </Button>
+
+      <StockCard
+        className="mt-6"
+        data={{
+          ticker: "TCS",
+          name: "Tata Consultancy Services",
+          price: 3847,
+          change: 88.4,
+          changePercent: 2.34,
+          sparkline: [35, 30, 28, 22, 18, 14, 10, 8],
+        }}
+      />
+    </div>
+  );
+}
+```
+
+---
+
+## Design Tokens
+
+All components consume CSS variables defined in `tokens.css`. The `data-theme` attribute on `<html>` switches between light and dark:
+
+```css
+/* Light (default) */
+:root, [data-theme="light"] {
+  --bg-surface:    #FFFFFF;
+  --text-primary:  #141F1D;
+  --text-brand:    #008F6E;
+  --border-default: rgba(20,31,29,0.12);
+}
+
+/* Dark */
+[data-theme="dark"] {
+  --bg-surface:    #0D1614;
+  --text-primary:  #E8EFED;
+  --text-brand:    #3DDCBA;
+  --border-default: rgba(232,239,237,0.10);
+}
+```
+
+---
+
+## Typography
+
+| Role | Font | Weight | Use |
+|---|---|---|---|
+| Display | Syne | 700–800 | Headings, tickers, brand mark |
+| Body | DM Sans | 400–600 | All UI text, labels, copy |
+| Mono | DM Mono | 400–500 | Prices, percentages, code, timestamps |
+
+Load from Google Fonts in your `<head>`:
+
+```html
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+```
+
+---
+
+## Tech Stack
+
+- **React 19** — peer dependency
+- **Tailwind CSS 3.4** — utility-first styling
+- **Radix UI** — accessible primitives (Dialog, Select, Tooltip, etc.)
+- **Class Variance Authority** — type-safe variant props
+- **Framer Motion** — animation (page transitions, badge reveals)
+- **Lucide React** — 1,500+ SVG icons
+- **TypeScript** — all props fully typed
+
+---
+
+## Compliance & Accessibility
+
+All Mintx components are designed to meet:
+
+- **WCAG 2.2 AA** — colour contrast, keyboard navigation, ARIA roles
+- **SEBI guidelines** — all financial signals are labelled "Illustrative Only" or "Educational"
+- **iOS/Android safe areas** — mobile nav uses `env(safe-area-inset-bottom)`
+
+---
+
+*See the **Installation & Publishing** page for full npm publish instructions.*
+
+</div>

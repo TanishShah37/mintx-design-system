@@ -1,147 +1,56 @@
 import React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-import type { AlertProps } from "../../types";
 import { cn } from "../../tokens/cn";
+import { AlertCircle, CheckCircle2, Info, XCircle } from "lucide-react";
 
 const alertVariants = cva(
-  "flex gap-sp-3 items-start p-sp-4 rounded-md border text-sm",
+  "relative w-full rounded-2xl border p-4 [&>svg~*]:pl-9 [&>svg]:absolute [&>svg]:left-4 [&>svg]:top-4 [&>svg]:text-foreground",
   {
     variants: {
       variant: {
-        info: "bg-blue-400/10 border-blue-400/25 text-blue-500 dark:text-blue-400",
-        success: "bg-green-500/10 border-green-500/25 text-green-500 dark:text-green-400",
-        warning: "bg-amber-500/10 border-amber-500/25 text-amber-500 dark:text-amber-400",
-        danger: "bg-red-500/10 border-red-500/25 text-red-500 dark:text-red-400",
-        brand: "bg-mint-50 border-mint-400/25 text-mint-600 dark:bg-mint-400/10 dark:text-mint-300",
+        default: "bg-background text-foreground",
+        destructive:
+          "border-destructive/50 text-destructive dark:border-destructive [&>svg]:text-destructive",
+        success: "border-green-500/50 text-green-500 [&>svg]:text-green-500 bg-green-500/5",
+        warning: "border-yellow-500/50 text-yellow-500 [&>svg]:text-yellow-500 bg-yellow-500/5",
+        info: "border-primary/50 text-primary [&>svg]:text-primary bg-primary/5",
       },
     },
     defaultVariants: {
-      variant: "info",
+      variant: "default",
     },
   }
 );
 
-const icons: Record<NonNullable<AlertProps["variant"]>, React.ReactNode> = {
-  info: (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <circle cx="12" cy="12" r="10" />
-      <line x1="12" y1="8" x2="12" y2="12" />
-      <line x1="12" y1="16" x2="12.01" y2="16" />
-    </svg>
-  ),
-  success: (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <polyline points="20 6 9 17 4 12" />
-    </svg>
-  ),
-  warning: (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
-      <line x1="12" y1="9" x2="12" y2="13" />
-      <line x1="12" y1="17" x2="12.01" y2="17" />
-    </svg>
-  ),
-  danger: (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <circle cx="12" cy="12" r="10" />
-      <line x1="15" y1="9" x2="9" y2="15" />
-      <line x1="9" y1="9" x2="15" y2="15" />
-    </svg>
-  ),
-  brand: (
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <polyline points="22 12 18 12 15 21 9 3 6 12 2 12" />
-    </svg>
-  ),
+const icons = {
+  default: <Info size={20} />,
+  destructive: <XCircle size={20} />,
+  success: <CheckCircle2 size={20} />,
+  warning: <AlertCircle size={20} />,
+  info: <Info size={20} />,
 };
 
-export const Alert: React.FC<AlertProps> = ({
-  variant = "info",
-  title,
-  icon,
-  onDismiss,
-  className,
-  style,
-  children,
-}) => (
-  <div
-    className={cn(alertVariants({ variant }), className)}
-    style={style}
-    role="alert"
-  >
-    <span className="shrink-0 mt-[1px]" aria-hidden="true">
-      {icon ?? icons[variant]}
-    </span>
-    <div className="flex-1 min-w-0">
-      {title && <div className="font-semibold mb-[3px]">{title}</div>}
-      {children && <div className="opacity-85 leading-tight">{children}</div>}
+interface AlertProps
+  extends React.HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof alertVariants> {
+  title?: string;
+  description?: string;
+}
+
+export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
+  ({ className, variant = "default", title, description, children, ...props }, ref) => (
+    <div
+      ref={ref}
+      role="alert"
+      className={cn(alertVariants({ variant }), className)}
+      {...props}
+    >
+      {icons[variant || "default"]}
+      {title && <h5 className="mb-1 font-bold leading-none tracking-tight">{title}</h5>}
+      {description && <div className="text-sm opacity-90 leading-relaxed">{description}</div>}
+      {children}
     </div>
-    {onDismiss && (
-      <button
-        className="shrink-0 bg-none border-none cursor-pointer color-current opacity-60 p-[2px] rounded-xs flex items-center transition-opacity duration-120 hover:opacity-100"
-        onClick={onDismiss}
-        aria-label="Dismiss"
-      >
-        <svg
-          width="14"
-          height="14"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-        >
-          <line x1="18" y1="6" x2="6" y2="18" />
-          <line x1="6" y1="6" x2="18" y2="18" />
-        </svg>
-      </button>
-    )}
-  </div>
+  )
 );
 
 Alert.displayName = "Alert";

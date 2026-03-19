@@ -4,7 +4,7 @@ import type { ProgressProps } from "../../types";
 import { cn } from "../../tokens/cn";
 
 const trackVariants = cva(
-  "w-full bg-neutral-100 overflow-hidden rounded-full",
+  "w-full bg-neutral-800 overflow-hidden rounded-full",
   {
     variants: {
       size: {
@@ -24,7 +24,7 @@ const fillVariants = cva(
   {
     variants: {
       color: {
-        brand: "bg-brand",
+        brand: "bg-mint-500",
         green: "bg-green-500",
         red: "bg-red-500",
         amber: "bg-amber-500",
@@ -60,7 +60,7 @@ export const Progress: React.FC<ProgressProps> = ({
         <div className="flex justify-between items-center mb-1">
           {label && <span className="text-xs font-medium text-neutral-600">{label}</span>}
           {showValue && (
-            <span className="text-xs font-mono text-neutral-400">{Math.round(pct)}%</span>
+            <span className="text-xs font-mono text-neutral-400 ml-2">{Math.round(pct)}%</span>
           )}
         </div>
       )}

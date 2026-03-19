@@ -80,15 +80,15 @@ const config: Config = {
         spin: "spin 1s linear infinite",
       },
       keyframes: {
-        pulseLive: {
+        "pulse-live": {
           "0%, 100%": { boxShadow: "0 0 0 0 rgba(34, 197, 94, 0.5)" },
           "50%": { boxShadow: "0 0 0 6px rgba(34, 197, 94, 0)" },
         },
-        gentlePulse: {
+        "gentle-pulse": {
           "0%, 100%": { opacity: "1" },
           "50%": { opacity: "0.55" },
         },
-        fadeUp: {
+        "fade-up": {
           from: { opacity: "0", transform: "translateY(16px)" },
           to: { opacity: "1", transform: "translateY(0)" },
         },

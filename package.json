@@ -10,8 +10,10 @@
     "build": "turbo build",
     "lint": "turbo lint",
     "dev:design-system": "turbo dev --filter=@mintx/design-system",
-    "dev:storybook": "turbo storybook --filter=@mintx/ui",
-    "build:design-system": "turbo build --filter=@mintx/design-system"
+    "storybook": "turbo storybook --filter=@mintx/ui",
+    "build:storybook": "turbo build-storybook --filter=@mintx/ui",
+    "build:design-system": "turbo build --filter=@mintx/design-system",
+    "build:all": "npm run build:storybook && npm run build:design-system"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.20",
