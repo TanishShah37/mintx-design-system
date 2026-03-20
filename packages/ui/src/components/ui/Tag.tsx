@@ -1,5 +1,6 @@
 import React from "react";
 import { X } from "lucide-react";
+import { cn } from "../../tokens/cn";
 
 export interface TagProps {
   label: string;
@@ -8,35 +9,18 @@ export interface TagProps {
   variant?: "default" | "primary" | "secondary" | "outline";
   size?: "sm" | "md";
   className?: string;
-  style?: React.CSSProperties;
 }
 
-const variantStyles: Record<string, React.CSSProperties> = {
-  default: {
-    background: "rgba(255,255,255,0.06)",
-    color: "var(--text-secondary, #748A83)",
-    border: "1px solid transparent",
-  },
-  primary: {
-    background: "rgba(0,179,138,0.12)",
-    color: "#00B38A",
-    border: "1px solid rgba(0,179,138,0.25)",
-  },
-  secondary: {
-    background: "rgba(255,255,255,0.08)",
-    color: "var(--text-primary, #E8EDE8)",
-    border: "1px solid rgba(255,255,255,0.1)",
-  },
-  outline: {
-    background: "transparent",
-    color: "var(--text-primary, #E8EDE8)",
-    border: "1px solid var(--border-default, #2A3836)",
-  },
+const variantClasses = {
+  default: "bg-surface text-neutral-400 border-border shadow-sm",
+  primary: "bg-mint-500/10 text-mint-500 border-mint-500/25",
+  secondary: "bg-white/10 text-primary border-white/5",
+  outline: "bg-transparent border border-border text-primary",
 };
 
-const sizeStyles: Record<string, React.CSSProperties> = {
-  sm: { height: 24, padding: "0 8px", fontSize: 10 },
-  md: { height: 28, padding: "0 12px", fontSize: 11 },
+const sizeClasses = {
+  sm: "h-6 px-2 text-[10px]",
+  md: "h-7 px-3 text-[11px]",
 };
 
 export const Tag: React.FC<TagProps> = ({
@@ -45,45 +29,24 @@ export const Tag: React.FC<TagProps> = ({
   onClick,
   variant = "default",
   size = "md",
-  style,
+  className,
 }) => {
   return (
     <div
       onClick={onClick}
-      style={{
-        display: "inline-flex",
-        alignItems: "center",
-        gap: 6,
-        borderRadius: 99,
-        fontWeight: 700,
-        fontFamily: "var(--font-body)",
-        textTransform: "uppercase",
-        letterSpacing: "0.05em",
-        cursor: onClick ? "pointer" : "default",
-        userSelect: "none",
-        transition: "opacity 0.15s",
-        ...variantStyles[variant],
-        ...sizeStyles[size],
-        ...style,
-      }}
+      className={cn(
+        "inline-flex items-center gap-1.5 rounded-full font-bold uppercase tracking-widest transition-all duration-150 border",
+        variantClasses[variant],
+        sizeClasses[size],
+        onClick ? "cursor-pointer hover:scale-105 active:scale-95" : "cursor-default",
+        className
+      )}
     >
       <span>{label}</span>
       {onRemove && (
         <button
           onClick={(e) => { e.stopPropagation(); onRemove(); }}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            width: 14,
-            height: 14,
-            borderRadius: "50%",
-            border: "none",
-            background: "rgba(255,255,255,0.1)",
-            cursor: "pointer",
-            padding: 0,
-            color: "currentColor",
-          }}
+          className="flex items-center justify-center p-0.5 rounded-full hover:bg-white/15 transition-colors cursor-pointer border-none bg-transparent"
         >
           <X size={size === "sm" ? 8 : 10} />
         </button>

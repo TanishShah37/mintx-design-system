@@ -1,6 +1,7 @@
 import React from "react";
 import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
 import { Check } from "lucide-react";
+import { cn } from "../../tokens/cn";
 
 export interface CheckBoxProps extends React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root> {
   label?: string;
@@ -10,50 +11,39 @@ export interface CheckBoxProps extends React.ComponentPropsWithoutRef<typeof Che
 export const CheckBox = React.forwardRef<
   React.ElementRef<typeof CheckboxPrimitive.Root>,
   CheckBoxProps
->(({ label, error, style, ...props }, ref) => {
-  const [checked, setChecked] = React.useState(props.defaultChecked ?? false);
-  const isChecked = props.checked !== undefined ? props.checked : checked;
-
+>(({ label, error, className, ...props }, ref) => {
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-      <div style={{ display: "flex", alignItems: "center", gap: 10, cursor: props.disabled ? "not-allowed" : "pointer", opacity: props.disabled ? 0.5 : 1 }}>
+    <div className="flex flex-col gap-sp-1">
+      <div className={cn(
+        "flex items-center gap-2.5",
+        props.disabled ? "cursor-not-allowed opacity-50" : "cursor-pointer"
+      )}>
         <CheckboxPrimitive.Root
           ref={ref}
+          className={cn(
+            "flex h-5 w-5 shrink-0 items-center justify-center rounded-sm border transition-all duration-200 focus-visible:outline-none",
+            "border-border bg-surface hover:border-mint-400",
+            "data-[state=checked]:bg-mint-500 data-[state=checked]:border-mint-500",
+            error && "border-red-500 text-red-500",
+            className
+          )}
           {...props}
-          onCheckedChange={(v) => {
-            setChecked(!!v);
-            props.onCheckedChange?.(v);
-          }}
-          style={{
-            width: 20,
-            height: 20,
-            borderRadius: 6,
-            border: `1.5px solid ${error ? "#EF4444" : isChecked ? "#00B38A" : "var(--border-default, #2A3836)"}`,
-            background: isChecked ? "#00B38A" : "var(--bg-surface, #111918)",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            flexShrink: 0,
-            transition: "all 0.15s",
-            outline: "none",
-            cursor: props.disabled ? "not-allowed" : "pointer",
-            ...style,
-          }}
         >
-          <CheckboxPrimitive.Indicator>
-            <Check size={13} color="#fff" strokeWidth={3} />
+          <CheckboxPrimitive.Indicator className="flex items-center justify-center text-white">
+            <Check size={13} strokeWidth={3} />
           </CheckboxPrimitive.Indicator>
         </CheckboxPrimitive.Root>
         {label && (
-          <span style={{ fontSize: 14, color: "var(--text-primary, #E8EDE8)", fontFamily: "var(--font-body)", lineHeight: 1.4, userSelect: "none" }}>
+          <span className="text-sm font-body text-primary select-none leading-none">
             {label}
           </span>
         )}
       </div>
       {error && (
-        <p style={{ fontSize: 12, color: "#EF4444", margin: 0, paddingLeft: 30 }}>{error}</p>
+        <p className="text-xs text-red-500 pl-[30px] font-medium">{error}</p>
       )}
     </div>
   );
 });
+
 CheckBox.displayName = "CheckBox";

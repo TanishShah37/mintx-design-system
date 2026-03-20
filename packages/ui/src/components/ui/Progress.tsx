@@ -1,81 +1,87 @@
 import React from "react";
-import type { ProgressProps } from "../../types";
+import { cn } from "../../tokens/cn";
+import { cva, type VariantProps } from "class-variance-authority";
 
-const colorMap: Record<string, string> = {
-  brand: "#00B38A",
-  green: "#22C55E",
-  red: "#EF4444",
-  amber: "#F59E0B",
-  blue: "#3B82F6",
-};
+const progressVariants = cva(
+  "w-full overflow-hidden rounded-full bg-overlay",
+  {
+    variants: {
+      size: {
+        xs: "h-1",
+        sm: "h-2",
+        md: "h-3",
+        lg: "h-4",
+      },
+    },
+    defaultVariants: {
+      size: "sm",
+    },
+  }
+);
 
-const sizeMap: Record<string, number> = {
-  xs: 3,
-  sm: 6,
-  md: 10,
-};
+const barVariants = cva(
+  "h-full w-full flex-1 transition-all duration-500 ease-smooth",
+  {
+    variants: {
+      color: {
+        brand: "bg-mint-500 shadow-brand",
+        success: "bg-green-500 shadow-[0_0_12px_rgba(34,197,94,0.3)]",
+        danger: "bg-red-500 shadow-[0_0_12px_rgba(239,68,68,0.3)]",
+        warning: "bg-yellow-500 shadow-[0_0_12px_rgba(234,179,8,0.3)]",
+        info: "bg-blue-500 shadow-[0_0_12px_rgba(59,130,246,0.3)]",
+      },
+    },
+    defaultVariants: {
+      color: "brand",
+    },
+  }
+);
 
-export const Progress: React.FC<ProgressProps> = ({
-  value,
-  max = 100,
-  size = "sm",
-  color = "brand",
-  label,
-  showValue = false,
-  animated = false,
-  className,
-  style,
-}) => {
-  const pct = Math.min(100, Math.max(0, (value / max) * 100));
-  const trackHeight = sizeMap[size] ?? 6;
-  const fillColor = colorMap[color] ?? "#00B38A";
+type ProgressColor = "brand" | "success" | "danger" | "warning" | "info";
 
-  return (
-    <div
-      className={className}
-      style={{ display: "flex", flexDirection: "column", gap: 4, width: "100%", ...style }}
-    >
-      {(label || showValue) && (
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 4 }}>
-          {label && (
-            <span style={{ fontSize: 12, fontWeight: 500, color: "var(--text-secondary, #9BACA6)" }}>
-              {label}
-            </span>
-          )}
-          {showValue && (
-            <span style={{ fontSize: 12, fontFamily: "monospace", color: "var(--text-tertiary, #5A706A)" }}>
-              {Math.round(pct)}%
-            </span>
-          )}
-        </div>
-      )}
+export interface ProgressProps 
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, "color">,
+    VariantProps<typeof progressVariants> {
+  value: number;
+  max?: number;
+  label?: string;
+  showValue?: boolean;
+  color?: ProgressColor;
+}
+
+export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
+  ({ className, value, max = 100, size, color = "brand", label, showValue, ...props }, ref) => {
+    const pct = Math.min(100, Math.max(0, (value / max) * 100));
+
+    return (
       <div
-        role="progressbar"
-        aria-valuenow={value}
-        aria-valuemin={0}
-        aria-valuemax={max}
-        aria-label={label}
-        style={{
-          width: "100%",
-          height: trackHeight,
-          background: "rgba(255,255,255,0.08)",
-          borderRadius: 9999,
-          overflow: "hidden",
-        }}
+        ref={ref}
+        className={cn("flex w-full flex-col gap-2", className)}
+        {...props}
       >
-        <div
-          style={{
-            height: "100%",
-            width: `${pct}%`,
-            background: fillColor,
-            borderRadius: 9999,
-            transition: "width 0.6s cubic-bezier(0.16, 1, 0.3, 1)",
-            boxShadow: `0 0 8px ${fillColor}66`,
-          }}
-        />
+        {(label || showValue) && (
+          <div className="flex justify-between items-center px-0.5">
+            {label && (
+              <span className="text-xs font-semibold text-neutral-400 font-body">
+                {label}
+              </span>
+            )}
+            {showValue && (
+              <span className="text-xs font-mono text-neutral-500">
+                {Math.round(pct)}%
+              </span>
+            )}
+          </div>
+        )}
+        <div className={cn(progressVariants({ size }))}>
+          <div
+            className={cn(barVariants({ color }))}
+            style={{ transform: `translateX(-${100 - pct}%)` }}
+          />
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  }
+);
 
 Progress.displayName = "Progress";

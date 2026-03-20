@@ -55,6 +55,5 @@ export * from "./Backdrop";
 export * from "./NotiStackProvider";
 export * from "./Carousel";
 export * from "./Animations";
-export * from "./RemixIcon";
 export * from "./Nudge";
 export * from "./NudgesPanel";

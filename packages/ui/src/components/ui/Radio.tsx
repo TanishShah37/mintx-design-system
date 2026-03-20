@@ -1,5 +1,6 @@
 import React from "react";
 import * as RadioGroupPrimitive from "@radix-ui/react-radio-group";
+import { cn } from "../../tokens/cn";
 
 export const RadioGroup = RadioGroupPrimitive.Root;
 
@@ -10,43 +11,33 @@ export interface RadioItemProps extends React.ComponentPropsWithoutRef<typeof Ra
 export const RadioGroupItem = React.forwardRef<
   React.ElementRef<typeof RadioGroupPrimitive.Item>,
   RadioItemProps
->(({ label, style, ...props }, ref) => {
+>(({ label, className, ...props }, ref) => {
   return (
-    <div style={{ display: "flex", alignItems: "center", gap: 10, cursor: props.disabled ? "not-allowed" : "pointer", opacity: props.disabled ? 0.5 : 1 }}>
+    <div className={cn(
+      "flex items-center gap-2.5",
+      props.disabled ? "cursor-not-allowed opacity-50" : "cursor-pointer"
+    )}>
       <RadioGroupPrimitive.Item
         ref={ref}
+        className={cn(
+          "h-5 w-5 shrink-0 rounded-full border border-border bg-surface transition-all duration-150 focus-visible:outline-none",
+          "hover:border-mint-400 group-hover:border-mint-400",
+          "data-[state=checked]:border-mint-500",
+          className
+        )}
         {...props}
-        style={{
-          width: 20,
-          height: 20,
-          borderRadius: "50%",
-          border: "1.5px solid var(--border-default, #2A3836)",
-          background: "var(--bg-surface, #111918)",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          flexShrink: 0,
-          cursor: props.disabled ? "not-allowed" : "pointer",
-          outline: "none",
-          transition: "border-color 0.15s",
-          ...style,
-        }}
       >
-        <RadioGroupPrimitive.Indicator>
-          <div style={{
-            width: 10,
-            height: 10,
-            borderRadius: "50%",
-            background: "#00B38A",
-          }} />
+        <RadioGroupPrimitive.Indicator className="flex items-center justify-center">
+          <div className="h-2.5 w-2.5 rounded-full bg-mint-500" />
         </RadioGroupPrimitive.Indicator>
       </RadioGroupPrimitive.Item>
       {label && (
-        <span style={{ fontSize: 14, color: "var(--text-primary, #E8EDE8)", fontFamily: "var(--font-body)", userSelect: "none" }}>
+        <span className="text-sm font-body text-primary select-none">
           {label}
         </span>
       )}
     </div>
   );
 });
+
 RadioGroupItem.displayName = "RadioGroupItem";

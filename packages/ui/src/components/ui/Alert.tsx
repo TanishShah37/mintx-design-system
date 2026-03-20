@@ -1,78 +1,63 @@
 import React from "react";
 import { AlertCircle, CheckCircle2, Info, XCircle } from "lucide-react";
+import { cn } from "../../tokens/cn";
+import { cva, type VariantProps } from "class-variance-authority";
 
-const variantStyles: Record<string, React.CSSProperties> = {
-  default: {
-    background: "rgba(255,255,255,0.04)",
-    border: "1px solid rgba(232,239,237,0.12)",
-    color: "var(--text-primary, #E8EFED)",
-  },
-  info: {
-    background: "rgba(0,179,138,0.08)",
-    border: "1px solid rgba(0,179,138,0.3)",
-    color: "#3DDCBA",
-  },
-  success: {
-    background: "rgba(34,197,94,0.08)",
-    border: "1px solid rgba(34,197,94,0.3)",
-    color: "#22C55E",
-  },
-  warning: {
-    background: "rgba(251,191,36,0.08)",
-    border: "1px solid rgba(251,191,36,0.3)",
-    color: "#FBBF24",
-  },
-  destructive: {
-    background: "rgba(239,68,68,0.08)",
-    border: "1px solid rgba(239,68,68,0.3)",
-    color: "#EF4444",
-  },
+const alertVariants = cva(
+  "flex items-start gap-4 p-4 rounded-xl border transition-all duration-200 shadow-sm",
+  {
+    variants: {
+      variant: {
+        default: "bg-surface text-primary border-border",
+        info: "bg-info/10 text-info border-info/20",
+        success: "bg-success/10 text-success border-success/20",
+        warning: "bg-warning/10 text-warning border-warning/20",
+        destructive: "bg-danger/10 text-danger border-danger/20",
+        brand: "bg-brand text-inverse border-brand shadow-brand",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+    },
+  }
+);
+
+const icons = {
+  default: <Info size={20} />,
+  info: <Info size={20} />,
+  success: <CheckCircle2 size={20} />,
+  warning: <AlertCircle size={20} />,
+  destructive: <XCircle size={20} />,
+  brand: <Info size={20} />,
 };
 
-const icons: Record<string, React.ReactNode> = {
-  default: <Info size={18} />,
-  info: <Info size={18} />,
-  success: <CheckCircle2 size={18} />,
-  warning: <AlertCircle size={18} />,
-  destructive: <XCircle size={18} />,
-};
-
-interface AlertProps extends React.HTMLAttributes<HTMLDivElement> {
-  variant?: "default" | "info" | "success" | "warning" | "destructive";
+export interface AlertProps 
+  extends React.HTMLAttributes<HTMLDivElement>, 
+    VariantProps<typeof alertVariants> {
   title?: string;
   description?: string;
 }
 
 export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
-  ({ className, variant = "default", title, description, children, style, ...props }, ref) => {
-    const vs = variantStyles[variant] ?? variantStyles.default;
+  ({ className, variant = "default", title, description, children, ...props }, ref) => {
     return (
       <div
         ref={ref}
         role="alert"
-        className={className}
-        style={{
-          display: "flex",
-          alignItems: "flex-start",
-          gap: 12,
-          padding: "12px 16px",
-          borderRadius: 14,
-          ...vs,
-          ...style,
-        }}
+        className={cn(alertVariants({ variant }), className)}
         {...props}
       >
-        <span style={{ color: vs.color as string, flexShrink: 0, marginTop: 1 }}>
+        <span className="flex-shrink-0 mt-0.5 text-current opacity-90">
           {icons[variant ?? "default"]}
         </span>
-        <div style={{ flex: 1 }}>
+        <div className="flex-1 min-w-0">
           {title && (
-            <p style={{ fontWeight: 600, fontSize: 14, marginBottom: description ? 2 : 0, color: vs.color as string }}>
+            <p className="text-sm font-bold mb-1 tracking-tight leading-none text-current">
               {title}
             </p>
           )}
           {description && (
-            <p style={{ fontSize: 13, opacity: 0.85, lineHeight: 1.5, color: vs.color as string }}>
+            <p className="text-xs opacity-90 leading-relaxed font-body text-current">
               {description}
             </p>
           )}

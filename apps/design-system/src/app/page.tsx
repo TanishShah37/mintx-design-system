@@ -43,7 +43,9 @@ import {
   Wallet,
   LogOut,
   Settings,
-  BarChart
+  BarChart,
+  Home,
+  User
 } from "lucide-react";
 import { 
   AssetLibrary, 
@@ -77,7 +79,6 @@ import {
   FadeIn,
   SlideIn,
   ScaleIn,
-  RemixIcon,
   Nudge,
   NudgesPanel,
   Tag,
@@ -2147,10 +2148,12 @@ export default function MintxDesignSystem() {
                     <ScaleIn><Badge variant="purple">Scale In</Badge></ScaleIn>
                   </div>
                   <div style={{ display: "flex", flexWrap: "wrap", gap: 16 }}>
-                    <RemixIcon name="ri-home-line" size={24} color="var(--text-brand)" />
-                    <RemixIcon name="ri-user-line" size={24} />
-                    <RemixIcon name="ri-settings-4-line" size={24} />
-                    <RemixIcon name="ri-notification-3-line" size={24} />
+                  <div className="flex flex-wrap gap-4">
+                    <Home size={24} className="text-mint-400" />
+                    <User size={24} className="text-neutral-400" />
+                    <Settings size={24} className="text-neutral-400" />
+                    <Bell size={24} className="text-neutral-400" />
+                  </div>
                   </div>
                 </div>
               </UiCard>

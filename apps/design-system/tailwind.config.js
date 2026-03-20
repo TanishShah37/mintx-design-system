@@ -36,28 +36,50 @@ module.exports = {
           950: "#040807",
         },
         brand: {
-          DEFAULT: "#10C9A0",
-          soft: "#E6FBF5",
+          DEFAULT: "var(--bg-brand)",
+          soft: "var(--bg-brand-soft)",
+          text: "var(--text-brand)",
         },
         surface: {
           DEFAULT: "var(--bg-surface)",
           elevated: "var(--bg-elevated)",
           base: "var(--bg-base)",
         },
-        muted: {
-          DEFAULT: "#EBF0EE",
-          foreground: "#748A83",
+        overlay: {
+          DEFAULT: "var(--bg-overlay)",
+        },
+        primary: {
+          DEFAULT: "var(--text-primary)",
+        },
+        secondary: {
+          DEFAULT: "var(--text-secondary)",
+        },
+        tertiary: {
+          DEFAULT: "var(--text-tertiary)",
+        },
+        disabled: {
+          DEFAULT: "var(--text-disabled)",
+        },
+        inverse: {
+          DEFAULT: "var(--text-inverse)",
+        },
+        success: {
+          DEFAULT: "var(--text-success)",
+        },
+        danger: {
+          DEFAULT: "var(--text-danger)",
+        },
+        warning: {
+          DEFAULT: "var(--text-warning)",
+        },
+        info: {
+          DEFAULT: "var(--text-info)",
         },
         border: {
           DEFAULT: "var(--border-default)",
-        },
-        primary: {
-          DEFAULT: "#10C9A0",
-          foreground: "#080E0D",
-        },
-        destructive: {
-          DEFAULT: "#DC2626",
-          foreground: "#FFFFFF",
+          subtle: "var(--border-subtle)",
+          strong: "var(--border-strong)",
+          brand: "var(--border-brand)",
         },
       },
       fontFamily: {

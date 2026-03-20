@@ -1,5 +1,6 @@
 import React from "react";
 import { Tag, type TagProps } from "./Tag";
+import { cn } from "../../tokens/cn";
 
 export interface TagGroupProps {
   tags: string[];
@@ -7,7 +8,7 @@ export interface TagGroupProps {
   variant?: TagProps["variant"];
   size?: TagProps["size"];
   label?: string;
-  style?: React.CSSProperties;
+  className?: string;
 }
 
 export const TagGroup: React.FC<TagGroupProps> = ({
@@ -16,16 +17,16 @@ export const TagGroup: React.FC<TagGroupProps> = ({
   variant,
   size,
   label,
-  style,
+  className,
 }) => {
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 8, ...style }}>
+    <div className={cn("flex flex-col gap-2", className)}>
       {label && (
-        <span style={{ fontSize: 12, fontWeight: 600, color: "var(--text-secondary, #748A83)", fontFamily: "var(--font-body)", textTransform: "uppercase", letterSpacing: "0.05em" }}>
+        <span className="text-xs font-bold uppercase tracking-widest text-neutral-400 font-body">
           {label}
         </span>
       )}
-      <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+      <div className="flex flex-wrap gap-1.5">
         {tags.map((tag) => (
           <Tag
             key={tag}

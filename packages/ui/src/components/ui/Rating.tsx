@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Star } from "lucide-react";
+import { cn } from "../../tokens/cn";
 
 export interface RatingProps {
   value?: number;
@@ -11,7 +12,11 @@ export interface RatingProps {
   label?: string;
 }
 
-const sizePx: Record<string, number> = { sm: 14, md: 20, lg: 28 };
+const sizeClasses = {
+  sm: "h-3.5 w-3.5",
+  md: "h-5 w-5",
+  lg: "h-7 w-7",
+};
 
 export const Rating: React.FC<RatingProps> = ({
   value = 0,
@@ -19,23 +24,22 @@ export const Rating: React.FC<RatingProps> = ({
   onChange,
   readonly = false,
   size = "md",
+  className,
   label,
 }) => {
   const [hoverValue, setHoverValue] = useState<number | null>(null);
-  const px = sizePx[size];
   const displayValue = hoverValue !== null ? hoverValue : value;
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 6 }}>
+    <div className={cn("flex flex-col gap-1.5", className)}>
       {label && (
-        <span style={{ fontSize: 13, fontWeight: 600, color: "var(--text-secondary, #748A83)", fontFamily: "var(--font-body)" }}>
+        <span className="text-sm font-semibold text-neutral-400 font-body">
           {label}
         </span>
       )}
-      <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
+      <div className="flex items-center gap-1">
         {Array.from({ length: max }).map((_, i) => {
           const starValue = i + 1;
-          // Support half stars: treat value like 3.5 → stars 1,2,3 are full, star 4 is empty
           const isFull = displayValue >= starValue;
           const isHalf = !isFull && displayValue >= starValue - 0.5;
 
@@ -47,23 +51,18 @@ export const Rating: React.FC<RatingProps> = ({
               onMouseEnter={() => !readonly && setHoverValue(starValue)}
               onMouseLeave={() => !readonly && setHoverValue(null)}
               onClick={() => !readonly && onChange?.(starValue)}
-              style={{
-                background: "none",
-                border: "none",
-                padding: 0,
-                cursor: readonly ? "default" : "pointer",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                transition: "transform 0.15s",
-                outline: "none",
-              }}
+              className={cn(
+                "flex items-center justify-center p-0 bg-transparent border-none transition-transform duration-150 outline-none",
+                readonly ? "cursor-default" : "cursor-pointer hover:scale-110 active:scale-90"
+              )}
             >
               <Star
-                size={px}
-                color={isFull || isHalf ? "#F59E0B" : "var(--border-default, #2A3836)"}
-                fill={isFull ? "#F59E0B" : "transparent"}
-                style={{ transition: "color 0.15s" }}
+                className={cn(
+                  sizeClasses[size],
+                  "transition-all duration-150",
+                  isFull || isHalf ? "text-amber-500" : "text-border/20",
+                  isFull && "fill-amber-500"
+                )}
               />
             </button>
           );

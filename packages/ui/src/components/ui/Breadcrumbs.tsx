@@ -1,6 +1,7 @@
 import React from "react";
 import { ChevronRight } from "lucide-react";
 import { Link } from "./Link";
+import { cn } from "../../tokens/cn";
 
 export interface BreadcrumbItem {
   label: string;
@@ -15,49 +16,38 @@ export interface BreadcrumbsProps extends React.HTMLAttributes<HTMLElement> {
 
 export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
   items,
-  separator = <ChevronRight size={13} color="var(--text-tertiary, #4A6260)" />,
-  style,
+  separator = <ChevronRight size={13} className="text-neutral-600" />,
+  className,
   ...props
 }) => {
   return (
     <nav
       aria-label="Breadcrumb"
-      style={{ display: "flex", alignItems: "center", ...style }}
+      className={cn("flex items-center", className)}
       {...props}
     >
-      <ol style={{ display: "flex", alignItems: "center", gap: 6, listStyle: "none", padding: 0, margin: 0, flexWrap: "wrap" }}>
+      <ol className="flex flex-wrap items-center gap-1.5 list-none p-0 m-0">
         {items.map((item, index) => {
           const isLast = index === items.length - 1;
 
           return (
             <React.Fragment key={item.label}>
-              <li style={{ display: "flex", alignItems: "center", gap: 4 }}>
+              <li className="flex items-center gap-1">
                 {item.href && !isLast ? (
                   <Link
                     href={item.href}
                     variant="muted"
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 4,
-                      fontSize: 13,
-                      fontFamily: "var(--font-body)",
-                    }}
+                    className="flex items-center gap-1 text-sm font-body hover:text-primary transition-colors"
                   >
                     {item.icon}
                     {item.label}
                   </Link>
                 ) : (
                   <span
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 4,
-                      fontSize: 13,
-                      fontWeight: isLast ? 600 : 400,
-                      color: isLast ? "var(--text-primary, #E8EDE8)" : "var(--text-secondary, #748A83)",
-                      fontFamily: "var(--font-body)",
-                    }}
+                    className={cn(
+                      "flex items-center gap-1 text-sm font-body",
+                      isLast ? "font-semibold text-primary" : "text-neutral-400"
+                    )}
                   >
                     {item.icon}
                     {item.label}
@@ -65,8 +55,8 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
                 )}
               </li>
               {!isLast && (
-                <li aria-hidden="true" style={{ display: "flex", alignItems: "center", lineHeight: 1, fontSize: 12, color: "var(--text-tertiary, #4A6260)" }}>
-                  {typeof separator === "string" ? separator : separator}
+                <li aria-hidden="true" className="flex items-center text-neutral-600">
+                  {separator}
                 </li>
               )}
             </React.Fragment>

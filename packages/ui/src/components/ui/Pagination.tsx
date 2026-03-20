@@ -1,5 +1,6 @@
 import React from "react";
 import { ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react";
+import { cn } from "../../tokens/cn";
 
 export interface PaginationProps {
   currentPage: number;
@@ -12,6 +13,7 @@ export const Pagination: React.FC<PaginationProps> = ({
   currentPage,
   totalPages,
   onPageChange,
+  className,
 }) => {
   const getPages = (): (number | "ellipsis")[] => {
     const pages: (number | "ellipsis")[] = [];
@@ -29,32 +31,19 @@ export const Pagination: React.FC<PaginationProps> = ({
     return pages;
   };
 
-  const btnBase: React.CSSProperties = {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    width: 36,
-    height: 36,
-    borderRadius: 8,
-    border: "none",
-    cursor: "pointer",
-    fontFamily: "var(--font-body)",
-    fontSize: 13,
-    fontWeight: 600,
-    transition: "all 0.15s",
-    outline: "none",
-  };
+  const btnBaseClass = "flex items-center justify-center w-9 h-9 rounded-lg border-none cursor-pointer font-body text-sm font-semibold transition-all duration-150 focus-visible:outline-none";
 
   return (
-    <nav role="navigation" aria-label="pagination" style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 4 }}>
+    <nav 
+      role="navigation" 
+      aria-label="pagination" 
+      className={cn("flex items-center justify-center gap-1", className)}
+    >
       <button
-        style={{
-          ...btnBase,
-          background: "var(--bg-overlay, #1A2624)",
-          color: currentPage === 1 ? "var(--text-tertiary, #4A6260)" : "var(--text-secondary, #748A83)",
-          cursor: currentPage === 1 ? "not-allowed" : "pointer",
-          opacity: currentPage === 1 ? 0.4 : 1,
-        }}
+        className={cn(
+          btnBaseClass,
+          "bg-overlay text-neutral-400 hover:text-primary hover:bg-neutral-800 disabled:opacity-40 disabled:cursor-not-allowed"
+        )}
         onClick={() => currentPage > 1 && onPageChange(currentPage - 1)}
         disabled={currentPage === 1}
         aria-label="Previous"
@@ -65,17 +54,17 @@ export const Pagination: React.FC<PaginationProps> = ({
       {getPages().map((page, index) => (
         <React.Fragment key={index}>
           {page === "ellipsis" ? (
-            <div style={{ ...btnBase, background: "transparent", cursor: "default" }}>
-              <MoreHorizontal size={16} color="var(--text-tertiary, #4A6260)" />
+            <div className={cn(btnBaseClass, "bg-transparent cursor-default text-neutral-600")}>
+              <MoreHorizontal size={16} />
             </div>
           ) : (
             <button
-              style={{
-                ...btnBase,
-                background: currentPage === page ? "#00B38A" : "var(--bg-overlay, #1A2624)",
-                color: currentPage === page ? "#fff" : "var(--text-secondary, #748A83)",
-                boxShadow: currentPage === page ? "0 2px 8px rgba(0,179,138,0.3)" : "none",
-              }}
+              className={cn(
+                btnBaseClass,
+                currentPage === page 
+                  ? "bg-mint-500 text-white shadow-brand hover:bg-mint-600" 
+                  : "bg-overlay text-neutral-400 hover:bg-neutral-800 hover:text-primary"
+              )}
               onClick={() => onPageChange(page as number)}
               aria-label={`Page ${page}`}
               aria-current={currentPage === page ? "page" : undefined}
@@ -87,13 +76,10 @@ export const Pagination: React.FC<PaginationProps> = ({
       ))}
 
       <button
-        style={{
-          ...btnBase,
-          background: "var(--bg-overlay, #1A2624)",
-          color: currentPage === totalPages ? "var(--text-tertiary, #4A6260)" : "var(--text-secondary, #748A83)",
-          cursor: currentPage === totalPages ? "not-allowed" : "pointer",
-          opacity: currentPage === totalPages ? 0.4 : 1,
-        }}
+        className={cn(
+          btnBaseClass,
+          "bg-overlay text-neutral-400 hover:text-primary hover:bg-neutral-800 disabled:opacity-40 disabled:cursor-not-allowed"
+        )}
         onClick={() => currentPage < totalPages && onPageChange(currentPage + 1)}
         disabled={currentPage === totalPages}
         aria-label="Next"

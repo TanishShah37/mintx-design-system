@@ -37,13 +37,50 @@ const config: Config = {
           950: "#040807",
         },
         brand: {
-          DEFAULT: "var(--mint-400)",
-          soft: "var(--mint-50)",
+          DEFAULT: "var(--bg-brand)",
+          soft: "var(--bg-brand-soft)",
+          text: "var(--text-brand)",
         },
         surface: {
           DEFAULT: "var(--bg-surface)",
           elevated: "var(--bg-elevated)",
           base: "var(--bg-base)",
+        },
+        overlay: {
+          DEFAULT: "var(--bg-overlay)",
+        },
+        primary: {
+          DEFAULT: "var(--text-primary)",
+        },
+        secondary: {
+          DEFAULT: "var(--text-secondary)",
+        },
+        tertiary: {
+          DEFAULT: "var(--text-tertiary)",
+        },
+        disabled: {
+          DEFAULT: "var(--text-disabled)",
+        },
+        inverse: {
+          DEFAULT: "var(--text-inverse)",
+        },
+        success: {
+          DEFAULT: "var(--text-success)",
+        },
+        danger: {
+          DEFAULT: "var(--text-danger)",
+        },
+        warning: {
+          DEFAULT: "var(--text-warning)",
+        },
+        info: {
+          DEFAULT: "var(--text-info)",
+        },
+        border: {
+          DEFAULT: "var(--border-default)",
+          subtle: "var(--border-subtle)",
+          strong: "var(--border-strong)",
+          brand: "var(--border-brand)",
         },
       },
       fontFamily: {

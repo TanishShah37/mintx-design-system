@@ -1,5 +1,6 @@
 import React from "react";
 import * as TooltipPrimitive from "@radix-ui/react-tooltip";
+import { cn } from "../../tokens/cn";
 
 export const TooltipProvider = TooltipPrimitive.Provider;
 export const Tooltip = TooltipPrimitive.Root;
@@ -8,31 +9,20 @@ export const TooltipTrigger = TooltipPrimitive.Trigger;
 export const TooltipContent = React.forwardRef<
   React.ElementRef<typeof TooltipPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof TooltipPrimitive.Content>
->(({ sideOffset = 6, style, ...props }, ref) => (
+>(({ className, sideOffset = 6, ...props }, ref) => (
   <TooltipPrimitive.Content
     ref={ref}
     sideOffset={sideOffset}
-    style={{
-      zIndex: 9999,
-      overflow: "hidden",
-      borderRadius: 8,
-      background: "rgba(20,30,28,0.95)",
-      backdropFilter: "blur(12px)",
-      border: "1px solid rgba(255,255,255,0.08)",
-      padding: "6px 12px",
-      fontSize: 12,
-      fontWeight: 700,
-      color: "var(--text-primary, #E8EDE8)",
-      fontFamily: "var(--font-body)",
-      letterSpacing: "0.03em",
-      textTransform: "uppercase",
-      boxShadow: "0 8px 24px rgba(0,0,0,0.3)",
-      maxWidth: 260,
-      ...style,
-    }}
+    className={cn(
+      "z-[9999] overflow-hidden rounded-lg px-3 py-1.5 text-xs font-bold uppercase tracking-wider",
+      "bg-neutral-900/95 backdrop-blur-lg border border-white/5",
+      "text-primary shadow-xl animate-in fade-in-0 zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
+      className
+    )}
     {...props}
   />
 ));
+
 TooltipContent.displayName = TooltipPrimitive.Content.displayName;
 
 export type { TooltipProps } from "@radix-ui/react-tooltip";

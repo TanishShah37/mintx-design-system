@@ -1,4 +1,5 @@
 import React from "react";
+import { cn } from "../../tokens/cn";
 
 export interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   variant?: "default" | "muted" | "brand";
@@ -8,34 +9,30 @@ export interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement>
 export const Link: React.FC<LinkProps> = ({
   variant = "default",
   underline = "hover",
-  style,
+  className,
   children,
   ...props
 }) => {
-  const colorMap = {
-    default: "var(--text-primary, #E8EDE8)",
-    muted: "var(--text-secondary, #748A83)",
-    brand: "#00B38A",
+  const variantClasses = {
+    default: "text-primary hover:opacity-80",
+    muted: "text-neutral-400 hover:text-primary",
+    brand: "text-mint-500 hover:text-mint-400",
+  };
+
+  const underlineClasses = {
+    none: "no-underline",
+    hover: "no-underline hover:underline",
+    always: "underline",
   };
 
   return (
     <a
-      style={{
-        color: colorMap[variant],
-        textDecoration: underline === "always" ? "underline" : "none",
-        cursor: "pointer",
-        transition: "opacity 0.15s",
-        fontFamily: "var(--font-body)",
-        ...style,
-      }}
-      onMouseEnter={(e) => {
-        (e.currentTarget as HTMLElement).style.opacity = "0.75";
-        if (underline === "hover") (e.currentTarget as HTMLElement).style.textDecoration = "underline";
-      }}
-      onMouseLeave={(e) => {
-        (e.currentTarget as HTMLElement).style.opacity = "1";
-        if (underline === "hover") (e.currentTarget as HTMLElement).style.textDecoration = "none";
-      }}
+      className={cn(
+        "transition-all duration-150 cursor-pointer font-body inline-flex items-center gap-1.5",
+        variantClasses[variant],
+        underlineClasses[underline],
+        className
+      )}
       {...props}
     >
       {children}
