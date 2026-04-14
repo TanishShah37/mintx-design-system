@@ -1,9 +1,10 @@
-// Re-export useTheme from ThemeProvider
-export { useTheme } from "../components/layout/ThemeProvider";
+"use client";
+
+export { useTheme } from "../components/shell/ThemeProvider";
 
 // ── usePriceDirection ──────────────────────────────────────
 import { useMemo } from "react";
-import type { PriceDirection } from "../types";
+import { type PriceDirection } from "../components/financial/PriceChange";
 
 export function usePriceDirection(value: number): PriceDirection {
   return useMemo(() => {

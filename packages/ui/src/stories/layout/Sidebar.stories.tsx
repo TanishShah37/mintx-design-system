@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Sidebar } from "../../components/layout/Sidebar";
-import { ThemeProvider } from "../../components/layout/ThemeProvider";
+import { Sidebar } from "../../components/shell/Sidebar";
+import { ThemeProvider } from "../../components/shell/ThemeProvider";
 import {
   Home,
   TrendingUp,

@@ -60,6 +60,21 @@ import {
   CandlestickChart,
   BaselineChart,
   VolumeChart,
+  MetricCard,
+  StockCard,
+  InsightCard,
+  Sparkline,
+  PriceChange,
+  SupportLiveBar,
+  Hero,
+  Differentiators,
+  HowItWorks,
+  StatsSection,
+  CommunitySection,
+  Ticker,
+  WaitlistForm,
+  NudgesPanel,
+  Nudge,
   Alert,
   Loader,
   Progress,
@@ -79,8 +94,6 @@ import {
   FadeIn,
   SlideIn,
   ScaleIn,
-  Nudge,
-  NudgesPanel,
   Tag,
   Rating,
   Badge,
@@ -113,6 +126,7 @@ import {
   Avatar,
   AvatarImage,
   AvatarFallback,
+  AppFooter,
 } from "@mintx/ui";
 
 // ─── Inline mini-implementations for the live demo ───────────────────────────
@@ -175,43 +189,6 @@ const MintxMark = ({ size = 32 }: { size?: number }) => (
   </svg>
 );
 
-// ─── Sparkline ─────────────────────────────────────────────────────────────
-const Sparkline = ({ data, dir }: { data: number[]; dir: PriceDir }) => {
-  const h = 40;
-  const w = 200;
-  const min = Math.min(...data);
-  const max = Math.max(...data);
-  const range = max - min || 1;
-  const step = w / (data.length - 1);
-  const pts = data
-    .map((v, i) => `${i * step},${h - ((v - min) / range) * (h - 6) - 3}`)
-    .join(" ");
-  const fill =
-    dir === "up"
-      ? "rgba(34,197,94,0.09)"
-      : dir === "down"
-        ? "rgba(248,113,113,0.09)"
-        : "rgba(116,138,131,0.06)";
-  const stroke =
-    dir === "up" ? "#22C55E" : dir === "down" ? "#F87171" : "#748A83";
-  return (
-    <svg
-      viewBox={`0 0 ${w} ${h}`}
-      preserveAspectRatio="none"
-      style={{ display: "block", width: "100%", height: h }}
-    >
-      <polygon points={`${pts} ${w},${h} 0,${h}`} fill={fill} stroke="none" />
-      <polyline
-        points={pts}
-        fill="none"
-        stroke={stroke}
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-};
 
 // ─── Sample data for sparklines ──────────────────────────────────────────
 const spkUp = [35, 30, 32, 25, 20, 22, 15, 10, 8];
@@ -270,6 +247,9 @@ const sections = [
   "icons",
   "illustrations",
   "typography",
+  "onboarding",
+  "engagement",
+  "marketing",
 ];
 
 // ── Chart Tabs for Sidebar ──────────────────────────────────────────────────
@@ -525,16 +505,57 @@ export default function MintxDesignSystem() {
         
         @media (max-width: 1024px) {
            .header-content {
-             flex-direction: column;
-             height: auto !important;
              padding: 12px var(--sp-6) !important;
-             gap: 12px;
            }
-           .header-tabs {
-             width: 100%;
-             order: 3;
-             justify-content: flex-start !important;
-           }
+        }
+
+        .layout-container {
+          display: flex;
+          min-height: calc(100vh - 56px);
+        }
+        .layout-sidebar {
+          width: 260px;
+          border-right: 1px solid var(--border-subtle);
+          background: var(--bg-surface);
+          position: sticky;
+          top: 56px;
+          height: calc(100vh - 56px);
+          overflow-y: auto;
+          display: flex;
+          flex-direction: column;
+          padding: 32px 12px;
+          z-index: 100;
+          flex-shrink: 0;
+        }
+        .layout-main {
+          flex: 1;
+          min-width: 0;
+          background: var(--bg-base);
+        }
+
+        @media (max-width: 1024px) {
+          .layout-container {
+            flex-direction: column;
+          }
+          .layout-sidebar {
+            width: 100%;
+            height: auto;
+            position: sticky;
+            top: 56px;
+            border-right: none;
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 8px var(--sp-4);
+            flex-direction: row;
+            overflow-x: auto;
+            scrollbar-width: none;
+            gap: 4px;
+          }
+          .layout-sidebar::-webkit-scrollbar {
+            display: none;
+          }
+          .sidebar-label {
+            display: none;
+          }
         }
       `}</style>
 
@@ -583,45 +604,6 @@ export default function MintxDesignSystem() {
           </span>
         </div>
 
-        {/* Section tabs */}
-        <div
-          className="header-tabs tab-scroll"
-          style={{
-            display: "flex",
-            gap: 2,
-            background: "var(--bg-base)",
-            border: "1px solid var(--border-default)",
-            borderRadius: 10,
-            padding: 3,
-          }}
-        >
-          {sections.map((s) => (
-            <button
-              key={s}
-              onClick={() => setActiveTab(s)}
-              style={{
-                padding: "5px 12px",
-                borderRadius: 8,
-                border: "none",
-                background:
-                  activeTab === s ? "var(--bg-surface)" : "transparent",
-                color:
-                  activeTab === s
-                    ? "var(--text-primary)"
-                    : "var(--text-tertiary)",
-                fontFamily: "var(--font-body)",
-                fontSize: 12,
-                fontWeight: activeTab === s ? 600 : 500,
-                boxShadow: activeTab === s ? "var(--shadow-sm)" : "none",
-                transition: "all 0.15s",
-                textTransform: "capitalize",
-                whiteSpace: "nowrap",
-              }}
-            >
-              {s}
-            </button>
-          ))}
-        </div>
 
         {/* Theme toggle & Storybook */}
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
@@ -671,10 +653,47 @@ export default function MintxDesignSystem() {
         </div>
       </header>
 
-      {/* ══════════════════════════════════════════════
-          HERO
-      ══════════════════════════════════════════════ */}
-      <div
+      <div className="layout-container">
+        <aside className="layout-sidebar">
+          <div className="sidebar-label" style={{ fontSize: 11, fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.1em", color: "var(--text-tertiary)", padding: "0 12px 12px", borderBottom: "1px solid var(--border-subtle)", marginBottom: 16 }}>
+            Components
+          </div>
+          <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+            {sections.map((s) => (
+              <button
+                key={s}
+                onClick={() => setActiveTab(s)}
+                style={{
+                  padding: "10px 14px",
+                  borderRadius: 10,
+                  border: "none",
+                  textAlign: "left",
+                  background: activeTab === s ? "var(--bg-brand-soft)" : "transparent",
+                  color: activeTab === s ? "var(--text-brand)" : "var(--text-secondary)",
+                  fontFamily: "var(--font-body)",
+                  fontSize: 13,
+                  fontWeight: activeTab === s ? 600 : 500,
+                  transition: "all 0.15s",
+                  textTransform: "capitalize",
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 8,
+                  whiteSpace: "nowrap",
+                }}
+              >
+                {activeTab === s && <div style={{ width: 6, height: 6, borderRadius: "50%", background: "var(--mint-400)" }} />}
+                {s.replace("-", " ")}
+              </button>
+            ))}
+          </div>
+        </aside>
+
+        <main className="layout-main">
+          {/* ══════════════════════════════════════════════
+              HERO
+          ══════════════════════════════════════════════ */}
+          <div
         style={{
           background: "var(--bg-surface)",
           borderBottom: "1px solid var(--border-subtle)",
@@ -1647,7 +1666,7 @@ export default function MintxDesignSystem() {
                <Card>
                   <Label>Interactive Data Table</Label>
                   <div style={{ marginTop: 12 }}>
-                <DataTableEl 
+                <DataTable 
                    columns={tableColumns} 
                    data={tableData} 
                    searchKey="asset" 
@@ -1682,30 +1701,27 @@ export default function MintxDesignSystem() {
               {[
                 {
                   label: "Nifty 50",
-                  value: "24,315",
-                  delta: "+143",
-                  dir: "up" as PriceDir,
+                  value: 24315,
+                  prefix: "₹",
+                  delta: 143.25,
                 },
                 {
                   label: "Sensex",
-                  value: "80,220",
-                  delta: "-112",
-                  dir: "down" as PriceDir,
+                  value: 80220,
+                  delta: -112.45,
                 },
                 {
                   label: "Bank Nifty",
-                  value: "51,840",
-                  delta: "+320",
-                  dir: "up" as PriceDir,
+                  value: 51840,
+                  delta: 320.10,
                 },
                 {
                   label: "VIX",
-                  value: "13.42",
-                  delta: "-0.81",
-                  dir: "down" as PriceDir,
+                  value: 13.42,
+                  deltaLabel: "Low volatility",
                 },
               ].map((m) => (
-                <MetricCardEl key={m.label} {...m} />
+                <MetricCard key={m.label} data={m} />
               ))}
             </div>
 
@@ -1716,29 +1732,35 @@ export default function MintxDesignSystem() {
                 marginBottom: 16,
               }}
             >
-              <StockCardEl
-                ticker="TCS"
-                name="Tata Consultancy Svcs"
-                price="₹3,847"
-                pct="+2.34%"
-                dir="up"
-                spk={spkUp}
+              <StockCard
+                data={{
+                  ticker: "TCS",
+                  name: "Tata Consultancy Svcs",
+                  price: 3847.25,
+                  change: 88.45,
+                  changePercent: 2.34,
+                  sparkline: spkUp,
+                }}
               />
-              <StockCardEl
-                ticker="INFY"
-                name="Infosys Limited"
-                price="₹1,456"
-                pct="-1.23%"
-                dir="down"
-                spk={spkDown}
+              <StockCard
+                data={{
+                  ticker: "INFY",
+                  name: "Infosys Limited",
+                  price: 1456.80,
+                  change: -18.15,
+                  changePercent: -1.23,
+                  sparkline: spkDown,
+                }}
               />
-              <StockCardEl
-                ticker="RELIANCE"
-                name="Reliance Industries"
-                price="₹2,847"
-                pct="+0.04%"
-                dir="flat"
-                spk={spkFlat}
+              <StockCard
+                data={{
+                  ticker: "RELIANCE",
+                  name: "Reliance Industries",
+                  price: 2847.10,
+                  change: 1.15,
+                  changePercent: 0.04,
+                  sparkline: spkFlat,
+                }}
               />
             </div>
 
@@ -1749,14 +1771,16 @@ export default function MintxDesignSystem() {
                 gap: 12,
               }}
             >
-              <InsightCardEl
-                tag="Volume Breakout"
-                title="TCS Volume 3× average — unusual activity detected"
-                body="Today's volume at 2.1M shares is 3× the 20-day average. This often precedes significant price movement. Use as one signal among many. Educational and informational only."
-                badges={[
-                  { label: "Illustrative only", v: "neutral" },
-                  { label: "Volume signal", v: "mint" },
-                ]}
+              <InsightCard
+                data={{
+                  tag: "Volume Breakout",
+                  title: "TCS Volume 3× average — unusual activity detected",
+                  body: "Today's volume at 2.1M shares is 3× the 20-day average. This often precedes significant price movement. Use as one signal among many. Educational and informational only.",
+                  badges: [
+                    { label: "Illustrative only", variant: "neutral" },
+                    { label: "Volume signal", variant: "mint" },
+                  ]
+                }}
               />
             </div>
 
@@ -2310,6 +2334,201 @@ export default function MintxDesignSystem() {
           </section>
         )}
 
+        {/* ── ONBOARDING ────────────────────────── */}
+        {activeTab === "onboarding" && (
+          <section>
+            <SectionHeader
+              tag="Support & Status"
+              title="Onboarding & Assistance"
+              desc="Persistent bars and progress trackers to help users through complex flows."
+            />
+            <div className="flex flex-col gap-8">
+              <UiCard variant="raised" padding="lg">
+                <Label>Live Support Bar</Label>
+                <div className="mt-4 border border-border-subtle rounded-xl overflow-hidden">
+                  <SupportLiveBar 
+                    marketStatus={{ 
+                      session: "open", 
+                      label: "NSE Midcap 100", 
+                      nextEvent: "Closes in", 
+                      nextEventTime: "1h 42m" 
+                    }} 
+                    onSupportClick={() => alert("Support clicked")}
+                  />
+                </div>
+              </UiCard>
+            </div>
+          </section>
+        )}
+
+        {/* ── ENGAGEMENT ────────────────────────── */}
+        {activeTab === "engagement" && (
+          <section>
+            <SectionHeader
+              tag="In-app Marketing"
+              title="Engagement & Nudges"
+              desc="Contextual call-to-actions and small notifications to drive user behavior."
+            />
+            <div className="resp-grid" style={{ gap: 24 }}>
+              <UiCard variant="raised" padding="lg">
+                <Label>Single Nudge</Label>
+                <div className="mt-4 flex justify-center p-8 bg-surface-elevated rounded-xl border border-dashed border-border-strong">
+                  <Nudge 
+                    id="n1"
+                    title="Unlock Pro Analytics"
+                    description="Get deep insights into Fibonacci retracement zones and unusual volume activity."
+                    actionLabel="Try 7 days Free"
+                    onAction={() => alert("Action!")}
+                  />
+                </div>
+              </UiCard>
+
+              <UiCard variant="raised" padding="lg">
+                <Label>Nudges Panel</Label>
+                <div className="mt-4 p-4 text-center">
+                  <p className="text-sm text-text-tertiary">
+                    Nudges Panel is usually fixed at the bottom-right corner.
+                    It manages multiple nudges with enter/exit animations.
+                  </p>
+                </div>
+              </UiCard>
+            </div>
+          </section>
+        )}
+
+        {/* ── MARKETING ────────────────────────── */}
+        {activeTab === "marketing" && (
+          <section>
+            <SectionHeader
+              tag="Marketing & Acquisition"
+              title="Marketing Components"
+              desc="High-conversion landing page sections for the Coming Soon and promotional pages."
+            />
+            
+            <div className="space-y-12">
+              <UiCard variant="raised" padding="none" className="overflow-hidden">
+                <Label className="p-6">Hero Component</Label>
+                <div className="border-t border-border-subtle bg-[#080E0D]">
+                  <Hero 
+                    theme="dark"
+                    tag="PREMIUM FEATURE"
+                    title={<>Trade with<br/><span style={{ color: MINT }}>Confidence</span></>}
+                    description="Get institutional-grade analysis for the retail investor prices."
+                    features={["Live Ticker", "FII Analysis", "Expert Signals"]}
+                  >
+                    <div className="max-w-md">
+                      <WaitlistForm theme="dark" size="md" />
+                    </div>
+                  </Hero>
+                </div>
+              </UiCard>
+
+              <div className="space-y-12">
+                  <UiCard variant="raised" padding="none" className="overflow-hidden">
+                    <Label className="p-6">Differentiators (Features Grid)</Label>
+                    <div className="border-t border-border-subtle bg-[#080E0D]">
+                       <Differentiators 
+                         theme="dark"
+                         title="Built for the alpha seeker"
+                         items={[
+                           {
+                             rank: "01",
+                             title: "Know where\nthe stock will move",
+                             body: "No more guess work Mintx calculates using Fibonacci retracement, the same method used by trading desks globally.",
+                             metric: "6 levels",
+                             metricSub: "calculated automatically",
+                             tag: "Support & Resistance",
+                             accent: MINT,
+                             icon: <Zap size={20} />
+                           },
+                           {
+                             rank: "02",
+                             title: "Build your own\nscreener",
+                             body: "Pick your filters (price near support, RSI oversold, FII buying) and get a focused shortlist in seconds.",
+                             metric: "2,800+",
+                             metricSub: "NSE stocks filtered",
+                             tag: "DIY Screener",
+                             accent: "#3DDCBA",
+                             icon: <PlusCircle size={20} />
+                           },
+                           {
+                             rank: "03",
+                             title: "See where big money\nis moving",
+                             body: "FIIs and DIIs move markets. Mintx tracks their daily cash flows and shows you the trend in plain numbers.",
+                             metric: "₹Crore",
+                             metricSub: "institutional flows daily",
+                             tag: "Big Money",
+                             accent: "#22C55E",
+                             icon: <TrendingUp size={20} />
+                           }
+                         ]}
+                       />
+                    </div>
+                  </UiCard>
+
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <UiCard variant="raised" padding="lg">
+                      <Label>Waitlist Form Layouts (sm)</Label>
+                      <div className="mt-8 space-y-6">
+                        <WaitlistForm theme="dark" size="sm" />
+                        <div className="p-6 border border-border-default rounded-xl bg-surface">
+                          <p className="text-xs text-text-tertiary mb-4">Light Minimalist</p>
+                          <WaitlistForm theme="light" size="sm" />
+                        </div>
+                      </div>
+                    </UiCard>
+                    
+                    <UiCard variant="raised" padding="lg">
+                      <Label>Standard Size (md)</Label>
+                      <div className="mt-8">
+                        <WaitlistForm theme="dark" size="md" />
+                      </div>
+                      <div className="mt-8 p-8 border border-border-default border-dashed rounded-2xl flex items-center justify-center">
+                         <div className="text-center">
+                           <p className="text-xs text-text-tertiary mb-2 font-mono uppercase tracking-widest">Waitlist Badge</p>
+                           <div className="inline-flex items-center gap-2 px-3 py-1 bg-mint-400/10 border border-mint-400/20 rounded-full text-mint-400 text-[10px] font-bold">
+                              <span className="w-1 h-1 rounded-full bg-mint-400 animate-pulse" />
+                              340+ INVESTORS WAITING
+                           </div>
+                         </div>
+                      </div>
+                    </UiCard>
+                  </div>
+              </div>
+
+              <UiCard variant="raised" padding="none" className="overflow-hidden">
+                <Label className="p-6">Journey (How it Works)</Label>
+                <div className="border-t border-border-subtle pb-12 bg-[#080E0D]">
+                   <HowItWorks 
+                     theme="dark"
+                     label="The Process"
+                     steps={[
+                       { n: "01", title: "Search any stock or index", body: "Type TCS, RELIANCE, or NIFTY. Get support zones, resistance levels, and institutional activity instantly." },
+                       { n: "02", title: "Filter to your edge", body: "Use the DIY screener to narrow 2,800 stocks down to 10 that match your strategy. Near support. FII buying." },
+                       { n: "03", title: "Track and Alert", body: "Set alerts when a stock reaches a Fibonacci zone. Know before the market moves, not after it." }
+                     ]}
+                   />
+                </div>
+              </UiCard>
+              
+              <UiCard variant="raised" padding="none" className="overflow-hidden">
+                <Label className="p-6">Stats & Social Proof</Label>
+                <div className="border-t border-border-subtle">
+                  <StatsSection 
+                    theme="light"
+                    stats={[
+                      { val: "2,800+", label: "NSE Stocks", sub: "daily analysis" },
+                      { val: "6", label: "Fib Levels", sub: "auto-calculated" },
+                      { val: "Live", label: "FII Flows", sub: "institutional signal" },
+                      { val: "24/7", label: "Support", sub: "dedicated help" }
+                    ]}
+                  />
+                </div>
+              </UiCard>
+            </div>
+          </section>
+        )}
+
         {/* ── TYPOGRAPHY ──────────────────────────── */}
         {activeTab === "typography" && (
           <section>
@@ -2515,9 +2734,12 @@ export default function MintxDesignSystem() {
             </Card>
           </section>
         )}
-      </div>
+        </div>
+        <AppFooter />
+      </main>
     </div>
-  );
+  </div>
+);
 }
 
 // ─── Shared sub-components (inline, no imports needed) ──────────────────────
@@ -2600,9 +2822,10 @@ function Card({
   );
 }
 
-function Label({ children }: { children: React.ReactNode }) {
+function Label({ children, className }: { children: React.ReactNode; className?: string }) {
   return (
     <div
+      className={className}
       style={{
         fontSize: 10,
         fontWeight: 700,
@@ -3216,480 +3439,7 @@ function ProgressEl({
   );
 }
 
-function MetricCardEl({
-  label,
-  value,
-  delta,
-  dir,
-}: {
-  label: string;
-  value: string;
-  delta: string;
-  dir: PriceDir;
-}) {
-  const c =
-    dir === "up"
-      ? "#22C55E"
-      : dir === "down"
-        ? "#F87171"
-        : "var(--text-tertiary)";
-  return (
-    <div
-      style={{
-        background: "var(--bg-surface)",
-        border: "1px solid var(--border-subtle)",
-        borderRadius: 14,
-        padding: "16px 20px",
-      }}
-    >
-      <div
-        style={{
-          fontSize: 11,
-          fontWeight: 600,
-          textTransform: "uppercase",
-          letterSpacing: "0.08em",
-          color: "var(--text-tertiary)",
-          marginBottom: 8,
-        }}
-      >
-        {label}
-      </div>
-      <div
-        style={{
-          fontFamily: "var(--font-display)",
-          fontSize: 26,
-          fontWeight: 700,
-          color: "var(--text-primary)",
-          letterSpacing: "-0.5px",
-          fontVariantNumeric: "tabular-nums",
-          marginBottom: 4,
-        }}
-      >
-        {value}
-      </div>
-      <div
-        style={{
-          display: "flex",
-          alignItems: "center",
-          gap: 3,
-          fontSize: 12,
-          fontFamily: "var(--font-mono)",
-          color: c,
-          fontWeight: 500,
-        }}
-      >
-        {dir === "up" ? "▲" : dir === "down" ? "▼" : "–"} {delta}
-      </div>
-    </div>
-  );
-}
 
-function StockCardEl({
-  ticker,
-  name,
-  price,
-  pct,
-  dir,
-  spk,
-}: {
-  ticker: string;
-  name: string;
-  price: string;
-  pct: string;
-  dir: PriceDir;
-  spk: number[];
-}) {
-  const [hov, setHov] = React.useState(false);
-  const c =
-    dir === "up"
-      ? "#22C55E"
-      : dir === "down"
-        ? "#F87171"
-        : "var(--text-tertiary)";
-  return (
-    <div
-      onMouseEnter={() => setHov(true)}
-      onMouseLeave={() => setHov(false)}
-      style={{
-        background: "var(--bg-surface)",
-        border: `1px solid ${hov ? MINT : "var(--border-subtle)"}`,
-        borderRadius: 14,
-        padding: 16,
-        cursor: "pointer",
-        transition: "all 0.2s",
-        boxShadow: hov ? "0 4px 16px rgba(0,179,138,0.22)" : "none",
-        transform: hov ? "translateY(-2px)" : "none",
-      }}
-    >
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "flex-start",
-          marginBottom: 12,
-        }}
-      >
-        <div>
-          <div
-            style={{
-              fontFamily: "var(--font-display)",
-              fontSize: 20,
-              fontWeight: 700,
-              color: "var(--text-primary)",
-              letterSpacing: "-0.3px",
-            }}
-          >
-            {ticker}
-          </div>
-          <div
-            style={{
-              fontSize: 11,
-              color: "var(--text-tertiary)",
-              marginTop: 2,
-            }}
-          >
-            {name}
-          </div>
-        </div>
-        <div style={{ textAlign: "right" }}>
-          <div
-            style={{
-              fontFamily: "var(--font-display)",
-              fontSize: 20,
-              fontWeight: 700,
-              color: c,
-              fontVariantNumeric: "tabular-nums",
-            }}
-          >
-            {price}
-          </div>
-          <div
-            style={{
-              fontSize: 12,
-              fontFamily: "var(--font-mono)",
-              color: c,
-              fontWeight: 500,
-            }}
-          >
-            {pct}
-          </div>
-        </div>
-      </div>
-      <div style={{ marginBottom: 12, borderRadius: 6, overflow: "hidden" }}>
-        <Sparkline data={spk} dir={dir} />
-      </div>
-      <div
-        className="resp-grid-3"
-        style={{
-          gap: 8,
-          paddingTop: 12,
-          borderTop: "1px solid var(--border-subtle)",
-        }}
-      >
-        {[
-          ["Open", "₹3,758"],
-          ["High", "₹3,862"],
-          ["Vol", "2.1M"],
-        ].map(([l, v]) => (
-          <div key={l}>
-            <div
-              style={{
-                fontSize: 10,
-                color: "var(--text-tertiary)",
-                textTransform: "uppercase",
-                letterSpacing: "0.05em",
-              }}
-            >
-              {l}
-            </div>
-            <div
-              style={{
-                fontSize: 12,
-                fontFamily: "var(--font-mono)",
-                fontWeight: 600,
-                color: "var(--text-primary)",
-              }}
-            >
-              {v}
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function InsightCardEl({
-  tag,
-  title,
-  body,
-  badges,
-}: {
-  tag: string;
-  title: string;
-  body: string;
-  badges: { label: string; v: BadgeVariant }[];
-}) {
-  const [hov, setHov] = React.useState(false);
-  return (
-    <div
-      onMouseEnter={() => setHov(true)}
-      onMouseLeave={() => setHov(false)}
-      style={{
-        background: "var(--bg-surface)",
-        borderLeft: "3px solid var(--mint-400)",
-        border: `1px solid ${hov ? MINT : "var(--border-subtle)"}`,
-        borderLeftWidth: 3,
-        borderLeftColor: MINT,
-        borderRadius: "0 14px 14px 0",
-        padding: 20,
-        cursor: "pointer",
-        transition: "all 0.2s",
-        boxShadow: hov ? "0 4px 16px rgba(0,179,138,0.18)" : "none",
-        transform: hov ? "translateY(-2px)" : "none",
-      }}
-    >
-      <div
-        style={{
-          fontSize: 10,
-          fontWeight: 700,
-          textTransform: "uppercase",
-          letterSpacing: "0.1em",
-          color: "var(--text-brand)",
-          marginBottom: 8,
-        }}
-      >
-        {tag}
-      </div>
-      <div
-        style={{
-          fontSize: 14,
-          fontWeight: 600,
-          color: "var(--text-primary)",
-          lineHeight: 1.4,
-          marginBottom: 8,
-        }}
-      >
-        {title}
-      </div>
-      <div
-        style={{
-          fontSize: 12,
-          color: "var(--text-secondary)",
-          lineHeight: 1.65,
-        }}
-      >
-        {body}
-      </div>
-      <div style={{ display: "flex", flexWrap: "wrap", gap: 6, marginTop: 12 }}>
-        {badges.map((b) => (
-          <BadgeEl key={b.label} v={b.v} sz="sm">
-            {b.label}
-          </BadgeEl>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function DataTableEl<TData,>({
-  columns,
-  data,
-  searchKey,
-  searchPlaceholder = "Search...",
-  highlightKey,
-}: {
-  columns: ColumnDef<TData>[];
-  data: TData[];
-  searchKey?: keyof TData;
-  searchPlaceholder?: string;
-  highlightKey?: keyof TData;
-}) {
-  const [searchValue, setSearchValue] = React.useState("");
-  const [sortConfig, setSortConfig] = React.useState<{
-    key: string;
-    direction: "asc" | "desc" | null;
-  }>({ key: "", direction: null });
-
-  const filteredData = React.useMemo(() => {
-    if (!searchKey || !searchValue) return data;
-    return data.filter((item) => {
-      const value = item[searchKey];
-      return String(value).toLowerCase().includes(searchValue.toLowerCase());
-    });
-  }, [data, searchKey, searchValue]);
-
-  const sortedData = React.useMemo(() => {
-    if (!sortConfig.key || !sortConfig.direction) return filteredData;
-    return [...filteredData].sort((a, b) => {
-      const aValue = a[sortConfig.key as keyof TData];
-      const bValue = b[sortConfig.key as keyof TData];
-      if (aValue < bValue) return sortConfig.direction === "asc" ? -1 : 1;
-      if (aValue > bValue) return sortConfig.direction === "asc" ? 1 : -1;
-      return 0;
-    });
-  }, [filteredData, sortConfig]);
-
-  const handleSort = (key: string) => {
-    let direction: "asc" | "desc" | null = "asc";
-    if (sortConfig.key === key && sortConfig.direction === "asc") direction = "desc";
-    else if (sortConfig.key === key && sortConfig.direction === "desc") direction = null;
-    setSortConfig({ key, direction });
-  };
-
-  return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-      {searchKey && (
-        <div style={{ position: "relative", maxWidth: 320 }}>
-          <Search
-            size={16}
-            style={{
-              position: "absolute",
-              left: 14,
-              top: "50%",
-              transform: "translateY(-50%)",
-              color: "var(--text-tertiary)",
-              pointerEvents: "none",
-            }}
-          />
-          <input
-            value={searchValue}
-            onChange={(e) => setSearchValue(e.target.value)}
-            placeholder={searchPlaceholder}
-            style={{
-              width: "100%",
-              padding: "9px 14px 9px 40px",
-              background: "var(--bg-base)",
-              border: "1px solid var(--border-default)",
-              borderRadius: 10,
-              fontSize: 13,
-              color: "var(--text-primary)",
-              outline: "none",
-              transition: "border-color 0.15s",
-            }}
-            onFocus={(e) => (e.currentTarget.style.borderColor = MINT)}
-            onBlur={(e) => (e.currentTarget.style.borderColor = "var(--border-default)")}
-          />
-        </div>
-      )}
-
-      <div
-        style={{
-          border: "1px solid var(--border-subtle)",
-          borderRadius: 14,
-          background: "var(--bg-surface)",
-          overflow: "hidden",
-        }}
-      >
-        <div style={{ overflowX: "auto" }}>
-          <table style={{ width: "100%", borderCollapse: "collapse", textAlign: "left" }}>
-            <thead>
-              <tr style={{ background: "var(--bg-overlay)", borderBottom: "1px solid var(--border-subtle)" }}>
-                {columns.map((col) => (
-                  <th
-                    key={col.id}
-                    onClick={() => col.sortable && handleSort(String(col.accessorKey || col.id))}
-                    style={{
-                      padding: "12px 16px",
-                      fontSize: 11,
-                      fontWeight: 700,
-                      textTransform: "uppercase",
-                      letterSpacing: "0.08em",
-                      color: "var(--text-secondary)",
-                      cursor: col.sortable ? "pointer" : "default",
-                      whiteSpace: "nowrap",
-                    }}
-                  >
-                    <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                      {col.header}
-                      {col.sortable && (
-                        <span style={{ color: "var(--text-tertiary)", opacity: sortConfig.key === (col.accessorKey || col.id) ? 1 : 0.3 }}>
-                          {sortConfig.key === (col.accessorKey || col.id) ? (
-                            sortConfig.direction === "asc" ? <ChevronUp size={12} /> :
-                            sortConfig.direction === "desc" ? <ChevronDown size={12} /> :
-                            <ChevronsUpDown size={12} />
-                          ) : (
-                            <ChevronsUpDown size={12} />
-                          )}
-                        </span>
-                      )}
-                    </div>
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {sortedData.length > 0 ? (
-                sortedData.map((row, i) => {
-                  const isHighlighted = highlightKey && row[highlightKey];
-                  return (
-                    <tr
-                      key={i}
-                      style={{
-                        borderBottom: "1px solid var(--border-subtle)",
-                        background: isHighlighted ? "var(--bg-brand-soft)" : "transparent",
-                        transition: "background 0.1s",
-                      }}
-                    >
-                      {columns.map((col) => (
-                        <td key={col.id} style={{ padding: "14px 16px", fontSize: 13, color: "var(--text-primary)" }}>
-                          {col.cell ? col.cell(row) : (col.accessorKey ? String(row[col.accessorKey]) : null)}
-                        </td>
-                      ))}
-                    </tr>
-                  );
-                })
-              ) : (
-                <tr>
-                  <td
-                    colSpan={columns.length}
-                    style={{ padding: 48, textAlign: "center", color: "var(--text-tertiary)", fontSize: 13 }}
-                  >
-                    No matching records found.
-                  </td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", padding: "0 4px" }}>
-        <div style={{ fontSize: 12, color: "var(--text-tertiary)" }}>
-          Showing <b style={{ color: "var(--text-secondary)" }}>{sortedData.length}</b> of <b>{data.length}</b> records
-        </div>
-        <div style={{ display: "flex", gap: 8, marginLeft: "auto" }}>
-          <button
-            style={{
-              padding: "5px 12px",
-              borderRadius: 8,
-              border: "1px solid var(--border-default)",
-              background: "var(--bg-surface)",
-              fontSize: 12,
-              fontWeight: 500,
-              color: "var(--text-primary)",
-            }}
-          >
-            Previous
-          </button>
-          <button
-            style={{
-              padding: "5px 12px",
-              borderRadius: 8,
-              border: "1px solid var(--border-default)",
-              background: "var(--bg-surface)",
-              fontSize: 12,
-              fontWeight: 500,
-              color: "var(--text-primary)",
-            }}
-          >
-            Next
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 // ─── General Instructions Component ────────────────────────────────────────
 

@@ -1,3 +1,5 @@
+"use client";
+
 import React, {
   createContext,
   useContext,
@@ -6,7 +8,13 @@ import React, {
   useCallback,
   type ReactNode,
 } from "react";
-import type { Theme, ThemeContextValue } from "../../types";
+export type Theme = "light" | "dark";
+
+export interface ThemeContextValue {
+  theme: Theme;
+  toggleTheme: () => void;
+  setTheme: (theme: Theme) => void;
+}
 
 const ThemeContext = createContext<ThemeContextValue | null>(null);
 

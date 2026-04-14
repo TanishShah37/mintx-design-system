@@ -1,6 +1,6 @@
 import React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-import type { PriceDirection } from "../../types";
+export type PriceDirection = "up" | "down" | "flat";
 import { cn } from "../../tokens/cn";
 
 const priceVariants = cva(

@@ -1,6 +1,26 @@
+"use client";
+
 import React, { useState } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-import type { NavItem } from "../../types";
+export type GlobalBadgeVariant =
+  | "mint"
+  | "green"
+  | "red"
+  | "amber"
+  | "blue"
+  | "purple"
+  | "neutral"
+  | "outline";
+
+export interface NavItem {
+  id: string;
+  label: string;
+  icon?: React.ReactNode;
+  href?: string;
+  badge?: string;
+  badgeVariant?: GlobalBadgeVariant;
+  children?: NavItem[];
+}
 import { cn } from "../../tokens/cn";
 import { MintxLogo } from "./MintxLogo";
 import { ThemeToggle } from "./ThemeToggle";

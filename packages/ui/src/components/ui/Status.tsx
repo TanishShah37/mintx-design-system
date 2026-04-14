@@ -1,6 +1,12 @@
 import React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-import type { StatusProps } from "../../types";
+export interface StatusProps {
+  status?: "live" | "paused" | "offline" | "error" | "pro";
+  label?: string;
+  pulse?: boolean;
+  className?: string;
+  style?: React.CSSProperties;
+}
 import { cn } from "../../tokens/cn";
 
 const statusVariants = cva(

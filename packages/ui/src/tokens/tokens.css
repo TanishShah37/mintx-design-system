@@ -1,7 +1,7 @@
 /* ═══════════════════════════════════════════════════════════
    MINTX DESIGN SYSTEM — MASTER TOKENS v1.0
    Wealth intelligence. Built for every Indian investor.
-═══════════════════════════════════════════════════════════ */
+   ═══════════════════════════════════════════════════════════ */
 
 @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Mono:wght@400;500&display=swap');
 
@@ -140,9 +140,10 @@
   --text-warning:   var(--amber-400);
   --text-info:      var(--blue-400);
 
-  --border-subtle:  rgba(232, 239, 237, 0.06);
-  --border-default: rgba(232, 239, 237, 0.10);
-  --border-strong:  rgba(232, 239, 237, 0.18);
+  /* User requested hex color applied to semantic border tokens in dark mode */
+  --border-subtle:  rgba(91, 209, 215, 0.08); /* #5bd1d7 at 8% */
+  --border-default: rgba(91, 209, 215, 0.15); /* #5bd1d7 at 15% */
+  --border-strong:  #5bd1d7;                  /* User specified hex at full strength */
   --border-brand:   var(--mint-400);
 
   --shadow-sm:    0 1px 3px rgba(0,0,0,0.30), 0 1px 2px rgba(0,0,0,0.20);

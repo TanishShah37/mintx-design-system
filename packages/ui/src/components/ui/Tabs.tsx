@@ -1,6 +1,23 @@
+"use client";
+
 import React, { useState } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-import type { TabsProps } from "../../types";
+export interface TabsProps {
+  items: Array<{
+    id: string;
+    label: string;
+    icon?: React.ReactNode;
+    disabled?: boolean;
+    badge?: string | number;
+  }>;
+  activeId?: string;
+  defaultActiveId?: string;
+  variant?: "default" | "brand" | "pills" | "underline";
+  size?: "sm" | "md";
+  onChange?: (id: string) => void;
+  className?: string;
+  style?: React.CSSProperties;
+}
 import { cn } from "../../tokens/cn";
 
 const containerVariants = cva(

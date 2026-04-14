@@ -1,15 +1,15 @@
 import React from "react";
 import { cn } from "../../tokens/cn";
-import { Button, type ButtonExtendedProps } from "./Button";
+import { Button, type ButtonProps } from "./Button";
 
-export interface FabProps extends Omit<ButtonExtendedProps, "variant"> {
+export interface FabProps extends Omit<ButtonProps, "variant"> {
   icon: React.ReactNode;
   position?: "bottom-right" | "bottom-left" | "top-right" | "top-left" | "none";
 }
 
 export const Fab = React.forwardRef<HTMLButtonElement, FabProps>(
   ({ icon, children, position = "none", className, ...props }, ref) => {
-    const positionClasses = {
+    const positionClasses: Record<NonNullable<FabProps["position"]>, string> = {
       "bottom-right": "fixed bottom-8 right-8 z-50",
       "bottom-left": "fixed bottom-8 left-8 z-50",
       "top-right": "fixed top-24 right-8 z-50",

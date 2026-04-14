@@ -1,5 +1,10 @@
 import React from "react";
-import type { InsightData } from "../../types";
+export interface InsightData {
+  tag: string;
+  title: string;
+  body: string;
+  badges?: Array<{ label: string; variant: any }>; 
+}
 import { Badge } from "../ui/Badge";
 import { cn } from "../../tokens/cn";
 

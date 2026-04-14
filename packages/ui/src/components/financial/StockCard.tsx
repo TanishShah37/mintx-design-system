@@ -1,6 +1,17 @@
 import React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-import type { StockData } from "../../types";
+export interface StockData {
+  ticker: string;
+  name: string;
+  price: number;
+  change: number;
+  changePercent: number;
+  open?: number;
+  high?: number;
+  low?: number;
+  volume?: string;
+  sparkline?: number[];
+}
 import { cn } from "../../tokens/cn";
 import { PriceChange, getDirection } from "./PriceChange";
 import { Sparkline } from "./Sparkline";

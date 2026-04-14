@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 import { useDotButton } from "../../hooks/useCarouselDots";
 import { usePrevNextButtons } from "../../hooks/useCarouselButtons";

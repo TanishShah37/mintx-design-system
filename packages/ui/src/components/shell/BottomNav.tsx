@@ -1,5 +1,11 @@
 import React from "react";
-import type { BottomNavItem } from "../../types";
+export interface BottomNavItem {
+  id: string;
+  label: string;
+  icon: React.ReactNode;
+  activeIcon?: React.ReactNode;
+  href?: string;
+}
 import { cn } from "../../tokens/cn";
 
 interface BottomNavProps {

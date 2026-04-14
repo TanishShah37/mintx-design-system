@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { MintxLogo } from "../../components/layout/MintxLogo";
+import { MintxLogo } from "../../components/shell/MintxLogo";
 import React from "react";
 
 const meta: Meta<typeof MintxLogo> = {

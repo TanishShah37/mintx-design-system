@@ -1,6 +1,13 @@
 import React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-import type { MarketStatusData } from "../../types";
+export type MarketSession = "pre-open" | "open" | "closed" | "post-close";
+
+export interface MarketStatusData {
+  session: MarketSession;
+  label: string;
+  nextEvent?: string;
+  nextEventTime?: string;
+}
 import { cn } from "../../tokens/cn";
 
 interface SupportLiveBarProps {

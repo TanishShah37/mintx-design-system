@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { BottomNav } from "../../components/mobile/BottomNav";
+import { BottomNav } from "../../components/shell/BottomNav";
 import {
   Home,
   TrendingUp,
@@ -8,7 +8,7 @@ import {
   User,
 } from "lucide-react";
 import React, { useState } from "react";
-import type { BottomNavItem } from "../../types";
+import type { BottomNavItem } from "../../components/shell/BottomNav";
 
 const defaultItems: BottomNavItem[] = [
   {

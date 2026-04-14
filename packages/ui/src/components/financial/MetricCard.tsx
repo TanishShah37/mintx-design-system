@@ -1,8 +1,17 @@
 import React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-import type { MetricData } from "../../types";
 import { cn } from "../../tokens/cn";
-import { PriceChange, getDirection } from "./PriceChange";
+import { PriceChange, getDirection, type PriceDirection } from "./PriceChange";
+
+export interface MetricData {
+  label: string;
+  value: string | number;
+  delta?: number;
+  deltaLabel?: string;
+  direction?: PriceDirection;
+  prefix?: string;
+  suffix?: string;
+}
 
 const cardVariants = cva(
   "bg-surface border border-neutral-100 rounded-lg p-5",

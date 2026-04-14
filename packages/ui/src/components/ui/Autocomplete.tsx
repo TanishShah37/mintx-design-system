@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 import { cn } from "../../tokens/cn";
 import { Check, ChevronsUpDown, Search } from "lucide-react";

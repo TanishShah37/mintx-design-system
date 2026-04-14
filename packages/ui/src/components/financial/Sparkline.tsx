@@ -1,5 +1,5 @@
 import React from "react";
-import type { PriceDirection } from "../../types";
+import { type PriceDirection } from "./PriceChange";
 import { cn } from "../../tokens/cn";
 
 interface SparklineProps {
