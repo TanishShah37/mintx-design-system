@@ -92,9 +92,33 @@ export const motion = {
   page: "600ms",
 } as const;
 
+export const shadows = {
+  sm: "0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04)",
+  md: "0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.05)",
+  lg: "0 12px 32px rgba(0,0,0,0.10), 0 4px 8px rgba(0,0,0,0.06)",
+  xl: "0 24px 48px rgba(0,0,0,0.12), 0 8px 16px rgba(0,0,0,0.07)",
+  brand: "0 4px 16px rgba(0, 179, 138, 0.25)",
+} as const;
+
 // Type exports
 export type MintShade = keyof typeof mintColors;
 export type NeutralShade = keyof typeof neutralColors;
 export type SpacingKey = keyof typeof spacing;
 export type RadiusKey = keyof typeof radius;
 export type TextSizeKey = keyof typeof typography.scale;
+
+// Consolidated token export
+export const tokens = {
+  colors: {
+    mint: mintColors,
+    neutral: neutralColors,
+    semantic: semanticColors,
+  },
+  spacing,
+  radius,
+  typography,
+  motion,
+  shadows,
+} as const;
+
+export type DesignTokens = typeof tokens;

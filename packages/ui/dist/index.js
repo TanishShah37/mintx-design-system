@@ -19,6 +19,7 @@ var AvatarPrimitive = require('@radix-ui/react-avatar');
 var TooltipPrimitive = require('@radix-ui/react-tooltip');
 var AccordionPrimitive = require('@radix-ui/react-accordion');
 var ProgressPrimitive = require('@radix-ui/react-progress');
+var react = require('boneyard-js/react');
 var ToastPrimitive = require('@radix-ui/react-toast');
 var useEmblaCarousel = require('embla-carousel-react');
 var framerMotion = require('framer-motion');
@@ -1545,8 +1546,8 @@ var require_route_pattern_normalizer = __commonJS({
       normalized = normalized.replace(/:([^:/\s)]+)(?=:)/g, `:$1${PARAM_SEPARATOR}`);
       return normalized;
     }
-    function normalizeTokensForRegexp(tokens) {
-      return tokens.map((token) => {
+    function normalizeTokensForRegexp(tokens2) {
+      return tokens2.map((token) => {
         if (typeof token === "object" && token !== null && // Not all token objects have 'modifier' property (e.g., simple text tokens)
         "modifier" in token && // Only repeating modifiers (* or +) cause the validation error
         // Other modifiers like '?' (optional) are fine
@@ -3200,7 +3201,7 @@ var require_link = __commonJS({
       }
       return (0, _formaturl.formatUrl)(urlObjOrString);
     }
-    var Link5 = /* @__PURE__ */ _react.default.forwardRef(function LinkComponent(props, forwardedRef) {
+    var Link6 = /* @__PURE__ */ _react.default.forwardRef(function LinkComponent(props, forwardedRef) {
       let children;
       const { href: hrefProp, as: asProp, children: childrenProp, prefetch: prefetchProp = null, passHref, replace, shallow, scroll, locale, onClick, onNavigate, onMouseEnter: onMouseEnterProp, onTouchStart: onTouchStartProp, legacyBehavior = false, ...restProps } = props;
       children = childrenProp;
@@ -3480,7 +3481,7 @@ var require_link = __commonJS({
     var useLinkStatus = () => {
       return (0, _react.useContext)(LinkStatusContext);
     };
-    var _default = Link5;
+    var _default = Link6;
     if ((typeof exports$1.default === "function" || typeof exports$1.default === "object" && exports$1.default !== null) && typeof exports$1.default.__esModule === "undefined") {
       Object.defineProperty(exports$1.default, "__esModule", { value: true });
       Object.assign(exports$1.default, exports$1);
@@ -5678,6 +5679,111 @@ var require_navigation2 = __commonJS({
 function cn(...inputs) {
   return tailwindMerge.twMerge(clsx.clsx(inputs));
 }
+
+// src/tokens/tokens.ts
+var mintColors = {
+  50: "#E6FBF5",
+  100: "#BFFAE9",
+  200: "#7DEFD2",
+  300: "#3DDCBA",
+  400: "#10C9A0",
+  // ★ Primary
+  500: "#00B38A",
+  600: "#008F6E",
+  700: "#006B52",
+  800: "#004736",
+  900: "#00231A"
+};
+var neutralColors = {
+  0: "#FFFFFF",
+  50: "#F5F8F7",
+  100: "#EBF0EE",
+  150: "#D8E0DE",
+  200: "#C2CECA",
+  300: "#9BACA6",
+  400: "#748A83",
+  500: "#55706A",
+  600: "#3A524D",
+  700: "#253733",
+  800: "#141F1D",
+  850: "#0D1614",
+  900: "#080E0D",
+  950: "#040807"
+};
+var semanticColors = {
+  green: { 400: "#22C55E", 500: "#16A34A" },
+  red: { 400: "#F87171", 500: "#DC2626" },
+  amber: { 400: "#FBBF24", 500: "#D97706" },
+  blue: { 400: "#60A5FA", 500: "#2563EB" },
+  purple: { 400: "#A78BFA" }
+};
+var spacing = {
+  1: "4px",
+  2: "8px",
+  3: "12px",
+  4: "16px",
+  5: "20px",
+  6: "24px",
+  8: "32px",
+  10: "40px",
+  12: "48px",
+  16: "64px",
+  20: "80px"
+};
+var radius = {
+  xs: "4px",
+  sm: "6px",
+  md: "10px",
+  lg: "14px",
+  xl: "20px",
+  "2xl": "28px",
+  full: "9999px"
+};
+var typography = {
+  fontDisplay: "'Syne', sans-serif",
+  fontBody: "'DM Sans', sans-serif",
+  fontMono: "'DM Mono', monospace",
+  scale: {
+    xs: "11px",
+    sm: "13px",
+    base: "15px",
+    lg: "17px",
+    xl: "20px",
+    "2xl": "24px",
+    "3xl": "30px",
+    "4xl": "38px",
+    "5xl": "48px",
+    "6xl": "60px"
+  }
+};
+var motion = {
+  easeOut: "cubic-bezier(0.16, 1, 0.3, 1)",
+  easeSpring: "cubic-bezier(0.34, 1.56, 0.64, 1)",
+  easeSmooth: "cubic-bezier(0.4, 0, 0.2, 1)",
+  fast: "120ms",
+  base: "200ms",
+  slow: "350ms",
+  page: "600ms"
+};
+var shadows = {
+  sm: "0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04)",
+  md: "0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.05)",
+  lg: "0 12px 32px rgba(0,0,0,0.10), 0 4px 8px rgba(0,0,0,0.06)",
+  xl: "0 24px 48px rgba(0,0,0,0.12), 0 8px 16px rgba(0,0,0,0.07)",
+  brand: "0 4px 16px rgba(0, 179, 138, 0.25)"
+};
+var tokens = {
+  colors: {
+    mint: mintColors,
+    neutral: neutralColors,
+    semantic: semanticColors
+  },
+  spacing,
+  radius,
+  typography,
+  motion,
+  shadows
+};
 var ThemeContext = React26.createContext(null);
 var STORAGE_KEY = "mintx-theme";
 function getInitialTheme() {
@@ -8030,13 +8136,19 @@ function Skeleton({
     "div",
     {
       className: cn(
-        "bg-white/5 rounded-md animate-gentle-pulse",
+        "bg-mint-500/10 rounded-md animate-gentle-pulse",
         className
       ),
       ...props
     }
   );
 }
+var BoneyardSkeleton = ({
+  name,
+  loading,
+  children,
+  fixture
+}) => /* @__PURE__ */ jsxRuntime.jsx(react.Skeleton, { name, loading, fixture, children });
 var Dialog = DialogPrimitive2__namespace.Root;
 var DialogTrigger = DialogPrimitive2__namespace.Trigger;
 var DialogPortal = DialogPrimitive2__namespace.Portal;
@@ -8826,382 +8938,6 @@ var StockCard = ({
   );
 };
 StockCard.displayName = "StockCard";
-var AdvancedRealTimeChart = ({
-  symbol = "NASDAQ:AAPL",
-  interval = "D",
-  theme = "dark",
-  autosize = true,
-  height = 500,
-  ...rest
-}) => {
-  const container = React26.useRef(null);
-  const scriptId = `tradingview-advanced-${symbol}`;
-  React26.useEffect(() => {
-    if (container.current && !document.getElementById(scriptId)) {
-      const script = document.createElement("script");
-      script.id = scriptId;
-      script.src = "https://s3.tradingview.com/tv.js";
-      script.type = "text/javascript";
-      script.async = true;
-      script.onload = () => {
-        if (window.TradingView) {
-          new window.TradingView.widget({
-            autosize,
-            symbol,
-            interval,
-            timezone: "Etc/UTC",
-            theme,
-            style: "1",
-            locale: "en",
-            enable_publishing: false,
-            allow_symbol_change: true,
-            container_id: container.current?.id,
-            height,
-            ...rest
-          });
-        }
-      };
-      document.head.appendChild(script);
-    }
-  }, [symbol, interval, theme, autosize, height, scriptId, rest]);
-  return /* @__PURE__ */ jsxRuntime.jsx(
-    "div",
-    {
-      className: "tradingview-widget-container",
-      style: { height: autosize ? "100%" : height, width: "100%" },
-      children: /* @__PURE__ */ jsxRuntime.jsx("div", { id: `tv_chart_${symbol.replace(/[^a-zA-Z0-9]/g, "_")}`, ref: container, style: { height: "100%", width: "100%" } })
-    }
-  );
-};
-var TechnicalAnalysis = ({
-  symbol = "NASDAQ:AAPL",
-  theme = "dark",
-  width = "100%",
-  height = 450,
-  interval = "1D"
-}) => {
-  const container = React26.useRef(null);
-  React26.useEffect(() => {
-    if (container.current) {
-      container.current.innerHTML = "";
-      const script = document.createElement("script");
-      script.src = "https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js";
-      script.type = "text/javascript";
-      script.async = true;
-      script.innerHTML = JSON.stringify({
-        interval,
-        width,
-        isTransparent: false,
-        height,
-        symbol,
-        showIntervalTabs: true,
-        locale: "en",
-        colorTheme: theme,
-        ...theme === "dark" ? {
-          "gridLineColor": "rgba(42, 46, 57, 0)",
-          "fontColor": "#d1d4dc",
-          "underLineColor": "rgba(41, 98, 255, 0.3)",
-          "trendLineColor": "rgba(41, 98, 255, 1)"
-        } : {}
-      });
-      container.current.appendChild(script);
-    }
-  }, [symbol, interval, theme, width, height]);
-  return /* @__PURE__ */ jsxRuntime.jsx("div", { className: "tradingview-widget-container", ref: container, children: /* @__PURE__ */ jsxRuntime.jsx("div", { className: "tradingview-widget-container__widget" }) });
-};
-var MarketOverview = ({
-  theme = "dark",
-  width = "100%",
-  height = 400,
-  symbols = [
-    { s: "FOREXCOM:SPX500", d: "S&P 500" },
-    { s: "FOREXCOM:NSXUSD", d: "Nasdaq 100" },
-    { s: "FX_IDC:INRUSD", d: "USD/INR" },
-    { s: "BITSTAMP:BTCUSD", d: "Bitcoin" }
-  ]
-}) => {
-  const container = React26.useRef(null);
-  React26.useEffect(() => {
-    if (container.current) {
-      container.current.innerHTML = "";
-      const script = document.createElement("script");
-      script.src = "https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js";
-      script.type = "text/javascript";
-      script.async = true;
-      script.innerHTML = JSON.stringify({
-        colorTheme: theme,
-        dateRange: "12M",
-        showChart: true,
-        locale: "en",
-        width,
-        height,
-        largeChartAtBottom: false,
-        isTransparent: false,
-        showSymbolLogo: true,
-        showFloatingTooltip: false,
-        tabs: [
-          {
-            title: "Indices",
-            symbols
-          }
-        ]
-      });
-      container.current.appendChild(script);
-    }
-  }, [theme, width, height, symbols]);
-  return /* @__PURE__ */ jsxRuntime.jsx("div", { className: "tradingview-widget-container", ref: container, children: /* @__PURE__ */ jsxRuntime.jsx("div", { className: "tradingview-widget-container__widget" }) });
-};
-var SymbolOverviewMini = ({
-  symbol = "NASDAQ:AAPL",
-  theme = "dark",
-  width = "100%",
-  height = 200
-}) => {
-  const container = React26.useRef(null);
-  React26.useEffect(() => {
-    if (container.current) {
-      container.current.innerHTML = "";
-      const script = document.createElement("script");
-      script.src = "https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js";
-      script.type = "text/javascript";
-      script.async = true;
-      script.innerHTML = JSON.stringify({
-        symbol,
-        width,
-        height,
-        locale: "en",
-        dateRange: "12M",
-        colorTheme: theme,
-        isTransparent: false,
-        autosize: false,
-        largeChartAtBottom: false
-      });
-      container.current.appendChild(script);
-    }
-  }, [symbol, theme, width, height]);
-  return /* @__PURE__ */ jsxRuntime.jsx("div", { className: "tradingview-widget-container", ref: container, children: /* @__PURE__ */ jsxRuntime.jsx("div", { className: "tradingview-widget-container__widget" }) });
-};
-var TickerTape = ({
-  theme = "dark",
-  symbols = [
-    { proName: "FOREXCOM:SPX500", title: "S&P 500" },
-    { proName: "FOREXCOM:NSXUSD", title: "Nasdaq 100" },
-    { proName: "FX_IDC:EURUSD", title: "EUR/USD" },
-    { proName: "BITSTAMP:BTCUSD", title: "Bitcoin" },
-    { proName: "BITSTAMP:ETHUSD", title: "Ethereum" }
-  ]
-}) => {
-  const container = React26.useRef(null);
-  React26.useEffect(() => {
-    if (container.current) {
-      container.current.innerHTML = "";
-      const script = document.createElement("script");
-      script.src = "https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js";
-      script.type = "text/javascript";
-      script.async = true;
-      script.innerHTML = JSON.stringify({
-        symbols,
-        showSymbolLogo: true,
-        colorTheme: theme,
-        isTransparent: false,
-        displayMode: "adaptive",
-        locale: "en"
-      });
-      container.current.appendChild(script);
-    }
-  }, [theme, symbols]);
-  return /* @__PURE__ */ jsxRuntime.jsx("div", { className: "tradingview-widget-container", ref: container, children: /* @__PURE__ */ jsxRuntime.jsx("div", { className: "tradingview-widget-container__widget" }) });
-};
-var LWC_URL = "https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js";
-var scriptPromise = null;
-var loadScript = () => {
-  if (!scriptPromise) {
-    scriptPromise = new Promise((resolve, reject) => {
-      if (window.LightweightCharts) {
-        resolve();
-        return;
-      }
-      const script = document.createElement("script");
-      script.src = LWC_URL;
-      script.id = "lwc-script-v4";
-      script.async = true;
-      script.onload = () => resolve();
-      script.onerror = () => reject(new Error("Failed to load LightweightCharts"));
-      document.head.appendChild(script);
-    });
-  }
-  return scriptPromise;
-};
-var BaseChart = ({
-  renderFn,
-  height = 300,
-  theme = "dark",
-  className
-}) => {
-  const containerRef = React26.useRef(null);
-  const chartRef = React26.useRef(null);
-  const [error, setError] = React26.useState(null);
-  React26.useEffect(() => {
-    let chart = null;
-    let cancelled = false;
-    const init = async () => {
-      try {
-        await loadScript();
-        if (cancelled || !containerRef.current) return;
-        const LWT = window.LightweightCharts;
-        if (!LWT?.createChart) {
-          setError("LightweightCharts not available");
-          return;
-        }
-        if (chartRef.current) {
-          try {
-            chartRef.current.remove();
-          } catch (_) {
-          }
-          chartRef.current = null;
-        }
-        chart = LWT.createChart(containerRef.current, {
-          layout: {
-            background: { type: "solid", color: "transparent" },
-            textColor: theme === "dark" ? "#9BACA6" : "#3A524D",
-            fontFamily: "'DM Sans', sans-serif"
-          },
-          grid: {
-            vertLines: { color: theme === "dark" ? "rgba(232,239,237,0.06)" : "rgba(8,14,13,0.06)" },
-            horzLines: { color: theme === "dark" ? "rgba(232,239,237,0.06)" : "rgba(8,14,13,0.06)" }
-          },
-          crosshair: {
-            vertLine: { color: "#3DDCBA", width: 1, style: 3, labelBackgroundColor: "#00B38A" },
-            horzLine: { color: "#3DDCBA", width: 1, style: 3, labelBackgroundColor: "#00B38A" }
-          },
-          timeScale: {
-            borderColor: theme === "dark" ? "rgba(232,239,237,0.1)" : "rgba(8,14,13,0.1)",
-            timeVisible: true
-          },
-          rightPriceScale: {
-            borderColor: theme === "dark" ? "rgba(232,239,237,0.1)" : "rgba(8,14,13,0.1)"
-          },
-          width: containerRef.current.clientWidth,
-          height
-        });
-        chartRef.current = chart;
-        renderFn(LWT, chart);
-        const handleResize = () => {
-          if (containerRef.current && chartRef.current) {
-            chartRef.current.applyOptions({ width: containerRef.current.clientWidth });
-          }
-        };
-        window.addEventListener("resize", handleResize);
-        return handleResize;
-      } catch (err) {
-        if (!cancelled) setError(err.message ?? "Chart error");
-      }
-    };
-    init();
-    return () => {
-      cancelled = true;
-      if (chartRef.current) {
-        try {
-          chartRef.current.remove();
-        } catch (_) {
-        }
-        chartRef.current = null;
-      }
-    };
-  }, [theme, height]);
-  if (error) {
-    return /* @__PURE__ */ jsxRuntime.jsxs("div", { style: { height, display: "flex", alignItems: "center", justifyContent: "center", color: "#EF4444", fontSize: 13, borderRadius: 12, border: "1px solid rgba(239,68,68,0.3)", background: "rgba(239,68,68,0.05)" }, children: [
-      "Chart failed to load: ",
-      error
-    ] });
-  }
-  return /* @__PURE__ */ jsxRuntime.jsx(
-    "div",
-    {
-      ref: containerRef,
-      className,
-      style: {
-        width: "100%",
-        height,
-        borderRadius: 12,
-        overflow: "hidden",
-        background: theme === "dark" ? "rgba(13,22,20,0.4)" : "rgba(245,248,247,0.8)",
-        border: `1px solid ${theme === "dark" ? "rgba(232,239,237,0.08)" : "rgba(8,14,13,0.1)"}`
-      }
-    }
-  );
-};
-var AreaChart = ({ data, color = "#00B38A", ...props }) => /* @__PURE__ */ jsxRuntime.jsx(
-  BaseChart,
-  {
-    ...props,
-    renderFn: (_LWT, chart) => {
-      const series = chart.addAreaSeries({
-        topColor: `${color}4D`,
-        bottomColor: `${color}00`,
-        lineColor: color,
-        lineWidth: 2
-      });
-      series.setData(data);
-    }
-  }
-);
-var CandlestickChart = ({ data, ...props }) => /* @__PURE__ */ jsxRuntime.jsx(
-  BaseChart,
-  {
-    ...props,
-    renderFn: (_LWT, chart) => {
-      const series = chart.addCandlestickSeries({
-        upColor: "#00B38A",
-        downColor: "#EF4444",
-        borderVisible: false,
-        wickUpColor: "#00B38A",
-        wickDownColor: "#EF4444"
-      });
-      series.setData(data);
-    }
-  }
-);
-var BaselineChart = ({ data, color = "#00B38A", ...props }) => /* @__PURE__ */ jsxRuntime.jsx(
-  BaseChart,
-  {
-    ...props,
-    renderFn: (_LWT, chart) => {
-      const series = chart.addBaselineSeries({
-        topFillColor1: `${color}4D`,
-        topFillColor2: `${color}00`,
-        topLineColor: color,
-        bottomFillColor1: "rgba(239,68,68,0)",
-        bottomFillColor2: "rgba(239,68,68,0.3)",
-        bottomLineColor: "#EF4444",
-        lineWidth: 2
-      });
-      series.setData(data);
-    }
-  }
-);
-var VolumeChart = ({ data, color = "#00B38A", ...props }) => /* @__PURE__ */ jsxRuntime.jsx(
-  BaseChart,
-  {
-    ...props,
-    renderFn: (_LWT, chart) => {
-      const series = chart.addHistogramSeries({
-        priceFormat: { type: "volume" },
-        priceScaleId: "volume"
-      });
-      chart.priceScale("volume").applyOptions({
-        scaleMargins: { top: 0.1, bottom: 0 }
-      });
-      series.setData(
-        data.map((d) => ({
-          time: d.time,
-          value: d.value ?? 0,
-          color: (d.value ?? 0) > 25 ? `${color}B3` : "#EF444480"
-        }))
-      );
-    }
-  }
-);
 var CustomTickerTape = ({
   items,
   speed = 20,
@@ -10383,7 +10119,7 @@ var BottomNav = ({
   }
 );
 BottomNav.displayName = "BottomNav";
-classVarianceAuthority.cva(
+var dotVariants = classVarianceAuthority.cva(
   "w-[7px] h-[7px] rounded-full shrink-0",
   {
     variants: {
@@ -10403,6 +10139,2896 @@ classVarianceAuthority.cva(
     }
   }
 );
+var sessionConfig = {
+  "pre-open": { color: "amber", label: "Pre-open", pulse: false },
+  open: { color: "green", label: "Market Open", pulse: true },
+  closed: { color: "neutral", label: "Closed", pulse: false },
+  "post-close": { color: "neutral", label: "Post-close", pulse: false }
+};
+var SupportLiveBar = ({
+  marketStatus,
+  onSupportClick,
+  className
+}) => {
+  const session = marketStatus?.session ?? "closed";
+  const cfg = sessionConfig[session];
+  return /* @__PURE__ */ jsxRuntime.jsxs("div", { className: cn("flex items-center justify-between p-sp-2 px-sp-4 bg-surface border-t border-neutral-100 gap-sp-3", className), children: [
+    marketStatus && /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex items-center gap-sp-2 text-xs text-neutral-600 flex-1 min-w-0 overflow-hidden", children: [
+      /* @__PURE__ */ jsxRuntime.jsx(
+        "span",
+        {
+          className: dotVariants({ color: cfg.color, pulse: cfg.pulse }),
+          "aria-hidden": "true"
+        }
+      ),
+      /* @__PURE__ */ jsxRuntime.jsx("span", { className: "font-semibold text-neutral-900 shrink-0 whitespace-nowrap overflow-hidden text-ellipsis", children: marketStatus.label ?? cfg.label }),
+      marketStatus.nextEvent && /* @__PURE__ */ jsxRuntime.jsxs("span", { className: "text-neutral-400 whitespace-nowrap overflow-hidden text-ellipsis", children: [
+        "\xB7 ",
+        marketStatus.nextEvent,
+        marketStatus.nextEventTime && /* @__PURE__ */ jsxRuntime.jsx("span", { className: "font-mono ml-0.5", children: marketStatus.nextEventTime })
+      ] })
+    ] }),
+    /* @__PURE__ */ jsxRuntime.jsxs(
+      "button",
+      {
+        className: "inline-flex items-center gap-sp-1 font-body text-xs font-semibold text-mint-600 bg-mint-50 border border-mint-400/20 rounded-full py-1 px-2.5 cursor-pointer shrink-0 transition-all duration-120 whitespace-nowrap hover:bg-mint-400/20 hover:border-mint-400 focus-visible:outline-2 focus-visible:outline-mint-400 focus-visible:outline-offset-2",
+        onClick: onSupportClick,
+        "aria-label": "Contact support",
+        children: [
+          /* @__PURE__ */ jsxRuntime.jsx(
+            "svg",
+            {
+              width: "13",
+              height: "13",
+              viewBox: "0 0 24 24",
+              fill: "none",
+              stroke: "currentColor",
+              strokeWidth: "2",
+              strokeLinecap: "round",
+              strokeLinejoin: "round",
+              "aria-hidden": "true",
+              children: /* @__PURE__ */ jsxRuntime.jsx("path", { d: "M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" })
+            }
+          ),
+          /* @__PURE__ */ jsxRuntime.jsx("span", { children: "Support" })
+        ]
+      }
+    )
+  ] });
+};
+SupportLiveBar.displayName = "SupportLiveBar";
+function FibSpiral({ theme = "dark", className }) {
+  const dark = theme === "dark";
+  const lineAlpha = dark ? "rgba(232,239,237," : "rgba(20,31,29,";
+  const chipBg = dark ? "rgba(8,14,13,0.93)" : "rgba(245,248,247,0.95)";
+  const chipBd = dark ? "rgba(0,179,138,0.22)" : "rgba(0,179,138,0.3)";
+  return /* @__PURE__ */ jsxRuntime.jsxs(
+    "div",
+    {
+      className: cn("relative flex items-center justify-center select-none", className),
+      "aria-hidden": true,
+      children: [
+        /* @__PURE__ */ jsxRuntime.jsx(
+          "div",
+          {
+            className: "absolute inset-0 rounded-full pointer-events-none",
+            style: {
+              background: "radial-gradient(60% 55% at 50% 50%, rgba(0,179,138,0.07) 0%, transparent 70%)",
+              transform: "scale(1.2)"
+            }
+          }
+        ),
+        /* @__PURE__ */ jsxRuntime.jsxs(
+          "svg",
+          {
+            viewBox: "-300 -220 600 440",
+            className: "w-full max-w-[540px]",
+            style: { filter: "drop-shadow(0 0 48px rgba(0,179,138,0.10))" },
+            children: [
+              /* @__PURE__ */ jsxRuntime.jsxs("defs", { children: [
+                /* @__PURE__ */ jsxRuntime.jsx("style", { children: `
+            @keyframes drawSpiral{from{stroke-dashoffset:2200}to{stroke-dashoffset:0}}
+            @keyframes popIn{from{opacity:0;transform:scale(0.9)}to{opacity:1;transform:scale(1)}}
+            @keyframes pulseDot{0%,100%{r:4}50%{r:7}}
+            @keyframes pulseRing{0%,100%{r:8;opacity:0.25}50%{r:14;opacity:0}}
+            .sp{stroke-dasharray:2200;stroke-dashoffset:2200;animation:drawSpiral 3.2s cubic-bezier(0.16,1,0.3,1) 0.4s forwards}
+            .pi{opacity:0;animation:popIn 0.4s ease forwards}
+            .d1{animation-delay:0.8s}.d2{animation-delay:1.1s}.d3{animation-delay:1.4s}
+            .d4{animation-delay:1.7s}.d5{animation-delay:2.0s}.d6{animation-delay:2.3s}
+            .d7{animation-delay:2.6s}.d8{animation-delay:2.9s}
+          ` }),
+                /* @__PURE__ */ jsxRuntime.jsxs("filter", { id: "glow2", x: "-30%", y: "-30%", width: "160%", height: "160%", children: [
+                  /* @__PURE__ */ jsxRuntime.jsx("feGaussianBlur", { stdDeviation: "2.5", result: "b" }),
+                  /* @__PURE__ */ jsxRuntime.jsxs("feMerge", { children: [
+                    /* @__PURE__ */ jsxRuntime.jsx("feMergeNode", { in: "b" }),
+                    /* @__PURE__ */ jsxRuntime.jsx("feMergeNode", { in: "SourceGraphic" })
+                  ] })
+                ] })
+              ] }),
+              [-200, -100, 0, 100, 200].map((v) => /* @__PURE__ */ jsxRuntime.jsxs("g", { children: [
+                /* @__PURE__ */ jsxRuntime.jsx(
+                  "line",
+                  {
+                    x1: v,
+                    y1: "-220",
+                    x2: v,
+                    y2: "220",
+                    stroke: `${lineAlpha}0.025)`,
+                    strokeWidth: "1"
+                  }
+                ),
+                /* @__PURE__ */ jsxRuntime.jsx(
+                  "line",
+                  {
+                    x1: "-290",
+                    y1: v,
+                    x2: "290",
+                    y2: v,
+                    stroke: `${lineAlpha}0.025)`,
+                    strokeWidth: "1"
+                  }
+                )
+              ] }, v)),
+              /* @__PURE__ */ jsxRuntime.jsx(
+                "rect",
+                {
+                  x: "-280",
+                  y: "-170",
+                  width: "280",
+                  height: "170",
+                  fill: "none",
+                  stroke: "rgba(0,179,138,0.06)",
+                  strokeWidth: "1",
+                  strokeDasharray: "4 4",
+                  className: "pi d1"
+                }
+              ),
+              /* @__PURE__ */ jsxRuntime.jsx(
+                "rect",
+                {
+                  x: "-170",
+                  y: "-170",
+                  width: "170",
+                  height: "170",
+                  fill: "rgba(0,179,138,0.022)",
+                  stroke: "rgba(0,179,138,0.10)",
+                  strokeWidth: "1",
+                  className: "pi d2"
+                }
+              ),
+              /* @__PURE__ */ jsxRuntime.jsx(
+                "rect",
+                {
+                  x: "-170",
+                  y: "-60",
+                  width: "105",
+                  height: "60",
+                  fill: "rgba(0,179,138,0.035)",
+                  stroke: "rgba(0,179,138,0.16)",
+                  strokeWidth: "1",
+                  className: "pi d3"
+                }
+              ),
+              /* @__PURE__ */ jsxRuntime.jsx(
+                "rect",
+                {
+                  x: "-170",
+                  y: "-60",
+                  width: "66",
+                  height: "60",
+                  fill: "rgba(0,179,138,0.055)",
+                  stroke: "rgba(0,179,138,0.24)",
+                  strokeWidth: "1.5",
+                  className: "pi d4"
+                }
+              ),
+              /* @__PURE__ */ jsxRuntime.jsx(
+                "rect",
+                {
+                  x: "-170",
+                  y: "-22",
+                  width: "40",
+                  height: "22",
+                  fill: "rgba(0,179,138,0.08)",
+                  stroke: "rgba(0,179,138,0.35)",
+                  strokeWidth: "1.5",
+                  className: "pi d5"
+                }
+              ),
+              /* @__PURE__ */ jsxRuntime.jsx(
+                "rect",
+                {
+                  x: "-170",
+                  y: "-22",
+                  width: "25",
+                  height: "22",
+                  fill: "rgba(0,179,138,0.12)",
+                  stroke: "rgba(0,179,138,0.50)",
+                  strokeWidth: "2",
+                  className: "pi d6"
+                }
+              ),
+              /* @__PURE__ */ jsxRuntime.jsx(
+                "path",
+                {
+                  className: "sp",
+                  d: "M-145,-22 A25,25 0 0,1 -170,0 A40,40 0 0,0 -130,40 A66,66 0 0,1 -170,106 A105,105 0 0,0 -65,0 A170,170 0 0,1 105,-170 A280,280 0 0,0 -170,110",
+                  fill: "none",
+                  stroke: "#00B38A",
+                  strokeWidth: "1.8",
+                  strokeLinecap: "round",
+                  filter: "url(#glow2)"
+                }
+              ),
+              [
+                {
+                  y: -170,
+                  pct: "0%",
+                  lbl: "High - start of move",
+                  cls: "d2",
+                  bold: false
+                },
+                {
+                  y: -130,
+                  pct: "23.6%",
+                  lbl: "First pause zone",
+                  cls: "d3",
+                  bold: false
+                },
+                {
+                  y: -100,
+                  pct: "38.2%",
+                  lbl: "Shallow pullback",
+                  cls: "d4",
+                  bold: false
+                },
+                {
+                  y: -66,
+                  pct: "50.0%",
+                  lbl: "Midpoint - watch closely",
+                  cls: "d5",
+                  bold: false
+                },
+                {
+                  y: -22,
+                  pct: "61.8%",
+                  lbl: "Golden ratio support \u2605",
+                  cls: "d6",
+                  bold: true
+                },
+                {
+                  y: 0,
+                  pct: "100%",
+                  lbl: "Low - base of move",
+                  cls: "d7",
+                  bold: false
+                }
+              ].map(({ y, pct, lbl, cls, bold }) => /* @__PURE__ */ jsxRuntime.jsxs("g", { className: cn("pi", cls), children: [
+                /* @__PURE__ */ jsxRuntime.jsx(
+                  "line",
+                  {
+                    x1: "-290",
+                    x2: "270",
+                    y1: y,
+                    y2: y,
+                    stroke: bold ? "#00B38A" : `${lineAlpha}0.14)`,
+                    strokeWidth: bold ? 1.5 : 0.75,
+                    strokeDasharray: bold ? void 0 : "3 6"
+                  }
+                ),
+                /* @__PURE__ */ jsxRuntime.jsx(
+                  "text",
+                  {
+                    x: "-286",
+                    y: y - 4,
+                    fontFamily: "DM Mono,monospace",
+                    fontSize: bold ? 9.5 : 8,
+                    fontWeight: bold ? 700 : 400,
+                    fill: bold ? "#00B38A" : `${lineAlpha}0.35)`,
+                    children: pct
+                  }
+                ),
+                /* @__PURE__ */ jsxRuntime.jsx(
+                  "text",
+                  {
+                    x: "268",
+                    y: y - 4,
+                    fontFamily: "DM Mono,monospace",
+                    fontSize: "7.5",
+                    fill: bold ? "rgba(0,179,138,0.6)" : `${lineAlpha}0.22)`,
+                    textAnchor: "end",
+                    children: lbl
+                  }
+                ),
+                bold && /* @__PURE__ */ jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [
+                  /* @__PURE__ */ jsxRuntime.jsx(
+                    "circle",
+                    {
+                      cx: "-65",
+                      cy: y,
+                      r: "4",
+                      fill: "#00B38A",
+                      filter: "url(#glow2)"
+                    }
+                  ),
+                  /* @__PURE__ */ jsxRuntime.jsxs("circle", { cx: "-65", cy: y, r: "4", fill: "#00B38A", children: [
+                    /* @__PURE__ */ jsxRuntime.jsx(
+                      "animate",
+                      {
+                        attributeName: "r",
+                        values: "4;12;4",
+                        dur: "2.8s",
+                        repeatCount: "indefinite"
+                      }
+                    ),
+                    /* @__PURE__ */ jsxRuntime.jsx(
+                      "animate",
+                      {
+                        attributeName: "opacity",
+                        values: "0.8;0;0.8",
+                        dur: "2.8s",
+                        repeatCount: "indefinite"
+                      }
+                    )
+                  ] }),
+                  /* @__PURE__ */ jsxRuntime.jsx(
+                    "text",
+                    {
+                      x: "-53",
+                      y: y + 4,
+                      fontFamily: "DM Mono,monospace",
+                      fontSize: "8",
+                      fontWeight: "600",
+                      fill: "#00B38A",
+                      children: "\u2190 move zone"
+                    }
+                  )
+                ] })
+              ] }, pct)),
+              /* @__PURE__ */ jsxRuntime.jsxs("g", { className: "pi d8", children: [
+                /* @__PURE__ */ jsxRuntime.jsx(
+                  "rect",
+                  {
+                    x: "58",
+                    y: "-52",
+                    width: "134",
+                    height: "40",
+                    rx: "7",
+                    fill: chipBg,
+                    stroke: chipBd,
+                    strokeWidth: "1"
+                  }
+                ),
+                /* @__PURE__ */ jsxRuntime.jsx(
+                  "text",
+                  {
+                    x: "126",
+                    y: "-33",
+                    fontFamily: "DM Mono,monospace",
+                    fontSize: "10",
+                    fontWeight: "700",
+                    fill: "#3DDCBA",
+                    textAnchor: "middle",
+                    children: "TCS | \u20B93,847"
+                  }
+                ),
+                /* @__PURE__ */ jsxRuntime.jsx(
+                  "text",
+                  {
+                    x: "126",
+                    y: "-19",
+                    fontFamily: "DM Mono,monospace",
+                    fontSize: "7.5",
+                    fill: "rgba(34,197,94,0.75)",
+                    textAnchor: "middle",
+                    children: "\u25B2 +2.37% | 61.8% move zone \u2713"
+                  }
+                )
+              ] })
+            ]
+          }
+        )
+      ]
+    }
+  );
+}
+function Hero({
+  tag,
+  title,
+  description,
+  features = [],
+  theme = "dark",
+  className,
+  children,
+  socialProof,
+  chips
+}) {
+  const dark = theme === "dark";
+  const t3 = dark ? "#5A706A" : "#748A83";
+  const t4 = dark ? "#3A524D" : "#9BACA6";
+  return /* @__PURE__ */ jsxRuntime.jsx("section", { className: cn("relative z-10 mx-auto max-w-7xl px-6 pb-20 pt-10 lg:px-12 lg:pt-14", className), children: /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-20", children: [
+    /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex flex-col lg:max-w-2xl", children: [
+      tag && /* @__PURE__ */ jsxRuntime.jsx("div", { className: "rev-up mb-6 flex items-center gap-3", children: /* @__PURE__ */ jsxRuntime.jsxs(
+        "span",
+        {
+          className: "inline-flex items-center gap-1.5 rounded-full px-3 py-1",
+          style: {
+            fontFamily: "DM Mono, monospace",
+            fontSize: "10px",
+            fontWeight: 600,
+            letterSpacing: "0.16em",
+            textTransform: "uppercase",
+            color: "#00B38A",
+            background: "rgba(0,179,138,0.08)",
+            border: "1px solid rgba(0,179,138,0.2)"
+          },
+          children: [
+            /* @__PURE__ */ jsxRuntime.jsxs("span", { className: "relative flex h-1.5 w-1.5", children: [
+              /* @__PURE__ */ jsxRuntime.jsx(
+                "span",
+                {
+                  className: "absolute inline-flex h-full w-full animate-ping rounded-full opacity-60",
+                  style: { background: "#00B38A" }
+                }
+              ),
+              /* @__PURE__ */ jsxRuntime.jsx(
+                "span",
+                {
+                  className: "relative flex h-1.5 w-1.5 rounded-full",
+                  style: { background: "#00B38A" }
+                }
+              )
+            ] }),
+            tag
+          ]
+        }
+      ) }),
+      /* @__PURE__ */ jsxRuntime.jsx(
+        "h1",
+        {
+          className: "rev-up",
+          style: {
+            fontFamily: "Syne, sans-serif",
+            fontWeight: 800,
+            fontSize: "clamp(44px, 6.2vw, 88px)",
+            lineHeight: 0.94,
+            letterSpacing: "-0.04em"
+          },
+          children: title
+        }
+      ),
+      /* @__PURE__ */ jsxRuntime.jsx(
+        "p",
+        {
+          className: "rev-up mt-7 max-w-[440px]",
+          style: {
+            fontSize: "16px",
+            lineHeight: 1.7,
+            color: t3
+          },
+          children: description
+        }
+      ),
+      features.length > 0 && /* @__PURE__ */ jsxRuntime.jsx("div", { className: "rev-up mt-5 flex flex-wrap gap-2 text-center", children: features.map((f) => /* @__PURE__ */ jsxRuntime.jsx(
+        "span",
+        {
+          className: "rounded-full px-3 py-1",
+          style: {
+            fontFamily: "DM Mono, monospace",
+            fontSize: "11px",
+            color: dark ? "#9BACA6" : "#3A524D",
+            background: dark ? "rgba(232,239,237,0.05)" : "rgba(20,31,29,0.05)",
+            border: `1px solid ${dark ? "rgba(232,239,237,0.08)" : "rgba(20,31,29,0.09)"}`
+          },
+          children: f
+        },
+        f
+      )) }),
+      /* @__PURE__ */ jsxRuntime.jsx("div", { className: "rev-up mt-8 w-full max-w-[440px]", children }),
+      socialProof && /* @__PURE__ */ jsxRuntime.jsx("div", { className: "rev-up mt-6 flex items-center gap-3", children: socialProof })
+    ] }),
+    /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "rev-fd relative lg:flex lg:justify-end", children: [
+      /* @__PURE__ */ jsxRuntime.jsx(FibSpiral, { theme }),
+      chips?.left && /* @__PURE__ */ jsxRuntime.jsxs(
+        "div",
+        {
+          className: "float-a absolute -left-2 top-[22%] hidden rounded-xl px-3.5 py-2.5 lg:block",
+          style: {
+            border: "1px solid rgba(0,179,138,0.2)",
+            background: dark ? "rgba(8,14,13,0.92)" : "rgba(245,248,247,0.95)",
+            backdropFilter: "blur(12px)"
+          },
+          children: [
+            /* @__PURE__ */ jsxRuntime.jsx(
+              "div",
+              {
+                style: {
+                  fontFamily: "DM Mono, monospace",
+                  fontSize: "9px",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.15em",
+                  color: t4,
+                  marginBottom: "3px"
+                },
+                children: chips.left.label
+              }
+            ),
+            /* @__PURE__ */ jsxRuntime.jsx(
+              "div",
+              {
+                style: {
+                  fontFamily: "DM Mono, monospace",
+                  fontSize: "13px",
+                  fontWeight: 700,
+                  color: "#00B38A"
+                },
+                children: chips.left.value
+              }
+            ),
+            /* @__PURE__ */ jsxRuntime.jsx(
+              "div",
+              {
+                style: {
+                  fontFamily: "DM Mono, monospace",
+                  fontSize: "10px",
+                  color: "#22C55E"
+                },
+                children: chips.left.sub
+              }
+            )
+          ]
+        }
+      ),
+      chips?.right && /* @__PURE__ */ jsxRuntime.jsxs(
+        "div",
+        {
+          className: "float-b absolute -right-1 bottom-[22%] hidden rounded-xl px-3.5 py-2.5 lg:block",
+          style: {
+            border: "1px solid rgba(0,179,138,0.2)",
+            background: dark ? "rgba(8,14,13,0.92)" : "rgba(245,248,247,0.95)",
+            backdropFilter: "blur(12px)"
+          },
+          children: [
+            /* @__PURE__ */ jsxRuntime.jsx(
+              "div",
+              {
+                style: {
+                  fontFamily: "DM Mono, monospace",
+                  fontSize: "9px",
+                  textTransform: "uppercase",
+                  letterSpacing: "0.15em",
+                  color: t4,
+                  marginBottom: "3px"
+                },
+                children: chips.right.label
+              }
+            ),
+            /* @__PURE__ */ jsxRuntime.jsx(
+              "div",
+              {
+                style: {
+                  fontFamily: "DM Mono, monospace",
+                  fontSize: "13px",
+                  fontWeight: 700,
+                  color: "#3DDCBA"
+                },
+                children: chips.right.value
+              }
+            ),
+            /* @__PURE__ */ jsxRuntime.jsx(
+              "div",
+              {
+                style: {
+                  fontFamily: "DM Mono, monospace",
+                  fontSize: "10px",
+                  color: t3
+                },
+                children: chips.right.sub
+              }
+            )
+          ]
+        }
+      )
+    ] })
+  ] }) });
+}
+function Ticker({ items, theme = "dark", className }) {
+  const dark = theme === "dark";
+  const doubled = [...items, ...items];
+  return /* @__PURE__ */ jsxRuntime.jsx(
+    "div",
+    {
+      className: cn("overflow-hidden py-2.5", className),
+      style: {
+        borderTop: `1px solid ${dark ? "rgba(232,239,237,0.05)" : "rgba(20,31,29,0.06)"}`,
+        borderBottom: `1px solid ${dark ? "rgba(232,239,237,0.05)" : "rgba(20,31,29,0.06)"}`,
+        background: dark ? "rgba(13,22,20,0.7)" : "rgba(235,243,240,0.8)",
+        backdropFilter: "blur(8px)"
+      },
+      children: /* @__PURE__ */ jsxRuntime.jsx(
+        "div",
+        {
+          className: "flex gap-10 whitespace-nowrap",
+          style: { animation: "ticker 46s linear infinite" },
+          children: doubled.map((item, i) => /* @__PURE__ */ jsxRuntime.jsxs(
+            "span",
+            {
+              className: "shrink-0",
+              style: {
+                fontFamily: "DM Mono, monospace",
+                fontSize: "11px",
+                letterSpacing: "0.05em",
+                color: dark ? "rgba(232,239,237,0.28)" : "rgba(20,31,29,0.38)"
+              },
+              children: [
+                /* @__PURE__ */ jsxRuntime.jsx(
+                  "span",
+                  {
+                    style: { color: "#00B38A", opacity: 0.5, marginRight: "10px" },
+                    children: "\u25C6"
+                  }
+                ),
+                item
+              ]
+            },
+            i
+          ))
+        }
+      )
+    }
+  );
+}
+function HowItWorks({
+  label,
+  steps,
+  theme = "dark",
+  className
+}) {
+  const dark = theme === "dark";
+  const divider = dark ? "rgba(232,239,237,0.05)" : "rgba(20,31,29,0.06)";
+  return /* @__PURE__ */ jsxRuntime.jsx(
+    "section",
+    {
+      className: cn("", className),
+      style: {
+        borderTop: `1px solid ${divider}`,
+        borderBottom: `1px solid ${divider}`
+      },
+      children: /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "mx-auto max-w-7xl px-6 py-20 lg:px-12", children: [
+        /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "mb-12 flex items-center gap-5", children: [
+          /* @__PURE__ */ jsxRuntime.jsx(
+            "span",
+            {
+              style: {
+                fontFamily: "DM Mono, monospace",
+                fontSize: "10px",
+                textTransform: "uppercase",
+                letterSpacing: "0.22em",
+                color: dark ? "#3A524D" : "#9BACA6"
+              },
+              children: label
+            }
+          ),
+          /* @__PURE__ */ jsxRuntime.jsx("div", { className: "h-px flex-1", style: { background: divider } })
+        ] }),
+        /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "relative grid grid-cols-1 gap-12 md:grid-cols-3", children: [
+          /* @__PURE__ */ jsxRuntime.jsx(
+            "div",
+            {
+              "aria-hidden": true,
+              className: "absolute left-0 top-5 hidden h-px w-full md:block",
+              style: {
+                background: "linear-gradient(90deg, transparent, rgba(0,179,138,0.10), transparent)"
+              }
+            }
+          ),
+          steps.map((step, i) => /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "relative flex flex-col gap-4", children: [
+            /* @__PURE__ */ jsxRuntime.jsx(
+              "div",
+              {
+                className: "relative flex h-11 w-11 items-center justify-center rounded-xl",
+                style: {
+                  border: "1px solid rgba(0,179,138,0.2)",
+                  background: "rgba(0,179,138,0.06)",
+                  fontFamily: "DM Mono, monospace",
+                  fontSize: "11px",
+                  fontWeight: 700,
+                  color: "#00B38A"
+                },
+                children: step.n
+              }
+            ),
+            /* @__PURE__ */ jsxRuntime.jsx(
+              "h3",
+              {
+                style: {
+                  fontFamily: "Syne, sans-serif",
+                  fontWeight: 800,
+                  fontSize: "18px",
+                  lineHeight: 1.2,
+                  color: dark ? "#E8EFED" : "#141F1D"
+                },
+                children: step.title
+              }
+            ),
+            /* @__PURE__ */ jsxRuntime.jsx("p", { style: { fontSize: "13px", lineHeight: 1.7, color: dark ? "#5A706A" : "#748A83" }, children: step.body })
+          ] }, step.n))
+        ] })
+      ] })
+    }
+  );
+}
+function DiffCard({ item, i, theme = "dark" }) {
+  const dark = theme === "dark";
+  const [hovered, setHovered] = React26.useState(false);
+  return /* @__PURE__ */ jsxRuntime.jsxs(
+    "article",
+    {
+      onMouseEnter: () => setHovered(true),
+      onMouseLeave: () => setHovered(false),
+      className: "group relative flex flex-col gap-5 overflow-hidden rounded-2xl p-6 transition-all duration-500 cursor-default",
+      style: {
+        background: dark ? "rgba(13,22,20,0.55)" : "rgba(255,255,255,0.75)",
+        border: `1px solid ${hovered ? `${item.accent}35` : dark ? "rgba(232,239,237,0.07)" : "rgba(20,31,29,0.08)"}`,
+        backdropFilter: "blur(12px)",
+        boxShadow: hovered ? `0 0 48px ${item.accent}0A` : "none",
+        transition: "all 0.4s ease"
+      },
+      children: [
+        /* @__PURE__ */ jsxRuntime.jsx(
+          "div",
+          {
+            className: "pointer-events-none absolute right-0 top-0 h-32 w-32 rounded-bl-[100%] transition-opacity duration-500",
+            style: {
+              background: `radial-gradient(circle at top right, ${item.accent}14, transparent 70%)`,
+              opacity: hovered ? 1 : 0
+            }
+          }
+        ),
+        /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex items-center gap-3", children: [
+          /* @__PURE__ */ jsxRuntime.jsx(
+            "div",
+            {
+              className: "flex h-9 w-9 items-center justify-center rounded-xl transition-colors duration-300",
+              style: {
+                background: hovered ? `${item.accent}18` : dark ? "rgba(232,239,237,0.05)" : "rgba(20,31,29,0.04)",
+                border: `1px solid ${hovered ? `${item.accent}30` : dark ? "rgba(232,239,237,0.08)" : "rgba(20,31,29,0.08)"}`,
+                color: hovered ? item.accent : dark ? "#5A706A" : "#748A83"
+              },
+              children: item.icon
+            }
+          ),
+          /* @__PURE__ */ jsxRuntime.jsx(
+            "span",
+            {
+              className: "rounded-full px-2.5 py-0.5",
+              style: {
+                fontFamily: "DM Mono, monospace",
+                fontSize: "10px",
+                fontWeight: 600,
+                letterSpacing: "0.12em",
+                textTransform: "uppercase",
+                background: `${item.accent}12`,
+                color: item.accent,
+                border: `1px solid ${item.accent}25`
+              },
+              children: item.tag
+            }
+          )
+        ] }),
+        /* @__PURE__ */ jsxRuntime.jsx(
+          "h3",
+          {
+            className: "leading-tight tracking-tight transition-colors duration-300",
+            style: {
+              fontFamily: "Syne, sans-serif",
+              fontWeight: 800,
+              fontSize: "clamp(20px, 2.2vw, 26px)",
+              color: dark ? "#E8EFED" : "#141F1D",
+              whiteSpace: "pre-line"
+            },
+            children: item.title
+          }
+        ),
+        /* @__PURE__ */ jsxRuntime.jsx(
+          "p",
+          {
+            style: {
+              fontSize: "13px",
+              lineHeight: 1.7,
+              color: dark ? "#5A706A" : "#748A83"
+            },
+            children: item.body
+          }
+        ),
+        /* @__PURE__ */ jsxRuntime.jsxs(
+          "div",
+          {
+            className: "mt-auto flex items-end justify-between pt-4",
+            style: {
+              borderTop: `1px solid ${dark ? "rgba(232,239,237,0.05)" : "rgba(20,31,29,0.06)"}`
+            },
+            children: [
+              /* @__PURE__ */ jsxRuntime.jsxs("div", { children: [
+                /* @__PURE__ */ jsxRuntime.jsx(
+                  "div",
+                  {
+                    style: {
+                      fontFamily: "DM Mono, monospace",
+                      fontSize: "28px",
+                      fontWeight: 700,
+                      lineHeight: 1,
+                      color: item.accent
+                    },
+                    children: item.metric
+                  }
+                ),
+                /* @__PURE__ */ jsxRuntime.jsx(
+                  "div",
+                  {
+                    style: {
+                      fontFamily: "DM Mono, monospace",
+                      fontSize: "10px",
+                      color: dark ? "#3A524D" : "#9BACA6",
+                      marginTop: "4px"
+                    },
+                    children: item.metricSub
+                  }
+                )
+              ] }),
+              /* @__PURE__ */ jsxRuntime.jsx(
+                "div",
+                {
+                  className: "flex h-8 w-8 items-center justify-center rounded-full transition-all duration-300",
+                  style: {
+                    border: `1px solid ${item.accent}${hovered ? "45" : "20"}`,
+                    color: item.accent,
+                    opacity: hovered ? 1 : 0.4
+                  },
+                  children: /* @__PURE__ */ jsxRuntime.jsx(
+                    "svg",
+                    {
+                      width: "13",
+                      height: "13",
+                      viewBox: "0 0 24 24",
+                      fill: "none",
+                      stroke: "currentColor",
+                      strokeWidth: "2.5",
+                      strokeLinecap: "round",
+                      strokeLinejoin: "round",
+                      children: /* @__PURE__ */ jsxRuntime.jsx("path", { d: "M7 17 17 7M7 7h10v10" })
+                    }
+                  )
+                }
+              )
+            ]
+          }
+        )
+      ]
+    }
+  );
+}
+function Differentiators({
+  title,
+  items,
+  theme = "dark",
+  className
+}) {
+  const dark = theme === "dark";
+  const divider = dark ? "rgba(232,239,237,0.05)" : "rgba(20,31,29,0.06)";
+  return /* @__PURE__ */ jsxRuntime.jsxs("section", { className: cn("mx-auto max-w-7xl px-6 py-20 lg:px-12", className), children: [
+    /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "mb-10 flex items-center gap-5", children: [
+      /* @__PURE__ */ jsxRuntime.jsx(
+        "span",
+        {
+          style: {
+            fontFamily: "DM Mono, monospace",
+            fontSize: "10px",
+            textTransform: "uppercase",
+            letterSpacing: "0.22em",
+            color: dark ? "#3A524D" : "#9BACA6"
+          },
+          children: title
+        }
+      ),
+      /* @__PURE__ */ jsxRuntime.jsx("div", { className: "h-px flex-1", style: { background: divider } })
+    ] }),
+    /* @__PURE__ */ jsxRuntime.jsx("div", { className: "grid grid-cols-1 gap-4 md:grid-cols-3", children: items.map((item, i) => /* @__PURE__ */ jsxRuntime.jsx(DiffCard, { item, i, theme }, item.rank)) })
+  ] });
+}
+
+// src/components/marketing/WaitlistForm.tsx
+var import_link3 = __toESM(require_link2());
+function WaitlistForm({
+  theme = "dark",
+  size = "md",
+  className,
+  onSuccess
+}) {
+  const dark = theme === "dark";
+  const [email, setEmail] = React26.useState("");
+  const [status, setStatus] = React26.useState("idle");
+  const [position, setPos] = React26.useState(null);
+  const [error, setError] = React26.useState(null);
+  const inputRef = React26.useRef(null);
+  const submit = React26.useCallback(
+    async (e) => {
+      e.preventDefault();
+      const val = email.trim();
+      if (!val || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) {
+        setError("Enter a valid email address.");
+        inputRef.current?.focus();
+        return;
+      }
+      setStatus("loading");
+      setError(null);
+      try {
+        const res = await fetch("/api/waitlist", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email: val })
+        });
+        if (!res.ok) throw new Error();
+        const data = await res.json();
+        setPos(data.position ?? null);
+        setStatus("success");
+        onSuccess?.(val, data.position);
+      } catch {
+        setStatus("error");
+        setError("Something went wrong. Please try again.");
+      }
+    },
+    [email, onSuccess]
+  );
+  if (status === "success") {
+    return /* @__PURE__ */ jsxRuntime.jsxs(
+      "div",
+      {
+        className: cn(
+          "flex flex-col items-center gap-3 rounded-2xl p-6 text-center",
+          className
+        ),
+        style: {
+          background: dark ? "rgba(0,179,138,0.05)" : "rgba(0,179,138,0.07)",
+          border: "1px solid rgba(0,179,138,0.2)"
+        },
+        children: [
+          /* @__PURE__ */ jsxRuntime.jsx(
+            "div",
+            {
+              className: "flex h-11 w-11 items-center justify-center rounded-full",
+              style: {
+                background: "rgba(0,179,138,0.12)",
+                border: "1px solid rgba(0,179,138,0.3)"
+              },
+              children: /* @__PURE__ */ jsxRuntime.jsx(
+                "svg",
+                {
+                  width: "18",
+                  height: "18",
+                  viewBox: "0 0 24 24",
+                  fill: "none",
+                  stroke: "#00B38A",
+                  strokeWidth: "2.5",
+                  strokeLinecap: "round",
+                  strokeLinejoin: "round",
+                  children: /* @__PURE__ */ jsxRuntime.jsx("path", { d: "M20 6 9 17l-5-5" })
+                }
+              )
+            }
+          ),
+          /* @__PURE__ */ jsxRuntime.jsxs(
+            "p",
+            {
+              style: {
+                fontFamily: "Syne, sans-serif",
+                fontWeight: 800,
+                fontSize: "18px",
+                color: dark ? "#E8EFED" : "#141F1D"
+              },
+              children: [
+                "You\u2019re in",
+                position ? ` - #${position.toLocaleString("en-IN")}` : ""
+              ]
+            }
+          ),
+          /* @__PURE__ */ jsxRuntime.jsxs("p", { style: { fontSize: "13px", color: dark ? "#5A706A" : "#748A83" }, children: [
+            "We\u2019ll email",
+            " ",
+            /* @__PURE__ */ jsxRuntime.jsx("span", { style: { color: dark ? "#9BACA6" : "#3A524D" }, children: email }),
+            " ",
+            "when early access opens."
+          ] })
+        ]
+      }
+    );
+  }
+  return /* @__PURE__ */ jsxRuntime.jsxs("form", { onSubmit: submit, noValidate: true, className: cn("w-full", className), children: [
+    /* @__PURE__ */ jsxRuntime.jsxs(
+      "div",
+      {
+        className: "flex overflow-hidden rounded-2xl transition-all duration-300",
+        style: {
+          border: `1px solid ${dark ? "rgba(232,239,237,0.09)" : "rgba(20,31,29,0.12)"}`,
+          background: dark ? "rgba(13,22,20,0.85)" : "rgba(255,255,255,0.9)",
+          backdropFilter: "blur(12px)",
+          boxShadow: "0 0 0 0 transparent"
+        },
+        onFocusCapture: (e) => e.currentTarget.style.boxShadow = "0 0 0 3px rgba(0,179,138,0.10)",
+        onBlurCapture: (e) => e.currentTarget.style.boxShadow = "0 0 0 0 transparent",
+        children: [
+          /* @__PURE__ */ jsxRuntime.jsx(
+            "input",
+            {
+              ref: inputRef,
+              type: "email",
+              value: email,
+              onChange: (e) => {
+                setEmail(e.target.value);
+                setError(null);
+              },
+              placeholder: "your@email.com",
+              disabled: status === "loading",
+              "aria-label": "Email for early access",
+              style: {
+                flex: 1,
+                background: "transparent",
+                padding: size === "sm" ? "12px 20px" : "15px 20px",
+                fontFamily: "DM Sans, sans-serif",
+                fontSize: "14px",
+                color: dark ? "#E8EFED" : "#141F1D",
+                outline: "none",
+                border: "none"
+              },
+              className: "placeholder:text-[#5A706A]"
+            }
+          ),
+          /* @__PURE__ */ jsxRuntime.jsx(
+            "button",
+            {
+              type: "submit",
+              disabled: status === "loading",
+              className: "m-1.5 flex shrink-0 items-center gap-2 rounded-xl transition-all duration-200 active:scale-95 disabled:opacity-50",
+              style: {
+                background: "#00B38A",
+                padding: "10px 20px",
+                fontFamily: "DM Sans, sans-serif",
+                fontSize: "13px",
+                fontWeight: 600,
+                color: "#001A13",
+                boxShadow: "0 4px 20px rgba(0,179,138,0.32)",
+                whiteSpace: "nowrap"
+              },
+              onMouseEnter: (e) => {
+                e.currentTarget.style.background = "#3DDCBA";
+                e.currentTarget.style.boxShadow = "0 6px 28px rgba(0,179,138,0.48)";
+              },
+              onMouseLeave: (e) => {
+                e.currentTarget.style.background = "#00B38A";
+                e.currentTarget.style.boxShadow = "0 4px 20px rgba(0,179,138,0.32)";
+              },
+              children: status === "loading" ? /* @__PURE__ */ jsxRuntime.jsx(
+                "svg",
+                {
+                  className: "h-4 w-4 animate-spin",
+                  viewBox: "0 0 24 24",
+                  fill: "none",
+                  stroke: "currentColor",
+                  strokeWidth: "2",
+                  children: /* @__PURE__ */ jsxRuntime.jsx("path", { d: "M21 12a9 9 0 1 1-6.219-8.56" })
+                }
+              ) : /* @__PURE__ */ jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [
+                "Get early access",
+                " ",
+                /* @__PURE__ */ jsxRuntime.jsx(
+                  "svg",
+                  {
+                    width: "11",
+                    height: "11",
+                    viewBox: "0 0 24 24",
+                    fill: "none",
+                    stroke: "currentColor",
+                    strokeWidth: "2.5",
+                    strokeLinecap: "round",
+                    strokeLinejoin: "round",
+                    children: /* @__PURE__ */ jsxRuntime.jsx("path", { d: "M5 12h14M12 5l7 7-7 7" })
+                  }
+                )
+              ] })
+            }
+          )
+        ]
+      }
+    ),
+    error && /* @__PURE__ */ jsxRuntime.jsx(
+      "p",
+      {
+        className: "mt-2 text-center text-xs",
+        style: { color: "#EF4444" },
+        role: "alert",
+        children: error
+      }
+    ),
+    /* @__PURE__ */ jsxRuntime.jsxs(
+      "p",
+      {
+        className: "mt-3 text-center",
+        style: {
+          fontFamily: "DM Sans, sans-serif",
+          fontSize: "11px",
+          color: dark ? "#3A524D" : "#9BACA6"
+        },
+        children: [
+          "No spam. Unsubscribe anytime.",
+          " ",
+          /* @__PURE__ */ jsxRuntime.jsx(
+            import_link3.default,
+            {
+              href: "/privacy",
+              className: "underline underline-offset-2 transition-colors",
+              style: { color: dark ? "#5A706A" : "#748A83" },
+              children: "Privacy policy"
+            }
+          )
+        ]
+      }
+    )
+  ] });
+}
+function StatsSection({
+  stats,
+  theme = "dark",
+  className
+}) {
+  const dark = theme === "dark";
+  const divider = dark ? "rgba(232,239,237,0.05)" : "rgba(20,31,29,0.06)";
+  const bg = dark ? "#080E0D" : "#F5F8F7";
+  const t1 = dark ? "#E8EFED" : "#141F1D";
+  const t4 = dark ? "#3A524D" : "#9BACA6";
+  return /* @__PURE__ */ jsxRuntime.jsx(
+    "div",
+    {
+      className: cn("grid grid-cols-2 lg:grid-cols-4", className),
+      style: { gap: "1px", background: divider },
+      children: stats.map((s) => /* @__PURE__ */ jsxRuntime.jsxs(
+        "div",
+        {
+          className: "flex flex-col items-center justify-center gap-1 px-6 py-8 text-center transition-colors duration-500",
+          style: { background: bg },
+          children: [
+            /* @__PURE__ */ jsxRuntime.jsx(
+              "span",
+              {
+                style: {
+                  fontFamily: "Syne, sans-serif",
+                  fontWeight: 800,
+                  fontSize: "clamp(28px, 3.5vw, 40px)",
+                  letterSpacing: "-0.03em",
+                  color: t1
+                },
+                children: s.val
+              }
+            ),
+            /* @__PURE__ */ jsxRuntime.jsx(
+              "span",
+              {
+                style: {
+                  fontFamily: "DM Mono, monospace",
+                  fontSize: "10px",
+                  fontWeight: 600,
+                  textTransform: "uppercase",
+                  letterSpacing: "0.14em",
+                  color: "#00B38A"
+                },
+                children: s.label
+              }
+            ),
+            /* @__PURE__ */ jsxRuntime.jsx("span", { style: { fontSize: "11px", color: t4 }, children: s.sub })
+          ]
+        },
+        s.label
+      ))
+    }
+  );
+}
+function CommunitySection({
+  theme = "dark",
+  className,
+  title,
+  description,
+  label = "Join the founding community",
+  perks = [],
+  children
+}) {
+  const dark = theme === "dark";
+  const t1 = dark ? "#E8EFED" : "#141F1D";
+  const t3 = dark ? "#5A706A" : "#748A83";
+  const t4 = dark ? "#3A524D" : "#9BACA6";
+  return /* @__PURE__ */ jsxRuntime.jsxs("section", { className: cn("relative overflow-hidden", className), children: [
+    /* @__PURE__ */ jsxRuntime.jsx(
+      "div",
+      {
+        "aria-hidden": true,
+        className: "pointer-events-none absolute inset-0",
+        style: {
+          background: "radial-gradient(70% 55% at 50% 100%, rgba(0,179,138,0.07) 0%, transparent 70%)"
+        }
+      }
+    ),
+    /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "relative mx-auto max-w-2xl px-6 py-24 text-center lg:px-10", children: [
+      /* @__PURE__ */ jsxRuntime.jsx(
+        "span",
+        {
+          style: {
+            fontFamily: "DM Mono, monospace",
+            fontSize: "10px",
+            textTransform: "uppercase",
+            letterSpacing: "0.2em",
+            color: t4
+          },
+          children: label
+        }
+      ),
+      /* @__PURE__ */ jsxRuntime.jsx(
+        "h2",
+        {
+          className: "mt-4",
+          style: {
+            fontFamily: "Syne, sans-serif",
+            fontWeight: 800,
+            fontSize: "clamp(34px, 5vw, 62px)",
+            lineHeight: 0.92,
+            letterSpacing: "-0.03em",
+            color: t1
+          },
+          children: title
+        }
+      ),
+      /* @__PURE__ */ jsxRuntime.jsx(
+        "p",
+        {
+          className: "mx-auto mt-5 max-w-sm",
+          style: { fontSize: "15px", lineHeight: 1.7, color: t3 },
+          children: description
+        }
+      ),
+      /* @__PURE__ */ jsxRuntime.jsx("div", { className: "mx-auto mt-8 max-w-md", children }),
+      perks.length > 0 && /* @__PURE__ */ jsxRuntime.jsx("div", { className: "mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-3", children: perks.map((perk) => /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex items-center gap-1.5", children: [
+        /* @__PURE__ */ jsxRuntime.jsx(
+          "svg",
+          {
+            width: "12",
+            height: "12",
+            viewBox: "0 0 24 24",
+            fill: "none",
+            stroke: "#00B38A",
+            strokeWidth: "2.5",
+            strokeLinecap: "round",
+            strokeLinejoin: "round",
+            children: /* @__PURE__ */ jsxRuntime.jsx("path", { d: "M20 6 9 17l-5-5" })
+          }
+        ),
+        /* @__PURE__ */ jsxRuntime.jsx("span", { style: { fontSize: "12px", color: t3 }, children: perk })
+      ] }, perk)) })
+    ] })
+  ] });
+}
+var Table2 = React26__namespace.default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsxRuntime.jsx("div", { className: "relative w-full overflow-auto rounded-xl border border-border-subtle", children: /* @__PURE__ */ jsxRuntime.jsx(
+  "table",
+  {
+    ref,
+    className: cn("w-full caption-bottom text-sm text-text-primary", className),
+    ...props
+  }
+) }));
+Table2.displayName = "Table";
+var TableHeader2 = React26__namespace.default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsxRuntime.jsx("thead", { ref, className: cn("[&_tr]:border-b bg-surface-base/30", className), ...props }));
+TableHeader2.displayName = "TableHeader";
+var TableBody2 = React26__namespace.default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsxRuntime.jsx(
+  "tbody",
+  {
+    ref,
+    className: cn("[&_tr:last-child]:border-0", className),
+    ...props
+  }
+));
+TableBody2.displayName = "TableBody";
+var TableFooter2 = React26__namespace.default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsxRuntime.jsx(
+  "tfoot",
+  {
+    ref,
+    className: cn(
+      "border-t bg-surface-base/50 font-medium [&_tr:last-child]:border-0 text-text-secondary",
+      className
+    ),
+    ...props
+  }
+));
+TableFooter2.displayName = "TableFooter";
+var TableRow2 = React26__namespace.default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsxRuntime.jsx(
+  "tr",
+  {
+    ref,
+    className: cn(
+      "border-b border-border-subtle transition-colors hover:bg-surface-elevated/30 data-[state=selected]:bg-surface-elevated",
+      className
+    ),
+    ...props
+  }
+));
+TableRow2.displayName = "TableRow";
+var TableHead2 = React26__namespace.default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsxRuntime.jsx(
+  "th",
+  {
+    ref,
+    className: cn(
+      "h-sp-12 px-sp-4 text-left align-middle font-bold text-text-tertiary uppercase tracking-wider text-[10px] [&:has([role=checkbox])]:pr-0",
+      className
+    ),
+    ...props
+  }
+));
+TableHead2.displayName = "TableHead";
+var TableCell2 = React26__namespace.default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsxRuntime.jsx(
+  "td",
+  {
+    ref,
+    className: cn("p-sp-4 align-middle [&:has([role=checkbox])]:pr-0 font-medium", className),
+    ...props
+  }
+));
+TableCell2.displayName = "TableCell";
+var TableCaption2 = React26__namespace.default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsxRuntime.jsx(
+  "caption",
+  {
+    ref,
+    className: cn("mt-sp-4 text-sm text-text-tertiary", className),
+    ...props
+  }
+));
+TableCaption2.displayName = "TableCaption";
+var inputVariants2 = classVarianceAuthority.cva(
+  "w-full font-body text-neutral-900 bg-surface border border-neutral-200 rounded-md outline-none transition-all duration-120 placeholder:text-neutral-400 disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-neutral-50 hover:not-disabled:not-error:border-neutral-400 focus:not-error:border-mint-400 focus:not-error:ring-4 focus:not-error:ring-mint-400/15",
+  {
+    variants: {
+      size: {
+        sm: "text-sm py-1.5 px-3 rounded-sm",
+        md: "text-base py-[9px] px-3.5 rounded-md",
+        lg: "text-lg py-3 px-4 rounded-lg"
+      },
+      error: {
+        true: "border-red-500! focus:ring-4 focus:ring-red-500/15"
+      }
+    },
+    defaultVariants: {
+      size: "md"
+    }
+  }
+);
+var Input2 = React26.forwardRef(
+  ({
+    label,
+    hint,
+    error,
+    size = "md",
+    leftIcon,
+    rightIcon,
+    fullWidth = true,
+    className,
+    id,
+    ...rest
+  }, ref) => {
+    const uid = React26.useId();
+    const inputId = id ?? uid;
+    const hasError = !!error;
+    return /* @__PURE__ */ jsxRuntime.jsxs("div", { className: cn("flex flex-col gap-sp-1", fullWidth && "w-full"), children: [
+      label && /* @__PURE__ */ jsxRuntime.jsx("label", { htmlFor: inputId, className: "text-sm font-medium text-neutral-600", children: label }),
+      /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "relative", children: [
+        leftIcon && /* @__PURE__ */ jsxRuntime.jsx(
+          "span",
+          {
+            className: "absolute top-1/2 -translate-y-1/2 left-3 text-neutral-400 flex items-center justify-center w-4 h-4 pointer-events-none",
+            "aria-hidden": "true",
+            children: leftIcon
+          }
+        ),
+        /* @__PURE__ */ jsxRuntime.jsx(
+          "input",
+          {
+            ref,
+            id: inputId,
+            className: cn(
+              inputVariants2({ size, error: hasError }),
+              leftIcon && "pl-[38px]",
+              rightIcon && "pr-[38px]",
+              className
+            ),
+            "aria-describedby": hint ? `${inputId}-hint` : error ? `${inputId}-error` : void 0,
+            "aria-invalid": hasError,
+            ...rest
+          }
+        ),
+        rightIcon && /* @__PURE__ */ jsxRuntime.jsx(
+          "span",
+          {
+            className: "absolute top-1/2 -translate-y-1/2 right-3 text-neutral-400 flex items-center justify-center w-4 h-4 pointer-events-none",
+            "aria-hidden": "true",
+            children: rightIcon
+          }
+        )
+      ] }),
+      hint && !error && /* @__PURE__ */ jsxRuntime.jsx("span", { id: `${inputId}-hint`, className: "text-[11px] text-neutral-400", children: hint }),
+      error && /* @__PURE__ */ jsxRuntime.jsx("span", { id: `${inputId}-error`, className: "text-[11px] text-red-500", role: "alert", children: error })
+    ] });
+  }
+);
+Input2.displayName = "Input";
+function DataTable2({
+  columns,
+  data,
+  searchKey,
+  searchPlaceholder = "Search...",
+  highlightKey,
+  pageSize = 10
+}) {
+  const [searchValue, setSearchValue] = React26__namespace.useState("");
+  const [sortConfig, setSortConfig] = React26__namespace.useState({ key: "", direction: null });
+  const filteredData = React26__namespace.useMemo(() => {
+    if (!searchKey || !searchValue) return data;
+    return data.filter((item) => {
+      const value = item[searchKey];
+      return String(value).toLowerCase().includes(searchValue.toLowerCase());
+    });
+  }, [data, searchKey, searchValue]);
+  const sortedData = React26__namespace.useMemo(() => {
+    if (!sortConfig.key || !sortConfig.direction) return filteredData;
+    return [...filteredData].sort((a, b) => {
+      const aValue = a[sortConfig.key];
+      const bValue = b[sortConfig.key];
+      if (aValue < bValue) return sortConfig.direction === "asc" ? -1 : 1;
+      if (aValue > bValue) return sortConfig.direction === "asc" ? 1 : -1;
+      return 0;
+    });
+  }, [filteredData, sortConfig]);
+  const handleSort = (key) => {
+    let direction = "asc";
+    if (sortConfig.key === key && sortConfig.direction === "asc") direction = "desc";
+    else if (sortConfig.key === key && sortConfig.direction === "desc") direction = null;
+    setSortConfig({ key, direction });
+  };
+  return /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "space-y-4 w-full", children: [
+    searchKey && /* @__PURE__ */ jsxRuntime.jsx("div", { className: "flex items-center gap-4", children: searchKey && /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "relative flex-1 max-w-sm", children: [
+      /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.Search, { className: "absolute left-sp-2.5 top-sp-2.5 h-4 w-4 text-neutral-400" }),
+      /* @__PURE__ */ jsxRuntime.jsx(
+        Input2,
+        {
+          placeholder: searchPlaceholder,
+          value: searchValue,
+          onChange: (e) => setSearchValue(e.target.value),
+          className: "pl-sp-9"
+        }
+      )
+    ] }) }),
+    /* @__PURE__ */ jsxRuntime.jsx("div", { className: "rounded-xl border border-neutral-150 bg-surface overflow-hidden shadow-sm", children: /* @__PURE__ */ jsxRuntime.jsxs(Table2, { children: [
+      /* @__PURE__ */ jsxRuntime.jsx(TableHeader2, { children: /* @__PURE__ */ jsxRuntime.jsx(TableRow2, { className: "hover:bg-transparent border-b border-neutral-150", children: columns.map((column) => /* @__PURE__ */ jsxRuntime.jsx(
+        TableHead2,
+        {
+          className: cn(
+            "font-semibold text-text-secondary uppercase text-[11px] tracking-wider py-sp-3",
+            column.sortable && "cursor-pointer select-none hover:text-text-primary"
+          ),
+          onClick: () => column.sortable && handleSort(String(column.accessorKey || column.id)),
+          children: /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex items-center gap-2", children: [
+            column.header,
+            column.sortable && /* @__PURE__ */ jsxRuntime.jsx("span", { className: "text-text-tertiary", children: sortConfig.key === (column.accessorKey || column.id) ? sortConfig.direction === "asc" ? /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.ChevronUp, { className: "h-3 w-3" }) : sortConfig.direction === "desc" ? /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.ChevronDown, { className: "h-3 w-3" }) : /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.ChevronsUpDown, { className: "h-3 w-3 opacity-30" }) : /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.ChevronsUpDown, { className: "h-3 w-3 opacity-30" }) })
+          ] })
+        },
+        column.id
+      )) }) }),
+      /* @__PURE__ */ jsxRuntime.jsx(TableBody2, { children: sortedData.length > 0 ? sortedData.map((row, i) => /* @__PURE__ */ jsxRuntime.jsx(
+        TableRow2,
+        {
+          className: cn(
+            "border-b border-neutral-150 last:border-0",
+            highlightKey && row[highlightKey] && "bg-mint-500/10 hover:bg-mint-500/20"
+          ),
+          children: columns.map((column) => /* @__PURE__ */ jsxRuntime.jsx(TableCell2, { className: "text-[13px] py-sp-3.5", children: column.cell ? column.cell(row) : column.accessorKey ? String(row[column.accessorKey]) : null }, column.id))
+        },
+        i
+      )) : /* @__PURE__ */ jsxRuntime.jsx(TableRow2, { children: /* @__PURE__ */ jsxRuntime.jsx(
+        TableCell2,
+        {
+          colSpan: columns.length,
+          className: "h-sp-24 text-center text-text-tertiary font-body",
+          children: "No results found."
+        }
+      ) }) })
+    ] }) }),
+    /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex items-center justify-between text-[12px] text-text-tertiary px-sp-2 font-body", children: [
+      /* @__PURE__ */ jsxRuntime.jsxs("div", { children: [
+        "Showing ",
+        /* @__PURE__ */ jsxRuntime.jsx("b", { children: sortedData.length }),
+        " of ",
+        /* @__PURE__ */ jsxRuntime.jsx("b", { children: data.length }),
+        " records"
+      ] }),
+      /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex items-center gap-sp-2", children: [
+        /* @__PURE__ */ jsxRuntime.jsx("button", { className: "px-sp-3 py-sp-1 border border-neutral-150 rounded-md hover:bg-neutral-100 transition-colors", children: "Previous" }),
+        /* @__PURE__ */ jsxRuntime.jsx("button", { className: "px-sp-3 py-sp-1 border border-neutral-150 rounded-md hover:bg-neutral-100 transition-colors", children: "Next" })
+      ] })
+    ] })
+  ] });
+}
+var Pagination2 = ({
+  currentPage,
+  totalPages,
+  onPageChange,
+  className
+}) => {
+  const getPages = () => {
+    const pages = [];
+    if (totalPages <= 7) {
+      for (let i = 1; i <= totalPages; i++) pages.push(i);
+    } else {
+      if (currentPage <= 4) {
+        pages.push(1, 2, 3, 4, 5, "ellipsis", totalPages);
+      } else if (currentPage >= totalPages - 3) {
+        pages.push(1, "ellipsis", totalPages - 4, totalPages - 3, totalPages - 2, totalPages - 1, totalPages);
+      } else {
+        pages.push(1, "ellipsis", currentPage - 1, currentPage, currentPage + 1, "ellipsis", totalPages);
+      }
+    }
+    return pages;
+  };
+  const btnBaseClass = "flex items-center justify-center w-9 h-9 rounded-lg border-none cursor-pointer font-body text-sm font-semibold transition-all duration-150 focus-visible:outline-none";
+  return /* @__PURE__ */ jsxRuntime.jsxs(
+    "nav",
+    {
+      role: "navigation",
+      "aria-label": "pagination",
+      className: cn("flex items-center justify-center gap-1", className),
+      children: [
+        /* @__PURE__ */ jsxRuntime.jsx(
+          "button",
+          {
+            className: cn(
+              btnBaseClass,
+              "bg-neutral-800 text-neutral-400 hover:text-mint-600 hover:bg-neutral-700 disabled:opacity-40 disabled:cursor-not-allowed"
+            ),
+            onClick: () => currentPage > 1 && onPageChange(currentPage - 1),
+            disabled: currentPage === 1,
+            "aria-label": "Previous",
+            children: /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.ChevronLeft, { size: 16 })
+          }
+        ),
+        getPages().map((page, index) => /* @__PURE__ */ jsxRuntime.jsx(React26__namespace.default.Fragment, { children: page === "ellipsis" ? /* @__PURE__ */ jsxRuntime.jsx("div", { className: cn(btnBaseClass, "bg-transparent cursor-default text-neutral-600"), children: /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.MoreHorizontal, { size: 16 }) }) : /* @__PURE__ */ jsxRuntime.jsx(
+          "button",
+          {
+            className: cn(
+              btnBaseClass,
+              currentPage === page ? "bg-mint-500 text-neutral-0 shadow-[0_4px_16px_rgba(0,179,138,0.25)] hover:bg-mint-600" : "bg-neutral-800 text-neutral-400 hover:bg-neutral-700 hover:text-mint-600"
+            ),
+            onClick: () => onPageChange(page),
+            "aria-label": `Page ${page}`,
+            "aria-current": currentPage === page ? "page" : void 0,
+            children: page
+          }
+        ) }, index)),
+        /* @__PURE__ */ jsxRuntime.jsx(
+          "button",
+          {
+            className: cn(
+              btnBaseClass,
+              "bg-neutral-800 text-neutral-400 hover:text-mint-600 hover:bg-neutral-700 disabled:opacity-40 disabled:cursor-not-allowed"
+            ),
+            onClick: () => currentPage < totalPages && onPageChange(currentPage + 1),
+            disabled: currentPage === totalPages,
+            "aria-label": "Next",
+            children: /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.ChevronRight, { size: 16 })
+          }
+        )
+      ]
+    }
+  );
+};
+Pagination2.displayName = "Pagination";
+var statusVariants = classVarianceAuthority.cva(
+  "inline-flex items-center gap-sp-2 text-sm font-medium",
+  {
+    variants: {
+      status: {
+        live: "text-mint-500",
+        paused: "text-amber-500",
+        offline: "text-neutral-500",
+        error: "text-red-500",
+        pro: "text-brand"
+      }
+    },
+    defaultVariants: {
+      status: "offline"
+    }
+  }
+);
+var dotVariants2 = classVarianceAuthority.cva(
+  "w-2 h-2 rounded-full shrink-0",
+  {
+    variants: {
+      status: {
+        live: "bg-mint-500 shadow-[0_0_0_0_rgba(0,179,138,0.5)] animate-pulse-live",
+        paused: "bg-amber-500",
+        offline: "bg-neutral-300",
+        error: "bg-red-500",
+        pro: "bg-brand animate-pulse-live"
+      }
+    },
+    defaultVariants: {
+      status: "offline"
+    }
+  }
+);
+var statusLabels = {
+  live: "Live",
+  paused: "Paused",
+  offline: "Offline",
+  error: "Error",
+  pro: "Pro"
+};
+var Status = ({
+  status = "offline",
+  label,
+  pulse = true,
+  className,
+  style
+}) => /* @__PURE__ */ jsxRuntime.jsxs(
+  "span",
+  {
+    className: cn(statusVariants({ status }), className),
+    style,
+    "aria-label": `${label ?? statusLabels[status]} status`,
+    children: [
+      /* @__PURE__ */ jsxRuntime.jsx(
+        "span",
+        {
+          className: cn(
+            dotVariants2({ status: pulse ? status : "offline" }),
+            !pulse && "animate-none"
+          ),
+          "aria-hidden": "true"
+        }
+      ),
+      /* @__PURE__ */ jsxRuntime.jsx("span", { children: label ?? statusLabels[status] })
+    ]
+  }
+);
+Status.displayName = "Status";
+var CustomTickerTape2 = ({
+  items,
+  speed = 20,
+  className
+}) => {
+  const displayItems = [...items, ...items, ...items];
+  return /* @__PURE__ */ jsxRuntime.jsxs("div", { className: cn("relative w-full overflow-hidden bg-surface/50 backdrop-blur-sm border-y border-neutral-150 py-sp-2", className), children: [
+    /* @__PURE__ */ jsxRuntime.jsx(
+      framerMotion.motion.div,
+      {
+        className: "flex whitespace-nowrap",
+        animate: {
+          x: [0, -100 * items.length + "%"]
+        },
+        transition: {
+          duration: speed,
+          repeat: Infinity,
+          ease: "linear"
+        },
+        children: displayItems.map((item, index) => /* @__PURE__ */ jsxRuntime.jsxs(
+          "div",
+          {
+            className: "flex items-center gap-sp-4 px-sp-8 border-r border-neutral-150 last:border-r-0",
+            children: [
+              /* @__PURE__ */ jsxRuntime.jsx("span", { className: "font-bold text-sm tracking-tight", children: item.symbol }),
+              /* @__PURE__ */ jsxRuntime.jsx("span", { className: "font-mono text-sm", children: item.price }),
+              /* @__PURE__ */ jsxRuntime.jsxs(
+                "span",
+                {
+                  className: cn(
+                    "flex items-center gap-sp-1 text-xs font-semibold",
+                    item.isPositive ? "text-mint-500" : "text-red-500"
+                  ),
+                  children: [
+                    item.isPositive ? /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.TrendingUp, { size: 12 }) : /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.TrendingDown, { size: 12 }),
+                    item.change,
+                    "%"
+                  ]
+                }
+              )
+            ]
+          },
+          `${item.symbol}-${index}`
+        ))
+      }
+    ),
+    /* @__PURE__ */ jsxRuntime.jsx("div", { className: "absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" }),
+    /* @__PURE__ */ jsxRuntime.jsx("div", { className: "absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" })
+  ] });
+};
+var MarketStatus3 = ({
+  status,
+  market = "Global Market",
+  className
+}) => {
+  const config = {
+    open: {
+      color: "bg-mint-500",
+      text: "Market Open",
+      pulse: "bg-mint-500/50"
+    },
+    closed: {
+      color: "bg-red-500",
+      text: "Market Closed",
+      pulse: "bg-red-500/50"
+    },
+    "closing-soon": {
+      color: "bg-amber-500",
+      text: "Closing Soon",
+      pulse: "bg-amber-500/50"
+    }
+  };
+  const current = config[status];
+  return /* @__PURE__ */ jsxRuntime.jsxs("div", { className: cn("flex items-center gap-sp-3 px-sp-4 py-sp-2 rounded-full bg-surface/40 border border-neutral-150 w-fit", className), children: [
+    /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "relative flex h-2.5 w-2.5", children: [
+      /* @__PURE__ */ jsxRuntime.jsx("span", { className: cn("animate-ping absolute inline-flex h-full w-full rounded-full opacity-75", current.pulse) }),
+      /* @__PURE__ */ jsxRuntime.jsx("span", { className: cn("relative inline-flex rounded-full h-2.5 w-2.5", current.color) })
+    ] }),
+    /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex flex-col", children: [
+      /* @__PURE__ */ jsxRuntime.jsx("span", { className: "text-[10px] uppercase tracking-wider font-bold opacity-50 leading-none", children: market }),
+      /* @__PURE__ */ jsxRuntime.jsx("span", { className: "text-sm font-semibold leading-tight", children: current.text })
+    ] })
+  ] });
+};
+var priceVariants3 = classVarianceAuthority.cva(
+  "inline-flex items-center gap-[3px] font-mono text-sm font-medium leading-none",
+  {
+    variants: {
+      direction: {
+        up: "text-mint-500",
+        down: "text-red-500",
+        flat: "text-text-tertiary"
+      }
+    },
+    defaultVariants: {
+      direction: "flat"
+    }
+  }
+);
+var ArrowUp2 = () => /* @__PURE__ */ jsxRuntime.jsx(
+  "svg",
+  {
+    width: "13",
+    height: "13",
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "2.5",
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    "aria-hidden": "true",
+    children: /* @__PURE__ */ jsxRuntime.jsx("polyline", { points: "18 15 12 9 6 15" })
+  }
+);
+var ArrowDown2 = () => /* @__PURE__ */ jsxRuntime.jsx(
+  "svg",
+  {
+    width: "13",
+    height: "13",
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "2.5",
+    strokeLinecap: "round",
+    strokeLinejoin: "round",
+    "aria-hidden": "true",
+    children: /* @__PURE__ */ jsxRuntime.jsx("polyline", { points: "6 9 12 15 18 9" })
+  }
+);
+var Dash2 = () => /* @__PURE__ */ jsxRuntime.jsx(
+  "svg",
+  {
+    width: "13",
+    height: "13",
+    viewBox: "0 0 24 24",
+    fill: "none",
+    stroke: "currentColor",
+    strokeWidth: "2.5",
+    strokeLinecap: "round",
+    "aria-hidden": "true",
+    children: /* @__PURE__ */ jsxRuntime.jsx("line", { x1: "5", y1: "12", x2: "19", y2: "12" })
+  }
+);
+function getDirection2(value) {
+  if (value > 0) return "up";
+  if (value < 0) return "down";
+  return "flat";
+}
+var PriceChange2 = ({
+  value,
+  percent,
+  direction,
+  showIcon = true,
+  className
+}) => {
+  const dir = direction ?? getDirection2(value);
+  const formatted = percent !== void 0 ? `${value > 0 ? "+" : ""}${value.toFixed(2)} (${Math.abs(percent).toFixed(2)}%)` : `${value > 0 ? "+" : ""}${value.toFixed(2)}`;
+  return /* @__PURE__ */ jsxRuntime.jsxs(
+    "span",
+    {
+      className: cn(priceVariants3({ direction: dir }), className),
+      "aria-label": `${dir === "up" ? "Up" : dir === "down" ? "Down" : "Flat"} ${formatted}`,
+      children: [
+        showIcon && /* @__PURE__ */ jsxRuntime.jsx("span", { className: "inline-flex items-center shrink-0", children: dir === "up" ? /* @__PURE__ */ jsxRuntime.jsx(ArrowUp2, {}) : dir === "down" ? /* @__PURE__ */ jsxRuntime.jsx(ArrowDown2, {}) : /* @__PURE__ */ jsxRuntime.jsx(Dash2, {}) }),
+        /* @__PURE__ */ jsxRuntime.jsx("span", { className: "tabular-nums", children: formatted })
+      ]
+    }
+  );
+};
+PriceChange2.displayName = "PriceChange";
+var cardVariants3 = classVarianceAuthority.cva(
+  "bg-surface border border-border-subtle rounded-lg p-5",
+  {
+    variants: {
+      compact: {
+        true: "p-sp-3 px-sp-4",
+        false: "p-sp-5"
+      }
+    },
+    defaultVariants: {
+      compact: false
+    }
+  }
+);
+var MetricCard2 = ({
+  data,
+  className,
+  compact = false
+}) => {
+  const dir = data.direction ?? (data.delta !== void 0 ? getDirection2(data.delta) : "flat");
+  return /* @__PURE__ */ jsxRuntime.jsxs("div", { className: cn(cardVariants3({ compact }), className), children: [
+    /* @__PURE__ */ jsxRuntime.jsx("div", { className: "text-[11px] text-text-tertiary font-medium uppercase tracking-widest mb-sp-2", children: data.label }),
+    /* @__PURE__ */ jsxRuntime.jsxs("div", { className: cn(
+      "font-display font-bold text-text-primary leading-none tabular-nums tracking-[-0.5px] mb-sp-2",
+      compact ? "text-2xl" : "text-3xl"
+    ), children: [
+      data.prefix && /* @__PURE__ */ jsxRuntime.jsx("span", { className: "text-lg text-text-secondary mr-[1px]", children: data.prefix }),
+      typeof data.value === "number" ? data.value.toLocaleString("en-IN") : data.value,
+      data.suffix && /* @__PURE__ */ jsxRuntime.jsx("span", { className: "text-sm font-body text-text-tertiary font-normal ml-[2px]", children: data.suffix })
+    ] }),
+    data.delta !== void 0 && /* @__PURE__ */ jsxRuntime.jsx(
+      PriceChange2,
+      {
+        value: data.delta,
+        percent: void 0,
+        direction: dir,
+        className: "mt-sp-1"
+      }
+    ),
+    data.deltaLabel && !data.delta && /* @__PURE__ */ jsxRuntime.jsx("div", { className: "text-xs text-text-tertiary mt-sp-1", children: data.deltaLabel })
+  ] });
+};
+MetricCard2.displayName = "MetricCard";
+function normalise2(data, h) {
+  if (data.length < 2) return "";
+  const min = Math.min(...data);
+  const max = Math.max(...data);
+  const range = max - min || 1;
+  const step = 200 / (data.length - 1);
+  return data.map((v, i) => {
+    const x = i * step;
+    const y = h - (v - min) / range * (h - 4) - 2;
+    return `${x},${y}`;
+  }).join(" ");
+}
+var colorMap2 = {
+  up: { stroke: "#00B38A", fill: "rgba(0,179,138,0.1)" },
+  down: { stroke: "#EF4444", fill: "rgba(239,68,68,0.1)" },
+  flat: { stroke: "#9BACA6", fill: "rgba(155,172,166,0.1)" }
+};
+var Sparkline2 = ({
+  data,
+  direction = "up",
+  width = 200,
+  height = 40,
+  className
+}) => {
+  if (!data || data.length < 2) return null;
+  const pts = normalise2(data, height);
+  const colors = colorMap2[direction] ?? colorMap2.up;
+  const closedPts = `0,${height} ${pts} 200,${height}`;
+  return /* @__PURE__ */ jsxRuntime.jsxs(
+    "svg",
+    {
+      className: cn("block w-full", className),
+      viewBox: `0 0 200 ${height}`,
+      preserveAspectRatio: "none",
+      "aria-hidden": "true",
+      style: { height },
+      children: [
+        /* @__PURE__ */ jsxRuntime.jsx("polygon", { points: closedPts, fill: colors.fill, stroke: "none" }),
+        /* @__PURE__ */ jsxRuntime.jsx(
+          "polyline",
+          {
+            points: pts,
+            fill: "none",
+            stroke: colors.stroke,
+            strokeWidth: "2",
+            strokeLinecap: "round",
+            strokeLinejoin: "round"
+          }
+        )
+      ]
+    }
+  );
+};
+Sparkline2.displayName = "Sparkline";
+var priceVariants4 = classVarianceAuthority.cva(
+  "font-display text-2xl font-bold tabular-nums tracking-tighter",
+  {
+    variants: {
+      direction: {
+        up: "text-mint-500",
+        down: "text-red-500",
+        flat: "text-text-primary"
+      }
+    },
+    defaultVariants: {
+      direction: "flat"
+    }
+  }
+);
+var StockCard2 = ({
+  data,
+  onClick,
+  className
+}) => {
+  const direction = getDirection2(data.change);
+  return /* @__PURE__ */ jsxRuntime.jsxs(
+    "div",
+    {
+      className: cn(
+        "bg-surface border border-border-subtle rounded-lg p-sp-4 transition-all duration-300 ease-out",
+        onClick && "cursor-pointer hover:border-mint-400 hover:shadow-[0_4px_16px_rgba(0,179,138,0.25)] hover:-translate-y-[2px] active:scale-[0.99] focus-visible:outline-2 focus-visible:outline-mint-400 focus-visible:outline-offset-2",
+        className
+      ),
+      onClick,
+      role: onClick ? "button" : void 0,
+      tabIndex: onClick ? 0 : void 0,
+      onKeyDown: onClick ? (e) => {
+        if (e.key === "Enter" || e.key === " ") onClick();
+      } : void 0,
+      children: [
+        /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex justify-between items-start mb-sp-3", children: [
+          /* @__PURE__ */ jsxRuntime.jsxs("div", { children: [
+            /* @__PURE__ */ jsxRuntime.jsx("div", { className: "font-display text-xl font-bold text-text-primary tracking-tight", children: data.ticker }),
+            /* @__PURE__ */ jsxRuntime.jsx("div", { className: "text-xs text-text-tertiary mt-0.5", children: data.name })
+          ] }),
+          /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "text-right flex flex-col items-end gap-0.5", children: [
+            /* @__PURE__ */ jsxRuntime.jsxs("div", { className: cn(priceVariants4({ direction })), children: [
+              "\u20B9",
+              data.price.toLocaleString("en-IN")
+            ] }),
+            /* @__PURE__ */ jsxRuntime.jsx(
+              PriceChange2,
+              {
+                value: data.change,
+                percent: data.changePercent,
+                direction
+              }
+            )
+          ] })
+        ] }),
+        data.sparkline && /* @__PURE__ */ jsxRuntime.jsx("div", { className: "my-sp-3 rounded-sm overflow-hidden", children: /* @__PURE__ */ jsxRuntime.jsx(Sparkline2, { data: data.sparkline, direction, height: 40 }) }),
+        /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "grid grid-cols-3 gap-sp-2 pt-sp-3 border-t border-border-subtle", children: [
+          data.open !== void 0 && /* @__PURE__ */ jsxRuntime.jsxs("div", { children: [
+            /* @__PURE__ */ jsxRuntime.jsx("div", { className: "text-[10px] text-text-tertiary uppercase tracking-wider mb-0.5", children: "Open" }),
+            /* @__PURE__ */ jsxRuntime.jsx("div", { className: "font-mono text-sm font-semibold text-text-primary tabular-nums", children: data.open.toLocaleString("en-IN") })
+          ] }),
+          data.high !== void 0 && /* @__PURE__ */ jsxRuntime.jsxs("div", { children: [
+            /* @__PURE__ */ jsxRuntime.jsx("div", { className: "text-[10px] text-text-tertiary uppercase tracking-wider mb-0.5", children: direction === "down" ? "Low" : "High" }),
+            /* @__PURE__ */ jsxRuntime.jsx("div", { className: "font-mono text-sm font-semibold text-text-primary tabular-nums", children: (direction === "down" ? data.low : data.high)?.toLocaleString(
+              "en-IN"
+            ) })
+          ] }),
+          data.volume && /* @__PURE__ */ jsxRuntime.jsxs("div", { children: [
+            /* @__PURE__ */ jsxRuntime.jsx("div", { className: "text-[10px] text-text-tertiary uppercase tracking-wider mb-0.5", children: "Vol" }),
+            /* @__PURE__ */ jsxRuntime.jsx("div", { className: "font-mono text-sm font-semibold text-text-primary tabular-nums", children: data.volume })
+          ] })
+        ] })
+      ]
+    }
+  );
+};
+StockCard2.displayName = "StockCard";
+var Dialog2 = DialogPrimitive2__namespace.Root;
+var DialogPortal2 = DialogPrimitive2__namespace.Portal;
+var DialogOverlay2 = React26__namespace.default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsxRuntime.jsx(
+  DialogPrimitive2__namespace.Overlay,
+  {
+    ref,
+    className: cn(
+      "fixed inset-0 z-50 bg-black/80 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=fade-in-0] data-[state=closed]:fade-out-0",
+      className
+    ),
+    ...props
+  }
+));
+DialogOverlay2.displayName = DialogPrimitive2__namespace.Overlay.displayName;
+var DialogContent2 = React26__namespace.default.forwardRef(({ className, children, ...props }, ref) => /* @__PURE__ */ jsxRuntime.jsxs(DialogPortal2, { children: [
+  /* @__PURE__ */ jsxRuntime.jsx(DialogOverlay2, {}),
+  /* @__PURE__ */ jsxRuntime.jsxs(
+    DialogPrimitive2__namespace.Content,
+    {
+      ref,
+      className: cn(
+        "fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-sp-4 border border-border-subtle bg-surface p-sp-6 shadow-xl duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] rounded-2xl",
+        className
+      ),
+      ...props,
+      children: [
+        children,
+        /* @__PURE__ */ jsxRuntime.jsxs(DialogPrimitive2__namespace.Close, { className: "absolute right-sp-4 top-sp-4 rounded-sm opacity-70 ring-offset-surface transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-brand focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-surface-elevated data-[state=open]:text-text-tertiary", children: [
+          /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.X, { className: "h-4 w-4 text-text-primary" }),
+          /* @__PURE__ */ jsxRuntime.jsx("span", { className: "sr-only", children: "Close" })
+        ] })
+      ]
+    }
+  )
+] }));
+DialogContent2.displayName = DialogPrimitive2__namespace.Content.displayName;
+var DialogTitle2 = React26__namespace.default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsxRuntime.jsx(
+  DialogPrimitive2__namespace.Title,
+  {
+    ref,
+    className: cn(
+      "text-lg font-bold leading-none tracking-tight text-text-primary",
+      className
+    ),
+    ...props
+  }
+));
+DialogTitle2.displayName = DialogPrimitive2__namespace.Title.displayName;
+var DialogDescription2 = React26__namespace.default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsxRuntime.jsx(
+  DialogPrimitive2__namespace.Description,
+  {
+    ref,
+    className: cn("text-sm text-text-tertiary font-body", className),
+    ...props
+  }
+));
+DialogDescription2.displayName = DialogPrimitive2__namespace.Description.displayName;
+var Drawer2 = ({
+  open,
+  onOpenChange,
+  title,
+  description,
+  children,
+  side = "right",
+  className
+}) => {
+  const sideClasses = {
+    right: "inset-y-0 right-0 h-full w-3/4 sm:max-w-sm border-l border-border-subtle bg-surface animate-in slide-in-from-right",
+    left: "inset-y-0 left-0 h-full w-3/4 sm:max-w-sm border-r border-border-subtle bg-surface animate-in slide-in-from-left",
+    top: "inset-x-0 top-0 h-auto w-full border-b border-border-subtle bg-surface animate-in slide-in-from-top",
+    bottom: "inset-x-0 bottom-0 h-auto w-full border-t border-border-subtle bg-surface animate-in slide-in-from-bottom"
+  };
+  return /* @__PURE__ */ jsxRuntime.jsx(DialogPrimitive2__namespace.Root, { open, onOpenChange, children: /* @__PURE__ */ jsxRuntime.jsxs(DialogPrimitive2__namespace.Portal, { children: [
+    /* @__PURE__ */ jsxRuntime.jsx(DialogPrimitive2__namespace.Overlay, { className: "fixed inset-0 z-50 bg-black/80 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0" }),
+    /* @__PURE__ */ jsxRuntime.jsx(
+      DialogPrimitive2__namespace.Content,
+      {
+        className: cn(
+          "fixed z-50 bg-surface p-sp-6 shadow-xl outline-none duration-300",
+          sideClasses[side],
+          className
+        ),
+        children: /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex flex-col h-full", children: [
+          /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex items-center justify-between mb-sp-4", children: [
+            /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex flex-col gap-1", children: [
+              title && /* @__PURE__ */ jsxRuntime.jsx(DialogPrimitive2__namespace.Title, { className: "text-lg font-bold leading-none tracking-tight text-text-primary", children: title }),
+              description && /* @__PURE__ */ jsxRuntime.jsx(DialogPrimitive2__namespace.Description, { className: "text-sm text-text-tertiary font-body", children: description })
+            ] }),
+            /* @__PURE__ */ jsxRuntime.jsxs(DialogPrimitive2__namespace.Close, { className: "rounded-md opacity-70 transition-opacity hover:opacity-100 focus:outline-none disabled:pointer-events-none text-text-primary", children: [
+              /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.X, { className: "h-5 w-5" }),
+              /* @__PURE__ */ jsxRuntime.jsx("span", { className: "sr-only", children: "Close" })
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxRuntime.jsx("div", { className: "flex-1 overflow-y-auto min-h-0", children })
+        ] })
+      }
+    )
+  ] }) });
+};
+Drawer2.displayName = "Drawer";
+var Menu2 = DropdownMenuPrimitive__namespace.Root;
+var MenuContent2 = React26__namespace.default.forwardRef(({ className, sideOffset = 4, ...props }, ref) => /* @__PURE__ */ jsxRuntime.jsx(DropdownMenuPrimitive__namespace.Portal, { children: /* @__PURE__ */ jsxRuntime.jsx(
+  DropdownMenuPrimitive__namespace.Content,
+  {
+    ref,
+    sideOffset,
+    className: cn(
+      "z-50 min-w-[12rem] overflow-hidden rounded-xl border border-border-subtle bg-surface/80 backdrop-blur-md p-sp-1.5 shadow-xl animate-in fade-in zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
+      className
+    ),
+    ...props
+  }
+) }));
+MenuContent2.displayName = DropdownMenuPrimitive__namespace.Content.displayName;
+var MenuItem2 = React26__namespace.default.forwardRef(({ className, inset, ...props }, ref) => /* @__PURE__ */ jsxRuntime.jsx(
+  DropdownMenuPrimitive__namespace.Item,
+  {
+    ref,
+    className: cn(
+      "relative flex cursor-default select-none items-center rounded-lg px-sp-2.5 py-sp-2 text-sm text-text-primary outline-none transition-colors focus:bg-surface-elevated focus:text-brand data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+      inset && "pl-sp-8",
+      className
+    ),
+    ...props
+  }
+));
+MenuItem2.displayName = DropdownMenuPrimitive__namespace.Item.displayName;
+var MenuLabel2 = React26__namespace.default.forwardRef(({ className, inset, ...props }, ref) => /* @__PURE__ */ jsxRuntime.jsx(
+  DropdownMenuPrimitive__namespace.Label,
+  {
+    ref,
+    className: cn("px-sp-2.5 py-sp-1.5 text-[11px] font-bold uppercase tracking-wider text-text-tertiary", inset && "pl-sp-8", className),
+    ...props
+  }
+));
+MenuLabel2.displayName = DropdownMenuPrimitive__namespace.Label.displayName;
+var MenuSeparator2 = React26__namespace.default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsxRuntime.jsx(
+  DropdownMenuPrimitive__namespace.Separator,
+  {
+    ref,
+    className: cn("-mx-sp-1.5 my-sp-1.5 h-px bg-border-subtle", className),
+    ...props
+  }
+));
+MenuSeparator2.displayName = DropdownMenuPrimitive__namespace.Separator.displayName;
+var buttonVariants2 = classVarianceAuthority.cva(
+  "inline-flex items-center justify-center gap-sp-2 font-body font-medium tracking-tight cursor-pointer border border-transparent relative overflow-hidden select-none whitespace-nowrap transition-all duration-120 ease-out focus-visible:outline-2 focus-visible:outline-mint-400 focus-visible:outline-offset-2 active:scale-[0.97] disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none",
+  {
+    variants: {
+      variant: {
+        primary: "bg-mint-400 text-neutral-900 border-mint-400 shadow-[0_4px_16px_rgba(0,179,138,0.25)] hover:bg-mint-300 hover:border-mint-300 hover:-translate-y-[1px] hover:shadow-[0_6px_24px_rgba(0,179,138,0.38)]",
+        secondary: "bg-surface text-text-primary border-border-default shadow-sm hover:border-mint-400 hover:text-text-brand hover:bg-surface-overlay",
+        ghost: "bg-transparent text-text-secondary border-transparent hover:bg-surface-overlay hover:text-text-primary",
+        danger: "bg-red-500/10 text-red-600 border-red-500/20 hover:bg-red-600 hover:text-neutral-0 hover:border-red-600",
+        "outline-brand": "bg-transparent text-text-brand border-mint-400 hover:bg-surface-overlay",
+        dark: "bg-neutral-800 text-mint-300 border-mint-300/20 shadow-[0_4px_20px_rgba(0,0,0,0.4)] hover:bg-neutral-700 hover:border-mint-400"
+      },
+      size: {
+        xs: "text-xs py-1 px-2.5 rounded-sm",
+        sm: "text-sm py-1.5 px-3.5 rounded-md",
+        md: "text-base py-[9px] px-5 rounded-md",
+        lg: "text-lg py-3 px-[26px] rounded-lg",
+        xl: "text-xl py-3.5 px-8 rounded-lg font-semibold"
+      },
+      fullWidth: {
+        true: "w-full"
+      },
+      loading: {
+        true: "cursor-wait"
+      },
+      iconOnly: {
+        true: "p-0 aspect-square"
+      }
+    },
+    compoundVariants: [
+      { size: "xs", iconOnly: true, className: "w-7 h-7" },
+      { size: "sm", iconOnly: true, className: "w-8 h-8" },
+      { size: "md", iconOnly: true, className: "w-[38px] h-[38px]" },
+      { size: "lg", iconOnly: true, className: "w-[46px] h-[46px]" },
+      { size: "xl", iconOnly: true, className: "w-[52px] h-[52px]" }
+    ],
+    defaultVariants: {
+      variant: "primary",
+      size: "md"
+    }
+  }
+);
+var Button2 = React26.forwardRef(
+  ({
+    variant,
+    size,
+    loading = false,
+    iconOnly = false,
+    leftIcon,
+    rightIcon,
+    fullWidth,
+    disabled,
+    className,
+    children,
+    ...rest
+  }, ref) => {
+    return /* @__PURE__ */ jsxRuntime.jsxs(
+      "button",
+      {
+        ref,
+        className: cn(buttonVariants2({ variant, size, fullWidth, loading, iconOnly }), className),
+        disabled: disabled || loading,
+        "aria-busy": loading,
+        ...rest,
+        children: [
+          loading && /* @__PURE__ */ jsxRuntime.jsx(
+            "span",
+            {
+              className: "absolute w-3.5 h-3.5 border-2 border-current border-t-transparent rounded-full animate-spin",
+              "aria-hidden": "true"
+            }
+          ),
+          /* @__PURE__ */ jsxRuntime.jsxs("span", { className: cn("flex items-center gap-sp-2", loading && "opacity-0"), children: [
+            !loading && leftIcon && /* @__PURE__ */ jsxRuntime.jsx("span", { className: "inline-flex items-center shrink-0", children: leftIcon }),
+            !iconOnly && /* @__PURE__ */ jsxRuntime.jsx("span", { children }),
+            iconOnly && !loading && children,
+            !loading && rightIcon && /* @__PURE__ */ jsxRuntime.jsx("span", { className: "inline-flex items-center shrink-0", children: rightIcon })
+          ] })
+        ]
+      }
+    );
+  }
+);
+Button2.displayName = "Button";
+var Fab2 = React26__namespace.default.forwardRef(
+  ({ icon, children, position = "none", className, ...props }, ref) => {
+    const positionClasses = {
+      "bottom-right": "fixed bottom-8 right-8 z-50",
+      "bottom-left": "fixed bottom-8 left-8 z-50",
+      "top-right": "fixed top-24 right-8 z-50",
+      "top-left": "fixed top-24 left-8 z-50",
+      none: "relative"
+    };
+    return /* @__PURE__ */ jsxRuntime.jsx(
+      Button2,
+      {
+        ref,
+        variant: "primary",
+        size: "lg",
+        className: cn(
+          "rounded-full shadow-[0_8px_32px_rgba(0,179,138,0.4)] hover:shadow-[0_12px_48px_rgba(0,179,138,0.6)] flex items-center justify-center p-0 transition-all duration-300",
+          !children && "aspect-square w-sp-14 h-sp-14",
+          children && "px-sp-6 py-sp-4 aspect-auto h-sp-14",
+          positionClasses[position],
+          className
+        ),
+        ...props,
+        children: /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex items-center gap-2", children: [
+          icon,
+          children && /* @__PURE__ */ jsxRuntime.jsx("span", { className: "font-bold tracking-tight", children })
+        ] })
+      }
+    );
+  }
+);
+Fab2.displayName = "Fab";
+var Link5 = ({
+  variant = "default",
+  underline = "hover",
+  className,
+  children,
+  ...props
+}) => {
+  const variantClasses2 = {
+    default: "text-mint-600 hover:text-mint-500",
+    muted: "text-neutral-400 hover:text-mint-600",
+    brand: "text-mint-500 hover:text-mint-400",
+    ghost: "text-inherit hover:opacity-80",
+    neutral: "text-neutral-600 hover:text-neutral-900"
+  };
+  const underlineClasses = {
+    none: "no-underline",
+    hover: "no-underline hover:underline",
+    always: "underline"
+  };
+  return /* @__PURE__ */ jsxRuntime.jsx(
+    "a",
+    {
+      className: cn(
+        "transition-all duration-150 cursor-pointer font-body inline-flex items-center gap-1.5",
+        variantClasses2[variant],
+        underlineClasses[underline],
+        className
+      ),
+      ...props,
+      children
+    }
+  );
+};
+Link5.displayName = "Link";
+var Breadcrumbs2 = ({
+  items,
+  separator = /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.ChevronRight, { size: 13, className: "text-neutral-600" }),
+  className,
+  ...props
+}) => {
+  return /* @__PURE__ */ jsxRuntime.jsx(
+    "nav",
+    {
+      "aria-label": "Breadcrumb",
+      className: cn("flex items-center", className),
+      ...props,
+      children: /* @__PURE__ */ jsxRuntime.jsx("ol", { className: "flex flex-wrap items-center gap-1.5 list-none p-0 m-0", children: items.map((item, index) => {
+        const isLast = index === items.length - 1;
+        return /* @__PURE__ */ jsxRuntime.jsxs(React26__namespace.default.Fragment, { children: [
+          /* @__PURE__ */ jsxRuntime.jsx("li", { className: "flex items-center gap-sp-1.5", children: item.href && !isLast ? /* @__PURE__ */ jsxRuntime.jsxs(
+            Link5,
+            {
+              href: item.href,
+              variant: "ghost",
+              className: "flex items-center gap-sp-1 text-sm font-body hover:text-mint-600 transition-colors",
+              children: [
+                item.icon,
+                item.label
+              ]
+            }
+          ) : /* @__PURE__ */ jsxRuntime.jsxs(
+            "span",
+            {
+              className: cn(
+                "flex items-center gap-sp-1 text-sm font-body",
+                isLast ? "font-semibold text-mint-600" : "text-neutral-400"
+              ),
+              children: [
+                item.icon,
+                item.label
+              ]
+            }
+          ) }),
+          !isLast && /* @__PURE__ */ jsxRuntime.jsx("li", { "aria-hidden": "true", className: "flex items-center text-neutral-300 px-sp-1", children: separator })
+        ] }, item.label);
+      }) })
+    }
+  );
+};
+Breadcrumbs2.displayName = "Breadcrumbs";
+var dotVariants3 = classVarianceAuthority.cva(
+  "w-[7px] h-[7px] rounded-full shrink-0",
+  {
+    variants: {
+      color: {
+        green: "bg-mint-500",
+        amber: "bg-amber-500",
+        neutral: "bg-neutral-300"
+      },
+      pulse: {
+        true: "animate-pulse-live",
+        false: ""
+      }
+    },
+    defaultVariants: {
+      color: "neutral",
+      pulse: false
+    }
+  }
+);
+var sessionConfig2 = {
+  "pre-open": { color: "amber", label: "Pre-open", pulse: false },
+  open: { color: "green", label: "Market Open", pulse: true },
+  closed: { color: "neutral", label: "Closed", pulse: false },
+  "post-close": { color: "neutral", label: "Post-close", pulse: false }
+};
+var SupportLiveBar2 = ({
+  marketStatus,
+  onSupportClick,
+  className
+}) => {
+  const session = marketStatus?.session ?? "closed";
+  const cfg = sessionConfig2[session];
+  return /* @__PURE__ */ jsxRuntime.jsxs("div", { className: cn("flex items-center justify-between p-sp-2 px-sp-4 bg-surface border-t border-neutral-100 gap-sp-3", className), children: [
+    marketStatus && /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex items-center gap-sp-2 text-xs text-neutral-600 flex-1 min-w-0 overflow-hidden", children: [
+      /* @__PURE__ */ jsxRuntime.jsx(
+        "span",
+        {
+          className: dotVariants3({ color: cfg.color, pulse: cfg.pulse }),
+          "aria-hidden": "true"
+        }
+      ),
+      /* @__PURE__ */ jsxRuntime.jsx("span", { className: "font-semibold text-neutral-900 shrink-0 whitespace-nowrap overflow-hidden text-ellipsis", children: marketStatus.label ?? cfg.label }),
+      marketStatus.nextEvent && /* @__PURE__ */ jsxRuntime.jsxs("span", { className: "text-neutral-400 whitespace-nowrap overflow-hidden text-ellipsis", children: [
+        "\xB7 ",
+        marketStatus.nextEvent,
+        marketStatus.nextEventTime && /* @__PURE__ */ jsxRuntime.jsx("span", { className: "font-mono ml-0.5", children: marketStatus.nextEventTime })
+      ] })
+    ] }),
+    /* @__PURE__ */ jsxRuntime.jsxs(
+      "button",
+      {
+        className: "inline-flex items-center gap-sp-1 font-body text-xs font-semibold text-mint-600 bg-mint-50 border border-mint-400/20 rounded-full py-1 px-2.5 cursor-pointer shrink-0 transition-all duration-120 whitespace-nowrap hover:bg-mint-400/20 hover:border-mint-400 focus-visible:outline-2 focus-visible:outline-mint-400 focus-visible:outline-offset-2",
+        onClick: onSupportClick,
+        "aria-label": "Contact support",
+        children: [
+          /* @__PURE__ */ jsxRuntime.jsx(
+            "svg",
+            {
+              width: "13",
+              height: "13",
+              viewBox: "0 0 24 24",
+              fill: "none",
+              stroke: "currentColor",
+              strokeWidth: "2",
+              strokeLinecap: "round",
+              strokeLinejoin: "round",
+              "aria-hidden": "true",
+              children: /* @__PURE__ */ jsxRuntime.jsx("path", { d: "M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" })
+            }
+          ),
+          /* @__PURE__ */ jsxRuntime.jsx("span", { children: "Support" })
+        ]
+      }
+    )
+  ] });
+};
+SupportLiveBar2.displayName = "SupportLiveBar";
+var Nudge2 = ({
+  id,
+  title,
+  description,
+  variant = "info",
+  onClose,
+  onAction,
+  actionLabel,
+  className
+}) => {
+  const icons2 = {
+    info: /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.Info, { className: "text-blue-500", size: 18 }),
+    warning: /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.AlertTriangle, { className: "text-amber-500", size: 18 }),
+    success: /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.CheckCircle2, { className: "text-mint-500", size: 18 }),
+    neutral: /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.Info, { className: "text-neutral-400", size: 18 })
+  };
+  return /* @__PURE__ */ jsxRuntime.jsxs(
+    framerMotion.motion.div,
+    {
+      layout: true,
+      initial: { opacity: 0, scale: 0.95, y: 20 },
+      animate: { opacity: 1, scale: 1, y: 0 },
+      exit: { opacity: 0, scale: 0.95, x: 20 },
+      className: cn(
+        "group relative p-sp-4 rounded-xl border border-neutral-150 bg-surface/80 backdrop-blur-md shadow-lg flex gap-sp-4 min-w-[320px] max-w-[400px]",
+        variant === "info" && "border-blue-500/20",
+        variant === "warning" && "border-amber-500/20",
+        variant === "success" && "border-mint-500/20",
+        variant === "neutral" && "border-neutral-150",
+        className
+      ),
+      children: [
+        /* @__PURE__ */ jsxRuntime.jsx("div", { className: "mt-1", children: icons2[variant] }),
+        /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex-1", children: [
+          /* @__PURE__ */ jsxRuntime.jsx("h4", { className: "font-bold text-sm leading-tight mb-1", children: title }),
+          /* @__PURE__ */ jsxRuntime.jsx("p", { className: "text-xs text-muted-foreground leading-relaxed", children: description }),
+          onAction && actionLabel && /* @__PURE__ */ jsxRuntime.jsx(
+            "button",
+            {
+              onClick: () => onAction(id),
+              className: "mt-sp-3 text-xs font-bold text-mint-600 hover:underline",
+              children: actionLabel
+            }
+          )
+        ] }),
+        onClose && /* @__PURE__ */ jsxRuntime.jsx(
+          "button",
+          {
+            onClick: () => onClose(id),
+            className: "absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity p-1 hover:bg-muted rounded-md",
+            children: /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.X, { size: 14 })
+          }
+        )
+      ]
+    }
+  );
+};
+var NudgesPanel2 = ({
+  nudges,
+  onClose,
+  onAction,
+  position = "bottom-right",
+  className
+}) => {
+  const positionClasses = {
+    "top-right": "top-6 right-6 flex-col-reverse",
+    "bottom-right": "bottom-6 right-6 flex-col",
+    "bottom-center": "bottom-6 left-1/2 -translate-x-1/2 flex-col"
+  };
+  return /* @__PURE__ */ jsxRuntime.jsx(
+    "div",
+    {
+      className: cn(
+        "fixed z-50 flex gap-3 pointer-events-none",
+        positionClasses[position],
+        className
+      ),
+      children: /* @__PURE__ */ jsxRuntime.jsx(framerMotion.AnimatePresence, { children: nudges.map((nudge) => /* @__PURE__ */ jsxRuntime.jsx("div", { className: "pointer-events-auto", children: /* @__PURE__ */ jsxRuntime.jsx(
+        Nudge2,
+        {
+          ...nudge,
+          onClose,
+          onAction
+        }
+      ) }, nudge.id)) })
+    }
+  );
+};
+var LWC_URL = "https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js";
+var scriptPromise = null;
+var loadScript = () => {
+  if (!scriptPromise) {
+    scriptPromise = new Promise((resolve, reject) => {
+      if (window.LightweightCharts) {
+        resolve();
+        return;
+      }
+      const script = document.createElement("script");
+      script.src = LWC_URL;
+      script.id = "lwc-script-v4";
+      script.async = true;
+      script.onload = () => resolve();
+      script.onerror = () => reject(new Error("Failed to load LightweightCharts"));
+      document.head.appendChild(script);
+    });
+  }
+  return scriptPromise;
+};
+var BaseChart = ({
+  renderFn,
+  height = 300,
+  theme = "dark",
+  className
+}) => {
+  const containerRef = React26.useRef(null);
+  const chartRef = React26.useRef(null);
+  const [error, setError] = React26.useState(null);
+  React26.useEffect(() => {
+    let chart = null;
+    let cancelled = false;
+    const init = async () => {
+      try {
+        await loadScript();
+        if (cancelled || !containerRef.current) return;
+        const LWT = window.LightweightCharts;
+        if (!LWT?.createChart) {
+          setError("LightweightCharts not available");
+          return;
+        }
+        if (chartRef.current) {
+          try {
+            chartRef.current.remove();
+          } catch (_) {
+          }
+          chartRef.current = null;
+        }
+        chart = LWT.createChart(containerRef.current, {
+          layout: {
+            background: { type: "solid", color: "transparent" },
+            textColor: theme === "dark" ? "#9BACA6" : "#3A524D",
+            fontFamily: "'DM Sans', sans-serif"
+          },
+          grid: {
+            vertLines: { color: theme === "dark" ? "rgba(232,239,237,0.06)" : "rgba(8,14,13,0.06)" },
+            horzLines: { color: theme === "dark" ? "rgba(232,239,237,0.06)" : "rgba(8,14,13,0.06)" }
+          },
+          crosshair: {
+            vertLine: { color: "#3DDCBA", width: 1, style: 3, labelBackgroundColor: "#00B38A" },
+            horzLine: { color: "#3DDCBA", width: 1, style: 3, labelBackgroundColor: "#00B38A" }
+          },
+          timeScale: {
+            borderColor: theme === "dark" ? "rgba(232,239,237,0.1)" : "rgba(8,14,13,0.1)",
+            timeVisible: true
+          },
+          rightPriceScale: {
+            borderColor: theme === "dark" ? "rgba(232,239,237,0.1)" : "rgba(8,14,13,0.1)"
+          },
+          width: containerRef.current.clientWidth,
+          height
+        });
+        chartRef.current = chart;
+        renderFn(LWT, chart);
+        const handleResize = () => {
+          if (containerRef.current && chartRef.current) {
+            chartRef.current.applyOptions({ width: containerRef.current.clientWidth });
+          }
+        };
+        window.addEventListener("resize", handleResize);
+        return handleResize;
+      } catch (err) {
+        if (!cancelled) setError(err.message ?? "Chart error");
+      }
+    };
+    init();
+    return () => {
+      cancelled = true;
+      if (chartRef.current) {
+        try {
+          chartRef.current.remove();
+        } catch (_) {
+        }
+        chartRef.current = null;
+      }
+    };
+  }, [theme, height]);
+  if (error) {
+    return /* @__PURE__ */ jsxRuntime.jsxs("div", { style: { height, display: "flex", alignItems: "center", justifyContent: "center", color: "#EF4444", fontSize: 13, borderRadius: 12, border: "1px solid rgba(239,68,68,0.3)", background: "rgba(239,68,68,0.05)" }, children: [
+      "Chart failed to load: ",
+      error
+    ] });
+  }
+  return /* @__PURE__ */ jsxRuntime.jsx(
+    "div",
+    {
+      ref: containerRef,
+      className,
+      style: {
+        width: "100%",
+        height,
+        borderRadius: 12,
+        overflow: "hidden",
+        background: theme === "dark" ? "rgba(13,22,20,0.4)" : "rgba(245,248,247,0.8)",
+        border: `1px solid ${theme === "dark" ? "rgba(232,239,237,0.08)" : "rgba(8,14,13,0.1)"}`
+      }
+    }
+  );
+};
+var AreaChart = ({ data, color = "#00B38A", ...props }) => /* @__PURE__ */ jsxRuntime.jsx(
+  BaseChart,
+  {
+    ...props,
+    renderFn: (_LWT, chart) => {
+      const series = chart.addAreaSeries({
+        topColor: `${color}4D`,
+        bottomColor: `${color}00`,
+        lineColor: color,
+        lineWidth: 2
+      });
+      series.setData(data);
+    }
+  }
+);
+var CandlestickChart = ({ data, ...props }) => /* @__PURE__ */ jsxRuntime.jsx(
+  BaseChart,
+  {
+    ...props,
+    renderFn: (_LWT, chart) => {
+      const series = chart.addCandlestickSeries({
+        upColor: "#00B38A",
+        downColor: "#EF4444",
+        borderVisible: false,
+        wickUpColor: "#00B38A",
+        wickDownColor: "#EF4444"
+      });
+      series.setData(data);
+    }
+  }
+);
+var BaselineChart = ({ data, color = "#00B38A", ...props }) => /* @__PURE__ */ jsxRuntime.jsx(
+  BaseChart,
+  {
+    ...props,
+    renderFn: (_LWT, chart) => {
+      const series = chart.addBaselineSeries({
+        topFillColor1: `${color}4D`,
+        topFillColor2: `${color}00`,
+        topLineColor: color,
+        bottomFillColor1: "rgba(239,68,68,0)",
+        bottomFillColor2: "rgba(239,68,68,0.3)",
+        bottomLineColor: "#EF4444",
+        lineWidth: 2
+      });
+      series.setData(data);
+    }
+  }
+);
+var VolumeChart = ({ data, color = "#00B38A", ...props }) => /* @__PURE__ */ jsxRuntime.jsx(
+  BaseChart,
+  {
+    ...props,
+    renderFn: (_LWT, chart) => {
+      const series = chart.addHistogramSeries({
+        priceFormat: { type: "volume" },
+        priceScaleId: "volume"
+      });
+      chart.priceScale("volume").applyOptions({
+        scaleMargins: { top: 0.1, bottom: 0 }
+      });
+      series.setData(
+        data.map((d) => ({
+          time: d.time,
+          value: d.value ?? 0,
+          color: (d.value ?? 0) > 25 ? `${color}B3` : "#EF444480"
+        }))
+      );
+    }
+  }
+);
+var AdvancedRealTimeChart = ({
+  symbol = "NASDAQ:AAPL",
+  interval = "D",
+  theme = "dark",
+  autosize = true,
+  height = 500,
+  ...rest
+}) => {
+  const container = React26.useRef(null);
+  const scriptId = `tradingview-advanced-${symbol}`;
+  React26.useEffect(() => {
+    if (container.current && !document.getElementById(scriptId)) {
+      const script = document.createElement("script");
+      script.id = scriptId;
+      script.src = "https://s3.tradingview.com/tv.js";
+      script.type = "text/javascript";
+      script.async = true;
+      script.onload = () => {
+        if (window.TradingView) {
+          new window.TradingView.widget({
+            autosize,
+            symbol,
+            interval,
+            timezone: "Etc/UTC",
+            theme,
+            style: "1",
+            locale: "en",
+            enable_publishing: false,
+            allow_symbol_change: true,
+            container_id: container.current?.id,
+            height,
+            ...rest
+          });
+        }
+      };
+      document.head.appendChild(script);
+    }
+  }, [symbol, interval, theme, autosize, height, scriptId, rest]);
+  return /* @__PURE__ */ jsxRuntime.jsx(
+    "div",
+    {
+      className: "tradingview-widget-container",
+      style: { height: autosize ? "100%" : height, width: "100%" },
+      children: /* @__PURE__ */ jsxRuntime.jsx("div", { id: `tv_chart_${symbol.replace(/[^a-zA-Z0-9]/g, "_")}`, ref: container, style: { height: "100%", width: "100%" } })
+    }
+  );
+};
+var TechnicalAnalysis = ({
+  symbol = "NASDAQ:AAPL",
+  theme = "dark",
+  width = "100%",
+  height = 450,
+  interval = "1D"
+}) => {
+  const container = React26.useRef(null);
+  React26.useEffect(() => {
+    if (container.current) {
+      container.current.innerHTML = "";
+      const script = document.createElement("script");
+      script.src = "https://s3.tradingview.com/external-embedding/embed-widget-technical-analysis.js";
+      script.type = "text/javascript";
+      script.async = true;
+      script.innerHTML = JSON.stringify({
+        interval,
+        width,
+        isTransparent: false,
+        height,
+        symbol,
+        showIntervalTabs: true,
+        locale: "en",
+        colorTheme: theme,
+        ...theme === "dark" ? {
+          "gridLineColor": "rgba(42, 46, 57, 0)",
+          "fontColor": "#d1d4dc",
+          "underLineColor": "rgba(41, 98, 255, 0.3)",
+          "trendLineColor": "rgba(41, 98, 255, 1)"
+        } : {}
+      });
+      container.current.appendChild(script);
+    }
+  }, [symbol, interval, theme, width, height]);
+  return /* @__PURE__ */ jsxRuntime.jsx("div", { className: "tradingview-widget-container", ref: container, children: /* @__PURE__ */ jsxRuntime.jsx("div", { className: "tradingview-widget-container__widget" }) });
+};
+var MarketOverview = ({
+  theme = "dark",
+  width = "100%",
+  height = 400,
+  symbols = [
+    { s: "FOREXCOM:SPX500", d: "S&P 500" },
+    { s: "FOREXCOM:NSXUSD", d: "Nasdaq 100" },
+    { s: "FX_IDC:INRUSD", d: "USD/INR" },
+    { s: "BITSTAMP:BTCUSD", d: "Bitcoin" }
+  ]
+}) => {
+  const container = React26.useRef(null);
+  React26.useEffect(() => {
+    if (container.current) {
+      container.current.innerHTML = "";
+      const script = document.createElement("script");
+      script.src = "https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js";
+      script.type = "text/javascript";
+      script.async = true;
+      script.innerHTML = JSON.stringify({
+        colorTheme: theme,
+        dateRange: "12M",
+        showChart: true,
+        locale: "en",
+        width,
+        height,
+        largeChartAtBottom: false,
+        isTransparent: false,
+        showSymbolLogo: true,
+        showFloatingTooltip: false,
+        tabs: [
+          {
+            title: "Indices",
+            symbols
+          }
+        ]
+      });
+      container.current.appendChild(script);
+    }
+  }, [theme, width, height, symbols]);
+  return /* @__PURE__ */ jsxRuntime.jsx("div", { className: "tradingview-widget-container", ref: container, children: /* @__PURE__ */ jsxRuntime.jsx("div", { className: "tradingview-widget-container__widget" }) });
+};
+var SymbolOverviewMini = ({
+  symbol = "NASDAQ:AAPL",
+  theme = "dark",
+  width = "100%",
+  height = 200
+}) => {
+  const container = React26.useRef(null);
+  React26.useEffect(() => {
+    if (container.current) {
+      container.current.innerHTML = "";
+      const script = document.createElement("script");
+      script.src = "https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js";
+      script.type = "text/javascript";
+      script.async = true;
+      script.innerHTML = JSON.stringify({
+        symbol,
+        width,
+        height,
+        locale: "en",
+        dateRange: "12M",
+        colorTheme: theme,
+        isTransparent: false,
+        autosize: false,
+        largeChartAtBottom: false
+      });
+      container.current.appendChild(script);
+    }
+  }, [symbol, theme, width, height]);
+  return /* @__PURE__ */ jsxRuntime.jsx("div", { className: "tradingview-widget-container", ref: container, children: /* @__PURE__ */ jsxRuntime.jsx("div", { className: "tradingview-widget-container__widget" }) });
+};
+var TickerTape = ({
+  theme = "dark",
+  symbols = [
+    { proName: "FOREXCOM:SPX500", title: "S&P 500" },
+    { proName: "FOREXCOM:NSXUSD", title: "Nasdaq 100" },
+    { proName: "FX_IDC:EURUSD", title: "EUR/USD" },
+    { proName: "BITSTAMP:BTCUSD", title: "Bitcoin" },
+    { proName: "BITSTAMP:ETHUSD", title: "Ethereum" }
+  ]
+}) => {
+  const container = React26.useRef(null);
+  React26.useEffect(() => {
+    if (container.current) {
+      container.current.innerHTML = "";
+      const script = document.createElement("script");
+      script.src = "https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js";
+      script.type = "text/javascript";
+      script.async = true;
+      script.innerHTML = JSON.stringify({
+        symbols,
+        showSymbolLogo: true,
+        colorTheme: theme,
+        isTransparent: false,
+        displayMode: "adaptive",
+        locale: "en"
+      });
+      container.current.appendChild(script);
+    }
+  }, [theme, symbols]);
+  return /* @__PURE__ */ jsxRuntime.jsx("div", { className: "tradingview-widget-container", ref: container, children: /* @__PURE__ */ jsxRuntime.jsx("div", { className: "tradingview-widget-container__widget" }) });
+};
 
 // src/components/AssetData.ts
 var ICONS = [
@@ -12140,1300 +14766,134 @@ function AssetCard({ name, id, type }) {
     }
   );
 }
-function FibSpiral({ theme = "dark", className }) {
-  const dark = theme === "dark";
-  const lineAlpha = dark ? "rgba(232,239,237," : "rgba(20,31,29,";
-  const chipBg = dark ? "rgba(8,14,13,0.93)" : "rgba(245,248,247,0.95)";
-  const chipBd = dark ? "rgba(0,179,138,0.22)" : "rgba(0,179,138,0.3)";
-  return /* @__PURE__ */ jsxRuntime.jsxs(
-    "div",
-    {
-      className: cn("relative flex items-center justify-center select-none", className),
-      "aria-hidden": true,
-      children: [
-        /* @__PURE__ */ jsxRuntime.jsx(
-          "div",
-          {
-            className: "absolute inset-0 rounded-full pointer-events-none",
-            style: {
-              background: "radial-gradient(60% 55% at 50% 50%, rgba(0,179,138,0.07) 0%, transparent 70%)",
-              transform: "scale(1.2)"
-            }
-          }
-        ),
-        /* @__PURE__ */ jsxRuntime.jsxs(
-          "svg",
-          {
-            viewBox: "-300 -220 600 440",
-            className: "w-full max-w-[540px]",
-            style: { filter: "drop-shadow(0 0 48px rgba(0,179,138,0.10))" },
-            children: [
-              /* @__PURE__ */ jsxRuntime.jsxs("defs", { children: [
-                /* @__PURE__ */ jsxRuntime.jsx("style", { children: `
-            @keyframes drawSpiral{from{stroke-dashoffset:2200}to{stroke-dashoffset:0}}
-            @keyframes popIn{from{opacity:0;transform:scale(0.9)}to{opacity:1;transform:scale(1)}}
-            @keyframes pulseDot{0%,100%{r:4}50%{r:7}}
-            @keyframes pulseRing{0%,100%{r:8;opacity:0.25}50%{r:14;opacity:0}}
-            .sp{stroke-dasharray:2200;stroke-dashoffset:2200;animation:drawSpiral 3.2s cubic-bezier(0.16,1,0.3,1) 0.4s forwards}
-            .pi{opacity:0;animation:popIn 0.4s ease forwards}
-            .d1{animation-delay:0.8s}.d2{animation-delay:1.1s}.d3{animation-delay:1.4s}
-            .d4{animation-delay:1.7s}.d5{animation-delay:2.0s}.d6{animation-delay:2.3s}
-            .d7{animation-delay:2.6s}.d8{animation-delay:2.9s}
-          ` }),
-                /* @__PURE__ */ jsxRuntime.jsxs("filter", { id: "glow2", x: "-30%", y: "-30%", width: "160%", height: "160%", children: [
-                  /* @__PURE__ */ jsxRuntime.jsx("feGaussianBlur", { stdDeviation: "2.5", result: "b" }),
-                  /* @__PURE__ */ jsxRuntime.jsxs("feMerge", { children: [
-                    /* @__PURE__ */ jsxRuntime.jsx("feMergeNode", { in: "b" }),
-                    /* @__PURE__ */ jsxRuntime.jsx("feMergeNode", { in: "SourceGraphic" })
-                  ] })
-                ] })
-              ] }),
-              [-200, -100, 0, 100, 200].map((v) => /* @__PURE__ */ jsxRuntime.jsxs("g", { children: [
-                /* @__PURE__ */ jsxRuntime.jsx(
-                  "line",
-                  {
-                    x1: v,
-                    y1: "-220",
-                    x2: v,
-                    y2: "220",
-                    stroke: `${lineAlpha}0.025)`,
-                    strokeWidth: "1"
-                  }
-                ),
-                /* @__PURE__ */ jsxRuntime.jsx(
-                  "line",
-                  {
-                    x1: "-290",
-                    y1: v,
-                    x2: "290",
-                    y2: v,
-                    stroke: `${lineAlpha}0.025)`,
-                    strokeWidth: "1"
-                  }
-                )
-              ] }, v)),
-              /* @__PURE__ */ jsxRuntime.jsx(
-                "rect",
-                {
-                  x: "-280",
-                  y: "-170",
-                  width: "280",
-                  height: "170",
-                  fill: "none",
-                  stroke: "rgba(0,179,138,0.06)",
-                  strokeWidth: "1",
-                  strokeDasharray: "4 4",
-                  className: "pi d1"
-                }
-              ),
-              /* @__PURE__ */ jsxRuntime.jsx(
-                "rect",
-                {
-                  x: "-170",
-                  y: "-170",
-                  width: "170",
-                  height: "170",
-                  fill: "rgba(0,179,138,0.022)",
-                  stroke: "rgba(0,179,138,0.10)",
-                  strokeWidth: "1",
-                  className: "pi d2"
-                }
-              ),
-              /* @__PURE__ */ jsxRuntime.jsx(
-                "rect",
-                {
-                  x: "-170",
-                  y: "-60",
-                  width: "105",
-                  height: "60",
-                  fill: "rgba(0,179,138,0.035)",
-                  stroke: "rgba(0,179,138,0.16)",
-                  strokeWidth: "1",
-                  className: "pi d3"
-                }
-              ),
-              /* @__PURE__ */ jsxRuntime.jsx(
-                "rect",
-                {
-                  x: "-170",
-                  y: "-60",
-                  width: "66",
-                  height: "60",
-                  fill: "rgba(0,179,138,0.055)",
-                  stroke: "rgba(0,179,138,0.24)",
-                  strokeWidth: "1.5",
-                  className: "pi d4"
-                }
-              ),
-              /* @__PURE__ */ jsxRuntime.jsx(
-                "rect",
-                {
-                  x: "-170",
-                  y: "-22",
-                  width: "40",
-                  height: "22",
-                  fill: "rgba(0,179,138,0.08)",
-                  stroke: "rgba(0,179,138,0.35)",
-                  strokeWidth: "1.5",
-                  className: "pi d5"
-                }
-              ),
-              /* @__PURE__ */ jsxRuntime.jsx(
-                "rect",
-                {
-                  x: "-170",
-                  y: "-22",
-                  width: "25",
-                  height: "22",
-                  fill: "rgba(0,179,138,0.12)",
-                  stroke: "rgba(0,179,138,0.50)",
-                  strokeWidth: "2",
-                  className: "pi d6"
-                }
-              ),
-              /* @__PURE__ */ jsxRuntime.jsx(
-                "path",
-                {
-                  className: "sp",
-                  d: "M-145,-22 A25,25 0 0,1 -170,0 A40,40 0 0,0 -130,40 A66,66 0 0,1 -170,106 A105,105 0 0,0 -65,0 A170,170 0 0,1 105,-170 A280,280 0 0,0 -170,110",
-                  fill: "none",
-                  stroke: "#00B38A",
-                  strokeWidth: "1.8",
-                  strokeLinecap: "round",
-                  filter: "url(#glow2)"
-                }
-              ),
-              [
-                {
-                  y: -170,
-                  pct: "0%",
-                  lbl: "High - start of move",
-                  cls: "d2",
-                  bold: false
-                },
-                {
-                  y: -130,
-                  pct: "23.6%",
-                  lbl: "First pause zone",
-                  cls: "d3",
-                  bold: false
-                },
-                {
-                  y: -100,
-                  pct: "38.2%",
-                  lbl: "Shallow pullback",
-                  cls: "d4",
-                  bold: false
-                },
-                {
-                  y: -66,
-                  pct: "50.0%",
-                  lbl: "Midpoint - watch closely",
-                  cls: "d5",
-                  bold: false
-                },
-                {
-                  y: -22,
-                  pct: "61.8%",
-                  lbl: "Golden ratio support \u2605",
-                  cls: "d6",
-                  bold: true
-                },
-                {
-                  y: 0,
-                  pct: "100%",
-                  lbl: "Low - base of move",
-                  cls: "d7",
-                  bold: false
-                }
-              ].map(({ y, pct, lbl, cls, bold }) => /* @__PURE__ */ jsxRuntime.jsxs("g", { className: cn("pi", cls), children: [
-                /* @__PURE__ */ jsxRuntime.jsx(
-                  "line",
-                  {
-                    x1: "-290",
-                    x2: "270",
-                    y1: y,
-                    y2: y,
-                    stroke: bold ? "#00B38A" : `${lineAlpha}0.14)`,
-                    strokeWidth: bold ? 1.5 : 0.75,
-                    strokeDasharray: bold ? void 0 : "3 6"
-                  }
-                ),
-                /* @__PURE__ */ jsxRuntime.jsx(
-                  "text",
-                  {
-                    x: "-286",
-                    y: y - 4,
-                    fontFamily: "DM Mono,monospace",
-                    fontSize: bold ? 9.5 : 8,
-                    fontWeight: bold ? 700 : 400,
-                    fill: bold ? "#00B38A" : `${lineAlpha}0.35)`,
-                    children: pct
-                  }
-                ),
-                /* @__PURE__ */ jsxRuntime.jsx(
-                  "text",
-                  {
-                    x: "268",
-                    y: y - 4,
-                    fontFamily: "DM Mono,monospace",
-                    fontSize: "7.5",
-                    fill: bold ? "rgba(0,179,138,0.6)" : `${lineAlpha}0.22)`,
-                    textAnchor: "end",
-                    children: lbl
-                  }
-                ),
-                bold && /* @__PURE__ */ jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [
-                  /* @__PURE__ */ jsxRuntime.jsx(
-                    "circle",
-                    {
-                      cx: "-65",
-                      cy: y,
-                      r: "4",
-                      fill: "#00B38A",
-                      filter: "url(#glow2)"
-                    }
-                  ),
-                  /* @__PURE__ */ jsxRuntime.jsxs("circle", { cx: "-65", cy: y, r: "4", fill: "#00B38A", children: [
-                    /* @__PURE__ */ jsxRuntime.jsx(
-                      "animate",
-                      {
-                        attributeName: "r",
-                        values: "4;12;4",
-                        dur: "2.8s",
-                        repeatCount: "indefinite"
-                      }
-                    ),
-                    /* @__PURE__ */ jsxRuntime.jsx(
-                      "animate",
-                      {
-                        attributeName: "opacity",
-                        values: "0.8;0;0.8",
-                        dur: "2.8s",
-                        repeatCount: "indefinite"
-                      }
-                    )
-                  ] }),
-                  /* @__PURE__ */ jsxRuntime.jsx(
-                    "text",
-                    {
-                      x: "-53",
-                      y: y + 4,
-                      fontFamily: "DM Mono,monospace",
-                      fontSize: "8",
-                      fontWeight: "600",
-                      fill: "#00B38A",
-                      children: "\u2190 move zone"
-                    }
-                  )
-                ] })
-              ] }, pct)),
-              /* @__PURE__ */ jsxRuntime.jsxs("g", { className: "pi d8", children: [
-                /* @__PURE__ */ jsxRuntime.jsx(
-                  "rect",
-                  {
-                    x: "58",
-                    y: "-52",
-                    width: "134",
-                    height: "40",
-                    rx: "7",
-                    fill: chipBg,
-                    stroke: chipBd,
-                    strokeWidth: "1"
-                  }
-                ),
-                /* @__PURE__ */ jsxRuntime.jsx(
-                  "text",
-                  {
-                    x: "126",
-                    y: "-33",
-                    fontFamily: "DM Mono,monospace",
-                    fontSize: "10",
-                    fontWeight: "700",
-                    fill: "#3DDCBA",
-                    textAnchor: "middle",
-                    children: "TCS | \u20B93,847"
-                  }
-                ),
-                /* @__PURE__ */ jsxRuntime.jsx(
-                  "text",
-                  {
-                    x: "126",
-                    y: "-19",
-                    fontFamily: "DM Mono,monospace",
-                    fontSize: "7.5",
-                    fill: "rgba(34,197,94,0.75)",
-                    textAnchor: "middle",
-                    children: "\u25B2 +2.37% | 61.8% move zone \u2713"
-                  }
-                )
-              ] })
-            ]
-          }
-        )
-      ]
-    }
-  );
-}
-function Hero({
-  tag,
-  title,
-  description,
-  features = [],
-  theme = "dark",
-  className,
-  children,
-  socialProof,
-  chips
-}) {
-  const dark = theme === "dark";
-  const t3 = dark ? "#5A706A" : "#748A83";
-  const t4 = dark ? "#3A524D" : "#9BACA6";
-  return /* @__PURE__ */ jsxRuntime.jsx("section", { className: cn("relative z-10 mx-auto max-w-7xl px-6 pb-20 pt-10 lg:px-12 lg:pt-14", className), children: /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-20", children: [
-    /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex flex-col lg:max-w-2xl", children: [
-      tag && /* @__PURE__ */ jsxRuntime.jsx("div", { className: "rev-up mb-6 flex items-center gap-3", children: /* @__PURE__ */ jsxRuntime.jsxs(
-        "span",
-        {
-          className: "inline-flex items-center gap-1.5 rounded-full px-3 py-1",
-          style: {
-            fontFamily: "DM Mono, monospace",
-            fontSize: "10px",
-            fontWeight: 600,
-            letterSpacing: "0.16em",
-            textTransform: "uppercase",
-            color: "#00B38A",
-            background: "rgba(0,179,138,0.08)",
-            border: "1px solid rgba(0,179,138,0.2)"
-          },
-          children: [
-            /* @__PURE__ */ jsxRuntime.jsxs("span", { className: "relative flex h-1.5 w-1.5", children: [
-              /* @__PURE__ */ jsxRuntime.jsx(
-                "span",
-                {
-                  className: "absolute inline-flex h-full w-full animate-ping rounded-full opacity-60",
-                  style: { background: "#00B38A" }
-                }
-              ),
-              /* @__PURE__ */ jsxRuntime.jsx(
-                "span",
-                {
-                  className: "relative flex h-1.5 w-1.5 rounded-full",
-                  style: { background: "#00B38A" }
-                }
-              )
-            ] }),
-            tag
-          ]
-        }
-      ) }),
-      /* @__PURE__ */ jsxRuntime.jsx(
-        "h1",
-        {
-          className: "rev-up",
-          style: {
-            fontFamily: "Syne, sans-serif",
-            fontWeight: 800,
-            fontSize: "clamp(44px, 6.2vw, 88px)",
-            lineHeight: 0.94,
-            letterSpacing: "-0.04em"
-          },
-          children: title
-        }
-      ),
-      /* @__PURE__ */ jsxRuntime.jsx(
-        "p",
-        {
-          className: "rev-up mt-7 max-w-[440px]",
-          style: {
-            fontSize: "16px",
-            lineHeight: 1.7,
-            color: t3
-          },
-          children: description
-        }
-      ),
-      features.length > 0 && /* @__PURE__ */ jsxRuntime.jsx("div", { className: "rev-up mt-5 flex flex-wrap gap-2 text-center", children: features.map((f) => /* @__PURE__ */ jsxRuntime.jsx(
-        "span",
-        {
-          className: "rounded-full px-3 py-1",
-          style: {
-            fontFamily: "DM Mono, monospace",
-            fontSize: "11px",
-            color: dark ? "#9BACA6" : "#3A524D",
-            background: dark ? "rgba(232,239,237,0.05)" : "rgba(20,31,29,0.05)",
-            border: `1px solid ${dark ? "rgba(232,239,237,0.08)" : "rgba(20,31,29,0.09)"}`
-          },
-          children: f
-        },
-        f
-      )) }),
-      /* @__PURE__ */ jsxRuntime.jsx("div", { className: "rev-up mt-8 w-full max-w-[440px]", children }),
-      socialProof && /* @__PURE__ */ jsxRuntime.jsx("div", { className: "rev-up mt-6 flex items-center gap-3", children: socialProof })
-    ] }),
-    /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "rev-fd relative lg:flex lg:justify-end", children: [
-      /* @__PURE__ */ jsxRuntime.jsx(FibSpiral, { theme }),
-      chips?.left && /* @__PURE__ */ jsxRuntime.jsxs(
-        "div",
-        {
-          className: "float-a absolute -left-2 top-[22%] hidden rounded-xl px-3.5 py-2.5 lg:block",
-          style: {
-            border: "1px solid rgba(0,179,138,0.2)",
-            background: dark ? "rgba(8,14,13,0.92)" : "rgba(245,248,247,0.95)",
-            backdropFilter: "blur(12px)"
-          },
-          children: [
-            /* @__PURE__ */ jsxRuntime.jsx(
-              "div",
-              {
-                style: {
-                  fontFamily: "DM Mono, monospace",
-                  fontSize: "9px",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.15em",
-                  color: t4,
-                  marginBottom: "3px"
-                },
-                children: chips.left.label
-              }
-            ),
-            /* @__PURE__ */ jsxRuntime.jsx(
-              "div",
-              {
-                style: {
-                  fontFamily: "DM Mono, monospace",
-                  fontSize: "13px",
-                  fontWeight: 700,
-                  color: "#00B38A"
-                },
-                children: chips.left.value
-              }
-            ),
-            /* @__PURE__ */ jsxRuntime.jsx(
-              "div",
-              {
-                style: {
-                  fontFamily: "DM Mono, monospace",
-                  fontSize: "10px",
-                  color: "#22C55E"
-                },
-                children: chips.left.sub
-              }
-            )
-          ]
-        }
-      ),
-      chips?.right && /* @__PURE__ */ jsxRuntime.jsxs(
-        "div",
-        {
-          className: "float-b absolute -right-1 bottom-[22%] hidden rounded-xl px-3.5 py-2.5 lg:block",
-          style: {
-            border: "1px solid rgba(0,179,138,0.2)",
-            background: dark ? "rgba(8,14,13,0.92)" : "rgba(245,248,247,0.95)",
-            backdropFilter: "blur(12px)"
-          },
-          children: [
-            /* @__PURE__ */ jsxRuntime.jsx(
-              "div",
-              {
-                style: {
-                  fontFamily: "DM Mono, monospace",
-                  fontSize: "9px",
-                  textTransform: "uppercase",
-                  letterSpacing: "0.15em",
-                  color: t4,
-                  marginBottom: "3px"
-                },
-                children: chips.right.label
-              }
-            ),
-            /* @__PURE__ */ jsxRuntime.jsx(
-              "div",
-              {
-                style: {
-                  fontFamily: "DM Mono, monospace",
-                  fontSize: "13px",
-                  fontWeight: 700,
-                  color: "#3DDCBA"
-                },
-                children: chips.right.value
-              }
-            ),
-            /* @__PURE__ */ jsxRuntime.jsx(
-              "div",
-              {
-                style: {
-                  fontFamily: "DM Mono, monospace",
-                  fontSize: "10px",
-                  color: t3
-                },
-                children: chips.right.sub
-              }
-            )
-          ]
-        }
-      )
-    ] })
-  ] }) });
-}
-function Ticker({ items, theme = "dark", className }) {
-  const dark = theme === "dark";
-  const doubled = [...items, ...items];
-  return /* @__PURE__ */ jsxRuntime.jsx(
-    "div",
-    {
-      className: cn("overflow-hidden py-2.5", className),
-      style: {
-        borderTop: `1px solid ${dark ? "rgba(232,239,237,0.05)" : "rgba(20,31,29,0.06)"}`,
-        borderBottom: `1px solid ${dark ? "rgba(232,239,237,0.05)" : "rgba(20,31,29,0.06)"}`,
-        background: dark ? "rgba(13,22,20,0.7)" : "rgba(235,243,240,0.8)",
-        backdropFilter: "blur(8px)"
-      },
-      children: /* @__PURE__ */ jsxRuntime.jsx(
-        "div",
-        {
-          className: "flex gap-10 whitespace-nowrap",
-          style: { animation: "ticker 46s linear infinite" },
-          children: doubled.map((item, i) => /* @__PURE__ */ jsxRuntime.jsxs(
-            "span",
-            {
-              className: "shrink-0",
-              style: {
-                fontFamily: "DM Mono, monospace",
-                fontSize: "11px",
-                letterSpacing: "0.05em",
-                color: dark ? "rgba(232,239,237,0.28)" : "rgba(20,31,29,0.38)"
-              },
-              children: [
-                /* @__PURE__ */ jsxRuntime.jsx(
-                  "span",
-                  {
-                    style: { color: "#00B38A", opacity: 0.5, marginRight: "10px" },
-                    children: "\u25C6"
-                  }
-                ),
-                item
-              ]
-            },
-            i
-          ))
-        }
-      )
-    }
-  );
-}
-function HowItWorks({
-  label,
-  steps,
-  theme = "dark",
-  className
-}) {
-  const dark = theme === "dark";
-  const divider = dark ? "rgba(232,239,237,0.05)" : "rgba(20,31,29,0.06)";
-  return /* @__PURE__ */ jsxRuntime.jsx(
-    "section",
-    {
-      className: cn("", className),
-      style: {
-        borderTop: `1px solid ${divider}`,
-        borderBottom: `1px solid ${divider}`
-      },
-      children: /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "mx-auto max-w-7xl px-6 py-20 lg:px-12", children: [
-        /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "mb-12 flex items-center gap-5", children: [
-          /* @__PURE__ */ jsxRuntime.jsx(
-            "span",
-            {
-              style: {
-                fontFamily: "DM Mono, monospace",
-                fontSize: "10px",
-                textTransform: "uppercase",
-                letterSpacing: "0.22em",
-                color: dark ? "#3A524D" : "#9BACA6"
-              },
-              children: label
-            }
-          ),
-          /* @__PURE__ */ jsxRuntime.jsx("div", { className: "h-px flex-1", style: { background: divider } })
-        ] }),
-        /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "relative grid grid-cols-1 gap-12 md:grid-cols-3", children: [
-          /* @__PURE__ */ jsxRuntime.jsx(
-            "div",
-            {
-              "aria-hidden": true,
-              className: "absolute left-0 top-5 hidden h-px w-full md:block",
-              style: {
-                background: "linear-gradient(90deg, transparent, rgba(0,179,138,0.10), transparent)"
-              }
-            }
-          ),
-          steps.map((step, i) => /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "relative flex flex-col gap-4", children: [
-            /* @__PURE__ */ jsxRuntime.jsx(
-              "div",
-              {
-                className: "relative flex h-11 w-11 items-center justify-center rounded-xl",
-                style: {
-                  border: "1px solid rgba(0,179,138,0.2)",
-                  background: "rgba(0,179,138,0.06)",
-                  fontFamily: "DM Mono, monospace",
-                  fontSize: "11px",
-                  fontWeight: 700,
-                  color: "#00B38A"
-                },
-                children: step.n
-              }
-            ),
-            /* @__PURE__ */ jsxRuntime.jsx(
-              "h3",
-              {
-                style: {
-                  fontFamily: "Syne, sans-serif",
-                  fontWeight: 800,
-                  fontSize: "18px",
-                  lineHeight: 1.2,
-                  color: dark ? "#E8EFED" : "#141F1D"
-                },
-                children: step.title
-              }
-            ),
-            /* @__PURE__ */ jsxRuntime.jsx("p", { style: { fontSize: "13px", lineHeight: 1.7, color: dark ? "#5A706A" : "#748A83" }, children: step.body })
-          ] }, step.n))
-        ] })
-      ] })
-    }
-  );
-}
-function DiffCard({ item, i, theme = "dark" }) {
-  const dark = theme === "dark";
-  const [hovered, setHovered] = React26.useState(false);
-  return /* @__PURE__ */ jsxRuntime.jsxs(
-    "article",
-    {
-      onMouseEnter: () => setHovered(true),
-      onMouseLeave: () => setHovered(false),
-      className: "group relative flex flex-col gap-5 overflow-hidden rounded-2xl p-6 transition-all duration-500 cursor-default",
-      style: {
-        background: dark ? "rgba(13,22,20,0.55)" : "rgba(255,255,255,0.75)",
-        border: `1px solid ${hovered ? `${item.accent}35` : dark ? "rgba(232,239,237,0.07)" : "rgba(20,31,29,0.08)"}`,
-        backdropFilter: "blur(12px)",
-        boxShadow: hovered ? `0 0 48px ${item.accent}0A` : "none",
-        transition: "all 0.4s ease"
-      },
-      children: [
-        /* @__PURE__ */ jsxRuntime.jsx(
-          "div",
-          {
-            className: "pointer-events-none absolute right-0 top-0 h-32 w-32 rounded-bl-[100%] transition-opacity duration-500",
-            style: {
-              background: `radial-gradient(circle at top right, ${item.accent}14, transparent 70%)`,
-              opacity: hovered ? 1 : 0
-            }
-          }
-        ),
-        /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex items-center gap-3", children: [
-          /* @__PURE__ */ jsxRuntime.jsx(
-            "div",
-            {
-              className: "flex h-9 w-9 items-center justify-center rounded-xl transition-colors duration-300",
-              style: {
-                background: hovered ? `${item.accent}18` : dark ? "rgba(232,239,237,0.05)" : "rgba(20,31,29,0.04)",
-                border: `1px solid ${hovered ? `${item.accent}30` : dark ? "rgba(232,239,237,0.08)" : "rgba(20,31,29,0.08)"}`,
-                color: hovered ? item.accent : dark ? "#5A706A" : "#748A83"
-              },
-              children: item.icon
-            }
-          ),
-          /* @__PURE__ */ jsxRuntime.jsx(
-            "span",
-            {
-              className: "rounded-full px-2.5 py-0.5",
-              style: {
-                fontFamily: "DM Mono, monospace",
-                fontSize: "10px",
-                fontWeight: 600,
-                letterSpacing: "0.12em",
-                textTransform: "uppercase",
-                background: `${item.accent}12`,
-                color: item.accent,
-                border: `1px solid ${item.accent}25`
-              },
-              children: item.tag
-            }
-          )
-        ] }),
-        /* @__PURE__ */ jsxRuntime.jsx(
-          "h3",
-          {
-            className: "leading-tight tracking-tight transition-colors duration-300",
-            style: {
-              fontFamily: "Syne, sans-serif",
-              fontWeight: 800,
-              fontSize: "clamp(20px, 2.2vw, 26px)",
-              color: dark ? "#E8EFED" : "#141F1D",
-              whiteSpace: "pre-line"
-            },
-            children: item.title
-          }
-        ),
-        /* @__PURE__ */ jsxRuntime.jsx(
-          "p",
-          {
-            style: {
-              fontSize: "13px",
-              lineHeight: 1.7,
-              color: dark ? "#5A706A" : "#748A83"
-            },
-            children: item.body
-          }
-        ),
-        /* @__PURE__ */ jsxRuntime.jsxs(
-          "div",
-          {
-            className: "mt-auto flex items-end justify-between pt-4",
-            style: {
-              borderTop: `1px solid ${dark ? "rgba(232,239,237,0.05)" : "rgba(20,31,29,0.06)"}`
-            },
-            children: [
-              /* @__PURE__ */ jsxRuntime.jsxs("div", { children: [
-                /* @__PURE__ */ jsxRuntime.jsx(
-                  "div",
-                  {
-                    style: {
-                      fontFamily: "DM Mono, monospace",
-                      fontSize: "28px",
-                      fontWeight: 700,
-                      lineHeight: 1,
-                      color: item.accent
-                    },
-                    children: item.metric
-                  }
-                ),
-                /* @__PURE__ */ jsxRuntime.jsx(
-                  "div",
-                  {
-                    style: {
-                      fontFamily: "DM Mono, monospace",
-                      fontSize: "10px",
-                      color: dark ? "#3A524D" : "#9BACA6",
-                      marginTop: "4px"
-                    },
-                    children: item.metricSub
-                  }
-                )
-              ] }),
-              /* @__PURE__ */ jsxRuntime.jsx(
-                "div",
-                {
-                  className: "flex h-8 w-8 items-center justify-center rounded-full transition-all duration-300",
-                  style: {
-                    border: `1px solid ${item.accent}${hovered ? "45" : "20"}`,
-                    color: item.accent,
-                    opacity: hovered ? 1 : 0.4
-                  },
-                  children: /* @__PURE__ */ jsxRuntime.jsx(
-                    "svg",
-                    {
-                      width: "13",
-                      height: "13",
-                      viewBox: "0 0 24 24",
-                      fill: "none",
-                      stroke: "currentColor",
-                      strokeWidth: "2.5",
-                      strokeLinecap: "round",
-                      strokeLinejoin: "round",
-                      children: /* @__PURE__ */ jsxRuntime.jsx("path", { d: "M7 17 17 7M7 7h10v10" })
-                    }
-                  )
-                }
-              )
-            ]
-          }
-        )
-      ]
-    }
-  );
-}
-function Differentiators({
-  title,
-  items,
-  theme = "dark",
-  className
-}) {
-  const dark = theme === "dark";
-  const divider = dark ? "rgba(232,239,237,0.05)" : "rgba(20,31,29,0.06)";
-  return /* @__PURE__ */ jsxRuntime.jsxs("section", { className: cn("mx-auto max-w-7xl px-6 py-20 lg:px-12", className), children: [
-    /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "mb-10 flex items-center gap-5", children: [
-      /* @__PURE__ */ jsxRuntime.jsx(
-        "span",
-        {
-          style: {
-            fontFamily: "DM Mono, monospace",
-            fontSize: "10px",
-            textTransform: "uppercase",
-            letterSpacing: "0.22em",
-            color: dark ? "#3A524D" : "#9BACA6"
-          },
-          children: title
-        }
-      ),
-      /* @__PURE__ */ jsxRuntime.jsx("div", { className: "h-px flex-1", style: { background: divider } })
-    ] }),
-    /* @__PURE__ */ jsxRuntime.jsx("div", { className: "grid grid-cols-1 gap-4 md:grid-cols-3", children: items.map((item, i) => /* @__PURE__ */ jsxRuntime.jsx(DiffCard, { item, i, theme }, item.rank)) })
-  ] });
-}
-
-// src/components/marketing/WaitlistForm.tsx
-var import_link3 = __toESM(require_link2());
-function WaitlistForm({
-  theme = "dark",
-  size = "md",
-  className,
-  onSuccess
-}) {
-  const dark = theme === "dark";
-  const [email, setEmail] = React26.useState("");
-  const [status, setStatus] = React26.useState("idle");
-  const [position, setPos] = React26.useState(null);
-  const [error, setError] = React26.useState(null);
-  const inputRef = React26.useRef(null);
-  const submit = React26.useCallback(
-    async (e) => {
-      e.preventDefault();
-      const val = email.trim();
-      if (!val || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(val)) {
-        setError("Enter a valid email address.");
-        inputRef.current?.focus();
-        return;
-      }
-      setStatus("loading");
-      setError(null);
-      try {
-        const res = await fetch("/api/waitlist", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ email: val })
-        });
-        if (!res.ok) throw new Error();
-        const data = await res.json();
-        setPos(data.position ?? null);
-        setStatus("success");
-        onSuccess?.(val, data.position);
-      } catch {
-        setStatus("error");
-        setError("Something went wrong. Please try again.");
-      }
-    },
-    [email, onSuccess]
-  );
-  if (status === "success") {
-    return /* @__PURE__ */ jsxRuntime.jsxs(
-      "div",
-      {
-        className: cn(
-          "flex flex-col items-center gap-3 rounded-2xl p-6 text-center",
-          className
-        ),
-        style: {
-          background: dark ? "rgba(0,179,138,0.05)" : "rgba(0,179,138,0.07)",
-          border: "1px solid rgba(0,179,138,0.2)"
-        },
-        children: [
-          /* @__PURE__ */ jsxRuntime.jsx(
-            "div",
-            {
-              className: "flex h-11 w-11 items-center justify-center rounded-full",
-              style: {
-                background: "rgba(0,179,138,0.12)",
-                border: "1px solid rgba(0,179,138,0.3)"
-              },
-              children: /* @__PURE__ */ jsxRuntime.jsx(
-                "svg",
-                {
-                  width: "18",
-                  height: "18",
-                  viewBox: "0 0 24 24",
-                  fill: "none",
-                  stroke: "#00B38A",
-                  strokeWidth: "2.5",
-                  strokeLinecap: "round",
-                  strokeLinejoin: "round",
-                  children: /* @__PURE__ */ jsxRuntime.jsx("path", { d: "M20 6 9 17l-5-5" })
-                }
-              )
-            }
-          ),
-          /* @__PURE__ */ jsxRuntime.jsxs(
-            "p",
-            {
-              style: {
-                fontFamily: "Syne, sans-serif",
-                fontWeight: 800,
-                fontSize: "18px",
-                color: dark ? "#E8EFED" : "#141F1D"
-              },
-              children: [
-                "You\u2019re in",
-                position ? ` - #${position.toLocaleString("en-IN")}` : ""
-              ]
-            }
-          ),
-          /* @__PURE__ */ jsxRuntime.jsxs("p", { style: { fontSize: "13px", color: dark ? "#5A706A" : "#748A83" }, children: [
-            "We\u2019ll email",
-            " ",
-            /* @__PURE__ */ jsxRuntime.jsx("span", { style: { color: dark ? "#9BACA6" : "#3A524D" }, children: email }),
-            " ",
-            "when early access opens."
-          ] })
-        ]
-      }
-    );
+var ToastProvider2 = ToastPrimitive__namespace.Provider;
+var ToastViewport2 = React26__namespace.default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsxRuntime.jsx(
+  ToastPrimitive__namespace.Viewport,
+  {
+    ref,
+    className: cn(
+      "fixed top-0 z-[100] flex max-h-screen w-full flex-col-reverse p-4 sm:bottom-0 sm:right-0 sm:top-auto sm:flex-col md:max-w-[420px]",
+      className
+    ),
+    ...props
   }
-  return /* @__PURE__ */ jsxRuntime.jsxs("form", { onSubmit: submit, noValidate: true, className: cn("w-full", className), children: [
-    /* @__PURE__ */ jsxRuntime.jsxs(
-      "div",
-      {
-        className: "flex overflow-hidden rounded-2xl transition-all duration-300",
-        style: {
-          border: `1px solid ${dark ? "rgba(232,239,237,0.09)" : "rgba(20,31,29,0.12)"}`,
-          background: dark ? "rgba(13,22,20,0.85)" : "rgba(255,255,255,0.9)",
-          backdropFilter: "blur(12px)",
-          boxShadow: "0 0 0 0 transparent"
-        },
-        onFocusCapture: (e) => e.currentTarget.style.boxShadow = "0 0 0 3px rgba(0,179,138,0.10)",
-        onBlurCapture: (e) => e.currentTarget.style.boxShadow = "0 0 0 0 transparent",
-        children: [
-          /* @__PURE__ */ jsxRuntime.jsx(
-            "input",
-            {
-              ref: inputRef,
-              type: "email",
-              value: email,
-              onChange: (e) => {
-                setEmail(e.target.value);
-                setError(null);
-              },
-              placeholder: "your@email.com",
-              disabled: status === "loading",
-              "aria-label": "Email for early access",
-              style: {
-                flex: 1,
-                background: "transparent",
-                padding: size === "sm" ? "12px 20px" : "15px 20px",
-                fontFamily: "DM Sans, sans-serif",
-                fontSize: "14px",
-                color: dark ? "#E8EFED" : "#141F1D",
-                outline: "none",
-                border: "none"
-              },
-              className: "placeholder:text-[#5A706A]"
-            }
-          ),
-          /* @__PURE__ */ jsxRuntime.jsx(
-            "button",
-            {
-              type: "submit",
-              disabled: status === "loading",
-              className: "m-1.5 flex shrink-0 items-center gap-2 rounded-xl transition-all duration-200 active:scale-95 disabled:opacity-50",
-              style: {
-                background: "#00B38A",
-                padding: "10px 20px",
-                fontFamily: "DM Sans, sans-serif",
-                fontSize: "13px",
-                fontWeight: 600,
-                color: "#001A13",
-                boxShadow: "0 4px 20px rgba(0,179,138,0.32)",
-                whiteSpace: "nowrap"
-              },
-              onMouseEnter: (e) => {
-                e.currentTarget.style.background = "#3DDCBA";
-                e.currentTarget.style.boxShadow = "0 6px 28px rgba(0,179,138,0.48)";
-              },
-              onMouseLeave: (e) => {
-                e.currentTarget.style.background = "#00B38A";
-                e.currentTarget.style.boxShadow = "0 4px 20px rgba(0,179,138,0.32)";
-              },
-              children: status === "loading" ? /* @__PURE__ */ jsxRuntime.jsx(
-                "svg",
-                {
-                  className: "h-4 w-4 animate-spin",
-                  viewBox: "0 0 24 24",
-                  fill: "none",
-                  stroke: "currentColor",
-                  strokeWidth: "2",
-                  children: /* @__PURE__ */ jsxRuntime.jsx("path", { d: "M21 12a9 9 0 1 1-6.219-8.56" })
-                }
-              ) : /* @__PURE__ */ jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [
-                "Get early access",
-                " ",
-                /* @__PURE__ */ jsxRuntime.jsx(
-                  "svg",
-                  {
-                    width: "11",
-                    height: "11",
-                    viewBox: "0 0 24 24",
-                    fill: "none",
-                    stroke: "currentColor",
-                    strokeWidth: "2.5",
-                    strokeLinecap: "round",
-                    strokeLinejoin: "round",
-                    children: /* @__PURE__ */ jsxRuntime.jsx("path", { d: "M5 12h14M12 5l7 7-7 7" })
-                  }
-                )
-              ] })
-            }
-          )
-        ]
-      }
-    ),
-    error && /* @__PURE__ */ jsxRuntime.jsx(
-      "p",
-      {
-        className: "mt-2 text-center text-xs",
-        style: { color: "#EF4444" },
-        role: "alert",
-        children: error
-      }
-    ),
-    /* @__PURE__ */ jsxRuntime.jsxs(
-      "p",
-      {
-        className: "mt-3 text-center",
-        style: {
-          fontFamily: "DM Sans, sans-serif",
-          fontSize: "11px",
-          color: dark ? "#3A524D" : "#9BACA6"
-        },
-        children: [
-          "No spam. Unsubscribe anytime.",
-          " ",
-          /* @__PURE__ */ jsxRuntime.jsx(
-            import_link3.default,
-            {
-              href: "/privacy",
-              className: "underline underline-offset-2 transition-colors",
-              style: { color: dark ? "#5A706A" : "#748A83" },
-              children: "Privacy policy"
-            }
-          )
-        ]
-      }
-    )
-  ] });
-}
-function StatsSection({
-  stats,
-  theme = "dark",
-  className
-}) {
-  const dark = theme === "dark";
-  const divider = dark ? "rgba(232,239,237,0.05)" : "rgba(20,31,29,0.06)";
-  const bg = dark ? "#080E0D" : "#F5F8F7";
-  const t1 = dark ? "#E8EFED" : "#141F1D";
-  const t4 = dark ? "#3A524D" : "#9BACA6";
-  return /* @__PURE__ */ jsxRuntime.jsx(
-    "div",
-    {
-      className: cn("grid grid-cols-2 lg:grid-cols-4", className),
-      style: { gap: "1px", background: divider },
-      children: stats.map((s) => /* @__PURE__ */ jsxRuntime.jsxs(
-        "div",
-        {
-          className: "flex flex-col items-center justify-center gap-1 px-6 py-8 text-center transition-colors duration-500",
-          style: { background: bg },
-          children: [
-            /* @__PURE__ */ jsxRuntime.jsx(
-              "span",
-              {
-                style: {
-                  fontFamily: "Syne, sans-serif",
-                  fontWeight: 800,
-                  fontSize: "clamp(28px, 3.5vw, 40px)",
-                  letterSpacing: "-0.03em",
-                  color: t1
-                },
-                children: s.val
-              }
-            ),
-            /* @__PURE__ */ jsxRuntime.jsx(
-              "span",
-              {
-                style: {
-                  fontFamily: "DM Mono, monospace",
-                  fontSize: "10px",
-                  fontWeight: 600,
-                  textTransform: "uppercase",
-                  letterSpacing: "0.14em",
-                  color: "#00B38A"
-                },
-                children: s.label
-              }
-            ),
-            /* @__PURE__ */ jsxRuntime.jsx("span", { style: { fontSize: "11px", color: t4 }, children: s.sub })
-          ]
-        },
-        s.label
-      ))
-    }
-  );
-}
-function CommunitySection({
-  theme = "dark",
-  className,
-  title,
-  description,
-  label = "Join the founding community",
-  perks = [],
-  children
-}) {
-  const dark = theme === "dark";
-  const t1 = dark ? "#E8EFED" : "#141F1D";
-  const t3 = dark ? "#5A706A" : "#748A83";
-  const t4 = dark ? "#3A524D" : "#9BACA6";
-  return /* @__PURE__ */ jsxRuntime.jsxs("section", { className: cn("relative overflow-hidden", className), children: [
-    /* @__PURE__ */ jsxRuntime.jsx(
-      "div",
-      {
-        "aria-hidden": true,
-        className: "pointer-events-none absolute inset-0",
-        style: {
-          background: "radial-gradient(70% 55% at 50% 100%, rgba(0,179,138,0.07) 0%, transparent 70%)"
-        }
-      }
-    ),
-    /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "relative mx-auto max-w-2xl px-6 py-24 text-center lg:px-10", children: [
-      /* @__PURE__ */ jsxRuntime.jsx(
-        "span",
-        {
-          style: {
-            fontFamily: "DM Mono, monospace",
-            fontSize: "10px",
-            textTransform: "uppercase",
-            letterSpacing: "0.2em",
-            color: t4
-          },
-          children: label
-        }
-      ),
-      /* @__PURE__ */ jsxRuntime.jsx(
-        "h2",
-        {
-          className: "mt-4",
-          style: {
-            fontFamily: "Syne, sans-serif",
-            fontWeight: 800,
-            fontSize: "clamp(34px, 5vw, 62px)",
-            lineHeight: 0.92,
-            letterSpacing: "-0.03em",
-            color: t1
-          },
-          children: title
-        }
-      ),
-      /* @__PURE__ */ jsxRuntime.jsx(
-        "p",
-        {
-          className: "mx-auto mt-5 max-w-sm",
-          style: { fontSize: "15px", lineHeight: 1.7, color: t3 },
-          children: description
-        }
-      ),
-      /* @__PURE__ */ jsxRuntime.jsx("div", { className: "mx-auto mt-8 max-w-md", children }),
-      perks.length > 0 && /* @__PURE__ */ jsxRuntime.jsx("div", { className: "mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-3", children: perks.map((perk) => /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex items-center gap-1.5", children: [
-        /* @__PURE__ */ jsxRuntime.jsx(
-          "svg",
-          {
-            width: "12",
-            height: "12",
-            viewBox: "0 0 24 24",
-            fill: "none",
-            stroke: "#00B38A",
-            strokeWidth: "2.5",
-            strokeLinecap: "round",
-            strokeLinejoin: "round",
-            children: /* @__PURE__ */ jsxRuntime.jsx("path", { d: "M20 6 9 17l-5-5" })
-          }
-        ),
-        /* @__PURE__ */ jsxRuntime.jsx("span", { style: { fontSize: "12px", color: t3 }, children: perk })
-      ] }, perk)) })
-    ] })
-  ] });
-}
-var dotVariants2 = classVarianceAuthority.cva(
-  "w-[7px] h-[7px] rounded-full shrink-0",
+));
+ToastViewport2.displayName = ToastPrimitive__namespace.Viewport.displayName;
+var toastVariants2 = classVarianceAuthority.cva(
+  "group pointer-events-auto relative flex w-full items-center justify-between space-x-4 overflow-hidden rounded-2xl border p-4 pr-8 shadow-lg transition-all data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-[var(--radix-toast-swipe-end-x)] data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[swipe=move]:transition-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-80 data-[state=open]:slide-in-from-top-full data-[state=open]:sm:slide-in-from-bottom-full data-[state=closed]:slide-out-to-right-full",
   {
     variants: {
-      color: {
-        green: "bg-mint-500",
-        amber: "bg-amber-500",
-        neutral: "bg-neutral-300"
-      },
-      pulse: {
-        true: "animate-pulse-live",
-        false: ""
+      variant: {
+        default: "border-neutral-150 bg-surface text-neutral-900",
+        destructive: "destructive group border-red-500 bg-red-500 text-neutral-0",
+        success: "border-mint-500 bg-mint-500 text-neutral-0",
+        warning: "border-amber-500 bg-amber-500 text-neutral-0",
+        info: "border-mint-600 bg-mint-600 text-neutral-0"
       }
     },
     defaultVariants: {
-      color: "neutral",
-      pulse: false
+      variant: "default"
     }
   }
 );
-var sessionConfig2 = {
-  "pre-open": { color: "amber", label: "Pre-open", pulse: false },
-  open: { color: "green", label: "Market Open", pulse: true },
-  closed: { color: "neutral", label: "Closed", pulse: false },
-  "post-close": { color: "neutral", label: "Post-close", pulse: false }
-};
-var SupportLiveBar2 = ({
-  marketStatus,
-  onSupportClick,
-  className
+var Toast2 = React26__namespace.default.forwardRef(({ className, variant, ...props }, ref) => {
+  return /* @__PURE__ */ jsxRuntime.jsx(
+    ToastPrimitive__namespace.Root,
+    {
+      ref,
+      className: cn(toastVariants2({ variant }), className),
+      ...props
+    }
+  );
+});
+Toast2.displayName = ToastPrimitive__namespace.Root.displayName;
+var ToastAction3 = React26__namespace.default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsxRuntime.jsx(
+  ToastPrimitive__namespace.Action,
+  {
+    ref,
+    className: cn(
+      "inline-flex h-sp-8 shrink-0 items-center justify-center rounded-md border border-neutral-150 bg-transparent px-sp-3 text-sm font-medium ring-offset-surface transition-colors hover:bg-neutral-100 focus:outline-none focus:ring-2 focus:ring-mint-400 focus:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 group-[.destructive]:border-neutral-150/40 group-[.destructive]:hover:border-red-500/30 group-[.destructive]:hover:bg-red-500 group-[.destructive]:hover:text-neutral-0 group-[.destructive]:focus:ring-red-500",
+      className
+    ),
+    ...props
+  }
+));
+ToastAction3.displayName = ToastPrimitive__namespace.Action.displayName;
+var ToastClose2 = React26__namespace.default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsxRuntime.jsx(
+  ToastPrimitive__namespace.Close,
+  {
+    ref,
+    className: cn(
+      "absolute right-2 top-2 rounded-md p-1 text-foreground/50 opacity-0 transition-opacity hover:text-foreground focus:opacity-100 focus:outline-none focus:ring-2 group-hover:opacity-100 group-[.destructive]:text-red-300 group-[.destructive]:hover:text-red-50 group-[.destructive]:focus:ring-red-400 group-[.destructive]:focus:ring-offset-red-600",
+      className
+    ),
+    "toast-close": "",
+    ...props,
+    children: /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.X, { className: "h-4 w-4" })
+  }
+));
+ToastClose2.displayName = ToastPrimitive__namespace.Close.displayName;
+var ToastTitle2 = React26__namespace.default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsxRuntime.jsx(
+  ToastPrimitive__namespace.Title,
+  {
+    ref,
+    className: cn("text-sm font-bold", className),
+    ...props
+  }
+));
+ToastTitle2.displayName = ToastPrimitive__namespace.Title.displayName;
+var ToastDescription2 = React26__namespace.default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsxRuntime.jsx(
+  ToastPrimitive__namespace.Description,
+  {
+    ref,
+    className: cn("text-sm opacity-90", className),
+    ...props
+  }
+));
+ToastDescription2.displayName = ToastPrimitive__namespace.Description.displayName;
+var NotiStackProvider2 = ({
+  children
 }) => {
-  const session = marketStatus?.session ?? "closed";
-  const cfg = sessionConfig2[session];
-  return /* @__PURE__ */ jsxRuntime.jsxs("div", { className: cn("flex items-center justify-between p-sp-2 px-sp-4 bg-surface border-t border-neutral-100 gap-sp-3", className), children: [
-    marketStatus && /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex items-center gap-sp-2 text-xs text-neutral-600 flex-1 min-w-0 overflow-hidden", children: [
-      /* @__PURE__ */ jsxRuntime.jsx(
-        "span",
-        {
-          className: dotVariants2({ color: cfg.color, pulse: cfg.pulse }),
-          "aria-hidden": "true"
-        }
-      ),
-      /* @__PURE__ */ jsxRuntime.jsx("span", { className: "font-semibold text-neutral-900 shrink-0 whitespace-nowrap overflow-hidden text-ellipsis", children: marketStatus.label ?? cfg.label }),
-      marketStatus.nextEvent && /* @__PURE__ */ jsxRuntime.jsxs("span", { className: "text-neutral-400 whitespace-nowrap overflow-hidden text-ellipsis", children: [
-        "\xB7 ",
-        marketStatus.nextEvent,
-        marketStatus.nextEventTime && /* @__PURE__ */ jsxRuntime.jsx("span", { className: "font-mono ml-0.5", children: marketStatus.nextEventTime })
-      ] })
-    ] }),
-    /* @__PURE__ */ jsxRuntime.jsxs(
-      "button",
+  const [toasts, setToasts] = React26__namespace.default.useState([]);
+  const addToast = React26__namespace.default.useCallback(
+    (toast) => {
+      const id = Math.random().toString(36).substr(2, 9);
+      setToasts((current) => [...current, { ...toast, id }]);
+      return id;
+    },
+    []
+  );
+  const removeToast = React26__namespace.default.useCallback((id) => {
+    setToasts((current) => current.filter((toast) => toast.id !== id));
+  }, []);
+  return /* @__PURE__ */ jsxRuntime.jsx(ToastContext2.Provider, { value: { addToast, removeToast }, children: /* @__PURE__ */ jsxRuntime.jsxs(ToastProvider2, { children: [
+    children,
+    toasts.map(({ id, title, description, type, action }) => /* @__PURE__ */ jsxRuntime.jsxs(
+      Toast2,
       {
-        className: "inline-flex items-center gap-sp-1 font-body text-xs font-semibold text-mint-600 bg-mint-50 border border-mint-400/20 rounded-full py-1 px-2.5 cursor-pointer shrink-0 transition-all duration-120 whitespace-nowrap hover:bg-mint-400/20 hover:border-mint-400 focus-visible:outline-2 focus-visible:outline-mint-400 focus-visible:outline-offset-2",
-        onClick: onSupportClick,
-        "aria-label": "Contact support",
+        variant: type === "error" ? "destructive" : type,
+        onOpenChange: (open) => {
+          if (!open) removeToast(id);
+        },
         children: [
-          /* @__PURE__ */ jsxRuntime.jsx(
-            "svg",
-            {
-              width: "13",
-              height: "13",
-              viewBox: "0 0 24 24",
-              fill: "none",
-              stroke: "currentColor",
-              strokeWidth: "2",
-              strokeLinecap: "round",
-              strokeLinejoin: "round",
-              "aria-hidden": "true",
-              children: /* @__PURE__ */ jsxRuntime.jsx("path", { d: "M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z" })
-            }
-          ),
-          /* @__PURE__ */ jsxRuntime.jsx("span", { children: "Support" })
+          /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "grid gap-1", children: [
+            title && /* @__PURE__ */ jsxRuntime.jsx(ToastTitle2, { children: title }),
+            description && /* @__PURE__ */ jsxRuntime.jsx(ToastDescription2, { children: description })
+          ] }),
+          action,
+          /* @__PURE__ */ jsxRuntime.jsx(ToastClose2, {})
         ]
-      }
-    )
-  ] });
+      },
+      id
+    )),
+    /* @__PURE__ */ jsxRuntime.jsx(ToastViewport2, {})
+  ] }) });
 };
-SupportLiveBar2.displayName = "SupportLiveBar";
+var ToastContext2 = React26__namespace.default.createContext({
+  addToast: () => "",
+  removeToast: () => {
+  }
+});
 
 exports.Accordion = Accordion;
 exports.AccordionContent = AccordionContent;
@@ -13453,6 +14913,7 @@ exports.AvatarImage = AvatarImage;
 exports.Backdrop = Backdrop;
 exports.Badge = Badge;
 exports.BaselineChart = BaselineChart;
+exports.BoneyardSkeleton = BoneyardSkeleton;
 exports.BottomNav = BottomNav;
 exports.BottomNavigation = BottomNavigation;
 exports.Box = Box;
@@ -13482,6 +14943,8 @@ exports.Differentiators = Differentiators;
 exports.DigitInput = DigitInput;
 exports.Divider = Divider;
 exports.Drawer = Drawer;
+exports.EngagementNudge = Nudge2;
+exports.EngagementNudgesPanel = NudgesPanel2;
 exports.Fab = Fab;
 exports.FadeIn = FadeIn;
 exports.FibSpiral = FibSpiral;
@@ -13499,8 +14962,18 @@ exports.Link = Link;
 exports.List = List;
 exports.ListItem = ListItem;
 exports.Loader = Loader;
+exports.MarketDataStatus = MarketStatus3;
+exports.MarketDataTable = DataTable2;
+exports.MarketMetricCard = MetricCard2;
 exports.MarketOverview = MarketOverview;
+exports.MarketPagination = Pagination2;
+exports.MarketPriceChange = PriceChange2;
+exports.MarketSparkline = Sparkline2;
 exports.MarketStatus = MarketStatus;
+exports.MarketStatusIndicator = Status;
+exports.MarketStockCard = StockCard2;
+exports.MarketTable = Table2;
+exports.MarketTickerTape = CustomTickerTape2;
 exports.Menu = Menu;
 exports.MenuContent = MenuContent;
 exports.MenuGroup = MenuGroup;
@@ -13515,6 +14988,12 @@ exports.MintxLogo = MintxLogo;
 exports.NotiStackProvider = NotiStackProvider;
 exports.Nudge = Nudge;
 exports.NudgesPanel = NudgesPanel;
+exports.OnboardingBreadcrumbs = Breadcrumbs2;
+exports.OnboardingDialog = Dialog2;
+exports.OnboardingDrawer = Drawer2;
+exports.OnboardingFab = Fab2;
+exports.OnboardingMenu = Menu2;
+exports.OnboardingSupportLiveBar = SupportLiveBar2;
 exports.Pagination = Pagination;
 exports.Popover = Popover;
 exports.PopoverContent = PopoverContent;
@@ -13542,7 +15021,7 @@ exports.Sparkline = Sparkline;
 exports.Stack = Stack;
 exports.StatsSection = StatsSection;
 exports.StockCard = StockCard;
-exports.SupportLiveBar = SupportLiveBar2;
+exports.SupportLiveBar = SupportLiveBar;
 exports.Switch = Switch;
 exports.SymbolOverviewMini = SymbolOverviewMini;
 exports.Table = Table;
@@ -13579,9 +15058,18 @@ exports.TooltipProvider = TooltipProvider;
 exports.TooltipTrigger = TooltipTrigger;
 exports.VolumeChart = VolumeChart;
 exports.WaitlistForm = WaitlistForm;
+exports.WrapperNotiStackProvider = NotiStackProvider2;
 exports.badgeVariants = badgeVariants;
 exports.cn = cn;
-exports.getDirection = getDirection;
+exports.mintColors = mintColors;
+exports.motion = motion;
+exports.neutralColors = neutralColors;
+exports.radius = radius;
+exports.semanticColors = semanticColors;
+exports.shadows = shadows;
+exports.spacing = spacing;
+exports.tokens = tokens;
+exports.typography = typography;
 exports.useCountUp = useCountUp;
 exports.useDisclosure = useDisclosure;
 exports.useIsMobile = useIsMobile;
