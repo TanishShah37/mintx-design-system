@@ -32,8 +32,7 @@ export interface LoaderProps
   color?: "brand" | "primary" | "neutral";
 }
 
-export const Loader = React.forwardRef<HTMLDivElement, LoaderProps>(
-  ({ className, size, color = "brand", label, ...props }, ref) => {
+export const Loader = React.forwardRef<HTMLDivElement, LoaderProps>(({ className, size, color = "brand", label, ...props }, ref): React.JSX.Element => {
     return (
       <div
         ref={ref}

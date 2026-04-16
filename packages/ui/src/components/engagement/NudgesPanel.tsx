@@ -11,18 +11,18 @@ interface NudgesPanelProps {
   className?: string;
 }
 
-export const NudgesPanel: React.FC<NudgesPanelProps> = ({
+export function NudgesPanel({
   nudges,
   onClose,
   onAction,
   position = "bottom-right",
   className,
-}) => {
+}: NudgesPanelProps): React.JSX.Element {
   const positionClasses = {
     "top-right": "top-6 right-6 flex-col-reverse",
     "bottom-right": "bottom-6 right-6 flex-col",
     "bottom-center": "bottom-6 left-1/2 -translate-x-1/2 flex-col",
-  };
+  }
 
   return (
     <div
@@ -45,4 +45,4 @@ export const NudgesPanel: React.FC<NudgesPanelProps> = ({
       </AnimatePresence>
     </div>
   );
-};
+}

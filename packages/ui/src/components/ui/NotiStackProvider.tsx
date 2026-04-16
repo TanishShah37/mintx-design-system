@@ -23,9 +23,9 @@ interface ToastInstance {
   action?: ToastActionElement;
 }
 
-export const NotiStackProvider: React.FC<{ children: React.ReactNode }> = ({
+export function NotiStackProvider({
   children,
-}) => {
+}: { children: React.ReactNode }): React.JSX.Element {
   const [toasts, setToasts] = React.useState<ToastInstance[]>([]);
 
   const addToast = React.useCallback(
@@ -65,7 +65,7 @@ export const NotiStackProvider: React.FC<{ children: React.ReactNode }> = ({
       </ToastProvider>
     </ToastContext.Provider>
   );
-};
+}
 
 export const ToastContext = React.createContext<{
   addToast: (toast: Omit<ToastInstance, "id">) => string;

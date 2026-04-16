@@ -27,7 +27,7 @@ const TabsList = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.List>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.List> &
     VariantProps<typeof TabsListVariants>
->(({ className, variant, ...props }, ref) => (
+>(({ className, variant, ...props }, ref): React.JSX.Element => (
   <TabsPrimitive.List
     ref={ref}
     className={cn(TabsListVariants({ variant }), className)}
@@ -56,7 +56,7 @@ const TabsTrigger = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.Trigger>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.Trigger> &
     VariantProps<typeof TabsTriggerVariants>
->(({ className, variant, ...props }, ref) => (
+>(({ className, variant, ...props }, ref): React.JSX.Element => (
   <TabsPrimitive.Trigger
     ref={ref}
     className={cn(TabsTriggerVariants({ variant }), className)}
@@ -68,7 +68,7 @@ TabsTrigger.displayName = TabsPrimitive.Trigger.displayName;
 const TabsContent = React.forwardRef<
   React.ElementRef<typeof TabsPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof TabsPrimitive.Content>
->(({ className, ...props }, ref) => (
+>(({ className, ...props }, ref): React.JSX.Element => (
   <TabsPrimitive.Content
     ref={ref}
     className={cn(

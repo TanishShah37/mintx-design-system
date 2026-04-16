@@ -11,7 +11,7 @@ export interface CheckBoxProps extends React.ComponentPropsWithoutRef<typeof Che
 export const CheckBox = React.forwardRef<
   React.ElementRef<typeof CheckboxPrimitive.Root>,
   CheckBoxProps
->(({ label, error, className, ...props }, ref) => {
+>(({ label, error, className, ...props }, ref): React.JSX.Element => {
   return (
     <div className="flex flex-col gap-sp-1">
       <div className={cn(

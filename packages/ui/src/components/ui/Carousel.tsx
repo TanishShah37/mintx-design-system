@@ -15,12 +15,12 @@ export interface CarouselProps {
   style?: React.CSSProperties;
 }
 
-export const Carousel: React.FC<CarouselProps> = ({
+export function Carousel({
   children,
   options,
   className,
   style,
-}) => {
+}: CarouselProps): React.JSX.Element {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, ...options });
   const [hovered, setHovered] = useState(false);
 
@@ -102,6 +102,6 @@ export const Carousel: React.FC<CarouselProps> = ({
       </div>
     </div>
   );
-};
+}
 
 Carousel.displayName = "Carousel";

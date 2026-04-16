@@ -54,8 +54,7 @@ export interface ButtonProps
   iconOnly?: boolean;
 }
 
-export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  (
+export const Button = forwardRef<HTMLButtonElement, ButtonProps>((
     {
       variant,
       size,
@@ -70,7 +69,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       ...rest
     },
     ref,
-  ) => {
+  ): React.JSX.Element => {
     return (
       <button
         ref={ref}

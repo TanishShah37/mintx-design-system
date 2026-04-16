@@ -14,11 +14,11 @@ export interface ProgressTrackerProps {
   className?: string;
 }
 
-export const ProgressTracker: React.FC<ProgressTrackerProps> = ({
+export function ProgressTracker({
   steps,
   currentStepIndex,
   className,
-}) => {
+}: ProgressTrackerProps): React.JSX.Element {
   return (
     <div className={cn("flex w-full justify-between items-start", className)}>
       {steps.map((step, index) => {
@@ -76,6 +76,6 @@ export const ProgressTracker: React.FC<ProgressTrackerProps> = ({
       })}
     </div>
   );
-};
+}
 
 ProgressTracker.displayName = "ProgressTracker";

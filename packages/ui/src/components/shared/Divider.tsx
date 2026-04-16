@@ -6,11 +6,11 @@ export interface DividerProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string;
 }
 
-export const Divider: React.FC<DividerProps> = ({
+export function Divider({
   orientation = "horizontal",
   className,
   ...props
-}) => {
+}: DividerProps): React.JSX.Element {
   return (
     <div
       role="separator"
@@ -23,6 +23,6 @@ export const Divider: React.FC<DividerProps> = ({
       {...props}
     />
   );
-};
+}
 
 Divider.displayName = "Divider";

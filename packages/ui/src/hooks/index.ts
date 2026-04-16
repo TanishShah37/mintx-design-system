@@ -1,7 +1,5 @@
 "use client";
 
-export { useTheme } from "../components/shell/ThemeProvider";
-
 // ── usePriceDirection ──────────────────────────────────────
 import { useMemo } from "react";
 import { type PriceDirection } from "../components/financial/PriceChange";

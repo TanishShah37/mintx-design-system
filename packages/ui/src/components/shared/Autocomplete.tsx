@@ -21,7 +21,7 @@ export interface AutocompleteProps {
   className?: string;
 }
 
-export const Autocomplete: React.FC<AutocompleteProps> = ({
+export function Autocomplete({
   options,
   value,
   onChange,
@@ -29,7 +29,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
   label,
   error,
   className,
-}) => {
+}: AutocompleteProps): React.JSX.Element {
   const [open, setOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -97,6 +97,6 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
       {error && <p className="text-xs font-medium text-red-500">{error}</p>}
     </div>
   );
-};
+}
 
 Autocomplete.displayName = "Autocomplete";

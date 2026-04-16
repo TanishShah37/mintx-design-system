@@ -7,11 +7,11 @@ interface MarketStatusProps {
   className?: string;
 }
 
-export const MarketStatus: React.FC<MarketStatusProps> = ({
+export function MarketStatus({
   status,
   market = "Global Market",
   className,
-}) => {
+}: MarketStatusProps): React.JSX.Element {
   const config = {
     open: {
       color: "bg-green-500",
@@ -28,7 +28,7 @@ export const MarketStatus: React.FC<MarketStatusProps> = ({
       text: "Closing Soon",
       pulse: "bg-amber-500/50",
     },
-  };
+  }
 
   const current = config[status];
 
@@ -46,4 +46,4 @@ export const MarketStatus: React.FC<MarketStatusProps> = ({
       </div>
     </div>
   );
-};
+}

@@ -9,7 +9,7 @@ export interface ImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   containerClassName?: string;
 }
 
-export const Image: React.FC<ImageProps> = ({
+export function Image({
   className,
   aspectRatio = "none",
   fallback,
@@ -17,7 +17,7 @@ export const Image: React.FC<ImageProps> = ({
   src,
   alt,
   ...props
-}) => {
+}: ImageProps): React.JSX.Element {
   const [error, setError] = React.useState(false);
 
   const aspectRatioClasses = {
@@ -25,7 +25,7 @@ export const Image: React.FC<ImageProps> = ({
     video: "aspect-video",
     portrait: "aspect-[3/4]",
     none: "",
-  };
+  }
 
   return (
     <div className={cn("overflow-hidden rounded-2xl bg-muted/30", aspectRatioClasses[aspectRatio], containerClassName)}>
@@ -42,6 +42,6 @@ export const Image: React.FC<ImageProps> = ({
       />
     </div>
   );
-};
+}
 
 Image.displayName = "Image";

@@ -7,8 +7,7 @@ import { IconButton } from "./IconButton";
 
 export interface TextFieldPasswordProps extends Omit<TextFieldProps, "rightIcon" | "type"> {}
 
-export const TextFieldPassword = React.forwardRef<HTMLInputElement, TextFieldPasswordProps>(
-  (props, ref) => {
+export const TextFieldPassword = React.forwardRef<HTMLInputElement, TextFieldPasswordProps>((props, ref): React.JSX.Element => {
     const [showPassword, setShowPassword] = useState(false);
 
     return (

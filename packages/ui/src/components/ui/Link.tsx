@@ -6,18 +6,18 @@ export interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement>
   underline?: "none" | "hover" | "always";
 }
 
-export const Link: React.FC<LinkProps> = ({
+export function Link({
   variant = "default",
   underline = "hover",
   className,
   children,
   ...props
-}) => {
+}: LinkProps): React.JSX.Element {
   const variantClasses = {
     default: "text-primary hover:opacity-80",
     muted: "text-neutral-400 hover:text-primary",
     brand: "text-mint-500 hover:text-mint-400",
-  };
+  }
 
   const underlineClasses = {
     none: "no-underline",
@@ -38,6 +38,6 @@ export const Link: React.FC<LinkProps> = ({
       {children}
     </a>
   );
-};
+}
 
 Link.displayName = "Link";

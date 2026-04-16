@@ -1,9 +1,9 @@
 import { clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
-import * as React26 from 'react';
-import React26__default, { createContext, forwardRef, useId, useState, useEffect, useCallback, useContext, useMemo, useRef } from 'react';
-import { jsxs, jsx, Fragment } from 'react/jsx-runtime';
+import * as React25 from 'react';
+import React25__default, { forwardRef, useId, useState, createContext, useMemo, useRef, useEffect, useCallback, useContext } from 'react';
 import { cva } from 'class-variance-authority';
+import { jsxs, jsx, Fragment } from 'react/jsx-runtime';
 import * as LucideIcons from 'lucide-react';
 import { Check, EyeOff, Eye, ChevronDown, X, Info, XCircle, AlertCircle, CheckCircle2, ChevronRight, ChevronLeft, MoreHorizontal, Upload, File, Calendar, ChevronsUpDown, Search, Star, ChevronUp, TrendingUp, TrendingDown, AlertTriangle } from 'lucide-react';
 import * as DialogPrimitive2 from '@radix-ui/react-dialog';
@@ -5747,46 +5747,6 @@ var tokens = {
   motion,
   shadows
 };
-var ThemeContext = createContext(null);
-var STORAGE_KEY = "mintx-theme";
-function getInitialTheme() {
-  if (typeof window === "undefined") return "dark";
-  const stored = localStorage.getItem(STORAGE_KEY);
-  if (stored === "light" || stored === "dark") return stored;
-  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-}
-var ThemeProvider = ({
-  children,
-  defaultTheme
-}) => {
-  const [theme, setThemeState] = useState(defaultTheme ?? "dark");
-  useEffect(() => {
-    if (defaultTheme) {
-      setThemeState(defaultTheme);
-    }
-  }, [defaultTheme]);
-  useEffect(() => {
-    if (!defaultTheme) {
-      setThemeState(getInitialTheme());
-    }
-  }, [defaultTheme]);
-  useEffect(() => {
-    const root = document.documentElement;
-    root.setAttribute("data-theme", theme);
-    localStorage.setItem(STORAGE_KEY, theme);
-  }, [theme]);
-  const setTheme = useCallback((t) => setThemeState(t), []);
-  const toggleTheme = useCallback(
-    () => setThemeState((prev) => prev === "dark" ? "light" : "dark"),
-    []
-  );
-  return /* @__PURE__ */ jsx(ThemeContext.Provider, { value: { theme, toggleTheme, setTheme }, children });
-};
-function useTheme() {
-  const ctx = useContext(ThemeContext);
-  if (!ctx) throw new Error("useTheme must be used inside <ThemeProvider>");
-  return ctx;
-}
 function usePriceDirection(value) {
   return useMemo(() => {
     if (value > 0) return "up";
@@ -6012,7 +5972,7 @@ var cardVariants = cva(
     }
   }
 );
-var Card = ({
+function Card({
   variant = "flat",
   hover = false,
   interactive = false,
@@ -6021,7 +5981,7 @@ var Card = ({
   className,
   style,
   children
-}) => {
+}) {
   const isClickable = !!onClick || interactive;
   return /* @__PURE__ */ jsx(
     "div",
@@ -6037,7 +5997,7 @@ var Card = ({
       children
     }
   );
-};
+}
 Card.displayName = "Card";
 var inputVariants = cva(
   "w-full font-body text-neutral-900 bg-surface border border-neutral-200 rounded-md outline-none transition-all duration-120 placeholder:text-neutral-400 disabled:opacity-50 disabled:cursor-not-allowed disabled:bg-neutral-50 hover:not-disabled:not-error:border-neutral-400 focus:not-error:border-mint-400 focus:not-error:ring-4 focus:not-error:ring-mint-400/15",
@@ -6157,7 +6117,7 @@ var thumbVariants = cva(
     }
   }
 );
-var Toggle = ({
+function Toggle({
   checked,
   defaultChecked,
   disabled = false,
@@ -6166,7 +6126,7 @@ var Toggle = ({
   onChange,
   className,
   style
-}) => {
+}) {
   const uid = useId();
   return /* @__PURE__ */ jsxs(
     "label",
@@ -6194,9 +6154,9 @@ var Toggle = ({
       ]
     }
   );
-};
+}
 Toggle.displayName = "Toggle";
-var Stack = ({
+function Stack({
   direction = "column",
   align = "stretch",
   justify = "start",
@@ -6205,7 +6165,7 @@ var Stack = ({
   className,
   children,
   ...props
-}) => {
+}) {
   const justifyMap = {
     start: "justify-start",
     center: "justify-center",
@@ -6248,16 +6208,16 @@ var Stack = ({
       children
     }
   );
-};
+}
 Stack.displayName = "Stack";
-var AppBar = ({
+function AppBar({
   title,
   leftAction,
   rightActions,
   sticky = true,
   className,
   ...props
-}) => {
+}) {
   return /* @__PURE__ */ jsx(
     "div",
     {
@@ -6276,14 +6236,14 @@ var AppBar = ({
       ] })
     }
   );
-};
+}
 AppBar.displayName = "AppBar";
-var BottomNavigation = ({
+function BottomNavigation({
   items,
   activeId,
   onSelect,
   className
-}) => {
+}) {
   return /* @__PURE__ */ jsx(
     "nav",
     {
@@ -6311,15 +6271,15 @@ var BottomNavigation = ({
       })
     }
   );
-};
+}
 BottomNavigation.displayName = "BottomNavigation";
-var Link = ({
+function Link({
   variant = "default",
   underline = "hover",
   className,
   children,
   ...props
-}) => {
+}) {
   const variantClasses2 = {
     default: "text-primary hover:opacity-80",
     muted: "text-neutral-400 hover:text-primary",
@@ -6343,14 +6303,14 @@ var Link = ({
       children
     }
   );
-};
+}
 Link.displayName = "Link";
-var Breadcrumbs = ({
+function Breadcrumbs({
   items,
   separator = /* @__PURE__ */ jsx(ChevronRight, { size: 13, className: "text-neutral-600" }),
   className,
   ...props
-}) => {
+}) {
   return /* @__PURE__ */ jsx(
     "nav",
     {
@@ -6359,7 +6319,7 @@ var Breadcrumbs = ({
       ...props,
       children: /* @__PURE__ */ jsx("ol", { className: "flex flex-wrap items-center gap-1.5 list-none p-0 m-0", children: items.map((item, index) => {
         const isLast = index === items.length - 1;
-        return /* @__PURE__ */ jsxs(React26__default.Fragment, { children: [
+        return /* @__PURE__ */ jsxs(React25__default.Fragment, { children: [
           /* @__PURE__ */ jsx("li", { className: "flex items-center gap-1", children: item.href && !isLast ? /* @__PURE__ */ jsxs(
             Link,
             {
@@ -6389,9 +6349,9 @@ var Breadcrumbs = ({
       }) })
     }
   );
-};
+}
 Breadcrumbs.displayName = "Breadcrumbs";
-var Drawer = ({
+function Drawer({
   open,
   onOpenChange,
   title,
@@ -6399,7 +6359,7 @@ var Drawer = ({
   children,
   side = "right",
   className
-}) => {
+}) {
   const sideClasses = {
     right: "inset-y-0 right-0 h-full w-3/4 sm:max-w-sm border-l animate-in slide-in-from-right",
     left: "inset-y-0 left-0 h-full w-3/4 sm:max-w-sm border-r animate-in slide-in-from-left",
@@ -6432,14 +6392,14 @@ var Drawer = ({
       }
     )
   ] }) });
-};
+}
 Drawer.displayName = "Drawer";
-var Pagination = ({
+function Pagination({
   currentPage,
   totalPages,
   onPageChange,
   className
-}) => {
+}) {
   const getPages = () => {
     const pages = [];
     if (totalPages <= 7) {
@@ -6476,7 +6436,7 @@ var Pagination = ({
             children: /* @__PURE__ */ jsx(ChevronLeft, { size: 16 })
           }
         ),
-        getPages().map((page, index) => /* @__PURE__ */ jsx(React26__default.Fragment, { children: page === "ellipsis" ? /* @__PURE__ */ jsx("div", { className: cn(btnBaseClass, "bg-transparent cursor-default text-neutral-600"), children: /* @__PURE__ */ jsx(MoreHorizontal, { size: 16 }) }) : /* @__PURE__ */ jsx(
+        getPages().map((page, index) => /* @__PURE__ */ jsx(React25__default.Fragment, { children: page === "ellipsis" ? /* @__PURE__ */ jsx("div", { className: cn(btnBaseClass, "bg-transparent cursor-default text-neutral-600"), children: /* @__PURE__ */ jsx(MoreHorizontal, { size: 16 }) }) : /* @__PURE__ */ jsx(
           "button",
           {
             className: cn(
@@ -6505,14 +6465,14 @@ var Pagination = ({
       ]
     }
   );
-};
+}
 Pagination.displayName = "Pagination";
 var Menu = DropdownMenuPrimitive.Root;
 var MenuTrigger = DropdownMenuPrimitive.Trigger;
 var MenuGroup = DropdownMenuPrimitive.Group;
 var MenuPortal = DropdownMenuPrimitive.Portal;
 var MenuSub = DropdownMenuPrimitive.Sub;
-var MenuContent = React26__default.forwardRef(({ className, sideOffset = 4, ...props }, ref) => /* @__PURE__ */ jsx(DropdownMenuPrimitive.Portal, { children: /* @__PURE__ */ jsx(
+var MenuContent = React25__default.forwardRef(({ className, sideOffset = 4, ...props }, ref) => /* @__PURE__ */ jsx(DropdownMenuPrimitive.Portal, { children: /* @__PURE__ */ jsx(
   DropdownMenuPrimitive.Content,
   {
     ref,
@@ -6525,7 +6485,7 @@ var MenuContent = React26__default.forwardRef(({ className, sideOffset = 4, ...p
   }
 ) }));
 MenuContent.displayName = DropdownMenuPrimitive.Content.displayName;
-var MenuItem = React26__default.forwardRef(({ className, inset, ...props }, ref) => /* @__PURE__ */ jsx(
+var MenuItem = React25__default.forwardRef(({ className, inset, ...props }, ref) => /* @__PURE__ */ jsx(
   DropdownMenuPrimitive.Item,
   {
     ref,
@@ -6538,7 +6498,7 @@ var MenuItem = React26__default.forwardRef(({ className, inset, ...props }, ref)
   }
 ));
 MenuItem.displayName = DropdownMenuPrimitive.Item.displayName;
-var MenuLabel = React26__default.forwardRef(({ className, inset, ...props }, ref) => /* @__PURE__ */ jsx(
+var MenuLabel = React25__default.forwardRef(({ className, inset, ...props }, ref) => /* @__PURE__ */ jsx(
   DropdownMenuPrimitive.Label,
   {
     ref,
@@ -6547,7 +6507,7 @@ var MenuLabel = React26__default.forwardRef(({ className, inset, ...props }, ref
   }
 ));
 MenuLabel.displayName = DropdownMenuPrimitive.Label.displayName;
-var MenuSeparator = React26__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
+var MenuSeparator = React25__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
   DropdownMenuPrimitive.Separator,
   {
     ref,
@@ -6558,7 +6518,7 @@ var MenuSeparator = React26__default.forwardRef(({ className, ...props }, ref) =
 MenuSeparator.displayName = DropdownMenuPrimitive.Separator.displayName;
 var Popover = PopoverPrimitive.Root;
 var PopoverTrigger = PopoverPrimitive.Trigger;
-var PopoverContent = React26__default.forwardRef(({ className, align = "center", sideOffset = 4, ...props }, ref) => /* @__PURE__ */ jsx(PopoverPrimitive.Portal, { children: /* @__PURE__ */ jsx(
+var PopoverContent = React25__default.forwardRef(({ className, align = "center", sideOffset = 4, ...props }, ref) => /* @__PURE__ */ jsx(PopoverPrimitive.Portal, { children: /* @__PURE__ */ jsx(
   PopoverPrimitive.Content,
   {
     ref,
@@ -6572,7 +6532,7 @@ var PopoverContent = React26__default.forwardRef(({ className, align = "center",
   }
 ) }));
 PopoverContent.displayName = PopoverPrimitive.Content.displayName;
-var IconButton = React26__default.forwardRef(
+var IconButton = React25__default.forwardRef(
   ({ icon, className, ...props }, ref) => {
     return /* @__PURE__ */ jsx(
       Button,
@@ -6587,7 +6547,7 @@ var IconButton = React26__default.forwardRef(
   }
 );
 IconButton.displayName = "IconButton";
-var CheckBox = React26__default.forwardRef(({ label, error, className, ...props }, ref) => {
+var CheckBox = React25__default.forwardRef(({ label, error, className, ...props }, ref) => {
   return /* @__PURE__ */ jsxs("div", { className: "flex flex-col gap-sp-1", children: [
     /* @__PURE__ */ jsxs("div", { className: cn(
       "flex items-center gap-2.5",
@@ -6615,7 +6575,7 @@ var CheckBox = React26__default.forwardRef(({ label, error, className, ...props 
 });
 CheckBox.displayName = "CheckBox";
 var RadioGroup = RadioGroupPrimitive.Root;
-var RadioGroupItem = React26__default.forwardRef(({ label, className, ...props }, ref) => {
+var RadioGroupItem = React25__default.forwardRef(({ label, className, ...props }, ref) => {
   return /* @__PURE__ */ jsxs("div", { className: cn(
     "flex items-center gap-2.5",
     props.disabled ? "cursor-not-allowed opacity-50" : "cursor-pointer"
@@ -6638,7 +6598,7 @@ var RadioGroupItem = React26__default.forwardRef(({ label, className, ...props }
   ] });
 });
 RadioGroupItem.displayName = "RadioGroupItem";
-var Switch = React26__default.forwardRef(({ label, className, ...props }, ref) => {
+var Switch = React25__default.forwardRef(({ label, className, ...props }, ref) => {
   return /* @__PURE__ */ jsxs("div", { className: cn(
     "flex items-center gap-3",
     props.disabled ? "cursor-not-allowed opacity-50" : "cursor-pointer"
@@ -6669,7 +6629,7 @@ var Switch = React26__default.forwardRef(({ label, className, ...props }, ref) =
   ] });
 });
 Switch.displayName = "Switch";
-var Slider = React26__default.forwardRef(({ label, error, className, ...props }, ref) => /* @__PURE__ */ jsxs("div", { className: "flex w-full flex-col gap-2.5", children: [
+var Slider = React25__default.forwardRef(({ label, error, className, ...props }, ref) => /* @__PURE__ */ jsxs("div", { className: "flex w-full flex-col gap-2.5", children: [
   label && /* @__PURE__ */ jsx("span", { className: "text-sm font-semibold font-body text-neutral-400", children: label }),
   /* @__PURE__ */ jsxs(
     SliderPrimitive.Root,
@@ -6690,7 +6650,7 @@ var Slider = React26__default.forwardRef(({ label, error, className, ...props },
   error && /* @__PURE__ */ jsx("p", { className: "text-xs text-red-500 font-medium", children: error })
 ] }));
 Slider.displayName = "Slider";
-var TextField = React26__default.forwardRef(
+var TextField = React25__default.forwardRef(
   ({ className, label, error, leftIcon, rightIcon, containerClassName, ...props }, ref) => {
     return /* @__PURE__ */ jsxs("div", { className: cn("flex flex-col gap-1.5 w-full", containerClassName), children: [
       label && /* @__PURE__ */ jsx("label", { className: "text-sm font-semibold text-foreground/80 leading-none", children: label }),
@@ -6717,7 +6677,7 @@ var TextField = React26__default.forwardRef(
   }
 );
 TextField.displayName = "TextField";
-var TextFieldPassword = React26__default.forwardRef(
+var TextFieldPassword = React25__default.forwardRef(
   (props, ref) => {
     const [showPassword, setShowPassword] = useState(false);
     return /* @__PURE__ */ jsx(
@@ -6742,7 +6702,7 @@ var TextFieldPassword = React26__default.forwardRef(
   }
 );
 TextFieldPassword.displayName = "TextFieldPassword";
-var DigitInput = ({
+function DigitInput({
   length = 6,
   value = "",
   onChange,
@@ -6750,7 +6710,7 @@ var DigitInput = ({
   error = false,
   className,
   containerClassName
-}) => {
+}) {
   const inputsRef = useRef([]);
   const handleChange = (e, index) => {
     const val = e.target.value;
@@ -6798,9 +6758,9 @@ var DigitInput = ({
     },
     i
   )) });
-};
+}
 DigitInput.displayName = "DigitInput";
-var TextArea = React26__default.forwardRef(
+var TextArea = React25__default.forwardRef(
   ({ className, label, error, ...props }, ref) => {
     return /* @__PURE__ */ jsxs("div", { className: "flex flex-col gap-1.5 w-full", children: [
       label && /* @__PURE__ */ jsx("label", { className: "text-sm font-semibold text-foreground/80 leading-none", children: label }),
@@ -6823,7 +6783,7 @@ var TextArea = React26__default.forwardRef(
 TextArea.displayName = "TextArea";
 var Select = SelectPrimitive.Root;
 var SelectValue = SelectPrimitive.Value;
-var SelectTrigger = React26__default.forwardRef(({ className, children, ...props }, ref) => /* @__PURE__ */ jsxs(
+var SelectTrigger = React25__default.forwardRef(({ className, children, ...props }, ref) => /* @__PURE__ */ jsxs(
   SelectPrimitive.Trigger,
   {
     ref,
@@ -6839,7 +6799,7 @@ var SelectTrigger = React26__default.forwardRef(({ className, children, ...props
   }
 ));
 SelectTrigger.displayName = SelectPrimitive.Trigger.displayName;
-var SelectContent = React26__default.forwardRef(({ className, children, position = "popper", ...props }, ref) => /* @__PURE__ */ jsx(SelectPrimitive.Portal, { children: /* @__PURE__ */ jsx(
+var SelectContent = React25__default.forwardRef(({ className, children, position = "popper", ...props }, ref) => /* @__PURE__ */ jsx(SelectPrimitive.Portal, { children: /* @__PURE__ */ jsx(
   SelectPrimitive.Content,
   {
     ref,
@@ -6863,7 +6823,7 @@ var SelectContent = React26__default.forwardRef(({ className, children, position
   }
 ) }));
 SelectContent.displayName = SelectPrimitive.Content.displayName;
-var SelectItem = React26__default.forwardRef(({ className, children, ...props }, ref) => /* @__PURE__ */ jsxs(
+var SelectItem = React25__default.forwardRef(({ className, children, ...props }, ref) => /* @__PURE__ */ jsxs(
   SelectPrimitive.Item,
   {
     ref,
@@ -6879,13 +6839,13 @@ var SelectItem = React26__default.forwardRef(({ className, children, ...props },
   }
 ));
 SelectItem.displayName = SelectPrimitive.Item.displayName;
-var FileUploader = ({
+function FileUploader({
   onFilesSelected,
   maxFiles = 5,
   accept,
   className,
   label
-}) => {
+}) {
   const [selectedFiles, setSelectedFiles] = useState([]);
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef(null);
@@ -6988,16 +6948,16 @@ var FileUploader = ({
       i
     )) })
   ] });
-};
+}
 FileUploader.displayName = "FileUploader";
-var DatePicker = ({
+function DatePicker({
   value,
   onChange,
   label,
   error,
   placeholder = "Pick a date",
   className
-}) => {
+}) {
   const [currentMonth, setCurrentMonth] = useState(value || /* @__PURE__ */ new Date());
   const days = eachDayOfInterval({
     start: startOfWeek(startOfMonth(currentMonth)),
@@ -7071,9 +7031,9 @@ var DatePicker = ({
     ] }),
     error && /* @__PURE__ */ jsx("p", { className: "text-xs font-medium text-red-500", children: error })
   ] });
-};
+}
 DatePicker.displayName = "DatePicker";
-var Autocomplete = ({
+function Autocomplete({
   options,
   value,
   onChange,
@@ -7081,7 +7041,7 @@ var Autocomplete = ({
   label,
   error,
   className
-}) => {
+}) {
   const [open, setOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const filteredOptions = options.filter(
@@ -7141,9 +7101,9 @@ var Autocomplete = ({
     ] }),
     error && /* @__PURE__ */ jsx("p", { className: "text-xs font-medium text-red-500", children: error })
   ] });
-};
+}
 Autocomplete.displayName = "Autocomplete";
-var Fab = React26__default.forwardRef(
+var Fab = React25__default.forwardRef(
   ({ icon, children, position = "none", className, ...props }, ref) => {
     const positionClasses = {
       "bottom-right": "fixed bottom-8 right-8 z-50",
@@ -7185,14 +7145,14 @@ var sizeClasses = {
   sm: "h-6 px-2 text-[10px]",
   md: "h-7 px-3 text-[11px]"
 };
-var Tag = ({
+function Tag({
   label,
   onRemove,
   onClick,
   variant = "default",
   size = "md",
   className
-}) => {
+}) {
   return /* @__PURE__ */ jsxs(
     "div",
     {
@@ -7220,16 +7180,16 @@ var Tag = ({
       ]
     }
   );
-};
+}
 Tag.displayName = "Tag";
-var TagGroup = ({
+function TagGroup({
   tags,
   onRemoveTag,
   variant,
   size,
   label,
   className
-}) => {
+}) {
   return /* @__PURE__ */ jsxs("div", { className: cn("flex flex-col gap-2", className), children: [
     label && /* @__PURE__ */ jsx("span", { className: "text-xs font-bold uppercase tracking-widest text-neutral-400 font-body", children: label }),
     /* @__PURE__ */ jsx("div", { className: "flex flex-wrap gap-1.5", children: tags.map((tag) => /* @__PURE__ */ jsx(
@@ -7243,14 +7203,14 @@ var TagGroup = ({
       tag
     )) })
   ] });
-};
+}
 TagGroup.displayName = "TagGroup";
 var sizeClasses2 = {
   sm: "h-3.5 w-3.5",
   md: "h-5 w-5",
   lg: "h-7 w-7"
 };
-var Rating = ({
+function Rating({
   value = 0,
   max = 5,
   onChange,
@@ -7258,7 +7218,7 @@ var Rating = ({
   size = "md",
   className,
   label
-}) => {
+}) {
   const [hoverValue, setHoverValue] = useState(null);
   const displayValue = hoverValue !== null ? hoverValue : value;
   return /* @__PURE__ */ jsxs("div", { className: cn("flex flex-col gap-1.5", className), children: [
@@ -7295,9 +7255,9 @@ var Rating = ({
       );
     }) })
   ] });
-};
+}
 Rating.displayName = "Rating";
-var Avatar = React26__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
+var Avatar = React25__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
   AvatarPrimitive.Root,
   {
     ref,
@@ -7309,7 +7269,7 @@ var Avatar = React26__default.forwardRef(({ className, ...props }, ref) => /* @_
   }
 ));
 Avatar.displayName = AvatarPrimitive.Root.displayName;
-var AvatarImage = React26__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
+var AvatarImage = React25__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
   AvatarPrimitive.Image,
   {
     ref,
@@ -7318,7 +7278,7 @@ var AvatarImage = React26__default.forwardRef(({ className, ...props }, ref) => 
   }
 ));
 AvatarImage.displayName = AvatarPrimitive.Image.displayName;
-var AvatarFallback = React26__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
+var AvatarFallback = React25__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
   AvatarPrimitive.Fallback,
   {
     ref,
@@ -7338,7 +7298,7 @@ var colorVariants = {
   warning: "bg-yellow-500/10 text-yellow-500 border-yellow-500/25",
   error: "bg-red-500/10 text-red-500 border-red-500/25"
 };
-var Chip = ({
+function Chip({
   label,
   onDelete,
   icon,
@@ -7346,7 +7306,7 @@ var Chip = ({
   color = "default",
   className,
   ...props
-}) => {
+}) {
   return /* @__PURE__ */ jsxs(
     "div",
     {
@@ -7377,9 +7337,9 @@ var Chip = ({
       ]
     }
   );
-};
+}
 Chip.displayName = "Chip";
-var Image2 = ({
+function Image2({
   className,
   aspectRatio = "none",
   fallback,
@@ -7387,8 +7347,8 @@ var Image2 = ({
   src,
   alt,
   ...props
-}) => {
-  const [error, setError] = React26__default.useState(false);
+}) {
+  const [error, setError] = React25__default.useState(false);
   const aspectRatioClasses = {
     square: "aspect-square",
     video: "aspect-video",
@@ -7409,14 +7369,14 @@ var Image2 = ({
       ...props
     }
   ) });
-};
+}
 Image2.displayName = "Image";
-var ImageList = ({
+function ImageList({
   children,
   cols = 3,
   gap = 4,
   className
-}) => {
+}) {
   const gridCols = {
     1: "grid-cols-1",
     2: "grid-cols-2",
@@ -7437,9 +7397,9 @@ var ImageList = ({
       children
     }
   );
-};
+}
 ImageList.displayName = "ImageList";
-var Table = React26__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx("div", { className: "relative w-full overflow-auto rounded-2xl border border-border", children: /* @__PURE__ */ jsx(
+var Table = React25__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx("div", { className: "relative w-full overflow-auto rounded-2xl border border-border", children: /* @__PURE__ */ jsx(
   "table",
   {
     ref,
@@ -7448,9 +7408,9 @@ var Table = React26__default.forwardRef(({ className, ...props }, ref) => /* @__
   }
 ) }));
 Table.displayName = "Table";
-var TableHeader = React26__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx("thead", { ref, className: cn("[&_tr]:border-b bg-muted/30", className), ...props }));
+var TableHeader = React25__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx("thead", { ref, className: cn("[&_tr]:border-b bg-muted/30", className), ...props }));
 TableHeader.displayName = "TableHeader";
-var TableBody = React26__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
+var TableBody = React25__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
   "tbody",
   {
     ref,
@@ -7459,7 +7419,7 @@ var TableBody = React26__default.forwardRef(({ className, ...props }, ref) => /*
   }
 ));
 TableBody.displayName = "TableBody";
-var TableFooter = React26__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
+var TableFooter = React25__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
   "tfoot",
   {
     ref,
@@ -7471,7 +7431,7 @@ var TableFooter = React26__default.forwardRef(({ className, ...props }, ref) => 
   }
 ));
 TableFooter.displayName = "TableFooter";
-var TableRow = React26__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
+var TableRow = React25__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
   "tr",
   {
     ref,
@@ -7483,7 +7443,7 @@ var TableRow = React26__default.forwardRef(({ className, ...props }, ref) => /* 
   }
 ));
 TableRow.displayName = "TableRow";
-var TableHead = React26__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
+var TableHead = React25__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
   "th",
   {
     ref,
@@ -7495,7 +7455,7 @@ var TableHead = React26__default.forwardRef(({ className, ...props }, ref) => /*
   }
 ));
 TableHead.displayName = "TableHead";
-var TableCell = React26__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
+var TableCell = React25__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
   "td",
   {
     ref,
@@ -7504,7 +7464,7 @@ var TableCell = React26__default.forwardRef(({ className, ...props }, ref) => /*
   }
 ));
 TableCell.displayName = "TableCell";
-var TableCaption = React26__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
+var TableCaption = React25__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
   "caption",
   {
     ref,
@@ -7521,16 +7481,16 @@ function DataTable({
   highlightKey,
   pageSize = 10
 }) {
-  const [searchValue, setSearchValue] = React26.useState("");
-  const [sortConfig, setSortConfig] = React26.useState({ key: "", direction: null });
-  const filteredData = React26.useMemo(() => {
+  const [searchValue, setSearchValue] = React25.useState("");
+  const [sortConfig, setSortConfig] = React25.useState({ key: "", direction: null });
+  const filteredData = React25.useMemo(() => {
     if (!searchKey || !searchValue) return data;
     return data.filter((item) => {
       const value = item[searchKey];
       return String(value).toLowerCase().includes(searchValue.toLowerCase());
     });
   }, [data, searchKey, searchValue]);
-  const sortedData = React26.useMemo(() => {
+  const sortedData = React25.useMemo(() => {
     if (!sortConfig.key || !sortConfig.direction) return filteredData;
     return [...filteredData].sort((a, b) => {
       const aValue = a[sortConfig.key];
@@ -7609,16 +7569,16 @@ function DataTable({
     ] })
   ] });
 }
-var List = ({ children, className }) => {
+function List({ children, className }) {
   return /* @__PURE__ */ jsx("ul", { className: cn("flex flex-col gap-1 w-full", className), children });
-};
-var ListItem = ({
+}
+function ListItem({
   children,
   icon,
   secondaryAction,
   onClick,
   className
-}) => {
+}) {
   return /* @__PURE__ */ jsxs(
     "li",
     {
@@ -7637,13 +7597,13 @@ var ListItem = ({
       ]
     }
   );
-};
+}
 List.displayName = "List";
 ListItem.displayName = "ListItem";
 var TooltipProvider = TooltipPrimitive.Provider;
 var Tooltip = TooltipPrimitive.Root;
 var TooltipTrigger = TooltipPrimitive.Trigger;
-var TooltipContent = React26__default.forwardRef(({ className, sideOffset = 6, ...props }, ref) => /* @__PURE__ */ jsx(
+var TooltipContent = React25__default.forwardRef(({ className, sideOffset = 6, ...props }, ref) => /* @__PURE__ */ jsx(
   TooltipPrimitive.Content,
   {
     ref,
@@ -7691,7 +7651,7 @@ var barVariants = cva(
     }
   }
 );
-var Progress = React26__default.forwardRef(
+var Progress = React25__default.forwardRef(
   ({ className, value, max = 100, size, color = "brand", label, showValue, ...props }, ref) => {
     const pct = Math.min(100, Math.max(0, value / max * 100));
     return /* @__PURE__ */ jsxs(
@@ -7771,7 +7731,7 @@ var itemVariants = cva(
     }
   }
 );
-var Tabs = ({
+function Tabs({
   items,
   activeId: controlledActiveId,
   defaultActiveId,
@@ -7780,7 +7740,7 @@ var Tabs = ({
   onChange,
   className,
   style
-}) => {
+}) {
   const [internalActiveId, setInternalActiveId] = useState(
     defaultActiveId ?? items[0]?.id
   );
@@ -7820,9 +7780,9 @@ var Tabs = ({
       })
     }
   );
-};
+}
 Tabs.displayName = "Tabs";
-var Separator2 = React26__default.forwardRef(
+var Separator2 = React25__default.forwardRef(
   ({ className, orientation = "horizontal", decorative = true, ...props }, ref) => /* @__PURE__ */ jsx(
     "div",
     {
@@ -7839,20 +7799,20 @@ var Separator2 = React26__default.forwardRef(
   )
 );
 Separator2.displayName = "Separator";
-var Box = ({
+function Box({
   as: Component = "div",
   className,
   children,
   ...props
-}) => {
+}) {
   return /* @__PURE__ */ jsx(Component, { className: cn(className), ...props, children });
-};
+}
 Box.displayName = "Box";
-var Divider = ({
+function Divider({
   orientation = "horizontal",
   className,
   ...props
-}) => {
+}) {
   return /* @__PURE__ */ jsx(
     "div",
     {
@@ -7866,10 +7826,10 @@ var Divider = ({
       ...props
     }
   );
-};
+}
 Divider.displayName = "Divider";
 var Accordion = AccordionPrimitive.Root;
-var AccordionItem = React26__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
+var AccordionItem = React25__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
   AccordionPrimitive.Item,
   {
     ref,
@@ -7878,7 +7838,7 @@ var AccordionItem = React26__default.forwardRef(({ className, ...props }, ref) =
   }
 ));
 AccordionItem.displayName = "AccordionItem";
-var AccordionTrigger = React26__default.forwardRef(({ children, className, ...props }, ref) => /* @__PURE__ */ jsx(AccordionPrimitive.Header, { className: "flex", children: /* @__PURE__ */ jsxs(
+var AccordionTrigger = React25__default.forwardRef(({ children, className, ...props }, ref) => /* @__PURE__ */ jsx(AccordionPrimitive.Header, { className: "flex", children: /* @__PURE__ */ jsxs(
   AccordionPrimitive.Trigger,
   {
     ref,
@@ -7895,7 +7855,7 @@ var AccordionTrigger = React26__default.forwardRef(({ children, className, ...pr
   }
 ) }));
 AccordionTrigger.displayName = AccordionPrimitive.Trigger.displayName;
-var AccordionContent = React26__default.forwardRef(({ children, className, ...props }, ref) => /* @__PURE__ */ jsx(
+var AccordionContent = React25__default.forwardRef(({ children, className, ...props }, ref) => /* @__PURE__ */ jsx(
   AccordionPrimitive.Content,
   {
     ref,
@@ -7934,7 +7894,7 @@ var icons = {
   destructive: /* @__PURE__ */ jsx(XCircle, { size: 20 }),
   brand: /* @__PURE__ */ jsx(Info, { size: 20 })
 };
-var Alert = React26__default.forwardRef(
+var Alert = React25__default.forwardRef(
   ({ className, variant = "default", title, description, children, ...props }, ref) => {
     return /* @__PURE__ */ jsxs(
       "div",
@@ -7978,7 +7938,7 @@ var loaderVariants = cva(
     }
   }
 );
-var Loader = React26__default.forwardRef(
+var Loader = React25__default.forwardRef(
   ({ className, size, color = "brand", label, ...props }, ref) => {
     return /* @__PURE__ */ jsxs(
       "div",
@@ -8024,7 +7984,7 @@ var Loader = React26__default.forwardRef(
   }
 );
 Loader.displayName = "Loader";
-var ProgressIndicator = React26__default.forwardRef(({ className, value, indicatorClassName, ...props }, ref) => /* @__PURE__ */ jsx(
+var ProgressIndicator = React25__default.forwardRef(({ className, value, indicatorClassName, ...props }, ref) => /* @__PURE__ */ jsx(
   ProgressPrimitive.Root,
   {
     ref,
@@ -8046,11 +8006,11 @@ var ProgressIndicator = React26__default.forwardRef(({ className, value, indicat
   }
 ));
 ProgressIndicator.displayName = ProgressPrimitive.Root.displayName;
-var ProgressTracker = ({
+function ProgressTracker({
   steps,
   currentStepIndex,
   className
-}) => {
+}) {
   return /* @__PURE__ */ jsx("div", { className: cn("flex w-full justify-between items-start", className), children: steps.map((step, index) => {
     const isCompleted = index < currentStepIndex;
     const isActive = index === currentStepIndex;
@@ -8089,7 +8049,7 @@ var ProgressTracker = ({
       ] })
     ] }, step.id);
   }) });
-};
+}
 ProgressTracker.displayName = "ProgressTracker";
 function Skeleton({
   className,
@@ -8106,17 +8066,19 @@ function Skeleton({
     }
   );
 }
-var BoneyardSkeleton = ({
+function BoneyardSkeleton({
   name,
   loading,
   children,
   fixture
-}) => /* @__PURE__ */ jsx(Skeleton$1, { name, loading, fixture, children });
+}) {
+  return /* @__PURE__ */ jsx(Skeleton$1, { name, loading, fixture, children });
+}
 var Dialog = DialogPrimitive2.Root;
 var DialogTrigger = DialogPrimitive2.Trigger;
 var DialogPortal = DialogPrimitive2.Portal;
 var DialogClose = DialogPrimitive2.Close;
-var DialogOverlay = React26__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
+var DialogOverlay = React25__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
   DialogPrimitive2.Overlay,
   {
     ref,
@@ -8128,7 +8090,7 @@ var DialogOverlay = React26__default.forwardRef(({ className, ...props }, ref) =
   }
 ));
 DialogOverlay.displayName = DialogPrimitive2.Overlay.displayName;
-var DialogContent = React26__default.forwardRef(({ className, children, ...props }, ref) => /* @__PURE__ */ jsxs(DialogPortal, { children: [
+var DialogContent = React25__default.forwardRef(({ className, children, ...props }, ref) => /* @__PURE__ */ jsxs(DialogPortal, { children: [
   /* @__PURE__ */ jsx(DialogOverlay, {}),
   /* @__PURE__ */ jsxs(
     DialogPrimitive2.Content,
@@ -8150,35 +8112,39 @@ var DialogContent = React26__default.forwardRef(({ className, children, ...props
   )
 ] }));
 DialogContent.displayName = DialogPrimitive2.Content.displayName;
-var DialogHeader = ({
+function DialogHeader({
   className,
   ...props
-}) => /* @__PURE__ */ jsx(
-  "div",
-  {
-    className: cn(
-      "flex flex-col space-y-1.5 text-center sm:text-left",
-      className
-    ),
-    ...props
-  }
-);
+}) {
+  return /* @__PURE__ */ jsx(
+    "div",
+    {
+      className: cn(
+        "flex flex-col space-y-1.5 text-center sm:text-left",
+        className
+      ),
+      ...props
+    }
+  );
+}
 DialogHeader.displayName = "DialogHeader";
-var DialogFooter = ({
+function DialogFooter({
   className,
   ...props
-}) => /* @__PURE__ */ jsx(
-  "div",
-  {
-    className: cn(
-      "flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2",
-      className
-    ),
-    ...props
-  }
-);
+}) {
+  return /* @__PURE__ */ jsx(
+    "div",
+    {
+      className: cn(
+        "flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2",
+        className
+      ),
+      ...props
+    }
+  );
+}
 DialogFooter.displayName = "DialogFooter";
-var DialogTitle = React26__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
+var DialogTitle = React25__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
   DialogPrimitive2.Title,
   {
     ref,
@@ -8190,7 +8156,7 @@ var DialogTitle = React26__default.forwardRef(({ className, ...props }, ref) => 
   }
 ));
 DialogTitle.displayName = DialogPrimitive2.Title.displayName;
-var DialogDescription = React26__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
+var DialogDescription = React25__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
   DialogPrimitive2.Description,
   {
     ref,
@@ -8200,7 +8166,7 @@ var DialogDescription = React26__default.forwardRef(({ className, ...props }, re
 ));
 DialogDescription.displayName = DialogPrimitive2.Description.displayName;
 var ToastProvider = ToastPrimitive.Provider;
-var ToastViewport = React26__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
+var ToastViewport = React25__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
   ToastPrimitive.Viewport,
   {
     ref,
@@ -8229,7 +8195,7 @@ var toastVariants = cva(
     }
   }
 );
-var Toast = React26__default.forwardRef(({ className, variant, ...props }, ref) => {
+var Toast = React25__default.forwardRef(({ className, variant, ...props }, ref) => {
   return /* @__PURE__ */ jsx(
     ToastPrimitive.Root,
     {
@@ -8240,7 +8206,7 @@ var Toast = React26__default.forwardRef(({ className, variant, ...props }, ref) 
   );
 });
 Toast.displayName = ToastPrimitive.Root.displayName;
-var ToastAction = React26__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
+var ToastAction = React25__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
   ToastPrimitive.Action,
   {
     ref,
@@ -8252,7 +8218,7 @@ var ToastAction = React26__default.forwardRef(({ className, ...props }, ref) => 
   }
 ));
 ToastAction.displayName = ToastPrimitive.Action.displayName;
-var ToastClose = React26__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
+var ToastClose = React25__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
   ToastPrimitive.Close,
   {
     ref,
@@ -8266,7 +8232,7 @@ var ToastClose = React26__default.forwardRef(({ className, ...props }, ref) => /
   }
 ));
 ToastClose.displayName = ToastPrimitive.Close.displayName;
-var ToastTitle = React26__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
+var ToastTitle = React25__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
   ToastPrimitive.Title,
   {
     ref,
@@ -8275,7 +8241,7 @@ var ToastTitle = React26__default.forwardRef(({ className, ...props }, ref) => /
   }
 ));
 ToastTitle.displayName = ToastPrimitive.Title.displayName;
-var ToastDescription = React26__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
+var ToastDescription = React25__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
   ToastPrimitive.Description,
   {
     ref,
@@ -8284,12 +8250,12 @@ var ToastDescription = React26__default.forwardRef(({ className, ...props }, ref
   }
 ));
 ToastDescription.displayName = ToastPrimitive.Description.displayName;
-var Backdrop = ({
+function Backdrop({
   show,
   onClick,
   className,
   blur = true
-}) => {
+}) {
   if (!show) return null;
   return /* @__PURE__ */ jsx(
     "div",
@@ -8303,13 +8269,13 @@ var Backdrop = ({
       )
     }
   );
-};
+}
 Backdrop.displayName = "Backdrop";
-var NotiStackProvider = ({
+function NotiStackProvider({
   children
-}) => {
-  const [toasts, setToasts] = React26__default.useState([]);
-  const addToast = React26__default.useCallback(
+}) {
+  const [toasts, setToasts] = React25__default.useState([]);
+  const addToast = React25__default.useCallback(
     (toast) => {
       const id = Math.random().toString(36).substr(2, 9);
       setToasts((current) => [...current, { ...toast, id }]);
@@ -8317,7 +8283,7 @@ var NotiStackProvider = ({
     },
     []
   );
-  const removeToast = React26__default.useCallback((id) => {
+  const removeToast = React25__default.useCallback((id) => {
     setToasts((current) => current.filter((toast) => toast.id !== id));
   }, []);
   return /* @__PURE__ */ jsx(ToastContext.Provider, { value: { addToast, removeToast }, children: /* @__PURE__ */ jsxs(ToastProvider, { children: [
@@ -8342,13 +8308,13 @@ var NotiStackProvider = ({
     )),
     /* @__PURE__ */ jsx(ToastViewport, {})
   ] }) });
-};
-var ToastContext = React26__default.createContext({
+}
+var ToastContext = React25__default.createContext({
   addToast: () => "",
   removeToast: () => {
   }
 });
-var useToast = () => React26__default.useContext(ToastContext);
+var useToast = () => React25__default.useContext(ToastContext);
 var useDotButton = (emblaApi) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [scrollSnaps, setScrollSnaps] = useState([]);
@@ -8404,12 +8370,12 @@ var usePrevNextButtons = (emblaApi) => {
     onNextButtonClick
   };
 };
-var Carousel = ({
+function Carousel({
   children,
   options,
   className,
   style
-}) => {
+}) {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, ...options });
   const [hovered, setHovered] = useState(false);
   const {
@@ -8432,7 +8398,7 @@ var Carousel = ({
           {
             ref: emblaRef,
             className: "overflow-hidden rounded-xl",
-            children: /* @__PURE__ */ jsx("div", { className: "flex", children: React26__default.Children.map(children, (child) => /* @__PURE__ */ jsx("div", { className: "flex-[0_0_100%] min-w-0 px-2", children: child })) })
+            children: /* @__PURE__ */ jsx("div", { className: "flex", children: React25__default.Children.map(children, (child) => /* @__PURE__ */ jsx("div", { className: "flex-[0_0_100%] min-w-0 px-2", children: child })) })
           }
         ),
         /* @__PURE__ */ jsx(
@@ -8482,7 +8448,7 @@ var Carousel = ({
       ]
     }
   );
-};
+}
 Carousel.displayName = "Carousel";
 var FadeIn = ({ children, className, ...props }) => /* @__PURE__ */ jsx(
   motion$1.div,
@@ -8525,7 +8491,7 @@ var ScaleIn = ({ children, className, ...props }) => /* @__PURE__ */ jsx(
     children
   }
 );
-var Nudge = ({
+function Nudge({
   id,
   title,
   description,
@@ -8534,7 +8500,7 @@ var Nudge = ({
   onAction,
   actionLabel,
   className
-}) => {
+}) {
   const icons2 = {
     info: /* @__PURE__ */ jsx(Info, { className: "text-blue-500", size: 18 }),
     warning: /* @__PURE__ */ jsx(AlertTriangle, { className: "text-amber-500", size: 18 }),
@@ -8581,14 +8547,14 @@ var Nudge = ({
       ]
     }
   );
-};
-var NudgesPanel = ({
+}
+function NudgesPanel({
   nudges,
   onClose,
   onAction,
   position = "bottom-right",
   className
-}) => {
+}) {
   const positionClasses = {
     "top-right": "top-6 right-6 flex-col-reverse",
     "bottom-right": "bottom-6 right-6 flex-col",
@@ -8612,33 +8578,35 @@ var NudgesPanel = ({
       ) }, nudge.id)) })
     }
   );
-};
-var InsightCard = ({
+}
+function InsightCard({
   data,
   className,
   onClick
-}) => /* @__PURE__ */ jsxs(
-  "div",
-  {
-    className: cn(
-      "bg-surface border border-neutral-100 border-l-[3px] border-l-mint-400 rounded-r-lg p-sp-5 transition-all duration-300 ease-out",
-      onClick && "cursor-pointer hover:shadow-[0_4px_16px_rgba(0,179,138,0.25)] hover:-translate-y-[2px] focus-visible:outline-2 focus-visible:outline-mint-400 focus-visible:outline-offset-2",
-      className
-    ),
-    onClick,
-    role: onClick ? "button" : void 0,
-    tabIndex: onClick ? 0 : void 0,
-    onKeyDown: onClick ? (e) => {
-      if (e.key === "Enter" || e.key === " ") onClick();
-    } : void 0,
-    children: [
-      /* @__PURE__ */ jsx("div", { className: "text-[10px] font-bold uppercase tracking-wider text-mint-600 mb-sp-2", children: data.tag }),
-      /* @__PURE__ */ jsx("div", { className: "text-base font-semibold text-neutral-900 leading-[1.4] mb-sp-2", children: data.title }),
-      /* @__PURE__ */ jsx("div", { className: "text-sm text-neutral-600 leading-tight", children: data.body }),
-      data.badges && data.badges.length > 0 && /* @__PURE__ */ jsx("div", { className: "flex flex-wrap gap-sp-2 mt-sp-3", children: data.badges.map((b, i) => /* @__PURE__ */ jsx(Badge, { variant: b.variant, size: "sm", children: b.label }, i)) })
-    ]
-  }
-);
+}) {
+  return /* @__PURE__ */ jsxs(
+    "div",
+    {
+      className: cn(
+        "bg-surface border border-neutral-100 border-l-[3px] border-l-mint-400 rounded-r-lg p-sp-5 transition-all duration-300 ease-out",
+        onClick && "cursor-pointer hover:shadow-[0_4px_16px_rgba(0,179,138,0.25)] hover:-translate-y-[2px] focus-visible:outline-2 focus-visible:outline-mint-400 focus-visible:outline-offset-2",
+        className
+      ),
+      onClick,
+      role: onClick ? "button" : void 0,
+      tabIndex: onClick ? 0 : void 0,
+      onKeyDown: onClick ? (e) => {
+        if (e.key === "Enter" || e.key === " ") onClick();
+      } : void 0,
+      children: [
+        /* @__PURE__ */ jsx("div", { className: "text-[10px] font-bold uppercase tracking-wider text-mint-600 mb-sp-2", children: data.tag }),
+        /* @__PURE__ */ jsx("div", { className: "text-base font-semibold text-neutral-900 leading-[1.4] mb-sp-2", children: data.title }),
+        /* @__PURE__ */ jsx("div", { className: "text-sm text-neutral-600 leading-tight", children: data.body }),
+        data.badges && data.badges.length > 0 && /* @__PURE__ */ jsx("div", { className: "flex flex-wrap gap-sp-2 mt-sp-3", children: data.badges.map((b, i) => /* @__PURE__ */ jsx(Badge, { variant: b.variant, size: "sm", children: b.label }, i)) })
+      ]
+    }
+  );
+}
 InsightCard.displayName = "InsightCard";
 var priceVariants = cva(
   "inline-flex items-center gap-[3px] font-mono text-sm font-medium leading-none",
@@ -8704,13 +8672,13 @@ function getDirection(value) {
   if (value < 0) return "down";
   return "flat";
 }
-var PriceChange = ({
+function PriceChange({
   value,
   percent,
   direction,
   showIcon = true,
   className
-}) => {
+}) {
   const dir = direction ?? getDirection(value);
   const formatted = percent !== void 0 ? `${value > 0 ? "+" : ""}${value.toFixed(2)} (${Math.abs(percent).toFixed(2)}%)` : `${value > 0 ? "+" : ""}${value.toFixed(2)}`;
   return /* @__PURE__ */ jsxs(
@@ -8724,7 +8692,7 @@ var PriceChange = ({
       ]
     }
   );
-};
+}
 PriceChange.displayName = "PriceChange";
 var cardVariants2 = cva(
   "bg-surface border border-neutral-100 rounded-lg p-5",
@@ -8740,11 +8708,11 @@ var cardVariants2 = cva(
     }
   }
 );
-var MetricCard = ({
+function MetricCard({
   data,
   className,
   compact = false
-}) => {
+}) {
   const dir = data.direction ?? (data.delta !== void 0 ? getDirection(data.delta) : "flat");
   return /* @__PURE__ */ jsxs("div", { className: cn(cardVariants2({ compact }), className), children: [
     /* @__PURE__ */ jsx("div", { className: "text-[11px] text-neutral-400 font-medium uppercase tracking-widest mb-2", children: data.label }),
@@ -8767,7 +8735,7 @@ var MetricCard = ({
     ),
     data.deltaLabel && !data.delta && /* @__PURE__ */ jsx("div", { className: "text-xs text-neutral-400 mt-1", children: data.deltaLabel })
   ] });
-};
+}
 MetricCard.displayName = "MetricCard";
 function normalise(data, h) {
   if (data.length < 2) return "";
@@ -8786,13 +8754,13 @@ var colorMap = {
   down: { stroke: "#EF4444", fill: "rgba(239,68,68,0.1)" },
   flat: { stroke: "#94A3B8", fill: "rgba(148,163,184,0.1)" }
 };
-var Sparkline = ({
+function Sparkline({
   data,
   direction = "up",
   width = 200,
   height = 40,
   className
-}) => {
+}) {
   if (!data || data.length < 2) return null;
   const pts = normalise(data, height);
   const colors = colorMap[direction] ?? colorMap.up;
@@ -8821,7 +8789,7 @@ var Sparkline = ({
       ]
     }
   );
-};
+}
 Sparkline.displayName = "Sparkline";
 var priceVariants2 = cva(
   "font-display text-2xl font-bold tabular-nums tracking-tighter",
@@ -8838,11 +8806,11 @@ var priceVariants2 = cva(
     }
   }
 );
-var StockCard = ({
+function StockCard({
   data,
   onClick,
   className
-}) => {
+}) {
   const direction = getDirection(data.change);
   return /* @__PURE__ */ jsxs(
     "div",
@@ -8899,13 +8867,13 @@ var StockCard = ({
       ]
     }
   );
-};
+}
 StockCard.displayName = "StockCard";
-var CustomTickerTape = ({
+function CustomTickerTape({
   items,
   speed = 20,
   className
-}) => {
+}) {
   const displayItems = [...items, ...items, ...items];
   return /* @__PURE__ */ jsxs("div", { className: cn("relative w-full overflow-hidden bg-background/50 backdrop-blur-sm border-y border-border py-2", className), children: [
     /* @__PURE__ */ jsx(
@@ -8950,12 +8918,12 @@ var CustomTickerTape = ({
     /* @__PURE__ */ jsx("div", { className: "absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" }),
     /* @__PURE__ */ jsx("div", { className: "absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" })
   ] });
-};
-var MarketStatus = ({
+}
+function MarketStatus({
   status,
   market = "Global Market",
   className
-}) => {
+}) {
   const config = {
     open: {
       color: "bg-green-500",
@@ -8984,7 +8952,7 @@ var MarketStatus = ({
       /* @__PURE__ */ jsx("span", { className: "text-sm font-semibold leading-tight", children: current.text })
     ] })
   ] });
-};
+}
 
 // src/components/shell/AppHeader.tsx
 var import_link = __toESM(require_link2());
@@ -9709,10 +9677,10 @@ var wordmarkSizes = {
   lg: 22,
   xl: 36
 };
-var IconMark = ({
+function IconMark({
   size,
   theme
-}) => {
+}) {
   const bgColor = theme === "white" ? "#FFFFFF" : theme === "light" ? "#F5F8F7" : "#00B38A";
   const strokeColor = theme === "white" || theme === "light" ? "#00B38A" : "#001A13";
   const rx = Math.round(size * 0.25);
@@ -9761,11 +9729,11 @@ var IconMark = ({
       ]
     }
   );
-};
-var Wordmark = ({
+}
+function Wordmark({
   fontSize,
   theme
-}) => {
+}) {
   const primaryColor = theme === "white" ? "#FFFFFF" : theme === "dark" ? "#E8EFED" : "#141F1D";
   const accentColor = theme === "white" ? "rgba(255,255,255,0.7)" : "#00B38A";
   return /* @__PURE__ */ jsxs(
@@ -9787,14 +9755,14 @@ var Wordmark = ({
       ]
     }
   );
-};
-var MintxLogo = ({
+}
+function MintxLogo({
   variant = "full",
   theme = "brand",
   size = "md",
   className,
   style
-}) => {
+}) {
   const markSize = markSizes[size];
   const wordSize = wordmarkSizes[size];
   if (variant === "mark") {
@@ -9815,8 +9783,48 @@ var MintxLogo = ({
       ]
     }
   );
-};
+}
 MintxLogo.displayName = "MintxLogo";
+var ThemeContext = createContext(null);
+var STORAGE_KEY = "mintx-theme";
+function getInitialTheme() {
+  if (typeof window === "undefined") return "dark";
+  const stored = localStorage.getItem(STORAGE_KEY);
+  if (stored === "light" || stored === "dark") return stored;
+  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+}
+function ThemeProvider({
+  children,
+  defaultTheme
+}) {
+  const [theme, setThemeState] = useState(defaultTheme ?? "dark");
+  useEffect(() => {
+    if (defaultTheme) {
+      setThemeState(defaultTheme);
+    }
+  }, [defaultTheme]);
+  useEffect(() => {
+    if (!defaultTheme) {
+      setThemeState(getInitialTheme());
+    }
+  }, [defaultTheme]);
+  useEffect(() => {
+    const root = document.documentElement;
+    root.setAttribute("data-theme", theme);
+    localStorage.setItem(STORAGE_KEY, theme);
+  }, [theme]);
+  const setTheme = useCallback((t) => setThemeState(t), []);
+  const toggleTheme = useCallback(
+    () => setThemeState((prev) => prev === "dark" ? "light" : "dark"),
+    []
+  );
+  return /* @__PURE__ */ jsx(ThemeContext.Provider, { value: { theme, toggleTheme, setTheme }, children });
+}
+function useTheme() {
+  const ctx = useContext(ThemeContext);
+  if (!ctx) throw new Error("useTheme must be used inside <ThemeProvider>");
+  return ctx;
+}
 var SunIcon = () => /* @__PURE__ */ jsxs(
   "svg",
   {
@@ -9857,10 +9865,10 @@ var MoonIcon = () => /* @__PURE__ */ jsx(
     children: /* @__PURE__ */ jsx("path", { d: "M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" })
   }
 );
-var ThemeToggle = ({
+function ThemeToggle({
   className,
   showLabel = true
-}) => {
+}) {
   const { theme, toggleTheme } = useTheme();
   const isDark = theme === "dark";
   return /* @__PURE__ */ jsxs(
@@ -9879,7 +9887,7 @@ var ThemeToggle = ({
       ]
     }
   );
-};
+}
 ThemeToggle.displayName = "ThemeToggle";
 var sidebarItemVariants = cva(
   "flex items-center gap-sp-2 w-full px-sp-2 border-none border-l-2 border-transparent bg-none cursor-pointer font-body text-sm font-medium text-neutral-600 text-left transition-all duration-120 min-h-[36px] relative hover:bg-neutral-100 hover:text-neutral-900 focus-visible:outline-2 focus-visible:outline-mint-400 focus-visible:outline-offset-[-2px]",
@@ -9940,7 +9948,7 @@ var CollapseIcon = () => /* @__PURE__ */ jsxs(
     ]
   }
 );
-var Sidebar = ({
+function Sidebar({
   sections,
   activeId,
   onNavigate,
@@ -9948,7 +9956,7 @@ var Sidebar = ({
   onCollapsedChange,
   footer,
   className
-}) => {
+}) {
   const [expandedIds, setExpandedIds] = useState(/* @__PURE__ */ new Set());
   const toggleExpanded = (id) => {
     setExpandedIds((prev) => {
@@ -10040,47 +10048,53 @@ var Sidebar = ({
       ]
     }
   );
-};
+}
 Sidebar.displayName = "Sidebar";
-var BottomNav = ({
+function BottomNav({
   items,
   activeId,
   onNavigate,
   className
-}) => /* @__PURE__ */ jsx(
-  "nav",
-  {
-    className: cn(
-      "fixed bottom-0 left-0 right-0 z-100 bg-surface/90 border-t border-neutral-100 pb-[env(safe-area-inset-bottom,0px)] backdrop-blur-xl dark:bg-[#0D1614]/90",
-      className
-    ),
-    "aria-label": "Mobile navigation",
-    role: "navigation",
-    children: /* @__PURE__ */ jsx("ul", { className: "flex list-none m-0 p-0", children: items.map((item) => {
-      const isActive = item.id === activeId;
-      return /* @__PURE__ */ jsx("li", { className: "flex-1", children: /* @__PURE__ */ jsxs(
-        "button",
-        {
-          className: cn(
-            "flex flex-col items-center justify-center gap-0.5 w-full p-sp-2 pb-2.5 bg-none border-none cursor-pointer relative text-neutral-400 transition-all duration-120 min-h-[56px] active:scale-92",
-            isActive && "text-mint-600 dark:text-mint-400 font-bold"
-          ),
-          onClick: () => onNavigate?.(item),
-          "aria-current": isActive ? "page" : void 0,
-          "aria-label": item.label,
-          children: [
-            /* @__PURE__ */ jsx("span", { className: cn(
-              "flex items-center justify-center w-6 h-6 transition-transform duration-200",
-              isActive && "-translate-y-[1px]"
-            ), "aria-hidden": "true", children: isActive && item.activeIcon ? item.activeIcon : item.icon }),
-            /* @__PURE__ */ jsx("span", { className: "font-body text-[10px] leading-none transition-[font-weight] duration-200", children: item.label }),
-            isActive && /* @__PURE__ */ jsx("span", { className: "absolute top-[6px] left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-mint-400", "aria-hidden": "true" })
-          ]
-        }
-      ) }, item.id);
-    }) })
-  }
-);
+}) {
+  return /* @__PURE__ */ jsx(
+    "nav",
+    {
+      className: cn(
+        "fixed bottom-0 left-0 right-0 z-100 bg-surface/90 border-t border-neutral-100 pb-[env(safe-area-inset-bottom,0px)] backdrop-blur-xl dark:bg-[#0D1614]/90",
+        className
+      ),
+      "aria-label": "Mobile navigation",
+      role: "navigation",
+      children: /* @__PURE__ */ jsx("ul", { className: "flex list-none m-0 p-0", children: items.map((item) => {
+        const isActive = item.id === activeId;
+        const onClick = () => onNavigate?.(item);
+        return /* @__PURE__ */ jsx("li", { className: "flex-1", children: /* @__PURE__ */ jsxs(
+          "button",
+          {
+            className: cn(
+              "flex flex-col items-center justify-center gap-0.5 w-full p-sp-2 pb-2.5 bg-none border-none cursor-pointer relative text-neutral-400 transition-all duration-120 min-h-[56px] active:scale-92",
+              isActive && "text-mint-600 dark:text-mint-400 font-bold"
+            ),
+            onClick,
+            onKeyDown: onNavigate ? (e) => {
+              if (e.key === "Enter" || e.key === " ") onClick();
+            } : void 0,
+            "aria-current": isActive ? "page" : void 0,
+            "aria-label": item.label,
+            children: [
+              /* @__PURE__ */ jsx("span", { className: cn(
+                "flex items-center justify-center w-6 h-6 transition-transform duration-200",
+                isActive && "-translate-y-[1px]"
+              ), "aria-hidden": "true", children: isActive && item.activeIcon ? item.activeIcon : item.icon }),
+              /* @__PURE__ */ jsx("span", { className: "font-body text-[10px] leading-none transition-[font-weight] duration-200", children: item.label }),
+              isActive && /* @__PURE__ */ jsx("span", { className: "absolute top-[6px] left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-mint-400", "aria-hidden": "true" })
+            ]
+          }
+        ) }, item.id);
+      }) })
+    }
+  );
+}
 BottomNav.displayName = "BottomNav";
 var dotVariants = cva(
   "w-[7px] h-[7px] rounded-full shrink-0",
@@ -10108,11 +10122,11 @@ var sessionConfig = {
   closed: { color: "neutral", label: "Closed", pulse: false },
   "post-close": { color: "neutral", label: "Post-close", pulse: false }
 };
-var SupportLiveBar = ({
+function SupportLiveBar({
   marketStatus,
   onSupportClick,
   className
-}) => {
+}) {
   const session = marketStatus?.session ?? "closed";
   const cfg = sessionConfig[session];
   return /* @__PURE__ */ jsxs("div", { className: cn("flex items-center justify-between p-sp-2 px-sp-4 bg-surface border-t border-neutral-100 gap-sp-3", className), children: [
@@ -10158,7 +10172,7 @@ var SupportLiveBar = ({
       }
     )
   ] });
-};
+}
 SupportLiveBar.displayName = "SupportLiveBar";
 function FibSpiral({ theme = "dark", className }) {
   const dark = theme === "dark";
@@ -11376,7 +11390,7 @@ function CommunitySection({
     ] })
   ] });
 }
-var Table2 = React26__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx("div", { className: "relative w-full overflow-auto rounded-xl border border-border-subtle", children: /* @__PURE__ */ jsx(
+var Table2 = React25__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx("div", { className: "relative w-full overflow-auto rounded-xl border border-border-subtle", children: /* @__PURE__ */ jsx(
   "table",
   {
     ref,
@@ -11385,9 +11399,9 @@ var Table2 = React26__default.forwardRef(({ className, ...props }, ref) => /* @_
   }
 ) }));
 Table2.displayName = "Table";
-var TableHeader2 = React26__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx("thead", { ref, className: cn("[&_tr]:border-b bg-surface-base/30", className), ...props }));
+var TableHeader2 = React25__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx("thead", { ref, className: cn("[&_tr]:border-b bg-surface-base/30", className), ...props }));
 TableHeader2.displayName = "TableHeader";
-var TableBody2 = React26__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
+var TableBody2 = React25__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
   "tbody",
   {
     ref,
@@ -11396,7 +11410,7 @@ var TableBody2 = React26__default.forwardRef(({ className, ...props }, ref) => /
   }
 ));
 TableBody2.displayName = "TableBody";
-var TableFooter2 = React26__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
+var TableFooter2 = React25__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
   "tfoot",
   {
     ref,
@@ -11408,7 +11422,7 @@ var TableFooter2 = React26__default.forwardRef(({ className, ...props }, ref) =>
   }
 ));
 TableFooter2.displayName = "TableFooter";
-var TableRow2 = React26__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
+var TableRow2 = React25__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
   "tr",
   {
     ref,
@@ -11420,7 +11434,7 @@ var TableRow2 = React26__default.forwardRef(({ className, ...props }, ref) => /*
   }
 ));
 TableRow2.displayName = "TableRow";
-var TableHead2 = React26__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
+var TableHead2 = React25__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
   "th",
   {
     ref,
@@ -11432,7 +11446,7 @@ var TableHead2 = React26__default.forwardRef(({ className, ...props }, ref) => /
   }
 ));
 TableHead2.displayName = "TableHead";
-var TableCell2 = React26__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
+var TableCell2 = React25__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
   "td",
   {
     ref,
@@ -11441,7 +11455,7 @@ var TableCell2 = React26__default.forwardRef(({ className, ...props }, ref) => /
   }
 ));
 TableCell2.displayName = "TableCell";
-var TableCaption2 = React26__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
+var TableCaption2 = React25__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
   "caption",
   {
     ref,
@@ -11534,16 +11548,16 @@ function DataTable2({
   highlightKey,
   pageSize = 10
 }) {
-  const [searchValue, setSearchValue] = React26.useState("");
-  const [sortConfig, setSortConfig] = React26.useState({ key: "", direction: null });
-  const filteredData = React26.useMemo(() => {
+  const [searchValue, setSearchValue] = React25.useState("");
+  const [sortConfig, setSortConfig] = React25.useState({ key: "", direction: null });
+  const filteredData = React25.useMemo(() => {
     if (!searchKey || !searchValue) return data;
     return data.filter((item) => {
       const value = item[searchKey];
       return String(value).toLowerCase().includes(searchValue.toLowerCase());
     });
   }, [data, searchKey, searchValue]);
-  const sortedData = React26.useMemo(() => {
+  const sortedData = React25.useMemo(() => {
     if (!sortConfig.key || !sortConfig.direction) return filteredData;
     return [...filteredData].sort((a, b) => {
       const aValue = a[sortConfig.key];
@@ -11622,12 +11636,12 @@ function DataTable2({
     ] })
   ] });
 }
-var Pagination2 = ({
+function Pagination2({
   currentPage,
   totalPages,
   onPageChange,
   className
-}) => {
+}) {
   const getPages = () => {
     const pages = [];
     if (totalPages <= 7) {
@@ -11664,7 +11678,7 @@ var Pagination2 = ({
             children: /* @__PURE__ */ jsx(ChevronLeft, { size: 16 })
           }
         ),
-        getPages().map((page, index) => /* @__PURE__ */ jsx(React26__default.Fragment, { children: page === "ellipsis" ? /* @__PURE__ */ jsx("div", { className: cn(btnBaseClass, "bg-transparent cursor-default text-neutral-600"), children: /* @__PURE__ */ jsx(MoreHorizontal, { size: 16 }) }) : /* @__PURE__ */ jsx(
+        getPages().map((page, index) => /* @__PURE__ */ jsx(React25__default.Fragment, { children: page === "ellipsis" ? /* @__PURE__ */ jsx("div", { className: cn(btnBaseClass, "bg-transparent cursor-default text-neutral-600"), children: /* @__PURE__ */ jsx(MoreHorizontal, { size: 16 }) }) : /* @__PURE__ */ jsx(
           "button",
           {
             className: cn(
@@ -11693,7 +11707,7 @@ var Pagination2 = ({
       ]
     }
   );
-};
+}
 Pagination2.displayName = "Pagination";
 var statusVariants = cva(
   "inline-flex items-center gap-sp-2 text-sm font-medium",
@@ -11736,39 +11750,41 @@ var statusLabels = {
   error: "Error",
   pro: "Pro"
 };
-var Status = ({
+function Status({
   status = "offline",
   label,
   pulse = true,
   className,
   style
-}) => /* @__PURE__ */ jsxs(
-  "span",
-  {
-    className: cn(statusVariants({ status }), className),
-    style,
-    "aria-label": `${label ?? statusLabels[status]} status`,
-    children: [
-      /* @__PURE__ */ jsx(
-        "span",
-        {
-          className: cn(
-            dotVariants2({ status: pulse ? status : "offline" }),
-            !pulse && "animate-none"
-          ),
-          "aria-hidden": "true"
-        }
-      ),
-      /* @__PURE__ */ jsx("span", { children: label ?? statusLabels[status] })
-    ]
-  }
-);
+}) {
+  return /* @__PURE__ */ jsxs(
+    "span",
+    {
+      className: cn(statusVariants({ status }), className),
+      style,
+      "aria-label": `${label ?? statusLabels[status]} status`,
+      children: [
+        /* @__PURE__ */ jsx(
+          "span",
+          {
+            className: cn(
+              dotVariants2({ status: pulse ? status : "offline" }),
+              !pulse && "animate-none"
+            ),
+            "aria-hidden": "true"
+          }
+        ),
+        /* @__PURE__ */ jsx("span", { children: label ?? statusLabels[status] })
+      ]
+    }
+  );
+}
 Status.displayName = "Status";
-var CustomTickerTape2 = ({
+function CustomTickerTape2({
   items,
   speed = 20,
   className
-}) => {
+}) {
   const displayItems = [...items, ...items, ...items];
   return /* @__PURE__ */ jsxs("div", { className: cn("relative w-full overflow-hidden bg-surface/50 backdrop-blur-sm border-y border-neutral-150 py-sp-2", className), children: [
     /* @__PURE__ */ jsx(
@@ -11813,12 +11829,12 @@ var CustomTickerTape2 = ({
     /* @__PURE__ */ jsx("div", { className: "absolute inset-y-0 left-0 w-20 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" }),
     /* @__PURE__ */ jsx("div", { className: "absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" })
   ] });
-};
-var MarketStatus3 = ({
+}
+function MarketStatus3({
   status,
   market = "Global Market",
   className
-}) => {
+}) {
   const config = {
     open: {
       color: "bg-mint-500",
@@ -11847,7 +11863,7 @@ var MarketStatus3 = ({
       /* @__PURE__ */ jsx("span", { className: "text-sm font-semibold leading-tight", children: current.text })
     ] })
   ] });
-};
+}
 var priceVariants3 = cva(
   "inline-flex items-center gap-[3px] font-mono text-sm font-medium leading-none",
   {
@@ -11912,13 +11928,13 @@ function getDirection2(value) {
   if (value < 0) return "down";
   return "flat";
 }
-var PriceChange2 = ({
+function PriceChange2({
   value,
   percent,
   direction,
   showIcon = true,
   className
-}) => {
+}) {
   const dir = direction ?? getDirection2(value);
   const formatted = percent !== void 0 ? `${value > 0 ? "+" : ""}${value.toFixed(2)} (${Math.abs(percent).toFixed(2)}%)` : `${value > 0 ? "+" : ""}${value.toFixed(2)}`;
   return /* @__PURE__ */ jsxs(
@@ -11932,7 +11948,7 @@ var PriceChange2 = ({
       ]
     }
   );
-};
+}
 PriceChange2.displayName = "PriceChange";
 var cardVariants3 = cva(
   "bg-surface border border-border-subtle rounded-lg p-5",
@@ -11948,11 +11964,11 @@ var cardVariants3 = cva(
     }
   }
 );
-var MetricCard2 = ({
+function MetricCard2({
   data,
   className,
   compact = false
-}) => {
+}) {
   const dir = data.direction ?? (data.delta !== void 0 ? getDirection2(data.delta) : "flat");
   return /* @__PURE__ */ jsxs("div", { className: cn(cardVariants3({ compact }), className), children: [
     /* @__PURE__ */ jsx("div", { className: "text-[11px] text-text-tertiary font-medium uppercase tracking-widest mb-sp-2", children: data.label }),
@@ -11975,7 +11991,7 @@ var MetricCard2 = ({
     ),
     data.deltaLabel && !data.delta && /* @__PURE__ */ jsx("div", { className: "text-xs text-text-tertiary mt-sp-1", children: data.deltaLabel })
   ] });
-};
+}
 MetricCard2.displayName = "MetricCard";
 function normalise2(data, h) {
   if (data.length < 2) return "";
@@ -11994,13 +12010,13 @@ var colorMap2 = {
   down: { stroke: "#EF4444", fill: "rgba(239,68,68,0.1)" },
   flat: { stroke: "#9BACA6", fill: "rgba(155,172,166,0.1)" }
 };
-var Sparkline2 = ({
+function Sparkline2({
   data,
   direction = "up",
   width = 200,
   height = 40,
   className
-}) => {
+}) {
   if (!data || data.length < 2) return null;
   const pts = normalise2(data, height);
   const colors = colorMap2[direction] ?? colorMap2.up;
@@ -12029,7 +12045,7 @@ var Sparkline2 = ({
       ]
     }
   );
-};
+}
 Sparkline2.displayName = "Sparkline";
 var priceVariants4 = cva(
   "font-display text-2xl font-bold tabular-nums tracking-tighter",
@@ -12046,11 +12062,11 @@ var priceVariants4 = cva(
     }
   }
 );
-var StockCard2 = ({
+function StockCard2({
   data,
   onClick,
   className
-}) => {
+}) {
   const direction = getDirection2(data.change);
   return /* @__PURE__ */ jsxs(
     "div",
@@ -12107,11 +12123,11 @@ var StockCard2 = ({
       ]
     }
   );
-};
+}
 StockCard2.displayName = "StockCard";
 var Dialog2 = DialogPrimitive2.Root;
 var DialogPortal2 = DialogPrimitive2.Portal;
-var DialogOverlay2 = React26__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
+var DialogOverlay2 = React25__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
   DialogPrimitive2.Overlay,
   {
     ref,
@@ -12123,7 +12139,7 @@ var DialogOverlay2 = React26__default.forwardRef(({ className, ...props }, ref) 
   }
 ));
 DialogOverlay2.displayName = DialogPrimitive2.Overlay.displayName;
-var DialogContent2 = React26__default.forwardRef(({ className, children, ...props }, ref) => /* @__PURE__ */ jsxs(DialogPortal2, { children: [
+var DialogContent2 = React25__default.forwardRef(({ className, children, ...props }, ref) => /* @__PURE__ */ jsxs(DialogPortal2, { children: [
   /* @__PURE__ */ jsx(DialogOverlay2, {}),
   /* @__PURE__ */ jsxs(
     DialogPrimitive2.Content,
@@ -12145,7 +12161,7 @@ var DialogContent2 = React26__default.forwardRef(({ className, children, ...prop
   )
 ] }));
 DialogContent2.displayName = DialogPrimitive2.Content.displayName;
-var DialogTitle2 = React26__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
+var DialogTitle2 = React25__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
   DialogPrimitive2.Title,
   {
     ref,
@@ -12157,7 +12173,7 @@ var DialogTitle2 = React26__default.forwardRef(({ className, ...props }, ref) =>
   }
 ));
 DialogTitle2.displayName = DialogPrimitive2.Title.displayName;
-var DialogDescription2 = React26__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
+var DialogDescription2 = React25__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
   DialogPrimitive2.Description,
   {
     ref,
@@ -12166,7 +12182,7 @@ var DialogDescription2 = React26__default.forwardRef(({ className, ...props }, r
   }
 ));
 DialogDescription2.displayName = DialogPrimitive2.Description.displayName;
-var Drawer2 = ({
+function Drawer2({
   open,
   onOpenChange,
   title,
@@ -12174,7 +12190,7 @@ var Drawer2 = ({
   children,
   side = "right",
   className
-}) => {
+}) {
   const sideClasses = {
     right: "inset-y-0 right-0 h-full w-3/4 sm:max-w-sm border-l border-border-subtle bg-surface animate-in slide-in-from-right",
     left: "inset-y-0 left-0 h-full w-3/4 sm:max-w-sm border-r border-border-subtle bg-surface animate-in slide-in-from-left",
@@ -12207,10 +12223,10 @@ var Drawer2 = ({
       }
     )
   ] }) });
-};
+}
 Drawer2.displayName = "Drawer";
 var Menu2 = DropdownMenuPrimitive.Root;
-var MenuContent2 = React26__default.forwardRef(({ className, sideOffset = 4, ...props }, ref) => /* @__PURE__ */ jsx(DropdownMenuPrimitive.Portal, { children: /* @__PURE__ */ jsx(
+var MenuContent2 = React25__default.forwardRef(({ className, sideOffset = 4, ...props }, ref) => /* @__PURE__ */ jsx(DropdownMenuPrimitive.Portal, { children: /* @__PURE__ */ jsx(
   DropdownMenuPrimitive.Content,
   {
     ref,
@@ -12223,7 +12239,7 @@ var MenuContent2 = React26__default.forwardRef(({ className, sideOffset = 4, ...
   }
 ) }));
 MenuContent2.displayName = DropdownMenuPrimitive.Content.displayName;
-var MenuItem2 = React26__default.forwardRef(({ className, inset, ...props }, ref) => /* @__PURE__ */ jsx(
+var MenuItem2 = React25__default.forwardRef(({ className, inset, ...props }, ref) => /* @__PURE__ */ jsx(
   DropdownMenuPrimitive.Item,
   {
     ref,
@@ -12236,7 +12252,7 @@ var MenuItem2 = React26__default.forwardRef(({ className, inset, ...props }, ref
   }
 ));
 MenuItem2.displayName = DropdownMenuPrimitive.Item.displayName;
-var MenuLabel2 = React26__default.forwardRef(({ className, inset, ...props }, ref) => /* @__PURE__ */ jsx(
+var MenuLabel2 = React25__default.forwardRef(({ className, inset, ...props }, ref) => /* @__PURE__ */ jsx(
   DropdownMenuPrimitive.Label,
   {
     ref,
@@ -12245,7 +12261,7 @@ var MenuLabel2 = React26__default.forwardRef(({ className, inset, ...props }, re
   }
 ));
 MenuLabel2.displayName = DropdownMenuPrimitive.Label.displayName;
-var MenuSeparator2 = React26__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
+var MenuSeparator2 = React25__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
   DropdownMenuPrimitive.Separator,
   {
     ref,
@@ -12338,7 +12354,7 @@ var Button2 = forwardRef(
   }
 );
 Button2.displayName = "Button";
-var Fab2 = React26__default.forwardRef(
+var Fab2 = React25__default.forwardRef(
   ({ icon, children, position = "none", className, ...props }, ref) => {
     const positionClasses = {
       "bottom-right": "fixed bottom-8 right-8 z-50",
@@ -12370,13 +12386,13 @@ var Fab2 = React26__default.forwardRef(
   }
 );
 Fab2.displayName = "Fab";
-var Link5 = ({
+function Link5({
   variant = "default",
   underline = "hover",
   className,
   children,
   ...props
-}) => {
+}) {
   const variantClasses2 = {
     default: "text-mint-600 hover:text-mint-500",
     muted: "text-neutral-400 hover:text-mint-600",
@@ -12402,14 +12418,14 @@ var Link5 = ({
       children
     }
   );
-};
+}
 Link5.displayName = "Link";
-var Breadcrumbs2 = ({
+function Breadcrumbs2({
   items,
   separator = /* @__PURE__ */ jsx(ChevronRight, { size: 13, className: "text-neutral-600" }),
   className,
   ...props
-}) => {
+}) {
   return /* @__PURE__ */ jsx(
     "nav",
     {
@@ -12418,7 +12434,7 @@ var Breadcrumbs2 = ({
       ...props,
       children: /* @__PURE__ */ jsx("ol", { className: "flex flex-wrap items-center gap-1.5 list-none p-0 m-0", children: items.map((item, index) => {
         const isLast = index === items.length - 1;
-        return /* @__PURE__ */ jsxs(React26__default.Fragment, { children: [
+        return /* @__PURE__ */ jsxs(React25__default.Fragment, { children: [
           /* @__PURE__ */ jsx("li", { className: "flex items-center gap-sp-1.5", children: item.href && !isLast ? /* @__PURE__ */ jsxs(
             Link5,
             {
@@ -12448,7 +12464,7 @@ var Breadcrumbs2 = ({
       }) })
     }
   );
-};
+}
 Breadcrumbs2.displayName = "Breadcrumbs";
 var dotVariants3 = cva(
   "w-[7px] h-[7px] rounded-full shrink-0",
@@ -12476,11 +12492,11 @@ var sessionConfig2 = {
   closed: { color: "neutral", label: "Closed", pulse: false },
   "post-close": { color: "neutral", label: "Post-close", pulse: false }
 };
-var SupportLiveBar2 = ({
+function SupportLiveBar2({
   marketStatus,
   onSupportClick,
   className
-}) => {
+}) {
   const session = marketStatus?.session ?? "closed";
   const cfg = sessionConfig2[session];
   return /* @__PURE__ */ jsxs("div", { className: cn("flex items-center justify-between p-sp-2 px-sp-4 bg-surface border-t border-neutral-100 gap-sp-3", className), children: [
@@ -12526,9 +12542,9 @@ var SupportLiveBar2 = ({
       }
     )
   ] });
-};
+}
 SupportLiveBar2.displayName = "SupportLiveBar";
-var Nudge2 = ({
+function Nudge2({
   id,
   title,
   description,
@@ -12537,7 +12553,7 @@ var Nudge2 = ({
   onAction,
   actionLabel,
   className
-}) => {
+}) {
   const icons2 = {
     info: /* @__PURE__ */ jsx(Info, { className: "text-blue-500", size: 18 }),
     warning: /* @__PURE__ */ jsx(AlertTriangle, { className: "text-amber-500", size: 18 }),
@@ -12584,14 +12600,14 @@ var Nudge2 = ({
       ]
     }
   );
-};
-var NudgesPanel2 = ({
+}
+function NudgesPanel2({
   nudges,
   onClose,
   onAction,
   position = "bottom-right",
   className
-}) => {
+}) {
   const positionClasses = {
     "top-right": "top-6 right-6 flex-col-reverse",
     "bottom-right": "bottom-6 right-6 flex-col",
@@ -12615,7 +12631,7 @@ var NudgesPanel2 = ({
       ) }, nudge.id)) })
     }
   );
-};
+}
 var LWC_URL = "https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js";
 var scriptPromise = null;
 var loadScript = () => {
@@ -14730,7 +14746,7 @@ function AssetCard({ name, id, type }) {
   );
 }
 var ToastProvider2 = ToastPrimitive.Provider;
-var ToastViewport2 = React26__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
+var ToastViewport2 = React25__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
   ToastPrimitive.Viewport,
   {
     ref,
@@ -14759,7 +14775,7 @@ var toastVariants2 = cva(
     }
   }
 );
-var Toast2 = React26__default.forwardRef(({ className, variant, ...props }, ref) => {
+var Toast2 = React25__default.forwardRef(({ className, variant, ...props }, ref) => {
   return /* @__PURE__ */ jsx(
     ToastPrimitive.Root,
     {
@@ -14770,7 +14786,7 @@ var Toast2 = React26__default.forwardRef(({ className, variant, ...props }, ref)
   );
 });
 Toast2.displayName = ToastPrimitive.Root.displayName;
-var ToastAction3 = React26__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
+var ToastAction3 = React25__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
   ToastPrimitive.Action,
   {
     ref,
@@ -14782,7 +14798,7 @@ var ToastAction3 = React26__default.forwardRef(({ className, ...props }, ref) =>
   }
 ));
 ToastAction3.displayName = ToastPrimitive.Action.displayName;
-var ToastClose2 = React26__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
+var ToastClose2 = React25__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
   ToastPrimitive.Close,
   {
     ref,
@@ -14796,7 +14812,7 @@ var ToastClose2 = React26__default.forwardRef(({ className, ...props }, ref) => 
   }
 ));
 ToastClose2.displayName = ToastPrimitive.Close.displayName;
-var ToastTitle2 = React26__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
+var ToastTitle2 = React25__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
   ToastPrimitive.Title,
   {
     ref,
@@ -14805,7 +14821,7 @@ var ToastTitle2 = React26__default.forwardRef(({ className, ...props }, ref) => 
   }
 ));
 ToastTitle2.displayName = ToastPrimitive.Title.displayName;
-var ToastDescription2 = React26__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
+var ToastDescription2 = React25__default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsx(
   ToastPrimitive.Description,
   {
     ref,
@@ -14814,11 +14830,11 @@ var ToastDescription2 = React26__default.forwardRef(({ className, ...props }, re
   }
 ));
 ToastDescription2.displayName = ToastPrimitive.Description.displayName;
-var NotiStackProvider2 = ({
+function NotiStackProvider2({
   children
-}) => {
-  const [toasts, setToasts] = React26__default.useState([]);
-  const addToast = React26__default.useCallback(
+}) {
+  const [toasts, setToasts] = React25__default.useState([]);
+  const addToast = React25__default.useCallback(
     (toast) => {
       const id = Math.random().toString(36).substr(2, 9);
       setToasts((current) => [...current, { ...toast, id }]);
@@ -14826,7 +14842,7 @@ var NotiStackProvider2 = ({
     },
     []
   );
-  const removeToast = React26__default.useCallback((id) => {
+  const removeToast = React25__default.useCallback((id) => {
     setToasts((current) => current.filter((toast) => toast.id !== id));
   }, []);
   return /* @__PURE__ */ jsx(ToastContext2.Provider, { value: { addToast, removeToast }, children: /* @__PURE__ */ jsxs(ToastProvider2, { children: [
@@ -14851,8 +14867,8 @@ var NotiStackProvider2 = ({
     )),
     /* @__PURE__ */ jsx(ToastViewport2, {})
   ] }) });
-};
-var ToastContext2 = React26__default.createContext({
+}
+var ToastContext2 = React25__default.createContext({
   addToast: () => "",
   removeToast: () => {
   }

@@ -9,7 +9,7 @@ export interface SwitchProps extends React.ComponentPropsWithoutRef<typeof Switc
 export const Switch = React.forwardRef<
   React.ElementRef<typeof SwitchPrimitive.Root>,
   SwitchProps
->(({ label, className, ...props }, ref) => {
+>(({ label, className, ...props }, ref): React.JSX.Element => {
   return (
     <div className={cn(
       "flex items-center gap-3",

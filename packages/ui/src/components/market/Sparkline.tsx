@@ -32,13 +32,13 @@ const colorMap = {
   flat: { stroke: "#9BACA6", fill: "rgba(155,172,166,0.1)" },
 };
 
-export const Sparkline: React.FC<SparklineProps> = ({
+export function Sparkline({
   data,
   direction = "up",
   width = 200,
   height = 40,
   className,
-}) => {
+}: SparklineProps): React.JSX.Element | null {
   if (!data || data.length < 2) return null;
 
   const pts = normalise(data, height);
@@ -66,6 +66,6 @@ export const Sparkline: React.FC<SparklineProps> = ({
       />
     </svg>
   );
-};
+}
 
 Sparkline.displayName = "Sparkline";

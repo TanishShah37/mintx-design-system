@@ -16,12 +16,12 @@ export interface BottomNavigationProps {
   className?: string;
 }
 
-export const BottomNavigation: React.FC<BottomNavigationProps> = ({
+export function BottomNavigation({
   items,
   activeId,
   onSelect,
   className,
-}) => {
+}: BottomNavigationProps): React.JSX.Element {
   return (
     <nav
       className={cn(
@@ -49,6 +49,6 @@ export const BottomNavigation: React.FC<BottomNavigationProps> = ({
       })}
     </nav>
   );
-};
+}
 
 BottomNavigation.displayName = "BottomNavigation";

@@ -10,7 +10,7 @@ export interface TextFieldProps extends React.InputHTMLAttributes<HTMLInputEleme
 }
 
 export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(
-  ({ className, label, error, leftIcon, rightIcon, containerClassName, ...props }, ref) => {
+  ({ className, label, error, leftIcon, rightIcon, containerClassName, ...props }, ref): React.JSX.Element => {
     return (
       <div className={cn("flex flex-col gap-1.5 w-full", containerClassName)}>
         {label && (

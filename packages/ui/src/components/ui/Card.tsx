@@ -44,7 +44,7 @@ const cardVariants = cva(
   }
 );
 
-export const Card: React.FC<CardProps> = ({
+export function Card({
   variant = "flat",
   hover = false,
   interactive = false,
@@ -53,7 +53,7 @@ export const Card: React.FC<CardProps> = ({
   className,
   style,
   children,
-}) => {
+}: CardProps): React.JSX.Element {
   const isClickable = !!onClick || interactive;
 
   return (
@@ -74,6 +74,6 @@ export const Card: React.FC<CardProps> = ({
       {children}
     </div>
   );
-};
+}
 
 Card.displayName = "Card";

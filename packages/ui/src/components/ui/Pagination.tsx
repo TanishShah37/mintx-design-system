@@ -9,12 +9,12 @@ export interface PaginationProps {
   className?: string;
 }
 
-export const Pagination: React.FC<PaginationProps> = ({
+export function Pagination({
   currentPage,
   totalPages,
   onPageChange,
   className,
-}) => {
+}: PaginationProps): React.JSX.Element {
   const getPages = (): (number | "ellipsis")[] => {
     const pages: (number | "ellipsis")[] = [];
     if (totalPages <= 7) {
@@ -29,7 +29,7 @@ export const Pagination: React.FC<PaginationProps> = ({
       }
     }
     return pages;
-  };
+  }
 
   const btnBaseClass = "flex items-center justify-center w-9 h-9 rounded-lg border-none cursor-pointer font-body text-sm font-semibold transition-all duration-150 focus-visible:outline-none";
 
@@ -88,6 +88,6 @@ export const Pagination: React.FC<PaginationProps> = ({
       </button>
     </nav>
   );
-};
+}
 
 Pagination.displayName = "Pagination";

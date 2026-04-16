@@ -53,13 +53,13 @@ const statusLabels: Record<NonNullable<StatusProps["status"]>, string> = {
   pro: "Pro",
 };
 
-export const Status: React.FC<StatusProps> = ({
+export function Status({
   status = "offline",
   label,
   pulse = true,
   className,
   style,
-}) => (
+}: StatusProps): React.JSX.Element { return (
   <span
     className={cn(statusVariants({ status }), className)}
     style={style}
@@ -74,6 +74,6 @@ export const Status: React.FC<StatusProps> = ({
     />
     <span>{label ?? statusLabels[status]}</span>
   </span>
-);
+); }
 
 Status.displayName = "Status";

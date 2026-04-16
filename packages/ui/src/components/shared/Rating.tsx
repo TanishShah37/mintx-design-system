@@ -20,7 +20,7 @@ const sizeClasses = {
   lg: "h-7 w-7",
 };
 
-export const Rating: React.FC<RatingProps> = ({
+export function Rating({
   value = 0,
   max = 5,
   onChange,
@@ -28,7 +28,7 @@ export const Rating: React.FC<RatingProps> = ({
   size = "md",
   className,
   label,
-}) => {
+}: RatingProps): React.JSX.Element {
   const [hoverValue, setHoverValue] = useState<number | null>(null);
   const displayValue = hoverValue !== null ? hoverValue : value;
 
@@ -72,6 +72,6 @@ export const Rating: React.FC<RatingProps> = ({
       </div>
     </div>
   );
-};
+}
 
 Rating.displayName = "Rating";

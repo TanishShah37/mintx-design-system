@@ -13,7 +13,7 @@ export interface DigitInputProps {
   containerClassName?: string;
 }
 
-export const DigitInput: React.FC<DigitInputProps> = ({
+export function DigitInput({
   length = 6,
   value = "",
   onChange,
@@ -21,7 +21,7 @@ export const DigitInput: React.FC<DigitInputProps> = ({
   error = false,
   className,
   containerClassName,
-}) => {
+}: DigitInputProps): React.JSX.Element {
   const inputsRef = useRef<(HTMLInputElement | null)[]>([]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
@@ -36,7 +36,7 @@ export const DigitInput: React.FC<DigitInputProps> = ({
     if (val && index < length - 1) {
       inputsRef.current[index + 1]?.focus();
     }
-  };
+  }
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>, index: number) => {
     if (e.key === "Backspace" && !value[index] && index > 0) {
@@ -78,6 +78,6 @@ export const DigitInput: React.FC<DigitInputProps> = ({
       ))}
     </div>
   );
-};
+}
 
 DigitInput.displayName = "DigitInput";

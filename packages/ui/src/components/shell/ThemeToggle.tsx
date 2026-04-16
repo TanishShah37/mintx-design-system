@@ -49,10 +49,10 @@ interface ThemeToggleProps {
   showLabel?: boolean;
 }
 
-export const ThemeToggle: React.FC<ThemeToggleProps> = ({
+export function ThemeToggle({
   className,
   showLabel = true,
-}) => {
+}: ThemeToggleProps): React.JSX.Element {
   const { theme, toggleTheme } = useTheme();
   const isDark = theme === "dark";
 
@@ -72,6 +72,6 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
       )}
     </button>
   );
-};
+}
 
 ThemeToggle.displayName = "ThemeToggle";

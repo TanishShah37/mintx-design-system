@@ -12,7 +12,7 @@ export const MenuSub = DropdownMenuPrimitive.Sub;
 export const MenuContent = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Content>
->(({ className, sideOffset = 4, ...props }, ref) => (
+>(({ className, sideOffset = 4, ...props }, ref): React.JSX.Element => (
   <DropdownMenuPrimitive.Portal>
     <DropdownMenuPrimitive.Content
       ref={ref}
@@ -32,7 +32,7 @@ export const MenuItem = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Item> & {
     inset?: boolean;
   }
->(({ className, inset, ...props }, ref) => (
+>(({ className, inset, ...props }, ref): React.JSX.Element => (
   <DropdownMenuPrimitive.Item
     ref={ref}
     className={cn(
@@ -50,7 +50,7 @@ export const MenuLabel = React.forwardRef<
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Label> & {
     inset?: boolean;
   }
->(({ className, inset, ...props }, ref) => (
+>(({ className, inset, ...props }, ref): React.JSX.Element => (
   <DropdownMenuPrimitive.Label
     ref={ref}
     className={cn("px-sp-2.5 py-sp-1.5 text-[11px] font-bold uppercase tracking-wider text-text-tertiary", inset && "pl-sp-8", className)}
@@ -62,7 +62,7 @@ MenuLabel.displayName = DropdownMenuPrimitive.Label.displayName;
 export const MenuSeparator = React.forwardRef<
   React.ElementRef<typeof DropdownMenuPrimitive.Separator>,
   React.ComponentPropsWithoutRef<typeof DropdownMenuPrimitive.Separator>
->(({ className, ...props }, ref) => (
+>(({ className, ...props }, ref): React.JSX.Element => (
   <DropdownMenuPrimitive.Separator
     ref={ref}
     className={cn("-mx-sp-1.5 my-sp-1.5 h-px bg-border-subtle", className)}

@@ -79,13 +79,13 @@ export function getDirection(value: number): PriceDirection {
   return "flat";
 }
 
-export const PriceChange: React.FC<PriceChangeProps> = ({
+export function PriceChange({
   value,
   percent,
   direction,
   showIcon = true,
   className,
-}) => {
+}: PriceChangeProps): React.JSX.Element {
   const dir = direction ?? getDirection(value);
 
   const formatted =
@@ -112,6 +112,6 @@ export const PriceChange: React.FC<PriceChangeProps> = ({
       <span className="tabular-nums">{formatted}</span>
     </span>
   );
-};
+}
 
 PriceChange.displayName = "PriceChange";

@@ -7,8 +7,7 @@ export interface FabProps extends Omit<ButtonProps, "variant"> {
   position?: "bottom-right" | "bottom-left" | "top-right" | "top-left" | "none";
 }
 
-export const Fab = React.forwardRef<HTMLButtonElement, FabProps>(
-  ({ icon, children, position = "none", className, ...props }, ref) => {
+export const Fab = React.forwardRef<HTMLButtonElement, FabProps>(({ icon, children, position = "none", className, ...props }, ref): React.JSX.Element => {
     const positionClasses: Record<NonNullable<FabProps["position"]>, string> = {
       "bottom-right": "fixed bottom-8 right-8 z-50",
       "bottom-left": "fixed bottom-8 left-8 z-50",

@@ -8,7 +8,7 @@ export const Accordion = AccordionPrimitive.Root;
 export const AccordionItem = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Item>,
   React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Item>
->(({ className, ...props }, ref) => (
+>(({ className, ...props }, ref): React.JSX.Element => (
   <AccordionPrimitive.Item
     ref={ref}
     className={cn("border-b border-border/10", className)}
@@ -20,7 +20,7 @@ AccordionItem.displayName = "AccordionItem";
 export const AccordionTrigger = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Trigger>,
   React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger>
->(({ children, className, ...props }, ref) => (
+>(({ children, className, ...props }, ref): React.JSX.Element => (
   <AccordionPrimitive.Header className="flex">
     <AccordionPrimitive.Trigger
       ref={ref}
@@ -41,7 +41,7 @@ AccordionTrigger.displayName = AccordionPrimitive.Trigger.displayName;
 export const AccordionContent = React.forwardRef<
   React.ElementRef<typeof AccordionPrimitive.Content>,
   React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Content>
->(({ children, className, ...props }, ref) => (
+>(({ children, className, ...props }, ref): React.JSX.Element => (
   <AccordionPrimitive.Content
     ref={ref}
     className={cn(

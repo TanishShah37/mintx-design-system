@@ -6,8 +6,7 @@ export interface TextAreaProps extends React.TextareaHTMLAttributes<HTMLTextArea
   error?: string;
 }
 
-export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
-  ({ className, label, error, ...props }, ref) => {
+export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(({ className, label, error, ...props }, ref): React.JSX.Element => {
     return (
       <div className="flex flex-col gap-sp-1.5 w-full">
         {label && (

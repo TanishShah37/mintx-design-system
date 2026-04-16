@@ -16,14 +16,14 @@ export interface DatePickerProps {
   className?: string;
 }
 
-export const DatePicker: React.FC<DatePickerProps> = ({
+export function DatePicker({
   value,
   onChange,
   label,
   error,
   placeholder = "Pick a date",
   className,
-}) => {
+}: DatePickerProps): React.JSX.Element {
   const [currentMonth, setCurrentMonth] = useState(value || new Date());
 
   const days = eachDayOfInterval({
@@ -106,6 +106,6 @@ export const DatePicker: React.FC<DatePickerProps> = ({
       {error && <p className="text-xs font-medium text-red-500">{error}</p>}
     </div>
   );
-};
+}
 
 DatePicker.displayName = "DatePicker";

@@ -23,14 +23,14 @@ const sizeClasses = {
   md: "h-7 px-3 text-[11px]",
 };
 
-export const Tag: React.FC<TagProps> = ({
+export function Tag({
   label,
   onRemove,
   onClick,
   variant = "default",
   size = "md",
   className,
-}) => {
+}: TagProps): React.JSX.Element {
   return (
     <div
       onClick={onClick}
@@ -53,6 +53,6 @@ export const Tag: React.FC<TagProps> = ({
       )}
     </div>
   );
-};
+}
 
 Tag.displayName = "Tag";

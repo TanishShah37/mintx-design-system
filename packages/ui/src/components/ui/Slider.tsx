@@ -10,7 +10,7 @@ export interface SliderProps extends React.ComponentPropsWithoutRef<typeof Slide
 export const Slider = React.forwardRef<
   React.ElementRef<typeof SliderPrimitive.Root>,
   SliderProps
->(({ label, error, className, ...props }, ref) => (
+>(({ label, error, className, ...props }, ref): React.JSX.Element => (
   <div className="flex w-full flex-col gap-2.5">
     {label && (
       <span className="text-sm font-semibold font-body text-neutral-400">

@@ -51,11 +51,11 @@ const sessionConfig: Record<
   "post-close": { color: "neutral", label: "Post-close", pulse: false },
 };
 
-export const SupportLiveBar: React.FC<SupportLiveBarProps> = ({
+export function SupportLiveBar({
   marketStatus,
   onSupportClick,
   className,
-}) => {
+}: SupportLiveBarProps): React.JSX.Element {
   const session = marketStatus?.session ?? "closed";
   const cfg = sessionConfig[session];
 
@@ -107,6 +107,6 @@ export const SupportLiveBar: React.FC<SupportLiveBarProps> = ({
       </button>
     </div>
   );
-};
+}
 
 SupportLiveBar.displayName = "SupportLiveBar";

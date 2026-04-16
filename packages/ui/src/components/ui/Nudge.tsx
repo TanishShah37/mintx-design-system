@@ -14,7 +14,7 @@ export interface NudgeProps {
   className?: string;
 }
 
-export const Nudge: React.FC<NudgeProps> = ({
+export function Nudge({
   id,
   title,
   description,
@@ -23,13 +23,13 @@ export const Nudge: React.FC<NudgeProps> = ({
   onAction,
   actionLabel,
   className,
-}) => {
+}: NudgeProps): React.JSX.Element {
   const icons = {
     info: <Info className="text-blue-500" size={18} />,
     warning: <AlertTriangle className="text-amber-500" size={18} />,
     success: <CheckCircle2 className="text-green-500" size={18} />,
     neutral: <Info className="text-slate-500" size={18} />,
-  };
+  }
 
   return (
     <motion.div
@@ -71,4 +71,4 @@ export const Nudge: React.FC<NudgeProps> = ({
       )}
     </motion.div>
   );
-};
+}

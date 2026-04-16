@@ -49,8 +49,7 @@ export interface ProgressProps
   color?: ProgressColor;
 }
 
-export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(
-  ({ className, value, max = 100, size, color = "brand", label, showValue, ...props }, ref) => {
+export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(({ className, value, max = 100, size, color = "brand", label, showValue, ...props }, ref): React.JSX.Element => {
     const pct = Math.min(100, Math.max(0, (value / max) * 100));
 
     return (

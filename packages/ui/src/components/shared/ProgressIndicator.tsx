@@ -9,7 +9,7 @@ export interface ProgressIndicatorProps extends React.ComponentPropsWithoutRef<t
 export const ProgressIndicator = React.forwardRef<
   React.ElementRef<typeof ProgressPrimitive.Root>,
   ProgressIndicatorProps
->(({ className, value, indicatorClassName, ...props }, ref) => (
+>(({ className, value, indicatorClassName, ...props }, ref): React.JSX.Element => (
   <ProgressPrimitive.Root
     ref={ref}
     className={cn(

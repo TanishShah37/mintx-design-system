@@ -6,13 +6,13 @@ export interface ListProps {
   className?: string;
 }
 
-export const List: React.FC<ListProps> = ({ children, className }) => {
+export function List({ children, className }: ListProps): React.JSX.Element {
   return (
     <ul className={cn("flex flex-col gap-1 w-full", className)}>
       {children}
     </ul>
   );
-};
+}
 
 export interface ListItemProps {
   children: React.ReactNode;
@@ -22,13 +22,13 @@ export interface ListItemProps {
   className?: string;
 }
 
-export const ListItem: React.FC<ListItemProps> = ({
+export function ListItem({
   children,
   icon,
   secondaryAction,
   onClick,
   className,
-}) => {
+}: ListItemProps): React.JSX.Element {
   return (
     <li
       onClick={onClick}
@@ -51,7 +51,7 @@ export const ListItem: React.FC<ListItemProps> = ({
       )}
     </li>
   );
-};
+}
 
 List.displayName = "List";
 ListItem.displayName = "ListItem";

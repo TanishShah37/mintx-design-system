@@ -11,8 +11,7 @@ export interface TextFieldProps extends React.InputHTMLAttributes<HTMLInputEleme
   fullWidth?: boolean;
 }
 
-export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(
-  ({ className, label, error, hint, leftIcon, rightIcon, fullWidth, ...props }, ref) => {
+export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(({ className, label, error, hint, leftIcon, rightIcon, fullWidth, ...props }, ref): React.JSX.Element => {
     return (
       <div className={cn("flex flex-col gap-sp-1.5 w-full", fullWidth && "w-full")}>
         {label && (

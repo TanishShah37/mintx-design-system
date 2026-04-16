@@ -11,14 +11,14 @@ export interface TagGroupProps {
   className?: string;
 }
 
-export const TagGroup: React.FC<TagGroupProps> = ({
+export function TagGroup({
   tags,
   onRemoveTag,
   variant,
   size,
   label,
   className,
-}) => {
+}: TagGroupProps): React.JSX.Element {
   return (
     <div className={cn("flex flex-col gap-2", className)}>
       {label && (
@@ -39,6 +39,6 @@ export const TagGroup: React.FC<TagGroupProps> = ({
       </div>
     </div>
   );
-};
+}
 
 TagGroup.displayName = "TagGroup";

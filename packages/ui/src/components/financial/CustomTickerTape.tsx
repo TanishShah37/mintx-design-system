@@ -16,11 +16,11 @@ interface CustomTickerTapeProps {
   className?: string;
 }
 
-export const CustomTickerTape: React.FC<CustomTickerTapeProps> = ({
+export function CustomTickerTape({
   items,
   speed = 20,
   className,
-}) => {
+}: CustomTickerTapeProps): React.JSX.Element {
   // Triple the items to ensure seamless loop
   const displayItems = [...items, ...items, ...items];
 
@@ -60,4 +60,4 @@ export const CustomTickerTape: React.FC<CustomTickerTapeProps> = ({
       <div className="absolute inset-y-0 right-0 w-20 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
     </div>
   );
-};
+}

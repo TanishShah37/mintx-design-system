@@ -14,12 +14,12 @@ export interface BreadcrumbsProps extends React.HTMLAttributes<HTMLElement> {
   separator?: React.ReactNode;
 }
 
-export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
+export function Breadcrumbs({
   items,
   separator = <ChevronRight size={13} className="text-neutral-600" />,
   className,
   ...props
-}) => {
+}: BreadcrumbsProps): React.JSX.Element {
   return (
     <nav
       aria-label="Breadcrumb"
@@ -65,6 +65,6 @@ export const Breadcrumbs: React.FC<BreadcrumbsProps> = ({
       </ol>
     </nav>
   );
-};
+}
 
 Breadcrumbs.displayName = "Breadcrumbs";

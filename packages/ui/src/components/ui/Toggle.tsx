@@ -57,7 +57,7 @@ const thumbVariants = cva(
   }
 );
 
-export const Toggle: React.FC<ToggleProps> = ({
+export function Toggle({
   checked,
   defaultChecked,
   disabled = false,
@@ -66,7 +66,7 @@ export const Toggle: React.FC<ToggleProps> = ({
   onChange,
   className,
   style,
-}) => {
+}: ToggleProps): React.JSX.Element {
   const uid = useId();
 
   return (
@@ -92,6 +92,6 @@ export const Toggle: React.FC<ToggleProps> = ({
       {label && <span className="text-sm font-medium text-neutral-600">{label}</span>}
     </label>
   );
-};
+}
 
 Toggle.displayName = "Toggle";

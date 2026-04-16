@@ -14,13 +14,13 @@ export interface FileUploaderProps {
   label?: string;
 }
 
-export const FileUploader: React.FC<FileUploaderProps> = ({
+export function FileUploader({
   onFilesSelected,
   maxFiles = 5,
   accept,
   className,
   label,
-}) => {
+}: FileUploaderProps): React.JSX.Element {
   const [selectedFiles, setSelectedFiles] = useState<File[]>([]);
   const [isDragging, setIsDragging] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -28,7 +28,7 @@ export const FileUploader: React.FC<FileUploaderProps> = ({
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
     setIsDragging(true);
-  };
+  }
 
   const handleDragLeave = () => {
     setIsDragging(false);
@@ -123,6 +123,6 @@ export const FileUploader: React.FC<FileUploaderProps> = ({
       )}
     </div>
   );
-};
+}
 
 FileUploader.displayName = "FileUploader";

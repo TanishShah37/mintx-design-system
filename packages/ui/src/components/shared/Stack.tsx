@@ -9,7 +9,7 @@ export interface StackProps extends React.HTMLAttributes<HTMLDivElement> {
   wrap?: boolean;
 }
 
-export const Stack: React.FC<StackProps> = ({
+export function Stack({
   direction = "column",
   align = "stretch",
   justify = "start",
@@ -18,7 +18,7 @@ export const Stack: React.FC<StackProps> = ({
   className,
   children,
   ...props
-}) => {
+}: StackProps): React.JSX.Element {
   const justifyMap = {
     start: "justify-start",
     center: "justify-center",
@@ -26,7 +26,7 @@ export const Stack: React.FC<StackProps> = ({
     between: "justify-between",
     around: "justify-around",
     evenly: "justify-evenly",
-  };
+  }
 
   const alignMap = {
     start: "items-start",
@@ -64,6 +64,6 @@ export const Stack: React.FC<StackProps> = ({
       {children}
     </div>
   );
-};
+}
 
 Stack.displayName = "Stack";

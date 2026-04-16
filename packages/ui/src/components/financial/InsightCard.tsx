@@ -14,11 +14,11 @@ interface InsightCardProps {
   onClick?: () => void;
 }
 
-export const InsightCard: React.FC<InsightCardProps> = ({
+export function InsightCard({
   data,
   className,
   onClick,
-}) => (
+}: InsightCardProps): React.JSX.Element { return (
   <div
     className={cn(
       "bg-surface border border-neutral-100 border-l-[3px] border-l-mint-400 rounded-r-lg p-sp-5 transition-all duration-300 ease-out",
@@ -49,6 +49,6 @@ export const InsightCard: React.FC<InsightCardProps> = ({
       </div>
     )}
   </div>
-);
+); }
 
 InsightCard.displayName = "InsightCard";

@@ -6,8 +6,7 @@ export interface IconButtonProps extends Omit<ButtonProps, "iconOnly" | "leftIco
   icon: React.ReactNode;
 }
 
-export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(
-  ({ icon, className, ...props }, ref) => {
+export const IconButton = React.forwardRef<HTMLButtonElement, IconButtonProps>(({ icon, className, ...props }, ref): React.JSX.Element => {
     return (
       <Button
         ref={ref}

@@ -7,17 +7,17 @@ export interface BoxProps extends React.HTMLAttributes<HTMLDivElement> {
   children?: React.ReactNode;
 }
 
-export const Box: React.FC<BoxProps> = ({
+export function Box({
   as: Component = "div",
   className,
   children,
   ...props
-}) => {
+}: BoxProps): React.JSX.Element {
   return (
     <Component className={cn(className)} {...props}>
       {children}
     </Component>
   );
-};
+}
 
 Box.displayName = "Box";

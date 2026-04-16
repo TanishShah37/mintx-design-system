@@ -3,7 +3,6 @@ import React__default, { CSSProperties, ReactNode } from 'react';
 import { ClassValue } from 'clsx';
 import * as class_variance_authority_types from 'class-variance-authority/types';
 import { VariantProps } from 'class-variance-authority';
-import * as react_jsx_runtime from 'react/jsx-runtime';
 import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu';
 import * as PopoverPrimitive from '@radix-ui/react-popover';
 import * as CheckboxPrimitive from '@radix-ui/react-checkbox';
@@ -12,6 +11,7 @@ import * as SwitchPrimitive from '@radix-ui/react-switch';
 import * as SliderPrimitive from '@radix-ui/react-slider';
 import * as SelectPrimitive from '@radix-ui/react-select';
 import * as AvatarPrimitive from '@radix-ui/react-avatar';
+import * as react_jsx_runtime from 'react/jsx-runtime';
 import * as TooltipPrimitive from '@radix-ui/react-tooltip';
 export { TooltipProps } from '@radix-ui/react-tooltip';
 import * as AccordionPrimitive from '@radix-ui/react-accordion';
@@ -251,22 +251,9 @@ declare const tokens: {
 };
 type DesignTokens = typeof tokens;
 
-type Theme = "light" | "dark";
-interface ThemeContextValue {
-    theme: Theme;
-    toggleTheme: () => void;
-    setTheme: (theme: Theme) => void;
-}
-interface ThemeProviderProps {
-    children: ReactNode;
-    defaultTheme?: Theme;
-}
-declare const ThemeProvider: React__default.FC<ThemeProviderProps>;
-declare function useTheme(): ThemeContextValue;
-
 type PriceDirection$1 = "up" | "down" | "flat";
 declare const priceVariants$1: (props?: ({
-    direction?: "flat" | "up" | "down" | null | undefined;
+    direction?: "up" | "down" | "flat" | null | undefined;
 } & class_variance_authority_types.ClassProp) | undefined) => string;
 interface PriceChangeProps$1 extends VariantProps<typeof priceVariants$1> {
     value: number;
@@ -274,7 +261,10 @@ interface PriceChangeProps$1 extends VariantProps<typeof priceVariants$1> {
     showIcon?: boolean;
     className?: string;
 }
-declare const PriceChange$1: React__default.FC<PriceChangeProps$1>;
+declare function PriceChange$1({ value, percent, direction, showIcon, className, }: PriceChangeProps$1): React__default.JSX.Element;
+declare namespace PriceChange$1 {
+    var displayName: string;
+}
 
 declare function usePriceDirection(value: number): PriceDirection$1;
 interface CountUpOptions {
@@ -296,7 +286,7 @@ declare function useDisclosure(initial?: boolean): {
 declare function useLocalStorage<T>(key: string, defaultValue: T): readonly [T, (newValue: T | ((prev: T) => T)) => void];
 
 declare const buttonVariants$1: (props?: ({
-    variant?: "dark" | "primary" | "secondary" | "ghost" | "danger" | "outline-brand" | null | undefined;
+    variant?: "primary" | "secondary" | "ghost" | "danger" | "outline-brand" | "dark" | null | undefined;
     size?: "xs" | "sm" | "md" | "lg" | "xl" | null | undefined;
     fullWidth?: boolean | null | undefined;
     loading?: boolean | null | undefined;
@@ -316,7 +306,7 @@ declare const badgeVariants: (props?: ({
 } & class_variance_authority_types.ClassProp) | undefined) => string;
 interface BadgeProps extends React__default.HTMLAttributes<HTMLDivElement>, VariantProps<typeof badgeVariants> {
 }
-declare function Badge({ className, variant, size, ...props }: BadgeProps): react_jsx_runtime.JSX.Element;
+declare function Badge({ className, variant, size, ...props }: BadgeProps): React__default.JSX.Element;
 
 interface CardProps {
     variant?: "flat" | "raised" | "glass" | "outlined";
@@ -328,7 +318,10 @@ interface CardProps {
     style?: React__default.CSSProperties;
     children?: React__default.ReactNode;
 }
-declare const Card: React__default.FC<CardProps>;
+declare function Card({ variant, hover, interactive, padding, onClick, className, style, children, }: CardProps): React__default.JSX.Element;
+declare namespace Card {
+    var displayName: string;
+}
 
 interface InputProps extends Omit<React__default.InputHTMLAttributes<HTMLInputElement>, "size"> {
     label?: string;
@@ -351,7 +344,10 @@ interface ToggleProps {
     className?: string;
     style?: React__default.CSSProperties;
 }
-declare const Toggle: React__default.FC<ToggleProps>;
+declare function Toggle({ checked, defaultChecked, disabled, size, label, onChange, className, style, }: ToggleProps): React__default.JSX.Element;
+declare namespace Toggle {
+    var displayName: string;
+}
 
 interface AppBarProps extends React__default.HTMLAttributes<HTMLDivElement> {
     title?: string;
@@ -359,7 +355,10 @@ interface AppBarProps extends React__default.HTMLAttributes<HTMLDivElement> {
     rightActions?: React__default.ReactNode;
     sticky?: boolean;
 }
-declare const AppBar: React__default.FC<AppBarProps>;
+declare function AppBar({ title, leftAction, rightActions, sticky, className, ...props }: AppBarProps): React__default.JSX.Element;
+declare namespace AppBar {
+    var displayName: string;
+}
 
 interface BottomNavigationItem {
     id: string;
@@ -373,7 +372,10 @@ interface BottomNavigationProps {
     onSelect?: (id: string) => void;
     className?: string;
 }
-declare const BottomNavigation: React__default.FC<BottomNavigationProps>;
+declare function BottomNavigation({ items, activeId, onSelect, className, }: BottomNavigationProps): React__default.JSX.Element;
+declare namespace BottomNavigation {
+    var displayName: string;
+}
 
 interface BreadcrumbItem$1 {
     label: string;
@@ -384,7 +386,10 @@ interface BreadcrumbsProps$1 extends React__default.HTMLAttributes<HTMLElement> 
     items: BreadcrumbItem$1[];
     separator?: React__default.ReactNode;
 }
-declare const Breadcrumbs$1: React__default.FC<BreadcrumbsProps$1>;
+declare function Breadcrumbs$1({ items, separator, className, ...props }: BreadcrumbsProps$1): React__default.JSX.Element;
+declare namespace Breadcrumbs$1 {
+    var displayName: string;
+}
 
 interface DrawerProps$1 {
     open?: boolean;
@@ -395,7 +400,10 @@ interface DrawerProps$1 {
     side?: "left" | "right" | "top" | "bottom";
     className?: string;
 }
-declare const Drawer$1: React__default.FC<DrawerProps$1>;
+declare function Drawer$1({ open, onOpenChange, title, description, children, side, className, }: DrawerProps$1): React__default.JSX.Element;
+declare namespace Drawer$1 {
+    var displayName: string;
+}
 
 interface PaginationProps$1 {
     currentPage: number;
@@ -403,7 +411,10 @@ interface PaginationProps$1 {
     onPageChange: (page: number) => void;
     className?: string;
 }
-declare const Pagination$1: React__default.FC<PaginationProps$1>;
+declare function Pagination$1({ currentPage, totalPages, onPageChange, className, }: PaginationProps$1): React__default.JSX.Element;
+declare namespace Pagination$1 {
+    var displayName: string;
+}
 
 declare const Menu$1: React__default.FC<DropdownMenuPrimitive.DropdownMenuProps>;
 declare const MenuTrigger: React__default.ForwardRefExoticComponent<DropdownMenuPrimitive.DropdownMenuTriggerProps & React__default.RefAttributes<HTMLButtonElement>>;
@@ -473,7 +484,10 @@ interface DigitInputProps {
     className?: string;
     containerClassName?: string;
 }
-declare const DigitInput: React__default.FC<DigitInputProps>;
+declare function DigitInput({ length, value, onChange, disabled, error, className, containerClassName, }: DigitInputProps): React__default.JSX.Element;
+declare namespace DigitInput {
+    var displayName: string;
+}
 
 interface TextAreaProps extends React__default.TextareaHTMLAttributes<HTMLTextAreaElement> {
     label?: string;
@@ -494,7 +508,10 @@ interface FileUploaderProps {
     className?: string;
     label?: string;
 }
-declare const FileUploader: React__default.FC<FileUploaderProps>;
+declare function FileUploader({ onFilesSelected, maxFiles, accept, className, label, }: FileUploaderProps): React__default.JSX.Element;
+declare namespace FileUploader {
+    var displayName: string;
+}
 
 interface DatePickerProps {
     value?: Date;
@@ -504,7 +521,10 @@ interface DatePickerProps {
     placeholder?: string;
     className?: string;
 }
-declare const DatePicker: React__default.FC<DatePickerProps>;
+declare function DatePicker({ value, onChange, label, error, placeholder, className, }: DatePickerProps): React__default.JSX.Element;
+declare namespace DatePicker {
+    var displayName: string;
+}
 
 interface AutocompleteOption {
     value: string;
@@ -519,7 +539,10 @@ interface AutocompleteProps {
     error?: string;
     className?: string;
 }
-declare const Autocomplete: React__default.FC<AutocompleteProps>;
+declare function Autocomplete({ options, value, onChange, placeholder, label, error, className, }: AutocompleteProps): React__default.JSX.Element;
+declare namespace Autocomplete {
+    var displayName: string;
+}
 
 interface FabProps$1 extends Omit<ButtonProps$1, "variant"> {
     icon: React__default.ReactNode;
@@ -535,7 +558,10 @@ interface TagProps {
     size?: "sm" | "md";
     className?: string;
 }
-declare const Tag: React__default.FC<TagProps>;
+declare function Tag({ label, onRemove, onClick, variant, size, className, }: TagProps): React__default.JSX.Element;
+declare namespace Tag {
+    var displayName: string;
+}
 
 interface TagGroupProps {
     tags: string[];
@@ -545,7 +571,10 @@ interface TagGroupProps {
     label?: string;
     className?: string;
 }
-declare const TagGroup: React__default.FC<TagGroupProps>;
+declare function TagGroup({ tags, onRemoveTag, variant, size, label, className, }: TagGroupProps): React__default.JSX.Element;
+declare namespace TagGroup {
+    var displayName: string;
+}
 
 interface RatingProps {
     value?: number;
@@ -556,7 +585,10 @@ interface RatingProps {
     className?: string;
     label?: string;
 }
-declare const Rating: React__default.FC<RatingProps>;
+declare function Rating({ value, max, onChange, readonly, size, className, label, }: RatingProps): React__default.JSX.Element;
+declare namespace Rating {
+    var displayName: string;
+}
 
 declare const Avatar: React__default.ForwardRefExoticComponent<Omit<AvatarPrimitive.AvatarProps & React__default.RefAttributes<HTMLSpanElement>, "ref"> & React__default.RefAttributes<HTMLSpanElement>>;
 declare const AvatarImage: React__default.ForwardRefExoticComponent<Omit<AvatarPrimitive.AvatarImageProps & React__default.RefAttributes<HTMLImageElement>, "ref"> & React__default.RefAttributes<HTMLImageElement>>;
@@ -570,14 +602,20 @@ interface ChipProps extends React__default.HTMLAttributes<HTMLDivElement> {
     variant?: "filled" | "outline" | "ghost";
     color?: "primary" | "secondary" | "success" | "warning" | "error" | "default";
 }
-declare const Chip: React__default.FC<ChipProps>;
+declare function Chip({ label, onDelete, icon, variant, color, className, ...props }: ChipProps): React__default.JSX.Element;
+declare namespace Chip {
+    var displayName: string;
+}
 
 interface ImageProps extends React__default.ImgHTMLAttributes<HTMLImageElement> {
     aspectRatio?: "square" | "video" | "portrait" | "none";
     fallback?: string;
     containerClassName?: string;
 }
-declare const Image: React__default.FC<ImageProps>;
+declare function Image({ className, aspectRatio, fallback, containerClassName, src, alt, ...props }: ImageProps): React__default.JSX.Element;
+declare namespace Image {
+    var displayName: string;
+}
 
 interface ImageListProps {
     children: React__default.ReactNode;
@@ -585,7 +623,10 @@ interface ImageListProps {
     gap?: number;
     className?: string;
 }
-declare const ImageList: React__default.FC<ImageListProps>;
+declare function ImageList({ children, cols, gap, className, }: ImageListProps): React__default.JSX.Element;
+declare namespace ImageList {
+    var displayName: string;
+}
 
 interface ColumnDef$1<TData> {
     id: string;
@@ -608,7 +649,10 @@ interface ListProps {
     children: React__default.ReactNode;
     className?: string;
 }
-declare const List: React__default.FC<ListProps>;
+declare function List({ children, className }: ListProps): React__default.JSX.Element;
+declare namespace List {
+    var displayName: string;
+}
 interface ListItemProps {
     children: React__default.ReactNode;
     icon?: React__default.ReactNode;
@@ -616,7 +660,10 @@ interface ListItemProps {
     onClick?: () => void;
     className?: string;
 }
-declare const ListItem: React__default.FC<ListItemProps>;
+declare function ListItem({ children, icon, secondaryAction, onClick, className, }: ListItemProps): React__default.JSX.Element;
+declare namespace ListItem {
+    var displayName: string;
+}
 
 declare const Table$1: React__default.ForwardRefExoticComponent<React__default.HTMLAttributes<HTMLTableElement> & React__default.RefAttributes<HTMLTableElement>>;
 declare const TableHeader: React__default.ForwardRefExoticComponent<React__default.HTMLAttributes<HTMLTableSectionElement> & React__default.RefAttributes<HTMLTableSectionElement>>;
@@ -661,7 +708,10 @@ interface TabsProps {
     className?: string;
     style?: React__default.CSSProperties;
 }
-declare const Tabs: React__default.FC<TabsProps>;
+declare function Tabs({ items, activeId: controlledActiveId, defaultActiveId, variant, size, onChange, className, style, }: TabsProps): React__default.JSX.Element;
+declare namespace Tabs {
+    var displayName: string;
+}
 
 interface SeparatorProps extends React__default.HTMLAttributes<HTMLDivElement> {
     orientation?: "horizontal" | "vertical";
@@ -674,7 +724,10 @@ interface BoxProps extends React__default.HTMLAttributes<HTMLDivElement> {
     className?: string;
     children?: React__default.ReactNode;
 }
-declare const Box: React__default.FC<BoxProps>;
+declare function Box({ as: Component, className, children, ...props }: BoxProps): React__default.JSX.Element;
+declare namespace Box {
+    var displayName: string;
+}
 
 interface StackProps extends React__default.HTMLAttributes<HTMLDivElement> {
     direction?: "row" | "column" | "row-reverse" | "column-reverse";
@@ -683,19 +736,28 @@ interface StackProps extends React__default.HTMLAttributes<HTMLDivElement> {
     gap?: number | string;
     wrap?: boolean;
 }
-declare const Stack: React__default.FC<StackProps>;
+declare function Stack({ direction, align, justify, gap, wrap, className, children, ...props }: StackProps): React__default.JSX.Element;
+declare namespace Stack {
+    var displayName: string;
+}
 
 interface DividerProps extends React__default.HTMLAttributes<HTMLDivElement> {
     orientation?: "horizontal" | "vertical";
     className?: string;
 }
-declare const Divider: React__default.FC<DividerProps>;
+declare function Divider({ orientation, className, ...props }: DividerProps): React__default.JSX.Element;
+declare namespace Divider {
+    var displayName: string;
+}
 
 interface LinkProps extends React__default.AnchorHTMLAttributes<HTMLAnchorElement> {
     variant?: "default" | "muted" | "brand";
     underline?: "none" | "hover" | "always";
 }
-declare const Link: React__default.FC<LinkProps>;
+declare function Link({ variant, underline, className, children, ...props }: LinkProps): React__default.JSX.Element;
+declare namespace Link {
+    var displayName: string;
+}
 
 declare const Accordion: React__default.ForwardRefExoticComponent<(AccordionPrimitive.AccordionSingleProps | AccordionPrimitive.AccordionMultipleProps) & React__default.RefAttributes<HTMLDivElement>>;
 declare const AccordionItem: React__default.ForwardRefExoticComponent<Omit<AccordionPrimitive.AccordionItemProps & React__default.RefAttributes<HTMLDivElement>, "ref"> & React__default.RefAttributes<HTMLDivElement>>;
@@ -736,20 +798,23 @@ interface ProgressTrackerProps {
     currentStepIndex: number;
     className?: string;
 }
-declare const ProgressTracker: React__default.FC<ProgressTrackerProps>;
+declare function ProgressTracker({ steps, currentStepIndex, className, }: ProgressTrackerProps): React__default.JSX.Element;
+declare namespace ProgressTracker {
+    var displayName: string;
+}
 
-declare function Skeleton({ className, ...props }: React__default.HTMLAttributes<HTMLDivElement>): react_jsx_runtime.JSX.Element;
+declare function Skeleton({ className, ...props }: React__default.HTMLAttributes<HTMLDivElement>): React__default.JSX.Element;
 /**
  * BoneyardSkeleton
  * Automated skeleton generation using boneyard-js.
  * Requires a unique 'name' and a 'loading' state.
  */
-declare const BoneyardSkeleton: ({ name, loading, children, fixture }: {
+declare function BoneyardSkeleton({ name, loading, children, fixture }: {
     name: string;
     loading: boolean;
     children: React__default.ReactNode;
     fixture?: React__default.ReactNode;
-}) => react_jsx_runtime.JSX.Element;
+}): React__default.JSX.Element;
 
 declare const Dialog$1: React__default.FC<DialogPrimitive.DialogProps>;
 declare const DialogTrigger: React__default.ForwardRefExoticComponent<DialogPrimitive.DialogTriggerProps & React__default.RefAttributes<HTMLButtonElement>>;
@@ -757,14 +822,14 @@ declare const DialogPortal: React__default.FC<DialogPrimitive.DialogPortalProps>
 declare const DialogClose: React__default.ForwardRefExoticComponent<DialogPrimitive.DialogCloseProps & React__default.RefAttributes<HTMLButtonElement>>;
 declare const DialogOverlay: React__default.ForwardRefExoticComponent<Omit<DialogPrimitive.DialogOverlayProps & React__default.RefAttributes<HTMLDivElement>, "ref"> & React__default.RefAttributes<HTMLDivElement>>;
 declare const DialogContent: React__default.ForwardRefExoticComponent<Omit<DialogPrimitive.DialogContentProps & React__default.RefAttributes<HTMLDivElement>, "ref"> & React__default.RefAttributes<HTMLDivElement>>;
-declare const DialogHeader: {
-    ({ className, ...props }: React__default.HTMLAttributes<HTMLDivElement>): react_jsx_runtime.JSX.Element;
-    displayName: string;
-};
-declare const DialogFooter: {
-    ({ className, ...props }: React__default.HTMLAttributes<HTMLDivElement>): react_jsx_runtime.JSX.Element;
-    displayName: string;
-};
+declare function DialogHeader({ className, ...props }: React__default.HTMLAttributes<HTMLDivElement>): React__default.JSX.Element;
+declare namespace DialogHeader {
+    var displayName: string;
+}
+declare function DialogFooter({ className, ...props }: React__default.HTMLAttributes<HTMLDivElement>): React__default.JSX.Element;
+declare namespace DialogFooter {
+    var displayName: string;
+}
 declare const DialogTitle: React__default.ForwardRefExoticComponent<Omit<DialogPrimitive.DialogTitleProps & React__default.RefAttributes<HTMLHeadingElement>, "ref"> & React__default.RefAttributes<HTMLHeadingElement>>;
 declare const DialogDescription: React__default.ForwardRefExoticComponent<Omit<DialogPrimitive.DialogDescriptionProps & React__default.RefAttributes<HTMLParagraphElement>, "ref"> & React__default.RefAttributes<HTMLParagraphElement>>;
 
@@ -786,7 +851,10 @@ interface BackdropProps {
     className?: string;
     blur?: boolean;
 }
-declare const Backdrop: React__default.FC<BackdropProps>;
+declare function Backdrop({ show, onClick, className, blur, }: BackdropProps): React__default.JSX.Element | null;
+declare namespace Backdrop {
+    var displayName: string;
+}
 
 type ToastType = "default" | "success" | "warning" | "error" | "info";
 interface ToastInstance {
@@ -796,9 +864,9 @@ interface ToastInstance {
     type?: ToastType;
     action?: ToastActionElement;
 }
-declare const NotiStackProvider$1: React__default.FC<{
+declare function NotiStackProvider$1({ children, }: {
     children: React__default.ReactNode;
-}>;
+}): React__default.JSX.Element;
 declare const ToastContext: React__default.Context<{
     addToast: (toast: Omit<ToastInstance, "id">) => string;
     removeToast: (id: string) => void;
@@ -814,7 +882,10 @@ interface CarouselProps {
     className?: string;
     style?: React__default.CSSProperties;
 }
-declare const Carousel: React__default.FC<CarouselProps>;
+declare function Carousel({ children, options, className, style, }: CarouselProps): React__default.JSX.Element;
+declare namespace Carousel {
+    var displayName: string;
+}
 
 declare const FadeIn: ({ children, className, ...props }: HTMLMotionProps<"div">) => react_jsx_runtime.JSX.Element;
 declare const SlideIn: ({ children, className, direction, ...props }: HTMLMotionProps<"div"> & {
@@ -832,7 +903,7 @@ interface NudgeProps$1 {
     actionLabel?: string;
     className?: string;
 }
-declare const Nudge$1: React__default.FC<NudgeProps$1>;
+declare function Nudge$1({ id, title, description, variant, onClose, onAction, actionLabel, className, }: NudgeProps$1): React__default.JSX.Element;
 
 interface NudgesPanelProps$1 {
     nudges: NudgeProps$1[];
@@ -841,7 +912,7 @@ interface NudgesPanelProps$1 {
     position?: "top-right" | "bottom-right" | "bottom-center";
     className?: string;
 }
-declare const NudgesPanel$1: React__default.FC<NudgesPanelProps$1>;
+declare function NudgesPanel$1({ nudges, onClose, onAction, position, className, }: NudgesPanelProps$1): React__default.JSX.Element;
 
 interface InsightData {
     tag: string;
@@ -857,7 +928,10 @@ interface InsightCardProps {
     className?: string;
     onClick?: () => void;
 }
-declare const InsightCard: React__default.FC<InsightCardProps>;
+declare function InsightCard({ data, className, onClick, }: InsightCardProps): React__default.JSX.Element;
+declare namespace InsightCard {
+    var displayName: string;
+}
 
 interface MetricData$1 {
     label: string;
@@ -875,7 +949,10 @@ interface MetricCardProps$1 extends VariantProps<typeof cardVariants$1> {
     data: MetricData$1;
     className?: string;
 }
-declare const MetricCard$1: React__default.FC<MetricCardProps$1>;
+declare function MetricCard$1({ data, className, compact, }: MetricCardProps$1): React__default.JSX.Element;
+declare namespace MetricCard$1 {
+    var displayName: string;
+}
 
 interface SparklineProps$1 {
     data: number[];
@@ -884,7 +961,10 @@ interface SparklineProps$1 {
     height?: number;
     className?: string;
 }
-declare const Sparkline$1: React__default.FC<SparklineProps$1>;
+declare function Sparkline$1({ data, direction, width, height, className, }: SparklineProps$1): React__default.JSX.Element | null;
+declare namespace Sparkline$1 {
+    var displayName: string;
+}
 
 interface StockData$1 {
     ticker: string;
@@ -903,7 +983,10 @@ interface StockCardProps$1 {
     onClick?: () => void;
     className?: string;
 }
-declare const StockCard$1: React__default.FC<StockCardProps$1>;
+declare function StockCard$1({ data, onClick, className, }: StockCardProps$1): React__default.JSX.Element;
+declare namespace StockCard$1 {
+    var displayName: string;
+}
 
 declare global {
     interface Window {
@@ -922,14 +1005,14 @@ interface CustomTickerTapeProps$1 {
     speed?: number;
     className?: string;
 }
-declare const CustomTickerTape$1: React__default.FC<CustomTickerTapeProps$1>;
+declare function CustomTickerTape$1({ items, speed, className, }: CustomTickerTapeProps$1): React__default.JSX.Element;
 
 interface MarketStatusProps$1 {
     status: "open" | "closed" | "closing-soon";
     market?: string;
     className?: string;
 }
-declare const MarketStatus$1: React__default.FC<MarketStatusProps$1>;
+declare function MarketStatus$1({ status, market, className, }: MarketStatusProps$1): React__default.JSX.Element;
 
 interface AppHeaderNavItem {
     label: string;
@@ -991,7 +1074,10 @@ interface MintxLogoProps {
     className?: string;
     style?: React__default.CSSProperties;
 }
-declare const MintxLogo: React__default.FC<MintxLogoProps>;
+declare function MintxLogo({ variant, theme, size, className, style, }: MintxLogoProps): React__default.JSX.Element;
+declare namespace MintxLogo {
+    var displayName: string;
+}
 
 type GlobalBadgeVariant = "mint" | "green" | "red" | "amber" | "blue" | "purple" | "neutral" | "outline";
 interface NavItem {
@@ -1016,13 +1102,32 @@ interface SidebarProps {
     footer?: React__default.ReactNode;
     className?: string;
 }
-declare const Sidebar: React__default.FC<SidebarProps>;
+declare function Sidebar({ sections, activeId, onNavigate, collapsed, onCollapsedChange, footer, className, }: SidebarProps): React__default.JSX.Element;
+declare namespace Sidebar {
+    var displayName: string;
+}
+
+type Theme = "light" | "dark";
+interface ThemeContextValue {
+    theme: Theme;
+    toggleTheme: () => void;
+    setTheme: (theme: Theme) => void;
+}
+interface ThemeProviderProps {
+    children: ReactNode;
+    defaultTheme?: Theme;
+}
+declare function ThemeProvider({ children, defaultTheme, }: ThemeProviderProps): React__default.JSX.Element;
+declare function useTheme(): ThemeContextValue;
 
 interface ThemeToggleProps {
     className?: string;
     showLabel?: boolean;
 }
-declare const ThemeToggle: React__default.FC<ThemeToggleProps>;
+declare function ThemeToggle({ className, showLabel, }: ThemeToggleProps): React__default.JSX.Element;
+declare namespace ThemeToggle {
+    var displayName: string;
+}
 
 interface BottomNavItem {
     id: string;
@@ -1037,7 +1142,10 @@ interface BottomNavProps {
     onNavigate?: (item: BottomNavItem) => void;
     className?: string;
 }
-declare const BottomNav: React__default.FC<BottomNavProps>;
+declare function BottomNav({ items, activeId, onNavigate, className, }: BottomNavProps): React__default.JSX.Element;
+declare namespace BottomNav {
+    var displayName: string;
+}
 
 type MarketSession$1 = "pre-open" | "open" | "closed" | "post-close";
 interface MarketStatusData$1 {
@@ -1051,7 +1159,10 @@ interface SupportLiveBarProps$1 {
     onSupportClick?: () => void;
     className?: string;
 }
-declare const SupportLiveBar$1: React__default.FC<SupportLiveBarProps$1>;
+declare function SupportLiveBar$1({ marketStatus, onSupportClick, className, }: SupportLiveBarProps$1): React__default.JSX.Element;
+declare namespace SupportLiveBar$1 {
+    var displayName: string;
+}
 
 interface HeroProps {
     tag?: string;
@@ -1185,7 +1296,10 @@ interface PaginationProps {
     onPageChange: (page: number) => void;
     className?: string;
 }
-declare const Pagination: React__default.FC<PaginationProps>;
+declare function Pagination({ currentPage, totalPages, onPageChange, className, }: PaginationProps): React__default.JSX.Element;
+declare namespace Pagination {
+    var displayName: string;
+}
 
 declare const Table: React__default.ForwardRefExoticComponent<React__default.HTMLAttributes<HTMLTableElement> & React__default.RefAttributes<HTMLTableElement>>;
 
@@ -1196,7 +1310,10 @@ interface StatusProps {
     className?: string;
     style?: React__default.CSSProperties;
 }
-declare const Status: React__default.FC<StatusProps>;
+declare function Status({ status, label, pulse, className, style, }: StatusProps): React__default.JSX.Element;
+declare namespace Status {
+    var displayName: string;
+}
 
 interface TickerItem {
     symbol: string;
@@ -1209,18 +1326,18 @@ interface CustomTickerTapeProps {
     speed?: number;
     className?: string;
 }
-declare const CustomTickerTape: React__default.FC<CustomTickerTapeProps>;
+declare function CustomTickerTape({ items, speed, className, }: CustomTickerTapeProps): React__default.JSX.Element;
 
 interface MarketStatusProps {
     status: "open" | "closed" | "closing-soon";
     market?: string;
     className?: string;
 }
-declare const MarketStatus: React__default.FC<MarketStatusProps>;
+declare function MarketStatus({ status, market, className, }: MarketStatusProps): React__default.JSX.Element;
 
 type PriceDirection = "up" | "down" | "flat";
 declare const priceVariants: (props?: ({
-    direction?: "flat" | "up" | "down" | null | undefined;
+    direction?: "up" | "down" | "flat" | null | undefined;
 } & class_variance_authority_types.ClassProp) | undefined) => string;
 interface PriceChangeProps extends VariantProps<typeof priceVariants> {
     value: number;
@@ -1228,7 +1345,10 @@ interface PriceChangeProps extends VariantProps<typeof priceVariants> {
     showIcon?: boolean;
     className?: string;
 }
-declare const PriceChange: React__default.FC<PriceChangeProps>;
+declare function PriceChange({ value, percent, direction, showIcon, className, }: PriceChangeProps): React__default.JSX.Element;
+declare namespace PriceChange {
+    var displayName: string;
+}
 
 interface MetricData {
     label: string;
@@ -1246,7 +1366,10 @@ interface MetricCardProps extends VariantProps<typeof cardVariants> {
     data: MetricData;
     className?: string;
 }
-declare const MetricCard: React__default.FC<MetricCardProps>;
+declare function MetricCard({ data, className, compact, }: MetricCardProps): React__default.JSX.Element;
+declare namespace MetricCard {
+    var displayName: string;
+}
 
 interface SparklineProps {
     data: number[];
@@ -1255,7 +1378,10 @@ interface SparklineProps {
     height?: number;
     className?: string;
 }
-declare const Sparkline: React__default.FC<SparklineProps>;
+declare function Sparkline({ data, direction, width, height, className, }: SparklineProps): React__default.JSX.Element | null;
+declare namespace Sparkline {
+    var displayName: string;
+}
 
 interface StockData {
     ticker: string;
@@ -1274,7 +1400,10 @@ interface StockCardProps {
     onClick?: () => void;
     className?: string;
 }
-declare const StockCard: React__default.FC<StockCardProps>;
+declare function StockCard({ data, onClick, className, }: StockCardProps): React__default.JSX.Element;
+declare namespace StockCard {
+    var displayName: string;
+}
 
 declare const Dialog: React__default.FC<DialogPrimitive.DialogProps>;
 
@@ -1287,12 +1416,15 @@ interface DrawerProps {
     side?: "left" | "right" | "top" | "bottom";
     className?: string;
 }
-declare const Drawer: React__default.FC<DrawerProps>;
+declare function Drawer({ open, onOpenChange, title, description, children, side, className, }: DrawerProps): React__default.JSX.Element;
+declare namespace Drawer {
+    var displayName: string;
+}
 
 declare const Menu: React__default.FC<DropdownMenuPrimitive.DropdownMenuProps>;
 
 declare const buttonVariants: (props?: ({
-    variant?: "dark" | "primary" | "secondary" | "ghost" | "danger" | "outline-brand" | null | undefined;
+    variant?: "primary" | "secondary" | "ghost" | "danger" | "outline-brand" | "dark" | null | undefined;
     size?: "xs" | "sm" | "md" | "lg" | "xl" | null | undefined;
     fullWidth?: boolean | null | undefined;
     loading?: boolean | null | undefined;
@@ -1320,7 +1452,10 @@ interface BreadcrumbsProps extends React__default.HTMLAttributes<HTMLElement> {
     items: BreadcrumbItem[];
     separator?: React__default.ReactNode;
 }
-declare const Breadcrumbs: React__default.FC<BreadcrumbsProps>;
+declare function Breadcrumbs({ items, separator, className, ...props }: BreadcrumbsProps): React__default.JSX.Element;
+declare namespace Breadcrumbs {
+    var displayName: string;
+}
 
 type MarketSession = "pre-open" | "open" | "closed" | "post-close";
 interface MarketStatusData {
@@ -1334,7 +1469,10 @@ interface SupportLiveBarProps {
     onSupportClick?: () => void;
     className?: string;
 }
-declare const SupportLiveBar: React__default.FC<SupportLiveBarProps>;
+declare function SupportLiveBar({ marketStatus, onSupportClick, className, }: SupportLiveBarProps): React__default.JSX.Element;
+declare namespace SupportLiveBar {
+    var displayName: string;
+}
 
 interface NudgeProps {
     id: string;
@@ -1346,7 +1484,7 @@ interface NudgeProps {
     actionLabel?: string;
     className?: string;
 }
-declare const Nudge: React__default.FC<NudgeProps>;
+declare function Nudge({ id, title, description, variant, onClose, onAction, actionLabel, className, }: NudgeProps): React__default.JSX.Element;
 
 interface NudgesPanelProps {
     nudges: NudgeProps[];
@@ -1355,7 +1493,7 @@ interface NudgesPanelProps {
     position?: "top-right" | "bottom-right" | "bottom-center";
     className?: string;
 }
-declare const NudgesPanel: React__default.FC<NudgesPanelProps>;
+declare function NudgesPanel({ nudges, onClose, onAction, position, className, }: NudgesPanelProps): React__default.JSX.Element;
 
 interface ChartProps {
     data: any[];
@@ -1472,8 +1610,8 @@ declare const ICONS: IconDef[];
 declare const ILLUSTRATIONS: IllustrationDef[];
 declare const SVGS: Record<string, string>;
 
-declare const NotiStackProvider: React__default.FC<{
+declare function NotiStackProvider({ children, }: {
     children: React__default.ReactNode;
-}>;
+}): React__default.JSX.Element;
 
 export { Accordion, AccordionContent, AccordionItem, AccordionTrigger, AdvancedRealTimeChart, Alert, type AlertProps, AppBar, type AppBarProps, AppFooter, type AppFooterProps, AppHeader, type AppHeaderNavItem, type AppHeaderProps, AreaChart, AssetLibrary, Autocomplete, type AutocompleteOption, type AutocompleteProps, Avatar, AvatarFallback, AvatarImage, type AvatarProps, Backdrop, type BackdropProps, Badge, type BadgeProps, type BaseProps, BaselineChart, BoneyardSkeleton, BottomNav, type BottomNavItem, BottomNavigation, type BottomNavigationItem, type BottomNavigationProps, Box, type BoxProps, type BreadcrumbItem$1 as BreadcrumbItem, Breadcrumbs$1 as Breadcrumbs, type BreadcrumbsProps$1 as BreadcrumbsProps, Button, type ButtonProps$1 as ButtonProps, CandlestickChart, Card, type CardProps, Carousel, type CarouselProps, CheckBox, type CheckBoxProps, type ChildrenProps, Chip, type ChipProps, type ColumnDef$1 as ColumnDef, CommunitySection, type CommunitySectionProps, CustomTickerTape$1 as CustomTickerTape, DataTable$1 as DataTable, DatePicker, type DatePickerProps, type DesignTokens, Dialog$1 as Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogOverlay, DialogPortal, DialogTitle, DialogTrigger, DiffCard, type DiffCardProps, type Differentiator, Differentiators, type DifferentiatorsProps, DigitInput, type DigitInputProps, Divider, type DividerProps, Drawer$1 as Drawer, type DrawerProps$1 as DrawerProps, Nudge as EngagementNudge, NudgesPanel as EngagementNudgesPanel, Fab$1 as Fab, type FabProps$1 as FabProps, FadeIn, FibSpiral, type FibSpiralProps, FileUploader, type FileUploaderProps, type FooterColumn, type FooterLink, type GlobalBadgeVariant, Hero, type HeroProps, HowItWorks, type HowItWorksProps, type HowItWorksStep, ICONS, ILLUSTRATIONS, IconButton, type IconButtonProps, type IconCategory, type IconDef, type IllustrationCategory, type IllustrationDef, Image, ImageList, type ImageListProps, type ImageProps, Input, type InputProps, InsightCard, Link, type LinkProps, List, ListItem, type ListItemProps, type ListProps, Loader, type LoaderProps, MarketStatus as MarketDataStatus, DataTable as MarketDataTable, MetricCard as MarketMetricCard, MarketOverview, Pagination as MarketPagination, PriceChange as MarketPriceChange, Sparkline as MarketSparkline, MarketStatus$1 as MarketStatus, Status as MarketStatusIndicator, StockCard as MarketStockCard, Table as MarketTable, CustomTickerTape as MarketTickerTape, Menu$1 as Menu, MenuContent, MenuGroup, MenuItem, MenuLabel, MenuPortal, MenuSeparator, MenuSub, MenuTrigger, MetricCard$1 as MetricCard, type MintShade, MintxLogo, type NavItem, type NeutralShade, NotiStackProvider$1 as NotiStackProvider, Nudge$1 as Nudge, type NudgeProps$1 as NudgeProps, NudgesPanel$1 as NudgesPanel, Breadcrumbs as OnboardingBreadcrumbs, Dialog as OnboardingDialog, Drawer as OnboardingDrawer, Fab as OnboardingFab, Menu as OnboardingMenu, SupportLiveBar as OnboardingSupportLiveBar, Pagination$1 as Pagination, type PaginationProps$1 as PaginationProps, Popover, PopoverContent, PopoverTrigger, PriceChange$1 as PriceChange, Progress, ProgressIndicator, type ProgressIndicatorProps, type ProgressProps, ProgressTracker, type ProgressTrackerProps, type ProgressTrackerStep, RadioGroup, RadioGroupItem, type RadioItemProps, type RadiusKey, Rating, type RatingProps, SVGS, ScaleIn, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Separator, type SeparatorProps, Sidebar, type Size, Skeleton, SlideIn, Slider, type SliderProps, type SpacingKey, Sparkline$1 as Sparkline, Stack, type StackProps, type StatItem, StatsSection, type StatsSectionProps, StockCard$1 as StockCard, SupportLiveBar$1 as SupportLiveBar, Switch, type SwitchProps, SymbolOverviewMini, Table$1 as Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow, Tabs, type TabsProps, Tag, TagGroup, type TagGroupProps, type TagProps, TechnicalAnalysis, TextArea, type TextAreaProps, TextField, TextFieldPassword, type TextFieldPasswordProps, type TextFieldProps, type TextSizeKey, type Theme, type ThemeContextValue, ThemeProvider, ThemeToggle, Ticker, type TickerProps, TickerTape, Toast, ToastAction, type ToastActionElement, ToastClose, ToastContext, ToastDescription, type ToastProps, ToastProvider, ToastTitle, ToastViewport, Toggle, type ToggleProps, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger, VolumeChart, WaitlistForm, type WaitlistFormProps, type WaitlistStatus, NotiStackProvider as WrapperNotiStackProvider, badgeVariants, cn, mintColors, motion, neutralColors, radius, semanticColors, shadows, spacing, tokens, typography, useCountUp, useDisclosure, useIsMobile, useLocalStorage, useMediaQuery, usePriceDirection, useTheme, useToast };

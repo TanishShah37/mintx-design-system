@@ -11,7 +11,7 @@ export interface RadioItemProps extends React.ComponentPropsWithoutRef<typeof Ra
 export const RadioGroupItem = React.forwardRef<
   React.ElementRef<typeof RadioGroupPrimitive.Item>,
   RadioItemProps
->(({ label, className, ...props }, ref) => {
+>(({ label, className, ...props }, ref): React.JSX.Element => {
   return (
     <div className={cn(
       "flex items-center gap-2.5",

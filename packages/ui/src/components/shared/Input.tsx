@@ -30,8 +30,7 @@ const inputVariants = cva(
   }
 );
 
-export const Input = forwardRef<HTMLInputElement, InputProps>(
-  (
+export const Input = forwardRef<HTMLInputElement, InputProps>((
     {
       label,
       hint,
@@ -45,7 +44,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
       ...rest
     },
     ref,
-  ) => {
+  ): React.JSX.Element => {
     const uid = useId();
     const inputId = id ?? uid;
     const hasError = !!error;

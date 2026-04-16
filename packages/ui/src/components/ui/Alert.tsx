@@ -38,8 +38,7 @@ export interface AlertProps
   description?: string;
 }
 
-export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(
-  ({ className, variant = "default", title, description, children, ...props }, ref) => {
+export const Alert = React.forwardRef<HTMLDivElement, AlertProps>(({ className, variant = "default", title, description, children, ...props }, ref): React.JSX.Element => {
     return (
       <div
         ref={ref}

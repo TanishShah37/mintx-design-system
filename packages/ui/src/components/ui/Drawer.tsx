@@ -13,7 +13,7 @@ export interface DrawerProps {
   className?: string;
 }
 
-export const Drawer: React.FC<DrawerProps> = ({
+export function Drawer({
   open,
   onOpenChange,
   title,
@@ -21,13 +21,13 @@ export const Drawer: React.FC<DrawerProps> = ({
   children,
   side = "right",
   className,
-}) => {
+}: DrawerProps): React.JSX.Element {
   const sideClasses = {
     right: "inset-y-0 right-0 h-full w-3/4 sm:max-w-sm border-l animate-in slide-in-from-right",
     left: "inset-y-0 left-0 h-full w-3/4 sm:max-w-sm border-r animate-in slide-in-from-left",
     top: "inset-x-0 top-0 h-auto w-full border-b animate-in slide-in-from-top",
     bottom: "inset-x-0 bottom-0 h-auto w-full border-t animate-in slide-in-from-bottom",
-  };
+  }
 
   return (
     <DialogPrimitive.Root open={open} onOpenChange={onOpenChange}>
@@ -67,6 +67,6 @@ export const Drawer: React.FC<DrawerProps> = ({
       </DialogPrimitive.Portal>
     </DialogPrimitive.Root>
   );
-};
+}
 
 Drawer.displayName = "Drawer";

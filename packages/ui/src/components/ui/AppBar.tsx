@@ -10,14 +10,14 @@ export interface AppBarProps extends React.HTMLAttributes<HTMLDivElement> {
   sticky?: boolean;
 }
 
-export const AppBar: React.FC<AppBarProps> = ({
+export function AppBar({
   title,
   leftAction,
   rightActions,
   sticky = true,
   className,
   ...props
-}) => {
+}: AppBarProps): React.JSX.Element {
   return (
     <div
       className={cn(
@@ -36,6 +36,6 @@ export const AppBar: React.FC<AppBarProps> = ({
       </Stack>
     </div>
   );
-};
+}
 
 AppBar.displayName = "AppBar";

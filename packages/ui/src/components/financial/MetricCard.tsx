@@ -33,11 +33,11 @@ interface MetricCardProps extends VariantProps<typeof cardVariants> {
   className?: string;
 }
 
-export const MetricCard: React.FC<MetricCardProps> = ({
+export function MetricCard({
   data,
   className,
   compact = false,
-}) => {
+}: MetricCardProps): React.JSX.Element {
   const dir =
     data.direction ??
     (data.delta !== undefined ? getDirection(data.delta) : "flat");
@@ -74,6 +74,6 @@ export const MetricCard: React.FC<MetricCardProps> = ({
       )}
     </div>
   );
-};
+}
 
 MetricCard.displayName = "MetricCard";

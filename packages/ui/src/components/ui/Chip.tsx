@@ -19,7 +19,7 @@ const colorVariants = {
   error: "bg-red-500/10 text-red-500 border-red-500/25",
 };
 
-export const Chip: React.FC<ChipProps> = ({
+export function Chip({
   label,
   onDelete,
   icon,
@@ -27,7 +27,7 @@ export const Chip: React.FC<ChipProps> = ({
   color = "default",
   className,
   ...props
-}) => {
+}: ChipProps): React.JSX.Element {
   return (
     <div
       className={cn(
@@ -53,6 +53,6 @@ export const Chip: React.FC<ChipProps> = ({
       )}
     </div>
   );
-};
+}
 
 Chip.displayName = "Chip";

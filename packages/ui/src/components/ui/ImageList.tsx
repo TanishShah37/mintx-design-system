@@ -8,12 +8,12 @@ export interface ImageListProps {
   className?: string;
 }
 
-export const ImageList: React.FC<ImageListProps> = ({
+export function ImageList({
   children,
   cols = 3,
   gap = 4,
   className,
-}) => {
+}: ImageListProps): React.JSX.Element {
   const gridCols = {
     1: "grid-cols-1",
     2: "grid-cols-2",
@@ -35,6 +35,6 @@ export const ImageList: React.FC<ImageListProps> = ({
       {children}
     </div>
   );
-};
+}
 
 ImageList.displayName = "ImageList";

@@ -34,10 +34,10 @@ interface ThemeProviderProps {
   defaultTheme?: Theme;
 }
 
-export const ThemeProvider: React.FC<ThemeProviderProps> = ({
+export function ThemeProvider({
   children,
   defaultTheme,
-}) => {
+}: ThemeProviderProps): React.JSX.Element {
   const [theme, setThemeState] = useState<Theme>(defaultTheme ?? "dark");
 
   // Sync theme state if defaultTheme prop changes (e.g., from Storybook globals)
@@ -72,7 +72,7 @@ export const ThemeProvider: React.FC<ThemeProviderProps> = ({
       {children}
     </ThemeContext.Provider>
   );
-};
+}
 
 export function useTheme(): ThemeContextValue {
   const ctx = useContext(ThemeContext);

@@ -2,10 +2,10 @@ import React from "react";
 import { cn } from "../../tokens/cn";
 import { Skeleton as BoneyardBase } from "boneyard-js/react";
 
-function Skeleton({
+export function Skeleton({
   className,
   ...props
-}: React.HTMLAttributes<HTMLDivElement>) {
+}: React.HTMLAttributes<HTMLDivElement>): React.JSX.Element {
   return (
     <div
       className={cn(
@@ -22,7 +22,7 @@ function Skeleton({
  * Automated skeleton generation using boneyard-js.
  * Requires a unique 'name' and a 'loading' state.
  */
-export const BoneyardSkeleton = ({ 
+export function BoneyardSkeleton({ 
   name, 
   loading, 
   children, 
@@ -32,10 +32,12 @@ export const BoneyardSkeleton = ({
   loading: boolean; 
   children: React.ReactNode;
   fixture?: React.ReactNode;
-}) => (
-  <BoneyardBase name={name} loading={loading} fixture={fixture}>
-    {children}
-  </BoneyardBase>
-);
+}): React.JSX.Element {
+  return (
+    <BoneyardBase name={name} loading={loading} fixture={fixture}>
+      {children}
+    </BoneyardBase>
+  );
+}
 
-export { Skeleton };
+

@@ -30,10 +30,10 @@ const wordmarkSizes: Record<LogoSize, number> = {
 };
 
 /** The ascending trade-line icon mark */
-const IconMark: React.FC<{ size: number; theme: LogoTheme }> = ({
+function IconMark({
   size,
   theme,
-}) => {
+}: { size: number; theme: LogoTheme }): React.JSX.Element {
   const bgColor =
     theme === "white" ? "#FFFFFF" : theme === "light" ? "#F5F8F7" : "#00B38A"; // brand + dark
 
@@ -76,13 +76,13 @@ const IconMark: React.FC<{ size: number; theme: LogoTheme }> = ({
       />
     </svg>
   );
-};
+}
 
 /** Text wordmark */
-const Wordmark: React.FC<{ fontSize: number; theme: LogoTheme }> = ({
+function Wordmark({
   fontSize,
   theme,
-}) => {
+}: { fontSize: number; theme: LogoTheme }): React.JSX.Element {
   const primaryColor =
     theme === "white" ? "#FFFFFF" : theme === "dark" ? "#E8EFED" : "#141F1D";
 
@@ -104,15 +104,15 @@ const Wordmark: React.FC<{ fontSize: number; theme: LogoTheme }> = ({
       Mint<span style={{ color: accentColor }}>x</span>
     </span>
   );
-};
+}
 
-export const MintxLogo: React.FC<MintxLogoProps> = ({
+export function MintxLogo({
   variant = "full",
   theme = "brand",
   size = "md",
   className,
   style,
-}) => {
+}: MintxLogoProps): React.JSX.Element {
   const markSize = markSizes[size];
   const wordSize = wordmarkSizes[size];
 
@@ -143,6 +143,6 @@ export const MintxLogo: React.FC<MintxLogoProps> = ({
       <Wordmark fontSize={wordSize} theme={theme} />
     </span>
   );
-};
+}
 
 MintxLogo.displayName = "MintxLogo";

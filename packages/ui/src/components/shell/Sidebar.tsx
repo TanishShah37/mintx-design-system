@@ -100,7 +100,7 @@ const CollapseIcon = () => (
   </svg>
 );
 
-export const Sidebar: React.FC<SidebarProps> = ({
+export function Sidebar({
   sections,
   activeId,
   onNavigate,
@@ -108,7 +108,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   onCollapsedChange,
   footer,
   className,
-}) => {
+}: SidebarProps): React.JSX.Element {
   const [expandedIds, setExpandedIds] = useState<Set<string>>(new Set());
 
   const toggleExpanded = (id: string) => {
@@ -117,7 +117,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       next.has(id) ? next.delete(id) : next.add(id);
       return next;
     });
-  };
+  }
 
   const renderItem = (item: NavItem, depth = 0) => {
     const isActive = item.id === activeId;
@@ -175,7 +175,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
         )}
       </li>
     );
-  };
+  }
 
   return (
     <aside
@@ -235,6 +235,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
       </div>
     </aside>
   );
-};
+}
 
 Sidebar.displayName = "Sidebar";

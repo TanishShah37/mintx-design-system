@@ -4,7 +4,7 @@ import { cn } from "../../tokens/cn";
 export const Table = React.forwardRef<
   HTMLTableElement,
   React.HTMLAttributes<HTMLTableElement>
->(({ className, ...props }, ref) => (
+>(({ className, ...props }, ref): React.JSX.Element => (
   <div className="relative w-full overflow-auto rounded-xl border border-border-subtle">
     <table
       ref={ref}
@@ -18,7 +18,7 @@ Table.displayName = "Table";
 export const TableHeader = React.forwardRef<
   HTMLTableSectionElement,
   React.HTMLAttributes<HTMLTableSectionElement>
->(({ className, ...props }, ref) => (
+>(({ className, ...props }, ref): React.JSX.Element => (
   <thead ref={ref} className={cn("[&_tr]:border-b bg-surface-base/30", className)} {...props} />
 ));
 TableHeader.displayName = "TableHeader";
@@ -26,7 +26,7 @@ TableHeader.displayName = "TableHeader";
 export const TableBody = React.forwardRef<
   HTMLTableSectionElement,
   React.HTMLAttributes<HTMLTableSectionElement>
->(({ className, ...props }, ref) => (
+>(({ className, ...props }, ref): React.JSX.Element => (
   <tbody
     ref={ref}
     className={cn("[&_tr:last-child]:border-0", className)}
@@ -38,7 +38,7 @@ TableBody.displayName = "TableBody";
 export const TableFooter = React.forwardRef<
   HTMLTableSectionElement,
   React.HTMLAttributes<HTMLTableSectionElement>
->(({ className, ...props }, ref) => (
+>(({ className, ...props }, ref): React.JSX.Element => (
   <tfoot
     ref={ref}
     className={cn(
@@ -53,7 +53,7 @@ TableFooter.displayName = "TableFooter";
 export const TableRow = React.forwardRef<
   HTMLTableRowElement,
   React.HTMLAttributes<HTMLTableRowElement>
->(({ className, ...props }, ref) => (
+>(({ className, ...props }, ref): React.JSX.Element => (
   <tr
     ref={ref}
     className={cn(
@@ -68,7 +68,7 @@ TableRow.displayName = "TableRow";
 export const TableHead = React.forwardRef<
   HTMLTableCellElement,
   React.ThHTMLAttributes<HTMLTableCellElement>
->(({ className, ...props }, ref) => (
+>(({ className, ...props }, ref): React.JSX.Element => (
   <th
     ref={ref}
     className={cn(
@@ -83,7 +83,7 @@ TableHead.displayName = "TableHead";
 export const TableCell = React.forwardRef<
   HTMLTableCellElement,
   React.TdHTMLAttributes<HTMLTableCellElement>
->(({ className, ...props }, ref) => (
+>(({ className, ...props }, ref): React.JSX.Element => (
   <td
     ref={ref}
     className={cn("p-sp-4 align-middle [&:has([role=checkbox])]:pr-0 font-medium", className)}
@@ -95,7 +95,7 @@ TableCell.displayName = "TableCell";
 export const TableCaption = React.forwardRef<
   HTMLTableCaptionElement,
   React.HTMLAttributes<HTMLTableCaptionElement>
->(({ className, ...props }, ref) => (
+>(({ className, ...props }, ref): React.JSX.Element => (
   <caption
     ref={ref}
     className={cn("mt-sp-4 text-sm text-text-tertiary", className)}

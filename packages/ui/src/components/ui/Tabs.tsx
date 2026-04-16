@@ -72,7 +72,7 @@ const itemVariants = cva(
   }
 );
 
-export const Tabs: React.FC<TabsProps> = ({
+export function Tabs({
   items,
   activeId: controlledActiveId,
   defaultActiveId,
@@ -81,7 +81,7 @@ export const Tabs: React.FC<TabsProps> = ({
   onChange,
   className,
   style,
-}) => {
+}: TabsProps): React.JSX.Element {
   const [internalActiveId, setInternalActiveId] = useState(
     defaultActiveId ?? items[0]?.id,
   );
@@ -91,7 +91,7 @@ export const Tabs: React.FC<TabsProps> = ({
   const handleSelect = (id: string) => {
     setInternalActiveId(id);
     onChange?.(id);
-  };
+  }
 
   return (
     <div
@@ -130,6 +130,6 @@ export const Tabs: React.FC<TabsProps> = ({
       })}
     </div>
   );
-};
+}
 
 Tabs.displayName = "Tabs";

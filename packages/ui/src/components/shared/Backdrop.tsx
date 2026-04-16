@@ -8,12 +8,12 @@ export interface BackdropProps {
   blur?: boolean;
 }
 
-export const Backdrop: React.FC<BackdropProps> = ({
+export function Backdrop({
   show,
   onClick,
   className,
   blur = true,
-}) => {
+}: BackdropProps): React.JSX.Element | null {
   if (!show) return null;
 
   return (
@@ -27,6 +27,6 @@ export const Backdrop: React.FC<BackdropProps> = ({
       )}
     />
   );
-};
+}
 
 Backdrop.displayName = "Backdrop";

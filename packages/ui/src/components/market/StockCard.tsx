@@ -38,11 +38,11 @@ const priceVariants = cva(
   }
 );
 
-export const StockCard: React.FC<StockCardProps> = ({
+export function StockCard({
   data,
   onClick,
   className,
-}) => {
+}: StockCardProps): React.JSX.Element {
   const direction = getDirection(data.change);
 
   return (
@@ -119,6 +119,6 @@ export const StockCard: React.FC<StockCardProps> = ({
       </div>
     </div>
   );
-};
+}
 
 StockCard.displayName = "StockCard";
