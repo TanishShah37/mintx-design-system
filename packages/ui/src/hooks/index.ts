@@ -113,3 +113,6 @@ export function useLocalStorage<T>(key: string, defaultValue: T) {
 
   return [value, setValue] as const;
 }
+
+export * from "./useCarouselButtons";
+export * from "./useCarouselDots";
