@@ -23,6 +23,7 @@ var framerMotion = require('framer-motion');
 var ProgressPrimitive = require('@radix-ui/react-progress');
 var ToastPrimitive = require('@radix-ui/react-toast');
 var useEmblaCarousel = require('embla-carousel-react');
+var TabsPrimitive = require('@radix-ui/react-tabs');
 
 function _interopDefault (e) { return e && e.__esModule ? e : { default: e }; }
 
@@ -60,6 +61,7 @@ var AccordionPrimitive__namespace = /*#__PURE__*/_interopNamespace(AccordionPrim
 var ProgressPrimitive__namespace = /*#__PURE__*/_interopNamespace(ProgressPrimitive);
 var ToastPrimitive__namespace = /*#__PURE__*/_interopNamespace(ToastPrimitive);
 var useEmblaCarousel__default = /*#__PURE__*/_interopDefault(useEmblaCarousel);
+var TabsPrimitive__namespace = /*#__PURE__*/_interopNamespace(TabsPrimitive);
 
 var __create = Object.create;
 var __defProp = Object.defineProperty;
@@ -416,8 +418,8 @@ var require_utils = __commonJS({
       const origin = getLocationOrigin();
       return href.substring(origin.length);
     }
-    function getDisplayName(Component) {
-      return typeof Component === "string" ? Component : Component.displayName || Component.name || "Unknown";
+    function getDisplayName(Component2) {
+      return typeof Component2 === "string" ? Component2 : Component2.displayName || Component2.name || "Unknown";
     }
     function isResSent(res) {
       return res.finished || res.headersSent;
@@ -5883,6 +5885,106 @@ var tokens = {
   transition,
   shadows
 };
+
+// src/tokens/common-props.ts
+function getCommonClasses(props) {
+  const { elevation: elevation2, borderWidth: borderWidth2, zIndex: zIndex2, opacity: opacity2 } = props;
+  return cn(
+    // Elevation (Shadows)
+    elevation2 === "none" && "shadow-none",
+    elevation2 === "sm" && "shadow-sm",
+    elevation2 === "md" && "shadow-md",
+    elevation2 === "lg" && "shadow-lg",
+    elevation2 === "xl" && "shadow-xl",
+    elevation2 === "2xl" && "shadow-2xl",
+    elevation2 === "inner" && "shadow-inner",
+    // Border Width
+    borderWidth2 === "none" && "border-0",
+    borderWidth2 === "thin" && "border-thin",
+    borderWidth2 === "medium" && "border-medium",
+    borderWidth2 === "thick" && "border-thick",
+    // Z-Index
+    zIndex2 === "hide" && "z-hide",
+    zIndex2 === "base" && "z-base",
+    zIndex2 === "docked" && "z-docked",
+    zIndex2 === "dropdown" && "z-dropdown",
+    zIndex2 === "sticky" && "z-sticky",
+    zIndex2 === "banner" && "z-banner",
+    zIndex2 === "overlay" && "z-overlay",
+    zIndex2 === "modal" && "z-modal",
+    zIndex2 === "popover" && "z-popover",
+    zIndex2 === "skipLink" && "z-skipLink",
+    zIndex2 === "toast" && "z-toast",
+    zIndex2 === "tooltip" && "z-tooltip",
+    // Opacity
+    opacity2 === 0 && "opacity-0",
+    opacity2 === 25 && "opacity-25",
+    opacity2 === 40 && "opacity-40",
+    opacity2 === 50 && "opacity-50",
+    opacity2 === 60 && "opacity-60",
+    opacity2 === 70 && "opacity-70",
+    opacity2 === 80 && "opacity-80",
+    opacity2 === 90 && "opacity-90",
+    opacity2 === 100 && "opacity-100"
+  );
+}
+var usePrevNextButtons = (emblaApi) => {
+  const [prevBtnDisabled, setPrevBtnDisabled] = React27.useState(true);
+  const [nextBtnDisabled, setNextBtnDisabled] = React27.useState(true);
+  const onPrevButtonClick = React27.useCallback(() => {
+    if (!emblaApi) return;
+    emblaApi.scrollPrev();
+  }, [emblaApi]);
+  const onNextButtonClick = React27.useCallback(() => {
+    if (!emblaApi) return;
+    emblaApi.scrollNext();
+  }, [emblaApi]);
+  const onSelect = React27.useCallback((emblaApi2) => {
+    setPrevBtnDisabled(!emblaApi2.canScrollPrev());
+    setNextBtnDisabled(!emblaApi2.canScrollNext());
+  }, []);
+  React27.useEffect(() => {
+    if (!emblaApi) return;
+    onSelect(emblaApi);
+    emblaApi.on("reInit", onSelect).on("select", onSelect);
+  }, [emblaApi, onSelect]);
+  return {
+    prevBtnDisabled,
+    nextBtnDisabled,
+    onPrevButtonClick,
+    onNextButtonClick
+  };
+};
+var useDotButton = (emblaApi) => {
+  const [selectedIndex, setSelectedIndex] = React27.useState(0);
+  const [scrollSnaps, setScrollSnaps] = React27.useState([]);
+  const onDotButtonClick = React27.useCallback(
+    (index) => {
+      if (!emblaApi) return;
+      emblaApi.scrollTo(index);
+    },
+    [emblaApi]
+  );
+  const onInit = React27.useCallback((emblaApi2) => {
+    setScrollSnaps(emblaApi2.scrollSnapList());
+  }, []);
+  const onSelect = React27.useCallback((emblaApi2) => {
+    setSelectedIndex(emblaApi2.selectedScrollSnap());
+  }, []);
+  React27.useEffect(() => {
+    if (!emblaApi) return;
+    onInit(emblaApi);
+    onSelect(emblaApi);
+    emblaApi.on("reInit", onInit).on("reInit", onSelect).on("select", onSelect);
+  }, [emblaApi, onInit, onSelect]);
+  return {
+    selectedIndex,
+    scrollSnaps,
+    onDotButtonClick
+  };
+};
+
+// src/hooks/index.ts
 function usePriceDirection(value) {
   return React27.useMemo(() => {
     if (value > 0) return "up";
@@ -5960,49 +6062,6 @@ function useLocalStorage(key, defaultValue) {
     });
   };
   return [value, setValue];
-}
-
-// src/tokens/common-props.ts
-function getCommonClasses(props) {
-  const { elevation: elevation2, borderWidth: borderWidth2, zIndex: zIndex2, opacity: opacity2 } = props;
-  return cn(
-    // Elevation (Shadows)
-    elevation2 === "none" && "shadow-none",
-    elevation2 === "sm" && "shadow-sm",
-    elevation2 === "md" && "shadow-md",
-    elevation2 === "lg" && "shadow-lg",
-    elevation2 === "xl" && "shadow-xl",
-    elevation2 === "2xl" && "shadow-2xl",
-    elevation2 === "inner" && "shadow-inner",
-    // Border Width
-    borderWidth2 === "none" && "border-0",
-    borderWidth2 === "thin" && "border-thin",
-    borderWidth2 === "medium" && "border-medium",
-    borderWidth2 === "thick" && "border-thick",
-    // Z-Index
-    zIndex2 === "hide" && "z-hide",
-    zIndex2 === "base" && "z-base",
-    zIndex2 === "docked" && "z-docked",
-    zIndex2 === "dropdown" && "z-dropdown",
-    zIndex2 === "sticky" && "z-sticky",
-    zIndex2 === "banner" && "z-banner",
-    zIndex2 === "overlay" && "z-overlay",
-    zIndex2 === "modal" && "z-modal",
-    zIndex2 === "popover" && "z-popover",
-    zIndex2 === "skipLink" && "z-skipLink",
-    zIndex2 === "toast" && "z-toast",
-    zIndex2 === "tooltip" && "z-tooltip",
-    // Opacity
-    opacity2 === 0 && "opacity-0",
-    opacity2 === 25 && "opacity-25",
-    opacity2 === 40 && "opacity-40",
-    opacity2 === 50 && "opacity-50",
-    opacity2 === 60 && "opacity-60",
-    opacity2 === 70 && "opacity-70",
-    opacity2 === 80 && "opacity-80",
-    opacity2 === 90 && "opacity-90",
-    opacity2 === 100 && "opacity-100"
-  );
 }
 var TooltipProvider = TooltipPrimitive__namespace.Provider;
 var Tooltip = TooltipPrimitive__namespace.Root;
@@ -6594,7 +6653,7 @@ function Link({
   children,
   ...props
 }) {
-  const variantClasses2 = {
+  const variantClasses3 = {
     default: "text-primary hover:opacity-80",
     muted: "text-neutral-400 hover:text-primary",
     brand: "text-mint-500 hover:text-mint-400"
@@ -6609,7 +6668,7 @@ function Link({
     {
       className: cn(
         "transition-all duration-150 cursor-pointer font-body inline-flex items-center gap-1.5",
-        variantClasses2[variant],
+        variantClasses3[variant],
         underlineClasses[underline],
         className
       ),
@@ -7071,12 +7130,12 @@ var TextField = React27__namespace.default.forwardRef(
       setInputValue("");
       onClear?.();
     };
-    const sizeClasses3 = {
+    const sizeClasses5 = {
       sm: "h-9 text-xs",
       md: "h-11 text-sm",
       lg: "h-14 text-base"
     };
-    const variantClasses2 = {
+    const variantClasses3 = {
       default: "border-border bg-background focus:ring-primary/20 focus:border-primary",
       filled: "border-transparent bg-neutral-100 focus:bg-background focus:border-primary",
       flushed: "border-0 border-b border-border rounded-none bg-transparent px-0 focus:border-primary",
@@ -7110,8 +7169,8 @@ var TextField = React27__namespace.default.forwardRef(
             maxLength,
             className: cn(
               "flex w-full border bg-background px-3 py-2 shadow-sm transition-all file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-50",
-              sizeClasses3[size],
-              variantClasses2[variant],
+              sizeClasses5[size],
+              variantClasses3[variant],
               variant !== "flushed" && radiusClasses[borderRadius],
               leftIcon && "pl-10",
               (rightIcon || clearable || loading) && "pr-10",
@@ -8326,12 +8385,12 @@ var Separator3 = React27__namespace.default.forwardRef(
 );
 Separator3.displayName = "Separator";
 function Box({
-  as: Component = "div",
+  as: Component2 = "div",
   className,
   children,
   ...props
 }) {
-  return /* @__PURE__ */ jsxRuntime.jsx(Component, { className: cn(className), ...props, children });
+  return /* @__PURE__ */ jsxRuntime.jsx(Component2, { className: cn(className), ...props, children });
 }
 Box.displayName = "Box";
 function Divider({
@@ -8801,61 +8860,6 @@ var ToastContext = React27__namespace.default.createContext({
   }
 });
 var useToast = () => React27__namespace.default.useContext(ToastContext);
-var useDotButton = (emblaApi) => {
-  const [selectedIndex, setSelectedIndex] = React27.useState(0);
-  const [scrollSnaps, setScrollSnaps] = React27.useState([]);
-  const onDotButtonClick = React27.useCallback(
-    (index) => {
-      if (!emblaApi) return;
-      emblaApi.scrollTo(index);
-    },
-    [emblaApi]
-  );
-  const onInit = React27.useCallback((emblaApi2) => {
-    setScrollSnaps(emblaApi2.scrollSnapList());
-  }, []);
-  const onSelect = React27.useCallback((emblaApi2) => {
-    setSelectedIndex(emblaApi2.selectedScrollSnap());
-  }, []);
-  React27.useEffect(() => {
-    if (!emblaApi) return;
-    onInit(emblaApi);
-    onSelect(emblaApi);
-    emblaApi.on("reInit", onInit).on("reInit", onSelect).on("select", onSelect);
-  }, [emblaApi, onInit, onSelect]);
-  return {
-    selectedIndex,
-    scrollSnaps,
-    onDotButtonClick
-  };
-};
-var usePrevNextButtons = (emblaApi) => {
-  const [prevBtnDisabled, setPrevBtnDisabled] = React27.useState(true);
-  const [nextBtnDisabled, setNextBtnDisabled] = React27.useState(true);
-  const onPrevButtonClick = React27.useCallback(() => {
-    if (!emblaApi) return;
-    emblaApi.scrollPrev();
-  }, [emblaApi]);
-  const onNextButtonClick = React27.useCallback(() => {
-    if (!emblaApi) return;
-    emblaApi.scrollNext();
-  }, [emblaApi]);
-  const onSelect = React27.useCallback((emblaApi2) => {
-    setPrevBtnDisabled(!emblaApi2.canScrollPrev());
-    setNextBtnDisabled(!emblaApi2.canScrollNext());
-  }, []);
-  React27.useEffect(() => {
-    if (!emblaApi) return;
-    onSelect(emblaApi);
-    emblaApi.on("reInit", onSelect).on("select", onSelect);
-  }, [emblaApi, onSelect]);
-  return {
-    prevBtnDisabled,
-    nextBtnDisabled,
-    onPrevButtonClick,
-    onNextButtonClick
-  };
-};
 function Carousel({
   children,
   options,
@@ -8987,7 +8991,7 @@ function Nudge({
   actionLabel,
   className
 }) {
-  const icons2 = {
+  const icons3 = {
     info: /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.Info, { className: "text-blue-500", size: 18 }),
     warning: /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.AlertTriangle, { className: "text-amber-500", size: 18 }),
     success: /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.CheckCircle2, { className: "text-green-500", size: 18 }),
@@ -9009,7 +9013,7 @@ function Nudge({
         className
       ),
       children: [
-        /* @__PURE__ */ jsxRuntime.jsx("div", { className: "mt-1", children: icons2[variant] }),
+        /* @__PURE__ */ jsxRuntime.jsx("div", { className: "mt-1", children: icons3[variant] }),
         /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex-1", children: [
           /* @__PURE__ */ jsxRuntime.jsx("h4", { className: "font-bold text-sm leading-tight mb-1", children: title }),
           /* @__PURE__ */ jsxRuntime.jsx("p", { className: "text-xs text-muted-foreground leading-relaxed", children: description }),
@@ -9064,6 +9068,510 @@ function NudgesPanel({
       ) }, nudge.id)) })
     }
   );
+}
+function ConfirmDialog({
+  isOpen,
+  onClose,
+  onConfirm,
+  title,
+  description,
+  confirmLabel = "Confirm",
+  cancelLabel = "Cancel",
+  variant = "primary",
+  loading = false,
+  className,
+  ...props
+}) {
+  const variantMap = {
+    primary: "primary",
+    danger: "danger",
+    warning: "warning"
+  };
+  return /* @__PURE__ */ jsxRuntime.jsx(Dialog, { open: isOpen, onOpenChange: (open) => !open && onClose(), children: /* @__PURE__ */ jsxRuntime.jsxs(DialogContent, { className: cn("max-w-[400px]", getCommonClasses(props), className), children: [
+    /* @__PURE__ */ jsxRuntime.jsxs(DialogHeader, { children: [
+      /* @__PURE__ */ jsxRuntime.jsx(DialogTitle, { children: title }),
+      description && /* @__PURE__ */ jsxRuntime.jsx(DialogDescription, { children: description })
+    ] }),
+    /* @__PURE__ */ jsxRuntime.jsxs(DialogFooter, { className: "mt-6 flex gap-2", children: [
+      /* @__PURE__ */ jsxRuntime.jsx(Button, { variant: "secondary", onClick: onClose, disabled: loading, children: cancelLabel }),
+      /* @__PURE__ */ jsxRuntime.jsx(
+        Button,
+        {
+          variant: variantMap[variant],
+          onClick: onConfirm,
+          loading,
+          children: confirmLabel
+        }
+      )
+    ] })
+  ] }) });
+}
+var NumberInput = React27__namespace.default.forwardRef(
+  ({
+    value,
+    defaultValue,
+    min = -Infinity,
+    max = Infinity,
+    step = 1,
+    onChange,
+    showStepper = true,
+    className,
+    ...props
+  }, ref) => {
+    const inputRef = React27.useRef(null);
+    const combinedRef = ref || inputRef;
+    const handleChange = (e) => {
+      const newValue = parseFloat(e.target.value);
+      if (!isNaN(newValue)) {
+        onChange?.(newValue);
+      }
+    };
+    const handleStep = (direction) => {
+      const currentValue = parseFloat(combinedRef.current?.value || "0");
+      const newValue = currentValue + direction * step;
+      if (newValue >= min && newValue <= max) {
+        if (combinedRef.current) {
+          combinedRef.current.value = newValue.toString();
+          onChange?.(newValue);
+        }
+      }
+    };
+    return /* @__PURE__ */ jsxRuntime.jsxs("div", { className: cn("relative w-full group", getCommonClasses(props)), children: [
+      /* @__PURE__ */ jsxRuntime.jsx(
+        TextField,
+        {
+          ...props,
+          ref: combinedRef,
+          type: "number",
+          value,
+          defaultValue,
+          onChange: handleChange,
+          className: cn(showStepper && "pr-20", className),
+          min,
+          max,
+          step
+        }
+      ),
+      showStepper && /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "absolute right-1 top-1/2 -translate-y-1/2 flex items-center gap-1 h-8 px-1 border-l border-border-subtle bg-background rounded-r-lg", children: [
+        /* @__PURE__ */ jsxRuntime.jsx(
+          Button,
+          {
+            type: "button",
+            variant: "ghost",
+            size: "xs",
+            className: "h-7 w-7 p-0",
+            onClick: () => handleStep(-1),
+            disabled: value !== void 0 ? value <= min : false,
+            children: /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.Minus, { className: "h-3 w-3" })
+          }
+        ),
+        /* @__PURE__ */ jsxRuntime.jsx(
+          Button,
+          {
+            type: "button",
+            variant: "ghost",
+            size: "xs",
+            className: "h-7 w-7 p-0",
+            onClick: () => handleStep(1),
+            disabled: value !== void 0 ? value >= max : false,
+            children: /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.Plus, { className: "h-3 w-3" })
+          }
+        )
+      ] })
+    ] });
+  }
+);
+NumberInput.displayName = "NumberInput";
+function DateRangePicker({
+  value,
+  onChange,
+  label,
+  error,
+  placeholder = "Pick a date range",
+  className,
+  ...props
+}) {
+  const [currentMonth, setCurrentMonth] = React27.useState(value?.from || /* @__PURE__ */ new Date());
+  const presets = [
+    { label: "Today", getValue: () => ({ from: /* @__PURE__ */ new Date(), to: /* @__PURE__ */ new Date() }) },
+    { label: "Yesterday", getValue: () => ({ from: dateFns.subDays(/* @__PURE__ */ new Date(), 1), to: dateFns.subDays(/* @__PURE__ */ new Date(), 1) }) },
+    { label: "Last 7 Days", getValue: () => ({ from: dateFns.subDays(/* @__PURE__ */ new Date(), 7), to: /* @__PURE__ */ new Date() }) },
+    { label: "Last 30 Days", getValue: () => ({ from: dateFns.subDays(/* @__PURE__ */ new Date(), 30), to: /* @__PURE__ */ new Date() }) },
+    { label: "This Month", getValue: () => ({ from: dateFns.startOfMonth(/* @__PURE__ */ new Date()), to: dateFns.endOfMonth(/* @__PURE__ */ new Date()) }) }
+  ];
+  const handleDayClick = (day) => {
+    if (!value || value.from && value.to) {
+      onChange?.({ from: day, to: day });
+    } else if (value.from && !value.to) {
+      if (day < value.from) {
+        onChange?.({ from: day, to: value.from });
+      } else {
+        onChange?.({ from: value.from, to: day });
+      }
+    }
+  };
+  const days = dateFns.eachDayOfInterval({
+    start: dateFns.startOfWeek(dateFns.startOfMonth(currentMonth)),
+    end: dateFns.endOfWeek(dateFns.endOfMonth(currentMonth))
+  });
+  const isInRange = (day) => {
+    if (!value?.from || !value?.to) return false;
+    return dateFns.isWithinInterval(day, { start: value.from, end: value.to });
+  };
+  return /* @__PURE__ */ jsxRuntime.jsxs("div", { className: cn("flex flex-col gap-1.5 w-full", getCommonClasses(props), className), children: [
+    label && /* @__PURE__ */ jsxRuntime.jsx("label", { className: "text-sm font-semibold text-foreground/80 leading-none", children: label }),
+    /* @__PURE__ */ jsxRuntime.jsxs(Popover, { children: [
+      /* @__PURE__ */ jsxRuntime.jsx(PopoverTrigger, { asChild: true, children: /* @__PURE__ */ jsxRuntime.jsx(
+        Button,
+        {
+          variant: "secondary",
+          className: cn(
+            "w-full justify-start text-left font-normal h-11 border-border bg-background hover:bg-muted/50",
+            !value && "text-muted-foreground",
+            error && "border-red-500"
+          ),
+          leftIcon: /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.Calendar, { className: "mr-2 h-4 w-4" }),
+          children: value?.from ? value.to ? /* @__PURE__ */ jsxRuntime.jsxs(jsxRuntime.Fragment, { children: [
+            dateFns.format(value.from, "LLL dd, y"),
+            " - ",
+            dateFns.format(value.to, "LLL dd, y")
+          ] }) : dateFns.format(value.from, "LLL dd, y") : /* @__PURE__ */ jsxRuntime.jsx("span", { children: placeholder })
+        }
+      ) }),
+      /* @__PURE__ */ jsxRuntime.jsxs(PopoverContent, { className: "w-auto p-0 flex flex-col md:flex-row divide-y md:divide-y-0 md:divide-x", align: "start", children: [
+        /* @__PURE__ */ jsxRuntime.jsx("div", { className: "p-3 flex flex-col gap-1 w-full md:w-36 bg-muted/20", children: presets.map((preset) => /* @__PURE__ */ jsxRuntime.jsx(
+          "button",
+          {
+            onClick: () => {
+              const range = preset.getValue();
+              onChange?.(range);
+              setCurrentMonth(range.from);
+            },
+            className: "text-left px-2 py-1.5 text-xs font-medium rounded-md hover:bg-muted transition-colors",
+            children: preset.label
+          },
+          preset.label
+        )) }),
+        /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "p-4 flex flex-col gap-4", children: [
+          /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex items-center justify-between", children: [
+            /* @__PURE__ */ jsxRuntime.jsx("h4", { className: "font-bold text-sm tracking-tight", children: dateFns.format(currentMonth, "MMMM yyyy") }),
+            /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex gap-1", children: [
+              /* @__PURE__ */ jsxRuntime.jsx(Button, { variant: "ghost", size: "sm", iconOnly: true, onClick: () => setCurrentMonth(dateFns.subMonths(currentMonth, 1)), children: /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.ChevronLeft, { size: 16 }) }),
+              /* @__PURE__ */ jsxRuntime.jsx(Button, { variant: "ghost", size: "sm", iconOnly: true, onClick: () => setCurrentMonth(dateFns.addMonths(currentMonth, 1)), children: /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.ChevronRight, { size: 16 }) })
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "grid grid-cols-7 gap-1", children: [
+            ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"].map((day) => /* @__PURE__ */ jsxRuntime.jsx("div", { className: "text-[10px] font-bold text-center opacity-40 uppercase py-1", children: day }, day)),
+            days.map((day) => {
+              const isSelected = value && (dateFns.isSameDay(day, value.from) || dateFns.isSameDay(day, value.to));
+              const inRange = isInRange(day);
+              const isCurrentMonth = dateFns.isSameMonth(day, currentMonth);
+              return /* @__PURE__ */ jsxRuntime.jsx(
+                "button",
+                {
+                  onClick: () => isCurrentMonth && handleDayClick(day),
+                  className: cn(
+                    "h-8 w-8 text-xs rounded-lg transition-all flex items-center justify-center relative",
+                    isSelected ? "bg-mint-500 text-white font-bold shadow-sm z-10" : inRange ? "bg-mint-50 text-mint-700 rounded-none first:rounded-l-lg last:rounded-r-lg" : "hover:bg-muted",
+                    !isCurrentMonth && "opacity-20 pointer-events-none"
+                  ),
+                  children: dateFns.format(day, "d")
+                },
+                day.toISOString()
+              );
+            })
+          ] })
+        ] })
+      ] })
+    ] }),
+    error && /* @__PURE__ */ jsxRuntime.jsx("p", { className: "text-xs font-medium text-red-500", children: error })
+  ] });
+}
+function EmptyState({
+  icon,
+  title,
+  description,
+  action,
+  className,
+  ...props
+}) {
+  return /* @__PURE__ */ jsxRuntime.jsxs(
+    "div",
+    {
+      className: cn(
+        "flex flex-col items-center justify-center p-8 text-center bg-surface/50 rounded-2xl border border-dashed border-border-default",
+        getCommonClasses(props),
+        className
+      ),
+      children: [
+        /* @__PURE__ */ jsxRuntime.jsx("div", { className: "flex h-16 w-16 items-center justify-center rounded-full bg-muted/40 mb-4", children: icon || /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.Search, { className: "h-8 w-8 text-text-tertiary" }) }),
+        /* @__PURE__ */ jsxRuntime.jsx("h3", { className: "text-lg font-bold text-text-primary tracking-tight", children: title }),
+        description && /* @__PURE__ */ jsxRuntime.jsx("p", { className: "mt-2 text-sm text-text-secondary max-w-sm mx-auto", children: description }),
+        action && /* @__PURE__ */ jsxRuntime.jsx(
+          Button,
+          {
+            variant: "secondary",
+            className: "mt-6",
+            onClick: action.onClick,
+            children: action.label
+          }
+        )
+      ]
+    }
+  );
+}
+var ErrorBoundary = class extends React27.Component {
+  state = {
+    hasError: false,
+    error: null
+  };
+  static getDerivedStateFromError(error) {
+    return { hasError: true, error };
+  }
+  componentDidCatch(error, errorInfo) {
+    console.error("Uncaught error:", error, errorInfo);
+  }
+  handleReset = () => {
+    this.setState({ hasError: false, error: null });
+    this.props.onReset?.();
+  };
+  render() {
+    if (this.state.hasError) {
+      if (this.props.fallback) {
+        return this.props.fallback;
+      }
+      return /* @__PURE__ */ jsxRuntime.jsxs("div", { className: cn(
+        "flex flex-col items-center justify-center min-h-[200px] p-6 text-center bg-red-50 rounded-2xl border border-red-100",
+        getCommonClasses(this.props),
+        this.props.className
+      ), children: [
+        /* @__PURE__ */ jsxRuntime.jsx(
+          Alert,
+          {
+            status: "error",
+            variant: "ghost",
+            title: "Something went wrong",
+            description: this.state.error?.message || "An unexpected error occurred.",
+            className: "mb-6 max-w-md mx-auto"
+          }
+        ),
+        /* @__PURE__ */ jsxRuntime.jsx(Button, { variant: "secondary", onClick: this.handleReset, children: "Try again" })
+      ] });
+    }
+    return this.props.children;
+  }
+};
+function LoadingOverlay({
+  isLoading,
+  blur = "sm",
+  text,
+  className,
+  ...props
+}) {
+  const blurClasses = {
+    none: "",
+    sm: "backdrop-blur-sm",
+    md: "backdrop-blur-md",
+    lg: "backdrop-blur-lg"
+  };
+  return /* @__PURE__ */ jsxRuntime.jsx(framerMotion.AnimatePresence, { children: isLoading && /* @__PURE__ */ jsxRuntime.jsxs(
+    framerMotion.motion.div,
+    {
+      initial: { opacity: 0 },
+      animate: { opacity: 1 },
+      exit: { opacity: 0 },
+      className: cn(
+        "absolute inset-0 z-50 flex flex-col items-center justify-center bg-surface/60",
+        blurClasses[blur],
+        getCommonClasses(props),
+        className
+      ),
+      children: [
+        /* @__PURE__ */ jsxRuntime.jsx(Loader, { size: "lg", color: "brand" }),
+        text && /* @__PURE__ */ jsxRuntime.jsx("p", { className: "mt-4 text-sm font-semibold text-text-primary tracking-tight", children: text })
+      ]
+    }
+  ) });
+}
+var SearchInput = React27__namespace.default.forwardRef(
+  ({ onSearch, debounce = 300, ...props }, ref) => {
+    return /* @__PURE__ */ jsxRuntime.jsx(
+      TextField,
+      {
+        ref,
+        type: "search",
+        leftIcon: /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.Search, { className: "h-4 w-4" }),
+        clearable: true,
+        ...props
+      }
+    );
+  }
+);
+SearchInput.displayName = "SearchInput";
+var statusVariants = classVarianceAuthority.cva(
+  "inline-flex items-center gap-sp-2 text-sm font-medium",
+  {
+    variants: {
+      status: {
+        live: "text-green-500",
+        paused: "text-amber-500",
+        offline: "text-neutral-500",
+        error: "text-red-500",
+        pro: "text-brand"
+      }
+    },
+    defaultVariants: {
+      status: "offline"
+    }
+  }
+);
+var dotVariants = classVarianceAuthority.cva(
+  "w-2 h-2 rounded-full shrink-0",
+  {
+    variants: {
+      status: {
+        live: "bg-green-500 shadow-[0_0_0_0_rgba(34,197,94,0.5)] animate-pulse-live",
+        paused: "bg-amber-500",
+        offline: "bg-neutral-300",
+        error: "bg-red-500",
+        pro: "bg-brand animate-pulse-live"
+      }
+    },
+    defaultVariants: {
+      status: "offline"
+    }
+  }
+);
+var statusLabels = {
+  live: "Live",
+  paused: "Paused",
+  offline: "Offline",
+  error: "Error",
+  pro: "Pro"
+};
+function Status({
+  status = "offline",
+  label,
+  pulse = true,
+  className,
+  style
+}) {
+  return /* @__PURE__ */ jsxRuntime.jsxs(
+    "span",
+    {
+      className: cn(statusVariants({ status }), className),
+      style,
+      "aria-label": `${label ?? statusLabels[status]} status`,
+      children: [
+        /* @__PURE__ */ jsxRuntime.jsx(
+          "span",
+          {
+            className: cn(
+              dotVariants({ status: pulse ? status : "offline" }),
+              !pulse && "animate-none"
+            ),
+            "aria-hidden": "true"
+          }
+        ),
+        /* @__PURE__ */ jsxRuntime.jsx("span", { children: label ?? statusLabels[status] })
+      ]
+    }
+  );
+}
+Status.displayName = "Status";
+function Stepper({
+  steps,
+  orientation = "horizontal",
+  className,
+  ...props
+}) {
+  return /* @__PURE__ */ jsxRuntime.jsx("div", { className: cn(
+    "flex w-full",
+    orientation === "horizontal" ? "flex-row items-center justify-between" : "flex-col gap-6",
+    getCommonClasses(props),
+    className
+  ), children: steps.map((step, index) => /* @__PURE__ */ jsxRuntime.jsx(React27__namespace.default.Fragment, { children: /* @__PURE__ */ jsxRuntime.jsxs("div", { className: cn(
+    "flex items-center gap-3",
+    orientation === "vertical" ? "w-full" : "flex-1 last:flex-none"
+  ), children: [
+    /* @__PURE__ */ jsxRuntime.jsx(
+      "div",
+      {
+        className: cn(
+          "flex h-8 w-8 shrink-0 items-center justify-center rounded-full border-2 transition-all duration-200",
+          step.status === "complete" ? "bg-mint-500 border-mint-500 text-white" : step.status === "current" ? "border-mint-500 text-mint-600 bg-white shadow-[0_0_0_4px_rgba(0,179,138,0.1)]" : "border-neutral-200 text-neutral-400 bg-white"
+        ),
+        children: step.status === "complete" ? /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.Check, { className: "h-5 w-5" }) : /* @__PURE__ */ jsxRuntime.jsx("span", { className: "text-sm font-bold", children: index + 1 })
+      }
+    ),
+    /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex flex-col min-w-0", children: [
+      /* @__PURE__ */ jsxRuntime.jsx("span", { className: cn(
+        "text-sm font-bold tracking-tight",
+        step.status === "current" ? "text-text-primary" : "text-text-tertiary"
+      ), children: step.title }),
+      step.description && orientation === "vertical" && /* @__PURE__ */ jsxRuntime.jsx("span", { className: "text-xs text-text-tertiary mt-0.5", children: step.description })
+    ] }),
+    orientation === "horizontal" && index < steps.length - 1 && /* @__PURE__ */ jsxRuntime.jsx("div", { className: "flex-1 h-[2px] mx-4 bg-muted overflow-hidden", children: /* @__PURE__ */ jsxRuntime.jsx(
+      "div",
+      {
+        className: cn(
+          "h-full bg-mint-500 transition-all duration-500",
+          step.status === "complete" ? "w-full" : "w-0"
+        )
+      }
+    ) })
+  ] }) }, step.id)) });
+}
+function Collapsible({
+  title,
+  children,
+  defaultOpen = false,
+  onToggle,
+  variant = "ghost",
+  className,
+  ...props
+}) {
+  const [isOpen, setIsOpen] = React27.useState(defaultOpen);
+  const toggle = () => {
+    const newState = !isOpen;
+    setIsOpen(newState);
+    onToggle?.(newState);
+  };
+  const variants = {
+    ghost: "",
+    card: "bg-surface rounded-xl shadow-sm p-4",
+    bordered: "border border-border-default rounded-xl p-4"
+  };
+  return /* @__PURE__ */ jsxRuntime.jsxs("div", { className: cn("overflow-hidden", variants[variant], getCommonClasses(props), className), children: [
+    /* @__PURE__ */ jsxRuntime.jsxs(
+      "button",
+      {
+        onClick: toggle,
+        className: "flex w-full items-center justify-between text-left focus:outline-none group",
+        children: [
+          /* @__PURE__ */ jsxRuntime.jsx("div", { className: "flex-1 font-semibold text-text-primary", children: title }),
+          /* @__PURE__ */ jsxRuntime.jsx(
+            framerMotion.motion.div,
+            {
+              animate: { rotate: isOpen ? 180 : 0 },
+              transition: { duration: 0.2, ease: "easeInOut" },
+              children: /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.ChevronDown, { className: "h-5 w-5 text-text-tertiary group-hover:text-text-primary transition-colors" })
+            }
+          )
+        ]
+      }
+    ),
+    /* @__PURE__ */ jsxRuntime.jsx(framerMotion.AnimatePresence, { initial: false, children: isOpen && /* @__PURE__ */ jsxRuntime.jsx(
+      framerMotion.motion.div,
+      {
+        initial: { height: 0, opacity: 0 },
+        animate: { height: "auto", opacity: 1 },
+        exit: { height: 0, opacity: 0 },
+        transition: { duration: 0.3, ease: [0.04, 0.62, 0.23, 0.98] },
+        children: /* @__PURE__ */ jsxRuntime.jsx("div", { className: "pt-4", children })
+      }
+    ) })
+  ] });
 }
 function InsightCard({
   data,
@@ -10400,7 +10908,7 @@ var sidebarItemVariants = classVarianceAuthority.cva(
     }
   }
 );
-var ChevronRight5 = () => /* @__PURE__ */ jsxRuntime.jsx(
+var ChevronRight6 = () => /* @__PURE__ */ jsxRuntime.jsx(
   "svg",
   {
     width: "12",
@@ -10487,7 +10995,7 @@ function Sidebar({
                     "inline-flex items-center text-neutral-400 shrink-0 transition-transform duration-200",
                     isExpanded && "rotate-90"
                   ),
-                  children: /* @__PURE__ */ jsxRuntime.jsx(ChevronRight5, {})
+                  children: /* @__PURE__ */ jsxRuntime.jsx(ChevronRight6, {})
                 }
               )
             ] })
@@ -10582,7 +11090,7 @@ function BottomNav({
   );
 }
 BottomNav.displayName = "BottomNav";
-var dotVariants = classVarianceAuthority.cva(
+var dotVariants2 = classVarianceAuthority.cva(
   "w-[7px] h-[7px] rounded-full shrink-0",
   {
     variants: {
@@ -10620,7 +11128,7 @@ function SupportLiveBar({
       /* @__PURE__ */ jsxRuntime.jsx(
         "span",
         {
-          className: dotVariants({ color: cfg.color, pulse: cfg.pulse }),
+          className: dotVariants2({ color: cfg.color, pulse: cfg.pulse }),
           "aria-hidden": "true"
         }
       ),
@@ -12195,7 +12703,7 @@ function Pagination2({
   );
 }
 Pagination2.displayName = "Pagination";
-var statusVariants = classVarianceAuthority.cva(
+var statusVariants2 = classVarianceAuthority.cva(
   "inline-flex items-center gap-sp-2 text-sm font-medium",
   {
     variants: {
@@ -12212,7 +12720,7 @@ var statusVariants = classVarianceAuthority.cva(
     }
   }
 );
-var dotVariants2 = classVarianceAuthority.cva(
+var dotVariants3 = classVarianceAuthority.cva(
   "w-2 h-2 rounded-full shrink-0",
   {
     variants: {
@@ -12229,14 +12737,14 @@ var dotVariants2 = classVarianceAuthority.cva(
     }
   }
 );
-var statusLabels = {
+var statusLabels2 = {
   live: "Live",
   paused: "Paused",
   offline: "Offline",
   error: "Error",
   pro: "Pro"
 };
-function Status({
+function Status2({
   status = "offline",
   label,
   pulse = true,
@@ -12246,26 +12754,26 @@ function Status({
   return /* @__PURE__ */ jsxRuntime.jsxs(
     "span",
     {
-      className: cn(statusVariants({ status }), className),
+      className: cn(statusVariants2({ status }), className),
       style,
-      "aria-label": `${label ?? statusLabels[status]} status`,
+      "aria-label": `${label ?? statusLabels2[status]} status`,
       children: [
         /* @__PURE__ */ jsxRuntime.jsx(
           "span",
           {
             className: cn(
-              dotVariants2({ status: pulse ? status : "offline" }),
+              dotVariants3({ status: pulse ? status : "offline" }),
               !pulse && "animate-none"
             ),
             "aria-hidden": "true"
           }
         ),
-        /* @__PURE__ */ jsxRuntime.jsx("span", { children: label ?? statusLabels[status] })
+        /* @__PURE__ */ jsxRuntime.jsx("span", { children: label ?? statusLabels2[status] })
       ]
     }
   );
 }
-Status.displayName = "Status";
+Status2.displayName = "Status";
 function CustomTickerTape2({
   items,
   speed = 20,
@@ -12879,7 +13387,7 @@ function Link5({
   children,
   ...props
 }) {
-  const variantClasses2 = {
+  const variantClasses3 = {
     default: "text-mint-600 hover:text-mint-500",
     muted: "text-neutral-400 hover:text-mint-600",
     brand: "text-mint-500 hover:text-mint-400",
@@ -12896,7 +13404,7 @@ function Link5({
     {
       className: cn(
         "transition-all duration-150 cursor-pointer font-body inline-flex items-center gap-1.5",
-        variantClasses2[variant],
+        variantClasses3[variant],
         underlineClasses[underline],
         className
       ),
@@ -12952,7 +13460,7 @@ function Breadcrumbs2({
   );
 }
 Breadcrumbs2.displayName = "Breadcrumbs";
-var dotVariants3 = classVarianceAuthority.cva(
+var dotVariants4 = classVarianceAuthority.cva(
   "w-[7px] h-[7px] rounded-full shrink-0",
   {
     variants: {
@@ -12990,7 +13498,7 @@ function SupportLiveBar2({
       /* @__PURE__ */ jsxRuntime.jsx(
         "span",
         {
-          className: dotVariants3({ color: cfg.color, pulse: cfg.pulse }),
+          className: dotVariants4({ color: cfg.color, pulse: cfg.pulse }),
           "aria-hidden": "true"
         }
       ),
@@ -13040,7 +13548,7 @@ function Nudge2({
   actionLabel,
   className
 }) {
-  const icons2 = {
+  const icons3 = {
     info: /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.Info, { className: "text-blue-500", size: 18 }),
     warning: /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.AlertTriangle, { className: "text-amber-500", size: 18 }),
     success: /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.CheckCircle2, { className: "text-mint-500", size: 18 }),
@@ -13062,7 +13570,7 @@ function Nudge2({
         className
       ),
       children: [
-        /* @__PURE__ */ jsxRuntime.jsx("div", { className: "mt-1", children: icons2[variant] }),
+        /* @__PURE__ */ jsxRuntime.jsx("div", { className: "mt-1", children: icons3[variant] }),
         /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex-1", children: [
           /* @__PURE__ */ jsxRuntime.jsx("h4", { className: "font-bold text-sm leading-tight mb-1", children: title }),
           /* @__PURE__ */ jsxRuntime.jsx("p", { className: "text-xs text-muted-foreground leading-relaxed", children: description }),
@@ -15223,8 +15731,8 @@ function AssetCard({ name, id, type }) {
       children: [
         copied && /* @__PURE__ */ jsxRuntime.jsx("span", { style: { position: "absolute", top: "5px", right: "5px", background: "#22C55E", color: "#fff", fontSize: "10px", padding: "2px 6px", borderRadius: "4px" }, children: "Copied!" }),
         /* @__PURE__ */ jsxRuntime.jsx("div", { style: { height: type === "icon" ? "24px" : "80px", display: "flex", alignItems: "center", justifyContent: "center" }, children: type === "icon" ? (() => {
-          const Icon2 = LucideIcons__namespace[name];
-          return Icon2 ? /* @__PURE__ */ jsxRuntime.jsx(Icon2, { size: 20 }) : null;
+          const Icon3 = LucideIcons__namespace[name];
+          return Icon3 ? /* @__PURE__ */ jsxRuntime.jsx(Icon3, { size: 20 }) : null;
         })() : /* @__PURE__ */ jsxRuntime.jsx("div", { dangerouslySetInnerHTML: { __html: SVGS[id] || "" }, style: { transform: "scale(0.5)" } }) }),
         /* @__PURE__ */ jsxRuntime.jsx("span", { style: { fontSize: "11px", color: "var(--text-tertiary)", textAlign: "center", wordBreak: "break-all" }, children: name })
       ]
@@ -15359,6 +15867,1670 @@ var ToastContext2 = React27__namespace.default.createContext({
   removeToast: () => {
   }
 });
+var Accordion2 = AccordionPrimitive__namespace.Root;
+var AccordionItem2 = React27__namespace.default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsxRuntime.jsx(
+  AccordionPrimitive__namespace.Item,
+  {
+    ref,
+    className: cn("border-b border-border/10", className),
+    ...props
+  }
+));
+AccordionItem2.displayName = "AccordionItem";
+var AccordionTrigger2 = React27__namespace.default.forwardRef(({ children, className, ...props }, ref) => /* @__PURE__ */ jsxRuntime.jsx(AccordionPrimitive__namespace.Header, { className: "flex", children: /* @__PURE__ */ jsxRuntime.jsxs(
+  AccordionPrimitive__namespace.Trigger,
+  {
+    ref,
+    className: cn(
+      "flex flex-1 items-center justify-between py-4 text-sm font-semibold text-primary transition-all hover:text-mint-400 [&[data-state=open]>svg]:rotate-180",
+      "focus-visible:outline-none focus-visible:text-mint-400",
+      className
+    ),
+    ...props,
+    children: [
+      children,
+      /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.ChevronDown, { className: "h-4 w-4 shrink-0 text-neutral-400 transition-transform duration-200" })
+    ]
+  }
+) }));
+AccordionTrigger2.displayName = AccordionPrimitive__namespace.Trigger.displayName;
+var AccordionContent2 = React27__namespace.default.forwardRef(({ children, className, ...props }, ref) => /* @__PURE__ */ jsxRuntime.jsx(
+  AccordionPrimitive__namespace.Content,
+  {
+    ref,
+    className: cn(
+      "overflow-hidden text-sm data-[state=closed]:animate-accordion-up data-[state=open]:animate-accordion-down",
+      className
+    ),
+    ...props,
+    children: /* @__PURE__ */ jsxRuntime.jsx("div", { className: "pb-4 pt-0 text-neutral-400 leading-relaxed font-body", children })
+  }
+));
+AccordionContent2.displayName = AccordionPrimitive__namespace.Content.displayName;
+var alertVariants2 = classVarianceAuthority.cva(
+  "flex items-start gap-sp-4 p-sp-4 rounded-xl border transition-all duration-200 shadow-sm",
+  {
+    variants: {
+      variant: {
+        default: "bg-surface text-neutral-900 border-neutral-150",
+        info: "bg-mint-500/10 text-mint-600 border-mint-500/20",
+        success: "bg-mint-500/10 text-mint-600 border-mint-500/20",
+        warning: "bg-amber-500/10 text-amber-600 border-amber-500/20",
+        destructive: "bg-red-500/10 text-red-600 border-red-500/20",
+        brand: "bg-mint-500 text-neutral-0 border-mint-500 shadow-[0_4px_16px_rgba(0,179,138,0.25)]"
+      }
+    },
+    defaultVariants: {
+      variant: "default"
+    }
+  }
+);
+var icons2 = {
+  default: /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.Info, { size: 20 }),
+  info: /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.Info, { size: 20 }),
+  success: /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.CheckCircle2, { size: 20 }),
+  warning: /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.AlertCircle, { size: 20 }),
+  destructive: /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.XCircle, { size: 20 }),
+  brand: /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.Info, { size: 20 })
+};
+var Alert2 = React27__namespace.default.forwardRef(
+  ({ className, variant = "default", title, description, children, ...props }, ref) => {
+    return /* @__PURE__ */ jsxRuntime.jsxs(
+      "div",
+      {
+        ref,
+        role: "alert",
+        className: cn(alertVariants2({ variant }), className),
+        ...props,
+        children: [
+          /* @__PURE__ */ jsxRuntime.jsx("span", { className: "flex-shrink-0 mt-0.5 text-current opacity-90", children: icons2[variant ?? "default"] }),
+          /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex-1 min-w-0", children: [
+            title && /* @__PURE__ */ jsxRuntime.jsx("p", { className: "text-sm font-bold mb-sp-1 tracking-tight leading-none text-current font-display", children: title }),
+            description && /* @__PURE__ */ jsxRuntime.jsx("p", { className: "text-xs opacity-90 leading-relaxed font-body text-current", children: description }),
+            children
+          ] })
+        ]
+      }
+    );
+  }
+);
+Alert2.displayName = "Alert";
+var FadeIn2 = ({ children, className, ...props }) => /* @__PURE__ */ jsxRuntime.jsx(
+  framerMotion.motion.div,
+  {
+    initial: { opacity: 0 },
+    animate: { opacity: 1 },
+    transition: { duration: 0.5, ease: "easeOut" },
+    className,
+    ...props,
+    children
+  }
+);
+var SlideIn2 = ({ children, className, direction = "up", ...props }) => {
+  const variants = {
+    up: { y: 20, opacity: 0 },
+    down: { y: -20, opacity: 0 },
+    left: { x: 20, opacity: 0 },
+    right: { x: -20, opacity: 0 }
+  };
+  return /* @__PURE__ */ jsxRuntime.jsx(
+    framerMotion.motion.div,
+    {
+      initial: variants[direction],
+      animate: { x: 0, y: 0, opacity: 1 },
+      transition: { duration: 0.5, ease: "easeOut" },
+      className,
+      ...props,
+      children
+    }
+  );
+};
+var ScaleIn2 = ({ children, className, ...props }) => /* @__PURE__ */ jsxRuntime.jsx(
+  framerMotion.motion.div,
+  {
+    initial: { scale: 0.95, opacity: 0 },
+    animate: { scale: 1, opacity: 1 },
+    transition: { duration: 0.4, ease: "easeOut" },
+    className,
+    ...props,
+    children
+  }
+);
+var Popover2 = PopoverPrimitive__namespace.Root;
+var PopoverTrigger2 = PopoverPrimitive__namespace.Trigger;
+var PopoverContent2 = React27__namespace.default.forwardRef(({ className, align = "center", sideOffset = 4, ...props }, ref) => /* @__PURE__ */ jsxRuntime.jsx(PopoverPrimitive__namespace.Portal, { children: /* @__PURE__ */ jsxRuntime.jsx(
+  PopoverPrimitive__namespace.Content,
+  {
+    ref,
+    align,
+    sideOffset,
+    className: cn(
+      "z-50 w-72 rounded-xl border bg-background/80 backdrop-blur-md p-4 shadow-xl outline-none animate-in fade-in zoom-in-95 data-[state=open]:data-[side=bottom]:slide-in-from-top-2 data-[state=open]:data-[side=left]:slide-in-from-right-2 data-[state=open]:data-[side=right]:slide-in-from-left-2 data-[state=open]:data-[side=top]:slide-in-from-bottom-2",
+      className
+    ),
+    ...props
+  }
+) }));
+PopoverContent2.displayName = PopoverPrimitive__namespace.Content.displayName;
+function Autocomplete2({
+  options,
+  value,
+  onChange,
+  placeholder = "Select an option...",
+  label,
+  error,
+  className
+}) {
+  const [open, setOpen] = React27.useState(false);
+  const [searchTerm, setSearchTerm] = React27.useState("");
+  const filteredOptions = options.filter(
+    (option) => option.label.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+  const selectedOption = options.find((opt) => opt.value === value);
+  return /* @__PURE__ */ jsxRuntime.jsxs("div", { className: cn("flex flex-col gap-sp-1.5 w-full", className), children: [
+    label && /* @__PURE__ */ jsxRuntime.jsx("label", { className: "text-sm font-semibold text-neutral-900/80 leading-none font-display", children: label }),
+    /* @__PURE__ */ jsxRuntime.jsxs(Popover2, { open, onOpenChange: setOpen, children: [
+      /* @__PURE__ */ jsxRuntime.jsx(PopoverTrigger2, { asChild: true, children: /* @__PURE__ */ jsxRuntime.jsx(
+        Button2,
+        {
+          variant: "secondary",
+          role: "combobox",
+          "aria-expanded": open,
+          className: cn(
+            "w-full justify-between font-normal rounded-xl h-sp-11 border-neutral-150 bg-surface hover:bg-neutral-100 transition-all font-body",
+            !value && "text-neutral-400",
+            error && "border-red-500"
+          ),
+          rightIcon: /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.ChevronsUpDown, { className: "ml-2 h-4 w-4 shrink-0 opacity-50" }),
+          children: selectedOption ? selectedOption.label : placeholder
+        }
+      ) }),
+      /* @__PURE__ */ jsxRuntime.jsx(PopoverContent2, { className: "w-[var(--radix-popover-trigger-width)] p-1.5", align: "start", children: /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex flex-col gap-1.5", children: [
+        /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "relative flex items-center px-sp-2 py-sp-2 border-b border-neutral-150/50 mb-sp-1", children: [
+          /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.Search, { className: "h-4 w-4 absolute left-sp-3 opacity-40 text-neutral-400" }),
+          /* @__PURE__ */ jsxRuntime.jsx(
+            "input",
+            {
+              className: "w-full bg-transparent pl-8 text-sm outline-none placeholder:opacity-50",
+              placeholder: "Search...",
+              value: searchTerm,
+              onChange: (e) => setSearchTerm(e.target.value)
+            }
+          )
+        ] }),
+        /* @__PURE__ */ jsxRuntime.jsx("div", { className: "max-h-60 overflow-y-auto min-h-0 custom-scrollbar", children: filteredOptions.length === 0 ? /* @__PURE__ */ jsxRuntime.jsx("p", { className: "p-sp-3 text-xs text-center text-neutral-400 italic font-body", children: "No options found." }) : filteredOptions.map((option) => /* @__PURE__ */ jsxRuntime.jsxs(
+          "button",
+          {
+            onClick: () => {
+              onChange?.(option.value);
+              setOpen(false);
+            },
+            className: cn(
+              "flex w-full items-center justify-between px-sp-3 py-sp-2 text-sm rounded-lg transition-colors text-left font-body",
+              value === option.value ? "bg-mint-500/10 text-mint-600 font-bold" : "hover:bg-neutral-100 text-neutral-900"
+            ),
+            children: [
+              option.label,
+              value === option.value && /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.Check, { className: "h-4 w-4" })
+            ]
+          },
+          option.value
+        )) })
+      ] }) })
+    ] }),
+    error && /* @__PURE__ */ jsxRuntime.jsx("p", { className: "text-xs font-medium text-red-500", children: error })
+  ] });
+}
+Autocomplete2.displayName = "Autocomplete";
+var Avatar2 = React27__namespace.default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsxRuntime.jsx(
+  AvatarPrimitive__namespace.Root,
+  {
+    ref,
+    className: cn(
+      "relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full border-2 border-surface shadow-md",
+      className
+    ),
+    ...props
+  }
+));
+Avatar2.displayName = AvatarPrimitive__namespace.Root.displayName;
+var AvatarImage2 = React27__namespace.default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsxRuntime.jsx(
+  AvatarPrimitive__namespace.Image,
+  {
+    ref,
+    className: cn("aspect-square h-full w-full object-cover", className),
+    ...props
+  }
+));
+AvatarImage2.displayName = AvatarPrimitive__namespace.Image.displayName;
+var AvatarFallback2 = React27__namespace.default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsxRuntime.jsx(
+  AvatarPrimitive__namespace.Fallback,
+  {
+    ref,
+    className: cn(
+      "flex h-full w-full items-center justify-center rounded-full bg-mint-500/15 text-mint-500 text-[0.7em] font-bold uppercase tracking-widest font-body",
+      className
+    ),
+    ...props
+  }
+));
+AvatarFallback2.displayName = AvatarPrimitive__namespace.Fallback.displayName;
+function Backdrop2({
+  show,
+  onClick,
+  className,
+  blur = true
+}) {
+  if (!show) return null;
+  return /* @__PURE__ */ jsxRuntime.jsx(
+    "div",
+    {
+      onClick,
+      className: cn(
+        "fixed inset-0 z-40 bg-black/60 transition-all duration-300",
+        blur ? "backdrop-blur-sm" : "",
+        show ? "opacity-100" : "opacity-0",
+        className
+      )
+    }
+  );
+}
+Backdrop2.displayName = "Backdrop";
+var badgeVariants2 = classVarianceAuthority.cva(
+  "inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-bold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 uppercase tracking-wider",
+  {
+    variants: {
+      variant: {
+        default: "border-transparent bg-mint-500 text-neutral-0 shadow-[0_4px_16px_rgba(0,179,138,0.25)] hover:bg-mint-600",
+        secondary: "border-transparent bg-neutral-100 text-neutral-600 hover:bg-neutral-200",
+        destructive: "border-transparent bg-red-500 text-neutral-0 shadow hover:bg-red-600",
+        outline: "text-neutral-900 border-neutral-150",
+        success: "border-transparent bg-mint-500/10 text-mint-600",
+        warning: "border-transparent bg-amber-500/10 text-amber-600",
+        error: "border-transparent bg-red-500/10 text-red-600",
+        mint: "border-transparent bg-mint-400/10 text-mint-500",
+        blue: "border-transparent bg-blue-500/10 text-blue-600",
+        purple: "border-transparent bg-purple-500/10 text-purple-600",
+        neutral: "border-transparent bg-neutral-100 text-neutral-500"
+      },
+      size: {
+        sm: "px-2 py-0.5 text-[10px]",
+        md: "px-2.5 py-0.5 text-xs",
+        lg: "px-3 py-1 text-sm"
+      }
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "md"
+    }
+  }
+);
+function Badge2({ className, variant, size, ...props }) {
+  return /* @__PURE__ */ jsxRuntime.jsx("div", { className: cn(badgeVariants2({ variant, size }), className), ...props });
+}
+function Box2({
+  as: Component2 = "div",
+  className,
+  children,
+  ...props
+}) {
+  return /* @__PURE__ */ jsxRuntime.jsx(Component2, { className: cn(className), ...props, children });
+}
+Box2.displayName = "Box";
+var cardVariants4 = classVarianceAuthority.cva(
+  "rounded-lg overflow-hidden transition-all duration-200 ease-smooth",
+  {
+    variants: {
+      variant: {
+        flat: "bg-surface border border-neutral-100",
+        raised: "bg-surface shadow-md",
+        glass: "bg-white/40 backdrop-blur-md border border-white/20 shadow-lg",
+        outlined: "bg-transparent border border-neutral-200"
+      },
+      padding: {
+        none: "p-0",
+        xs: "p-2",
+        sm: "p-4",
+        md: "p-6",
+        lg: "p-8",
+        xl: "p-10"
+      },
+      hover: {
+        true: "hover:shadow-lg hover:-translate-y-0.5"
+      },
+      interactive: {
+        true: "cursor-pointer active:scale-[0.98] active:shadow-sm"
+      }
+    },
+    defaultVariants: {
+      variant: "flat",
+      padding: "md"
+    }
+  }
+);
+function Card2({
+  variant = "flat",
+  hover = false,
+  interactive = false,
+  padding = "md",
+  shadow,
+  border,
+  borderColor,
+  borderLeft,
+  borderLeftColor,
+  borderWidth: borderWidth2,
+  onClick,
+  className,
+  style,
+  children,
+  ...props
+}) {
+  const isClickable = !!onClick || interactive;
+  const shadowClass = shadow ? `shadow-${shadow}` : "";
+  const borderClass = border === true ? "border" : border === false ? "border-0" : "";
+  const borderLeftClass = borderLeft ? `border-l-${borderWidth2 === "thick" ? "4" : borderWidth2 === "medium" ? "2" : "1"}` : "";
+  return /* @__PURE__ */ jsxRuntime.jsx(
+    "div",
+    {
+      className: cn(
+        cardVariants4({ variant, padding, hover, interactive: isClickable }),
+        shadowClass,
+        borderClass,
+        borderLeftClass,
+        borderColor,
+        borderLeftColor,
+        getCommonClasses(props),
+        className
+      ),
+      style,
+      onClick,
+      role: isClickable ? "button" : void 0,
+      tabIndex: isClickable ? 0 : void 0,
+      onKeyDown: isClickable ? (e) => {
+        if (e.key === "Enter" || e.key === " ") onClick?.();
+      } : void 0,
+      children
+    }
+  );
+}
+Card2.displayName = "Card";
+function Carousel2({
+  children,
+  options,
+  className,
+  style
+}) {
+  const [emblaRef, emblaApi] = useEmblaCarousel__default.default({ loop: true, ...options });
+  const [hovered, setHovered] = React27.useState(false);
+  const {
+    prevBtnDisabled,
+    nextBtnDisabled,
+    onPrevButtonClick,
+    onNextButtonClick
+  } = usePrevNextButtons(emblaApi);
+  const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(emblaApi);
+  return /* @__PURE__ */ jsxRuntime.jsxs(
+    "div",
+    {
+      className: cn("relative group w-full", className),
+      onMouseEnter: () => setHovered(true),
+      onMouseLeave: () => setHovered(false),
+      style,
+      children: [
+        /* @__PURE__ */ jsxRuntime.jsx(
+          "div",
+          {
+            ref: emblaRef,
+            className: "overflow-hidden rounded-xl",
+            children: /* @__PURE__ */ jsxRuntime.jsx("div", { className: "flex", children: React27__namespace.default.Children.map(children, (child) => /* @__PURE__ */ jsxRuntime.jsx("div", { className: "flex-[0_0_100%] min-w-0 px-2", children: child })) })
+          }
+        ),
+        /* @__PURE__ */ jsxRuntime.jsx(
+          "button",
+          {
+            onClick: onPrevButtonClick,
+            disabled: prevBtnDisabled,
+            className: cn(
+              "absolute left-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200",
+              "bg-black/80 backdrop-blur-md border border-neutral-150 text-mint-500",
+              "hover:bg-neutral-800 hover:border-mint-500/50",
+              "opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto",
+              prevBtnDisabled && "opacity-0 invisible"
+            ),
+            "aria-label": "Previous slide",
+            children: /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.ChevronLeft, { size: 20 })
+          }
+        ),
+        /* @__PURE__ */ jsxRuntime.jsx(
+          "button",
+          {
+            onClick: onNextButtonClick,
+            disabled: nextBtnDisabled,
+            className: cn(
+              "absolute right-4 top-1/2 -translate-y-1/2 z-10 w-9 h-9 rounded-full flex items-center justify-center transition-all duration-200",
+              "bg-black/80 backdrop-blur-md border border-neutral-150 text-mint-500",
+              "hover:bg-neutral-800 hover:border-mint-500/50",
+              "opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto",
+              nextBtnDisabled && "opacity-0 invisible"
+            ),
+            "aria-label": "Next slide",
+            children: /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.ChevronRight, { size: 20 })
+          }
+        ),
+        /* @__PURE__ */ jsxRuntime.jsx("div", { className: "flex justify-center gap-1.5 mt-4", children: scrollSnaps.map((_, index) => /* @__PURE__ */ jsxRuntime.jsx(
+          "button",
+          {
+            onClick: () => onDotButtonClick(index),
+            className: cn(
+              "h-1.5 rounded-full transition-all duration-300",
+              index === selectedIndex ? "w-5 bg-mint-500 shadow-[0_4px_16px_rgba(0,179,138,0.25)]" : "w-1.5 bg-neutral-100/20 hover:bg-neutral-100/40"
+            ),
+            "aria-label": `Go to slide ${index + 1}`
+          },
+          index
+        )) })
+      ]
+    }
+  );
+}
+Carousel2.displayName = "Carousel";
+var CheckBox2 = React27__namespace.default.forwardRef(({ label, error, className, ...props }, ref) => {
+  return /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex flex-col gap-sp-1", children: [
+    /* @__PURE__ */ jsxRuntime.jsxs("div", { className: cn(
+      "flex items-center gap-sp-2.5",
+      props.disabled ? "cursor-not-allowed opacity-50" : "cursor-pointer"
+    ), children: [
+      /* @__PURE__ */ jsxRuntime.jsx(
+        CheckboxPrimitive__namespace.Root,
+        {
+          ref,
+          className: cn(
+            "flex h-sp-5 w-sp-5 shrink-0 items-center justify-center rounded-sm border border-neutral-150 bg-surface transition-all duration-200 focus-visible:outline-none hover:border-mint-400 shadow-sm",
+            "data-[state=checked]:bg-mint-500 data-[state=checked]:border-mint-500",
+            error && "border-red-500 text-red-500",
+            className
+          ),
+          ...props,
+          children: /* @__PURE__ */ jsxRuntime.jsx(CheckboxPrimitive__namespace.Indicator, { className: "flex items-center justify-center text-white", children: /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.Check, { size: 13, strokeWidth: 3 }) })
+        }
+      ),
+      label && /* @__PURE__ */ jsxRuntime.jsx("span", { className: "text-sm font-body text-text-primary select-none leading-none", children: label })
+    ] }),
+    error && /* @__PURE__ */ jsxRuntime.jsx("p", { className: "text-xs text-red-500 pl-[30px] font-medium", children: error })
+  ] });
+});
+CheckBox2.displayName = "CheckBox";
+var colorVariants2 = {
+  default: "bg-surface text-neutral-400 border-neutral-150",
+  primary: "bg-mint-500/10 text-mint-500 border-mint-500/30",
+  secondary: "bg-neutral-800 text-neutral-0 border-neutral-700",
+  success: "bg-mint-500/10 text-mint-500 border-mint-500/25",
+  warning: "bg-amber-500/10 text-amber-500 border-amber-500/25",
+  error: "bg-red-500/10 text-red-500 border-red-500/25"
+};
+function Chip2({
+  label,
+  onDelete,
+  icon,
+  variant = "filled",
+  color = "default",
+  className,
+  ...props
+}) {
+  return /* @__PURE__ */ jsxRuntime.jsxs(
+    "div",
+    {
+      className: cn(
+        "inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold font-body transition-all duration-150 border",
+        variant === "filled" && colorVariants2[color],
+        variant === "outline" && "bg-transparent",
+        variant === "outline" && color === "default" && "border-border text-neutral-400",
+        variant === "outline" && color !== "default" && colorVariants2[color].replace(/bg-[^\s]*/, "bg-transparent"),
+        variant === "ghost" && "bg-transparent border-transparent",
+        className
+      ),
+      ...props,
+      children: [
+        icon && /* @__PURE__ */ jsxRuntime.jsx("span", { className: "flex-shrink-0", children: icon }),
+        /* @__PURE__ */ jsxRuntime.jsx("span", { className: "truncate max-w-[160px] uppercase tracking-wider", children: label }),
+        onDelete && /* @__PURE__ */ jsxRuntime.jsx(
+          "button",
+          {
+            onClick: (e) => {
+              e.stopPropagation();
+              onDelete();
+            },
+            className: "flex items-center justify-center h-4 w-4 rounded-full bg-white/10 hover:bg-white/20 transition-colors text-current border-none p-0 cursor-pointer",
+            children: /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.X, { size: 10 })
+          }
+        )
+      ]
+    }
+  );
+}
+Chip2.displayName = "Chip";
+function DatePicker2({
+  value,
+  onChange,
+  label,
+  error,
+  placeholder = "Pick a date",
+  className
+}) {
+  const [currentMonth, setCurrentMonth] = React27.useState(value || /* @__PURE__ */ new Date());
+  const days = dateFns.eachDayOfInterval({
+    start: dateFns.startOfWeek(dateFns.startOfMonth(currentMonth)),
+    end: dateFns.endOfWeek(dateFns.endOfMonth(currentMonth))
+  });
+  return /* @__PURE__ */ jsxRuntime.jsxs("div", { className: cn("flex flex-col gap-1.5 w-full", className), children: [
+    label && /* @__PURE__ */ jsxRuntime.jsx("label", { className: "text-sm font-semibold text-foreground/80 leading-none", children: label }),
+    /* @__PURE__ */ jsxRuntime.jsxs(Popover2, { children: [
+      /* @__PURE__ */ jsxRuntime.jsx(PopoverTrigger2, { asChild: true, children: /* @__PURE__ */ jsxRuntime.jsx(
+        Button2,
+        {
+          variant: "secondary",
+          className: cn(
+            "w-full justify-start text-left font-normal rounded-xl h-11 border-border bg-background hover:bg-muted/50",
+            !value && "text-muted-foreground",
+            error && "border-red-500"
+          ),
+          leftIcon: /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.Calendar, { className: "mr-2 h-4 w-4" }),
+          children: value ? dateFns.format(value, "PPP") : /* @__PURE__ */ jsxRuntime.jsx("span", { children: placeholder })
+        }
+      ) }),
+      /* @__PURE__ */ jsxRuntime.jsx(PopoverContent2, { className: "w-auto p-4", align: "start", children: /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex flex-col gap-4", children: [
+        /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex items-center justify-between", children: [
+          /* @__PURE__ */ jsxRuntime.jsx("h4", { className: "font-bold text-sm tracking-tight", children: dateFns.format(currentMonth, "MMMM yyyy") }),
+          /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex gap-1", children: [
+            /* @__PURE__ */ jsxRuntime.jsx(
+              Button2,
+              {
+                variant: "ghost",
+                size: "sm",
+                iconOnly: true,
+                onClick: () => setCurrentMonth(dateFns.subMonths(currentMonth, 1)),
+                children: /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.ChevronLeft, { size: 16 })
+              }
+            ),
+            /* @__PURE__ */ jsxRuntime.jsx(
+              Button2,
+              {
+                variant: "ghost",
+                size: "sm",
+                iconOnly: true,
+                onClick: () => setCurrentMonth(dateFns.addMonths(currentMonth, 1)),
+                children: /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.ChevronLeft, { className: "rotate-180", size: 16 })
+              }
+            )
+          ] })
+        ] }),
+        /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "grid grid-cols-7 gap-1", children: [
+          ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"].map((day) => /* @__PURE__ */ jsxRuntime.jsx("div", { className: "text-[10px] font-bold text-center opacity-40 uppercase py-1", children: day }, day)),
+          days.map((day) => {
+            const isSelected = value && dateFns.isSameDay(day, value);
+            const isCurrentMonth = dateFns.isSameMonth(day, currentMonth);
+            return /* @__PURE__ */ jsxRuntime.jsx(
+              "button",
+              {
+                onClick: () => {
+                  onChange?.(day);
+                },
+                className: cn(
+                  "h-8 w-8 text-xs rounded-lg transition-all flex items-center justify-center",
+                  isSelected ? "bg-primary text-primary-foreground font-bold shadow-md" : "hover:bg-muted text-foreground",
+                  !isCurrentMonth && "opacity-20 pointer-events-none"
+                ),
+                children: dateFns.format(day, "d")
+              },
+              day.toISOString()
+            );
+          })
+        ] })
+      ] }) })
+    ] }),
+    error && /* @__PURE__ */ jsxRuntime.jsx("p", { className: "text-xs font-medium text-red-500", children: error })
+  ] });
+}
+DatePicker2.displayName = "DatePicker";
+function DigitInput2({
+  length = 6,
+  value = "",
+  onChange,
+  disabled = false,
+  error = false,
+  className,
+  containerClassName
+}) {
+  const inputsRef = React27.useRef([]);
+  const handleChange = (e, index) => {
+    const val = e.target.value;
+    if (!/^\d*$/.test(val)) return;
+    const newValue = value.split("");
+    newValue[index] = val.slice(-1);
+    const updatedValue = newValue.join("");
+    onChange?.(updatedValue);
+    if (val && index < length - 1) {
+      inputsRef.current[index + 1]?.focus();
+    }
+  };
+  const handleKeyDown = (e, index) => {
+    if (e.key === "Backspace" && !value[index] && index > 0) {
+      inputsRef.current[index - 1]?.focus();
+    }
+  };
+  const handlePaste = (e) => {
+    e.preventDefault();
+    const pasteData = e.clipboardData.getData("text").slice(0, length);
+    if (!/^\d+$/.test(pasteData)) return;
+    onChange?.(pasteData);
+    inputsRef.current[Math.min(pasteData.length, length - 1)]?.focus();
+  };
+  return /* @__PURE__ */ jsxRuntime.jsx("div", { className: cn("flex gap-2 justify-center", containerClassName), children: Array.from({ length }).map((_, i) => /* @__PURE__ */ jsxRuntime.jsx(
+    "input",
+    {
+      ref: (el) => {
+        inputsRef.current[i] = el;
+      },
+      type: "text",
+      inputMode: "numeric",
+      pattern: "\\d*",
+      maxLength: 1,
+      value: value[i] || "",
+      onChange: (e) => handleChange(e, i),
+      onKeyDown: (e) => handleKeyDown(e, i),
+      onPaste: handlePaste,
+      disabled,
+      className: cn(
+        "w-12 h-14 text-center text-xl font-bold bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary transition-all",
+        error && "border-red-500 focus:ring-red-500/20 focus:border-red-500",
+        className
+      )
+    },
+    i
+  )) });
+}
+DigitInput2.displayName = "DigitInput";
+function Divider2({
+  orientation = "horizontal",
+  className,
+  ...props
+}) {
+  return /* @__PURE__ */ jsxRuntime.jsx(
+    "div",
+    {
+      role: "separator",
+      "aria-orientation": orientation,
+      className: cn(
+        "shrink-0 bg-border",
+        orientation === "horizontal" ? "h-[1px] w-full" : "h-full w-[1px]",
+        className
+      ),
+      ...props
+    }
+  );
+}
+Divider2.displayName = "Divider";
+var IconButton2 = React27__namespace.default.forwardRef(
+  ({ icon, className, ...props }, ref) => {
+    return /* @__PURE__ */ jsxRuntime.jsx(
+      Button2,
+      {
+        ref,
+        iconOnly: true,
+        className: cn("rounded-xl", className),
+        ...props,
+        children: icon
+      }
+    );
+  }
+);
+IconButton2.displayName = "IconButton";
+function FileUploader2({
+  onFilesSelected,
+  maxFiles = 5,
+  accept,
+  className,
+  label
+}) {
+  const [selectedFiles, setSelectedFiles] = React27.useState([]);
+  const [isDragging, setIsDragging] = React27.useState(false);
+  const fileInputRef = React27.useRef(null);
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    setIsDragging(true);
+  };
+  const handleDragLeave = () => {
+    setIsDragging(false);
+  };
+  const handleDrop = (e) => {
+    e.preventDefault();
+    setIsDragging(false);
+    const files = Array.from(e.dataTransfer.files);
+    addFiles(files);
+  };
+  const handleFileSelect = (e) => {
+    if (e.target.files) {
+      addFiles(Array.from(e.target.files));
+    }
+  };
+  const addFiles = (files) => {
+    const newFiles = [...selectedFiles, ...files].slice(0, maxFiles);
+    setSelectedFiles(newFiles);
+    onFilesSelected?.(newFiles);
+  };
+  const removeFile = (index) => {
+    const newFiles = selectedFiles.filter((_, i) => i !== index);
+    setSelectedFiles(newFiles);
+    onFilesSelected?.(newFiles);
+  };
+  return /* @__PURE__ */ jsxRuntime.jsxs("div", { className: cn("flex flex-col gap-3 w-full", className), children: [
+    label && /* @__PURE__ */ jsxRuntime.jsx("label", { className: "text-sm font-semibold text-foreground/80", children: label }),
+    /* @__PURE__ */ jsxRuntime.jsxs(
+      "div",
+      {
+        onDragOver: handleDragOver,
+        onDragLeave: handleDragLeave,
+        onDrop: handleDrop,
+        onClick: () => fileInputRef.current?.click(),
+        className: cn(
+          "relative border-2 border-dashed border-border rounded-2xl p-8 flex flex-col items-center justify-center gap-3 transition-all cursor-pointer hover:border-primary/50 hover:bg-primary/5Bg-primary/5",
+          isDragging && "border-primary bg-primary/10",
+          selectedFiles.length >= maxFiles && "pointer-events-none opacity-50"
+        ),
+        children: [
+          /* @__PURE__ */ jsxRuntime.jsx(
+            "input",
+            {
+              ref: fileInputRef,
+              type: "file",
+              multiple: maxFiles > 1,
+              accept,
+              onChange: handleFileSelect,
+              className: "hidden"
+            }
+          ),
+          /* @__PURE__ */ jsxRuntime.jsx("div", { className: "h-12 w-12 rounded-full bg-primary/10 flex items-center justify-center text-primary", children: /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.Upload, { size: 24 }) }),
+          /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "text-center", children: [
+            /* @__PURE__ */ jsxRuntime.jsx("p", { className: "text-sm font-bold", children: "Click or drag to upload" }),
+            /* @__PURE__ */ jsxRuntime.jsxs("p", { className: "text-xs text-muted-foreground mt-1", children: [
+              "Up to ",
+              maxFiles,
+              " files ",
+              accept ? `(${accept})` : ""
+            ] })
+          ] })
+        ]
+      }
+    ),
+    selectedFiles.length > 0 && /* @__PURE__ */ jsxRuntime.jsx("div", { className: "grid grid-cols-1 gap-2 mt-2", children: selectedFiles.map((file, i) => /* @__PURE__ */ jsxRuntime.jsxs(
+      "div",
+      {
+        className: "flex items-center justify-between p-3 rounded-xl bg-muted/50 border border-border animate-in slide-in-from-top-2",
+        children: [
+          /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex items-center gap-3", children: [
+            /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.File, { size: 18, className: "text-primary" }),
+            /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "overflow-hidden", children: [
+              /* @__PURE__ */ jsxRuntime.jsx("p", { className: "text-sm font-medium truncate max-w-[200px]", children: file.name }),
+              /* @__PURE__ */ jsxRuntime.jsxs("p", { className: "text-xs text-muted-foreground italic", children: [
+                (file.size / 1024 / 1024).toFixed(2),
+                " MB"
+              ] })
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxRuntime.jsx(
+            IconButton2,
+            {
+              variant: "ghost",
+              size: "sm",
+              icon: /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.X, { size: 16 }),
+              onClick: (e) => {
+                e.stopPropagation();
+                removeFile(i);
+              }
+            }
+          )
+        ]
+      },
+      i
+    )) })
+  ] });
+}
+FileUploader2.displayName = "FileUploader";
+function Image4({
+  className,
+  aspectRatio = "none",
+  fallback,
+  containerClassName,
+  src,
+  alt,
+  ...props
+}) {
+  const [error, setError] = React27__namespace.default.useState(false);
+  const aspectRatioClasses = {
+    square: "aspect-square",
+    video: "aspect-video",
+    portrait: "aspect-[3/4]",
+    none: ""
+  };
+  return /* @__PURE__ */ jsxRuntime.jsx("div", { className: cn("overflow-hidden rounded-2xl bg-muted/30", aspectRatioClasses[aspectRatio], containerClassName), children: /* @__PURE__ */ jsxRuntime.jsx(
+    "img",
+    {
+      src: error && fallback ? fallback : src,
+      alt,
+      onError: () => setError(true),
+      className: cn(
+        "h-full w-full object-cover transition-all hover:scale-105 duration-500",
+        className
+      ),
+      loading: "lazy",
+      ...props
+    }
+  ) });
+}
+Image4.displayName = "Image";
+function ImageList2({
+  children,
+  cols = 3,
+  gap = 4,
+  className
+}) {
+  const gridCols = {
+    1: "grid-cols-1",
+    2: "grid-cols-2",
+    3: "grid-cols-3",
+    4: "grid-cols-4",
+    5: "grid-cols-5",
+    6: "grid-cols-6"
+  }[cols] || "grid-cols-3";
+  return /* @__PURE__ */ jsxRuntime.jsx(
+    "div",
+    {
+      className: cn(
+        "grid",
+        gridCols,
+        className
+      ),
+      style: { gap: `${gap * 0.25}rem` },
+      children
+    }
+  );
+}
+ImageList2.displayName = "ImageList";
+function List2({ children, className }) {
+  return /* @__PURE__ */ jsxRuntime.jsx("ul", { className: cn("flex flex-col gap-1 w-full", className), children });
+}
+List2.displayName = "List";
+var loaderVariants2 = classVarianceAuthority.cva(
+  "flex flex-col items-center justify-center gap-2",
+  {
+    variants: {
+      size: {
+        sm: "h-4 w-4",
+        md: "h-8 w-8",
+        lg: "h-12 w-12",
+        xl: "h-16 w-16"
+      },
+      color: {
+        brand: "text-mint-500",
+        primary: "text-primary",
+        neutral: "text-neutral-400"
+      }
+    },
+    defaultVariants: {
+      size: "md",
+      color: "brand"
+    }
+  }
+);
+var Loader2 = React27__namespace.default.forwardRef(
+  ({ className, size, color = "brand", label, ...props }, ref) => {
+    return /* @__PURE__ */ jsxRuntime.jsxs(
+      "div",
+      {
+        ref,
+        className: cn(loaderVariants2({ size, color }), className),
+        ...props,
+        children: [
+          /* @__PURE__ */ jsxRuntime.jsxs(
+            "svg",
+            {
+              viewBox: "0 0 24 24",
+              fill: "none",
+              className: "h-full w-full animate-spin",
+              children: [
+                /* @__PURE__ */ jsxRuntime.jsx(
+                  "circle",
+                  {
+                    cx: "12",
+                    cy: "12",
+                    r: "10",
+                    stroke: "currentColor",
+                    strokeOpacity: "0.15",
+                    strokeWidth: "3"
+                  }
+                ),
+                /* @__PURE__ */ jsxRuntime.jsx(
+                  "path",
+                  {
+                    d: "M12 2a10 10 0 0 1 10 10",
+                    stroke: "currentColor",
+                    strokeWidth: "3",
+                    strokeLinecap: "round"
+                  }
+                )
+              ]
+            }
+          ),
+          label && /* @__PURE__ */ jsxRuntime.jsx("span", { className: "text-[10px] font-bold uppercase tracking-widest text-neutral-500 font-body", children: label })
+        ]
+      }
+    );
+  }
+);
+Loader2.displayName = "Loader";
+var progressVariants2 = classVarianceAuthority.cva(
+  "w-full overflow-hidden rounded-full bg-neutral-800",
+  {
+    variants: {
+      size: {
+        xs: "h-1",
+        sm: "h-2",
+        md: "h-3",
+        lg: "h-4"
+      }
+    },
+    defaultVariants: {
+      size: "sm"
+    }
+  }
+);
+var barVariants2 = classVarianceAuthority.cva(
+  "h-full w-full flex-1 transition-all duration-500 ease-smooth",
+  {
+    variants: {
+      color: {
+        brand: "bg-mint-500 shadow-[0_4px_16px_rgba(0,179,138,0.25)]",
+        success: "bg-mint-500 shadow-[0_0_12px_rgba(0,179,138,0.3)]",
+        danger: "bg-red-500 shadow-[0_0_12px_rgba(239,68,68,0.3)]",
+        warning: "bg-amber-500 shadow-[0_0_12px_rgba(245,158,11,0.3)]",
+        info: "bg-blue-500 shadow-[0_0_12px_rgba(59,130,246,0.3)]"
+      }
+    },
+    defaultVariants: {
+      color: "brand"
+    }
+  }
+);
+var Progress2 = React27__namespace.default.forwardRef(
+  ({ className, value, max = 100, size, color = "brand", label, showValue, ...props }, ref) => {
+    const pct = Math.min(100, Math.max(0, value / max * 100));
+    return /* @__PURE__ */ jsxRuntime.jsxs(
+      "div",
+      {
+        ref,
+        className: cn("flex w-full flex-col gap-2", className),
+        ...props,
+        children: [
+          (label || showValue) && /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex justify-between items-center px-0.5", children: [
+            label && /* @__PURE__ */ jsxRuntime.jsx("span", { className: "text-xs font-semibold text-neutral-400 font-body", children: label }),
+            showValue && /* @__PURE__ */ jsxRuntime.jsxs("span", { className: "text-xs font-mono text-neutral-500", children: [
+              Math.round(pct),
+              "%"
+            ] })
+          ] }),
+          /* @__PURE__ */ jsxRuntime.jsx("div", { className: cn(progressVariants2({ size })), children: /* @__PURE__ */ jsxRuntime.jsx(
+            "div",
+            {
+              className: cn(barVariants2({ color })),
+              style: { transform: `translateX(-${100 - pct}%)` }
+            }
+          ) })
+        ]
+      }
+    );
+  }
+);
+Progress2.displayName = "Progress";
+var ProgressIndicator2 = React27__namespace.default.forwardRef(({ className, value, indicatorClassName, ...props }, ref) => /* @__PURE__ */ jsxRuntime.jsx(
+  ProgressPrimitive__namespace.Root,
+  {
+    ref,
+    className: cn(
+      "relative h-2 w-full overflow-hidden rounded-full bg-muted",
+      className
+    ),
+    ...props,
+    children: /* @__PURE__ */ jsxRuntime.jsx(
+      ProgressPrimitive__namespace.Indicator,
+      {
+        className: cn(
+          "h-full w-full flex-1 bg-primary transition-all duration-500 ease-in-out",
+          indicatorClassName
+        ),
+        style: { transform: `translateX(-${100 - (value || 0)}%)` }
+      }
+    )
+  }
+));
+ProgressIndicator2.displayName = ProgressPrimitive__namespace.Root.displayName;
+function ProgressTracker2({
+  steps,
+  currentStepIndex,
+  className
+}) {
+  return /* @__PURE__ */ jsxRuntime.jsx("div", { className: cn("flex w-full justify-between items-start", className), children: steps.map((step, index) => {
+    const isCompleted = index < currentStepIndex;
+    const isActive = index === currentStepIndex;
+    return /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex flex-col items-center flex-1 relative", children: [
+      index < steps.length - 1 && /* @__PURE__ */ jsxRuntime.jsx(
+        "div",
+        {
+          className: cn(
+            "absolute top-5 left-1/2 w-full h-[2px] -translate-y-1/2 -z-10 transition-colors duration-500",
+            index < currentStepIndex ? "bg-primary" : "bg-muted"
+          )
+        }
+      ),
+      /* @__PURE__ */ jsxRuntime.jsx(
+        "div",
+        {
+          className: cn(
+            "h-10 w-10 rounded-full flex items-center justify-center border-2 transition-all duration-300 shadow-sm",
+            isCompleted ? "bg-primary border-primary text-white" : isActive ? "bg-background border-primary text-primary ring-4 ring-primary/10" : "bg-background border-muted text-muted-foreground"
+          ),
+          children: isCompleted ? /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.Check, { size: 20, className: "stroke-[3]" }) : /* @__PURE__ */ jsxRuntime.jsx("span", { className: "text-sm font-bold", children: index + 1 })
+        }
+      ),
+      /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "mt-3 text-center px-2", children: [
+        /* @__PURE__ */ jsxRuntime.jsx(
+          "p",
+          {
+            className: cn(
+              "text-xs font-bold uppercase tracking-widest",
+              isActive ? "text-primary" : "text-foreground/60"
+            ),
+            children: step.label
+          }
+        ),
+        step.description && /* @__PURE__ */ jsxRuntime.jsx("p", { className: "text-[10px] text-muted-foreground mt-1 max-w-[120px] line-clamp-2 italic", children: step.description })
+      ] })
+    ] }, step.id);
+  }) });
+}
+ProgressTracker2.displayName = "ProgressTracker";
+var RadioGroup2 = RadioGroupPrimitive__namespace.Root;
+var RadioGroupItem2 = React27__namespace.default.forwardRef(({ label, className, ...props }, ref) => {
+  return /* @__PURE__ */ jsxRuntime.jsxs("div", { className: cn(
+    "flex items-center gap-2.5",
+    props.disabled ? "cursor-not-allowed opacity-50" : "cursor-pointer"
+  ), children: [
+    /* @__PURE__ */ jsxRuntime.jsx(
+      RadioGroupPrimitive__namespace.Item,
+      {
+        ref,
+        className: cn(
+          "h-5 w-5 shrink-0 rounded-full border border-border bg-surface transition-all duration-150 focus-visible:outline-none",
+          "hover:border-mint-400 group-hover:border-mint-400",
+          "data-[state=checked]:border-mint-500",
+          className
+        ),
+        ...props,
+        children: /* @__PURE__ */ jsxRuntime.jsx(RadioGroupPrimitive__namespace.Indicator, { className: "flex items-center justify-center", children: /* @__PURE__ */ jsxRuntime.jsx("div", { className: "h-2.5 w-2.5 rounded-full bg-mint-500" }) })
+      }
+    ),
+    label && /* @__PURE__ */ jsxRuntime.jsx("span", { className: "text-sm font-body text-primary select-none", children: label })
+  ] });
+});
+RadioGroupItem2.displayName = "RadioGroupItem";
+var sizeClasses3 = {
+  sm: "h-3.5 w-3.5",
+  md: "h-5 w-5",
+  lg: "h-7 w-7"
+};
+function Rating2({
+  value = 0,
+  max = 5,
+  onChange,
+  readonly = false,
+  size = "md",
+  className,
+  label
+}) {
+  const [hoverValue, setHoverValue] = React27.useState(null);
+  const displayValue = hoverValue !== null ? hoverValue : value;
+  return /* @__PURE__ */ jsxRuntime.jsxs("div", { className: cn("flex flex-col gap-1.5", className), children: [
+    label && /* @__PURE__ */ jsxRuntime.jsx("span", { className: "text-sm font-semibold text-neutral-400 font-body", children: label }),
+    /* @__PURE__ */ jsxRuntime.jsx("div", { className: "flex items-center gap-1", children: Array.from({ length: max }).map((_, i) => {
+      const starValue = i + 1;
+      const isFull = displayValue >= starValue;
+      const isHalf = !isFull && displayValue >= starValue - 0.5;
+      return /* @__PURE__ */ jsxRuntime.jsx(
+        "button",
+        {
+          type: "button",
+          disabled: readonly,
+          onMouseEnter: () => !readonly && setHoverValue(starValue),
+          onMouseLeave: () => !readonly && setHoverValue(null),
+          onClick: () => !readonly && onChange?.(starValue),
+          className: cn(
+            "flex items-center justify-center p-0 bg-transparent border-none transition-transform duration-150 outline-none",
+            readonly ? "cursor-default" : "cursor-pointer hover:scale-110 active:scale-90"
+          ),
+          children: /* @__PURE__ */ jsxRuntime.jsx(
+            LucideIcons.Star,
+            {
+              className: cn(
+                sizeClasses3[size],
+                "transition-all duration-150",
+                isFull || isHalf ? "text-amber-500" : "text-border/20",
+                isFull && "fill-amber-500"
+              )
+            }
+          )
+        },
+        i
+      );
+    }) })
+  ] });
+}
+Rating2.displayName = "Rating";
+var Select2 = SelectPrimitive__namespace.Root;
+var SelectTrigger2 = React27__namespace.default.forwardRef(({ className, children, ...props }, ref) => /* @__PURE__ */ jsxRuntime.jsxs(
+  SelectPrimitive__namespace.Trigger,
+  {
+    ref,
+    className: cn(
+      "flex h-sp-11 w-full items-center justify-between rounded-xl border border-border-default bg-surface px-sp-3 py-sp-2 text-sm shadow-sm ring-offset-surface placeholder:text-text-tertiary focus:outline-none focus:ring-2 focus:ring-mint-500/20 focus:border-mint-500 disabled:cursor-not-allowed disabled:opacity-50 transition-all font-body text-text-primary",
+      className
+    ),
+    ...props,
+    children: [
+      children,
+      /* @__PURE__ */ jsxRuntime.jsx(SelectPrimitive__namespace.Icon, { asChild: true, children: /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.ChevronDown, { className: "h-4 w-4 opacity-50 text-text-tertiary" }) })
+    ]
+  }
+));
+SelectTrigger2.displayName = SelectPrimitive__namespace.Trigger.displayName;
+var SelectContent2 = React27__namespace.default.forwardRef(({ className, children, position = "popper", ...props }, ref) => /* @__PURE__ */ jsxRuntime.jsx(SelectPrimitive__namespace.Portal, { children: /* @__PURE__ */ jsxRuntime.jsx(
+  SelectPrimitive__namespace.Content,
+  {
+    ref,
+    className: cn(
+      "relative z-50 min-w-[8rem] overflow-hidden rounded-xl border border-border-default bg-surface/80 backdrop-blur-md text-text-primary shadow-xl animate-in fade-in zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
+      position === "popper" && "data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1",
+      className
+    ),
+    position,
+    ...props,
+    children: /* @__PURE__ */ jsxRuntime.jsx(
+      SelectPrimitive__namespace.Viewport,
+      {
+        className: cn(
+          "p-1.5",
+          position === "popper" && "h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]"
+        ),
+        children
+      }
+    )
+  }
+) }));
+SelectContent2.displayName = SelectPrimitive__namespace.Content.displayName;
+var SelectItem2 = React27__namespace.default.forwardRef(({ className, children, ...props }, ref) => /* @__PURE__ */ jsxRuntime.jsxs(
+  SelectPrimitive__namespace.Item,
+  {
+    ref,
+    className: cn(
+      "relative flex w-full cursor-default select-none items-center rounded-lg py-sp-2 pl-sp-8 pr-sp-2.5 text-sm outline-none transition-colors focus:bg-surface-elevated focus:text-text-brand data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+      className
+    ),
+    ...props,
+    children: [
+      /* @__PURE__ */ jsxRuntime.jsx("span", { className: "absolute left-2 flex h-3.5 w-3.5 items-center justify-center", children: /* @__PURE__ */ jsxRuntime.jsx(SelectPrimitive__namespace.ItemIndicator, { children: /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.Check, { className: "h-4 w-4 text-mint-500 stroke-[3]" }) }) }),
+      /* @__PURE__ */ jsxRuntime.jsx(SelectPrimitive__namespace.ItemText, { children })
+    ]
+  }
+));
+SelectItem2.displayName = SelectPrimitive__namespace.Item.displayName;
+var Separator5 = React27__namespace.default.forwardRef(
+  ({ className, orientation = "horizontal", decorative = true, ...props }, ref) => /* @__PURE__ */ jsxRuntime.jsx(
+    "div",
+    {
+      ref,
+      role: decorative ? "none" : "separator",
+      "aria-orientation": decorative ? void 0 : orientation,
+      className: cn(
+        "shrink-0 bg-border",
+        orientation === "horizontal" ? "h-[1px] w-full" : "h-full w-[1px]",
+        className
+      ),
+      ...props
+    }
+  )
+);
+Separator5.displayName = "Separator";
+function Skeleton2({
+  className,
+  ...props
+}) {
+  return /* @__PURE__ */ jsxRuntime.jsx(
+    "div",
+    {
+      className: cn(
+        "bg-white/5 rounded-md animate-gentle-pulse",
+        className
+      ),
+      ...props
+    }
+  );
+}
+var Slider2 = React27__namespace.default.forwardRef(({ label, error, className, ...props }, ref) => /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex w-full flex-col gap-2.5", children: [
+  label && /* @__PURE__ */ jsxRuntime.jsx("span", { className: "text-sm font-semibold font-body text-neutral-400", children: label }),
+  /* @__PURE__ */ jsxRuntime.jsxs(
+    SliderPrimitive__namespace.Root,
+    {
+      ref,
+      className: cn(
+        "relative flex w-full touch-none select-none items-center",
+        props.disabled ? "cursor-not-allowed opacity-50" : "cursor-pointer",
+        className
+      ),
+      ...props,
+      children: [
+        /* @__PURE__ */ jsxRuntime.jsx(SliderPrimitive__namespace.Track, { className: "relative h-1 w-full grow overflow-hidden rounded-full bg-neutral-800", children: /* @__PURE__ */ jsxRuntime.jsx(SliderPrimitive__namespace.Range, { className: "absolute h-full bg-gradient-to-r from-mint-500 to-mint-400" }) }),
+        /* @__PURE__ */ jsxRuntime.jsx(SliderPrimitive__namespace.Thumb, { className: "block h-5 w-5 rounded-full border-[2.5px] border-surface bg-mint-500 shadow-brand transition-all duration-150 focus-visible:outline-none focus-visible:scale-110 active:scale-95 disabled:pointer-events-none" })
+      ]
+    }
+  ),
+  error && /* @__PURE__ */ jsxRuntime.jsx("p", { className: "text-xs text-red-500 font-medium", children: error })
+] }));
+Slider2.displayName = "Slider";
+function Stack2({
+  direction = "column",
+  align = "stretch",
+  justify = "start",
+  gap = 4,
+  wrap = false,
+  className,
+  children,
+  ...props
+}) {
+  const justifyMap = {
+    start: "justify-start",
+    center: "justify-center",
+    end: "justify-end",
+    between: "justify-between",
+    around: "justify-around",
+    evenly: "justify-evenly"
+  };
+  const alignMap = {
+    start: "items-start",
+    center: "items-center",
+    end: "items-end",
+    stretch: "items-stretch",
+    baseline: "items-baseline"
+  };
+  const directionMap = {
+    row: "flex-row",
+    column: "flex-col",
+    "row-reverse": "flex-row-reverse",
+    "column-reverse": "flex-col-reverse"
+  };
+  return /* @__PURE__ */ jsxRuntime.jsx(
+    "div",
+    {
+      className: cn(
+        "flex",
+        directionMap[direction],
+        alignMap[align],
+        justifyMap[justify],
+        wrap && "flex-wrap",
+        // Using Tailwind dynamic gap is risky if not safelisted, but gap-1, 2, 4 etc are common.
+        // We'll use a safer approach with a style object if it's a number
+        className
+      ),
+      style: {
+        gap: typeof gap === "number" ? `${gap * 0.25}rem` : gap,
+        ...props.style
+      },
+      ...props,
+      children
+    }
+  );
+}
+Stack2.displayName = "Stack";
+var Switch2 = React27__namespace.default.forwardRef(({ label, className, ...props }, ref) => {
+  return /* @__PURE__ */ jsxRuntime.jsxs("div", { className: cn(
+    "flex items-center gap-3",
+    props.disabled ? "cursor-not-allowed opacity-50" : "cursor-pointer"
+  ), children: [
+    /* @__PURE__ */ jsxRuntime.jsx(
+      SwitchPrimitive__namespace.Root,
+      {
+        ref,
+        className: cn(
+          "relative h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint-500 focus-visible:ring-offset-2",
+          "bg-neutral-800",
+          "data-[state=checked]:bg-mint-500",
+          className
+        ),
+        ...props,
+        children: /* @__PURE__ */ jsxRuntime.jsx(
+          SwitchPrimitive__namespace.Thumb,
+          {
+            className: cn(
+              "pointer-events-none block h-5 w-5 rounded-full bg-white shadow-lg ring-0 transition-transform duration-200",
+              "data-[state=checked]:translate-x-5 data-[state=unchecked]:translate-x-0"
+            )
+          }
+        )
+      }
+    ),
+    label && /* @__PURE__ */ jsxRuntime.jsx("span", { className: "text-sm font-body text-primary select-none font-medium", children: label })
+  ] });
+});
+Switch2.displayName = "Switch";
+var Tabs2 = TabsPrimitive__namespace.Root;
+var TabsListVariants = classVarianceAuthority.cva(
+  "inline-flex items-center justify-center rounded-lg bg-neutral-100 p-sp-1 text-neutral-500",
+  {
+    variants: {
+      variant: {
+        default: "bg-neutral-100 border border-neutral-200",
+        brand: "bg-surface border border-border-default",
+        underline: "bg-transparent border-b border-border-subtle rounded-none w-full justify-start p-0"
+      }
+    },
+    defaultVariants: {
+      variant: "default"
+    }
+  }
+);
+var TabsList = React27__namespace.default.forwardRef(({ className, variant, ...props }, ref) => /* @__PURE__ */ jsxRuntime.jsx(
+  TabsPrimitive__namespace.List,
+  {
+    ref,
+    className: cn(TabsListVariants({ variant }), className),
+    ...props
+  }
+));
+TabsList.displayName = TabsPrimitive__namespace.List.displayName;
+var TabsTriggerVariants = classVarianceAuthority.cva(
+  "inline-flex items-center justify-center whitespace-nowrap rounded-md px-3 py-1.5 text-sm font-medium ring-offset-bg-base transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint-400 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
+  {
+    variants: {
+      variant: {
+        default: "data-[state=active]:bg-surface data-[state=active]:text-text-primary data-[state=active]:shadow-sm",
+        brand: "data-[state=active]:bg-mint-400 data-[state=active]:text-neutral-900 data-[state=active]:shadow-brand hover:text-text-primary",
+        underline: "rounded-none border-b-2 border-transparent px-sp-4 py-sp-3 data-[state=active]:border-mint-400 data-[state=active]:text-text-primary hover:text-text-primary"
+      }
+    },
+    defaultVariants: {
+      variant: "default"
+    }
+  }
+);
+var TabsTrigger = React27__namespace.default.forwardRef(({ className, variant, ...props }, ref) => /* @__PURE__ */ jsxRuntime.jsx(
+  TabsPrimitive__namespace.Trigger,
+  {
+    ref,
+    className: cn(TabsTriggerVariants({ variant }), className),
+    ...props
+  }
+));
+TabsTrigger.displayName = TabsPrimitive__namespace.Trigger.displayName;
+var TabsContent = React27__namespace.default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsxRuntime.jsx(
+  TabsPrimitive__namespace.Content,
+  {
+    ref,
+    className: cn(
+      "mt-sp-4 ring-offset-bg-base focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint-400 focus-visible:ring-offset-2",
+      className
+    ),
+    ...props
+  }
+));
+TabsContent.displayName = TabsPrimitive__namespace.Content.displayName;
+var variantClasses2 = {
+  default: "bg-surface text-neutral-400 border-border shadow-sm",
+  primary: "bg-mint-500/10 text-mint-500 border-mint-500/25",
+  secondary: "bg-white/10 text-primary border-white/5",
+  outline: "bg-transparent border border-border text-primary"
+};
+var sizeClasses4 = {
+  sm: "h-6 px-2 text-[10px]",
+  md: "h-7 px-3 text-[11px]"
+};
+function Tag2({
+  label,
+  onRemove,
+  onClick,
+  variant = "default",
+  size = "md",
+  className
+}) {
+  return /* @__PURE__ */ jsxRuntime.jsxs(
+    "div",
+    {
+      onClick,
+      className: cn(
+        "inline-flex items-center gap-1.5 rounded-full font-bold uppercase tracking-widest transition-all duration-150 border",
+        variantClasses2[variant],
+        sizeClasses4[size],
+        onClick ? "cursor-pointer hover:scale-105 active:scale-95" : "cursor-default",
+        className
+      ),
+      children: [
+        /* @__PURE__ */ jsxRuntime.jsx("span", { children: label }),
+        onRemove && /* @__PURE__ */ jsxRuntime.jsx(
+          "button",
+          {
+            onClick: (e) => {
+              e.stopPropagation();
+              onRemove();
+            },
+            className: "flex items-center justify-center p-0.5 rounded-full hover:bg-white/15 transition-colors cursor-pointer border-none bg-transparent",
+            children: /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.X, { size: size === "sm" ? 8 : 10 })
+          }
+        )
+      ]
+    }
+  );
+}
+Tag2.displayName = "Tag";
+function TagGroup2({
+  tags,
+  onRemoveTag,
+  variant,
+  size,
+  label,
+  className
+}) {
+  return /* @__PURE__ */ jsxRuntime.jsxs("div", { className: cn("flex flex-col gap-2", className), children: [
+    label && /* @__PURE__ */ jsxRuntime.jsx("span", { className: "text-xs font-bold uppercase tracking-widest text-neutral-400 font-body", children: label }),
+    /* @__PURE__ */ jsxRuntime.jsx("div", { className: "flex flex-wrap gap-1.5", children: tags.map((tag) => /* @__PURE__ */ jsxRuntime.jsx(
+      Tag2,
+      {
+        label: tag,
+        variant,
+        size,
+        onRemove: onRemoveTag ? () => onRemoveTag(tag) : void 0
+      },
+      tag
+    )) })
+  ] });
+}
+TagGroup2.displayName = "TagGroup";
+var TextArea2 = React27__namespace.default.forwardRef(
+  ({ className, label, error, ...props }, ref) => {
+    return /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex flex-col gap-sp-1.5 w-full", children: [
+      label && /* @__PURE__ */ jsxRuntime.jsx("label", { className: "text-sm font-semibold text-text-primary/80 leading-none font-display", children: label }),
+      /* @__PURE__ */ jsxRuntime.jsx(
+        "textarea",
+        {
+          ref,
+          className: cn(
+            "flex min-h-[100px] w-full rounded-xl border border-neutral-150 bg-surface px-sp-3 py-sp-2 text-sm shadow-sm transition-all placeholder:text-neutral-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint-500/20 focus-visible:border-mint-500 disabled:cursor-not-allowed disabled:opacity-50 resize-none font-body",
+            error && "border-red-500 focus-visible:border-red-500 focus-visible:ring-red-500/20",
+            className
+          ),
+          ...props
+        }
+      ),
+      error && /* @__PURE__ */ jsxRuntime.jsx("p", { className: "text-xs font-medium text-red-500", children: error })
+    ] });
+  }
+);
+TextArea2.displayName = "TextArea";
+var TextField2 = React27__namespace.default.forwardRef(
+  ({ className, label, error, hint, leftIcon, rightIcon, fullWidth, ...props }, ref) => {
+    return /* @__PURE__ */ jsxRuntime.jsxs("div", { className: cn("flex flex-col gap-sp-1.5 w-full", fullWidth && "w-full"), children: [
+      label && /* @__PURE__ */ jsxRuntime.jsx("label", { className: "text-sm font-semibold text-text-primary leading-none font-display", children: label }),
+      /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "relative group", children: [
+        leftIcon && /* @__PURE__ */ jsxRuntime.jsx("div", { className: "absolute left-sp-3 top-1/2 -translate-y-1/2 text-text-tertiary group-focus-within:text-text-brand transition-colors", children: leftIcon }),
+        /* @__PURE__ */ jsxRuntime.jsx(
+          "input",
+          {
+            ref,
+            className: cn(
+              "flex h-sp-11 w-full rounded-xl border border-border-default bg-surface px-sp-3 py-sp-2 text-sm shadow-sm transition-all file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-text-tertiary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint-500/20 focus-visible:border-mint-500 disabled:cursor-not-allowed disabled:opacity-50 font-body text-text-primary",
+              leftIcon && "pl-sp-10",
+              rightIcon && "pr-sp-10",
+              error && "border-red-500 focus-visible:border-red-500 focus-visible:ring-red-500/20",
+              className
+            ),
+            ...props
+          }
+        ),
+        rightIcon && /* @__PURE__ */ jsxRuntime.jsx("div", { className: "absolute right-sp-3 top-1/2 -translate-y-1/2 text-text-tertiary group-focus-within:text-text-brand transition-colors", children: rightIcon })
+      ] }),
+      hint && !error && /* @__PURE__ */ jsxRuntime.jsx("p", { className: "text-[11px] text-text-tertiary font-medium", children: hint }),
+      error && /* @__PURE__ */ jsxRuntime.jsx("p", { className: "text-xs font-medium text-red-500", children: error })
+    ] });
+  }
+);
+TextField2.displayName = "TextField";
+var TextFieldPassword2 = React27__namespace.default.forwardRef(
+  (props, ref) => {
+    const [showPassword, setShowPassword] = React27.useState(false);
+    return /* @__PURE__ */ jsxRuntime.jsx(
+      TextField2,
+      {
+        ...props,
+        ref,
+        type: showPassword ? "text" : "password",
+        rightIcon: /* @__PURE__ */ jsxRuntime.jsx(
+          IconButton2,
+          {
+            type: "button",
+            variant: "ghost",
+            size: "sm",
+            className: "h-8 w-8 text-muted-foreground hover:text-foreground",
+            onClick: () => setShowPassword(!showPassword),
+            icon: showPassword ? /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.EyeOff, { size: 16 }) : /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.Eye, { size: 16 })
+          }
+        )
+      }
+    );
+  }
+);
+TextFieldPassword2.displayName = "TextFieldPassword";
+var toggleVariants2 = classVarianceAuthority.cva(
+  "inline-flex items-center gap-sp-2 cursor-pointer select-none disabled:opacity-50 disabled:cursor-not-allowed",
+  {
+    variants: {
+      size: {
+        sm: "text-xs",
+        md: "text-sm"
+      }
+    },
+    defaultVariants: {
+      size: "md"
+    }
+  }
+);
+var trackVariants2 = classVarianceAuthority.cva(
+  "relative rounded-full shrink-0 transition-colors duration-200 peer-checked:bg-mint-400 bg-neutral-200",
+  {
+    variants: {
+      size: {
+        sm: "w-8 h-[18px]",
+        md: "w-10 h-[22px]"
+      }
+    },
+    defaultVariants: {
+      size: "md"
+    }
+  }
+);
+var thumbVariants2 = classVarianceAuthority.cva(
+  "absolute bg-white rounded-full shadow-sm transition-transform duration-200 ease-[cubic-bezier(0.34,1.56,0.64,1)] top-[3px] left-[3px]",
+  {
+    variants: {
+      size: {
+        sm: "w-3 h-3 peer-checked:translate-x-[14px]",
+        md: "w-4 h-4 peer-checked:translate-x-[18px]"
+      }
+    },
+    defaultVariants: {
+      size: "md"
+    }
+  }
+);
+function Toggle2({
+  checked,
+  defaultChecked,
+  disabled = false,
+  size = "md",
+  label,
+  onChange,
+  className,
+  style
+}) {
+  const uid = React27.useId();
+  return /* @__PURE__ */ jsxRuntime.jsxs(
+    "label",
+    {
+      htmlFor: uid,
+      className: cn(toggleVariants2({ size }), className),
+      style,
+      children: [
+        /* @__PURE__ */ jsxRuntime.jsx(
+          "input",
+          {
+            id: uid,
+            type: "checkbox",
+            className: "sr-only peer",
+            checked,
+            defaultChecked,
+            disabled,
+            onChange: (e) => onChange?.(e.target.checked),
+            role: "switch",
+            "aria-checked": checked
+          }
+        ),
+        /* @__PURE__ */ jsxRuntime.jsx("div", { className: trackVariants2({ size }), "aria-hidden": "true", children: /* @__PURE__ */ jsxRuntime.jsx("div", { className: cn(thumbVariants2({ size }), "peer-checked:translate-x-[18px]!") }) }),
+        label && /* @__PURE__ */ jsxRuntime.jsx("span", { className: "text-sm font-medium text-neutral-600", children: label })
+      ]
+    }
+  );
+}
+Toggle2.displayName = "Toggle";
+var Tooltip2 = TooltipPrimitive__namespace.Root;
+var TooltipContent2 = React27__namespace.default.forwardRef(({ className, sideOffset = 6, ...props }, ref) => /* @__PURE__ */ jsxRuntime.jsx(
+  TooltipPrimitive__namespace.Content,
+  {
+    ref,
+    sideOffset,
+    className: cn(
+      "z-[9999] overflow-hidden rounded-lg px-3 py-1.5 text-xs font-bold uppercase tracking-wider",
+      "bg-neutral-900/95 backdrop-blur-lg border border-white/5",
+      "text-primary shadow-xl animate-in fade-in-0 zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
+      className
+    ),
+    ...props
+  }
+));
+TooltipContent2.displayName = TooltipPrimitive__namespace.Content.displayName;
 
 exports.Accordion = Accordion;
 exports.AccordionContent = AccordionContent;
@@ -15389,10 +17561,13 @@ exports.Card = Card;
 exports.Carousel = Carousel;
 exports.CheckBox = CheckBox;
 exports.Chip = Chip;
+exports.Collapsible = Collapsible;
 exports.CommunitySection = CommunitySection;
+exports.ConfirmDialog = ConfirmDialog;
 exports.CustomTickerTape = CustomTickerTape;
 exports.DataTable = DataTable;
 exports.DatePicker = DatePicker;
+exports.DateRangePicker = DateRangePicker;
 exports.Dialog = Dialog;
 exports.DialogClose = DialogClose;
 exports.DialogContent = DialogContent;
@@ -15408,8 +17583,10 @@ exports.Differentiators = Differentiators;
 exports.DigitInput = DigitInput;
 exports.Divider = Divider;
 exports.Drawer = Drawer;
+exports.EmptyState = EmptyState;
 exports.EngagementNudge = Nudge2;
 exports.EngagementNudgesPanel = NudgesPanel2;
+exports.ErrorBoundary = ErrorBoundary;
 exports.Fab = Fab;
 exports.FadeIn = FadeIn;
 exports.FibSpiral = FibSpiral;
@@ -15427,6 +17604,7 @@ exports.Link = Link;
 exports.List = List;
 exports.ListItem = ListItem;
 exports.Loader = Loader;
+exports.LoadingOverlay = LoadingOverlay;
 exports.MarketDataStatus = MarketStatus3;
 exports.MarketDataTable = DataTable2;
 exports.MarketMetricCard = MetricCard2;
@@ -15435,7 +17613,7 @@ exports.MarketPagination = Pagination2;
 exports.MarketPriceChange = PriceChange2;
 exports.MarketSparkline = Sparkline2;
 exports.MarketStatus = MarketStatus;
-exports.MarketStatusIndicator = Status;
+exports.MarketStatusIndicator = Status2;
 exports.MarketStockCard = StockCard2;
 exports.MarketTable = Table2;
 exports.MarketTickerTape = CustomTickerTape2;
@@ -15453,6 +17631,7 @@ exports.MintxLogo = MintxLogo;
 exports.NotiStackProvider = NotiStackProvider;
 exports.Nudge = Nudge;
 exports.NudgesPanel = NudgesPanel;
+exports.NumberInput = NumberInput;
 exports.OnboardingBreadcrumbs = Breadcrumbs2;
 exports.OnboardingDialog = Dialog2;
 exports.OnboardingDrawer = Drawer2;
@@ -15472,6 +17651,7 @@ exports.RadioGroupItem = RadioGroupItem;
 exports.Rating = Rating;
 exports.SVGS = SVGS;
 exports.ScaleIn = ScaleIn;
+exports.SearchInput = SearchInput;
 exports.Select = Select;
 exports.SelectContent = SelectContent;
 exports.SelectGroup = SelectGroup;
@@ -15481,6 +17661,54 @@ exports.SelectSeparator = SelectSeparator;
 exports.SelectTrigger = SelectTrigger;
 exports.SelectValue = SelectValue;
 exports.Separator = Separator3;
+exports.SharedAccordion = Accordion2;
+exports.SharedAlert = Alert2;
+exports.SharedAutocomplete = Autocomplete2;
+exports.SharedAvatar = Avatar2;
+exports.SharedBackdrop = Backdrop2;
+exports.SharedBadge = Badge2;
+exports.SharedBox = Box2;
+exports.SharedButton = Button2;
+exports.SharedCard = Card2;
+exports.SharedCarousel = Carousel2;
+exports.SharedCheckBox = CheckBox2;
+exports.SharedChip = Chip2;
+exports.SharedDatePicker = DatePicker2;
+exports.SharedDigitInput = DigitInput2;
+exports.SharedDivider = Divider2;
+exports.SharedFadeIn = FadeIn2;
+exports.SharedFileUploader = FileUploader2;
+exports.SharedIconButton = IconButton2;
+exports.SharedImage = Image4;
+exports.SharedImageList = ImageList2;
+exports.SharedInput = Input2;
+exports.SharedLink = Link5;
+exports.SharedList = List2;
+exports.SharedLoader = Loader2;
+exports.SharedPopover = Popover2;
+exports.SharedProgress = Progress2;
+exports.SharedProgressIndicator = ProgressIndicator2;
+exports.SharedProgressTracker = ProgressTracker2;
+exports.SharedRadioGroup = RadioGroup2;
+exports.SharedRadioGroupItem = RadioGroupItem2;
+exports.SharedRating = Rating2;
+exports.SharedScaleIn = ScaleIn2;
+exports.SharedSelect = Select2;
+exports.SharedSeparator = Separator5;
+exports.SharedSkeleton = Skeleton2;
+exports.SharedSlideIn = SlideIn2;
+exports.SharedSlider = Slider2;
+exports.SharedStack = Stack2;
+exports.SharedSwitch = Switch2;
+exports.SharedTabs = Tabs2;
+exports.SharedTag = Tag2;
+exports.SharedTagGroup = TagGroup2;
+exports.SharedTextArea = TextArea2;
+exports.SharedTextField = TextField2;
+exports.SharedTextFieldPassword = TextFieldPassword2;
+exports.SharedToast = Toast2;
+exports.SharedToggle = Toggle2;
+exports.SharedTooltip = Tooltip2;
 exports.Sidebar = Sidebar;
 exports.Skeleton = Skeleton;
 exports.SlideIn = SlideIn;
@@ -15488,6 +17716,8 @@ exports.Slider = Slider;
 exports.Sparkline = Sparkline;
 exports.Stack = Stack;
 exports.StatsSection = StatsSection;
+exports.Status = Status;
+exports.Stepper = Stepper;
 exports.StockCard = StockCard;
 exports.SupportLiveBar = SupportLiveBar;
 exports.Switch = Switch;
@@ -15533,6 +17763,7 @@ exports.badgeVariants = badgeVariants;
 exports.borderWidth = borderWidth;
 exports.cn = cn;
 exports.elevation = elevation;
+exports.getCommonClasses = getCommonClasses;
 exports.mintColors = mintColors;
 exports.motion = motion;
 exports.neutralColors = neutralColors;
@@ -15546,9 +17777,11 @@ exports.transition = transition;
 exports.typography = typography;
 exports.useCountUp = useCountUp;
 exports.useDisclosure = useDisclosure;
+exports.useDotButton = useDotButton;
 exports.useIsMobile = useIsMobile;
 exports.useLocalStorage = useLocalStorage;
 exports.useMediaQuery = useMediaQuery;
+exports.usePrevNextButtons = usePrevNextButtons;
 exports.usePriceDirection = usePriceDirection;
 exports.useTheme = useTheme;
 exports.useToast = useToast;

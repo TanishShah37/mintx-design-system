@@ -1,3 +1,5 @@
+import React from "react";
+import { cva } from "class-variance-authority";
 import { BaseProps } from "../../types";
 import { cn } from "../../tokens/cn";
 import { getCommonClasses } from "../../tokens/common-props";

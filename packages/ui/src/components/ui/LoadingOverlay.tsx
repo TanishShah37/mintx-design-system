@@ -41,7 +41,7 @@ export function LoadingOverlay({
             className
           )}
         >
-          <Loader size="lg" color="mint" />
+          <Loader size="lg" color="brand" />
           {text && (
             <p className="mt-4 text-sm font-semibold text-text-primary tracking-tight">
               {text}

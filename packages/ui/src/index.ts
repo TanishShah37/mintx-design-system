@@ -1,6 +1,7 @@
 export * from "./types";
 export * from "./tokens/cn";
 export * from "./tokens/tokens";
+export * from "./tokens/common-props";
 export * from "./hooks";
 
 // ── Canonical UI Components ─────────────────────────────────
@@ -67,3 +68,56 @@ export {
   NotiStackProvider as WrapperNotiStackProvider,
 } from "./components/wrappers";
 export * from "./components/layout";
+
+// ── Shared Components ───────────────────────────────────────
+// (Exported with Shared prefix to avoid ambiguity with ui/)
+export {
+  Accordion as SharedAccordion,
+  Alert as SharedAlert,
+  Backdrop as SharedBackdrop,
+  Badge as SharedBadge,
+  Box as SharedBox,
+  FadeIn as SharedFadeIn,
+  SlideIn as SharedSlideIn,
+  ScaleIn as SharedScaleIn,
+  Autocomplete as SharedAutocomplete,
+  Avatar as SharedAvatar,
+  Button as SharedButton,
+  Card as SharedCard,
+  Carousel as SharedCarousel,
+  CheckBox as SharedCheckBox,
+  Chip as SharedChip,
+  DatePicker as SharedDatePicker,
+  DigitInput as SharedDigitInput,
+  Divider as SharedDivider,
+  FileUploader as SharedFileUploader,
+  IconButton as SharedIconButton,
+  Image as SharedImage,
+  ImageList as SharedImageList,
+  Input as SharedInput,
+  Link as SharedLink,
+  List as SharedList,
+  Loader as SharedLoader,
+  Popover as SharedPopover,
+  Progress as SharedProgress,
+  ProgressIndicator as SharedProgressIndicator,
+  ProgressTracker as SharedProgressTracker,
+  RadioGroup as SharedRadioGroup,
+  RadioGroupItem as SharedRadioGroupItem,
+  Rating as SharedRating,
+  Select as SharedSelect,
+  Separator as SharedSeparator,
+  Skeleton as SharedSkeleton,
+  Slider as SharedSlider,
+  Stack as SharedStack,
+  Switch as SharedSwitch,
+  Tabs as SharedTabs,
+  Tag as SharedTag,
+  TagGroup as SharedTagGroup,
+  TextArea as SharedTextArea,
+  TextField as SharedTextField,
+  TextFieldPassword as SharedTextFieldPassword,
+  Toast as SharedToast,
+  Toggle as SharedToggle,
+  Tooltip as SharedTooltip,
+} from "./components/shared";
