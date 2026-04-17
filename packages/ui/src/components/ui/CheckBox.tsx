@@ -2,8 +2,10 @@ import React from "react";
 import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
 import { Check } from "lucide-react";
 import { cn } from "../../tokens/cn";
+import { BaseProps } from "../../types";
+import { getCommonClasses } from "../../tokens/common-props";
 
-export interface CheckBoxProps extends React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root> {
+export interface CheckBoxProps extends React.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root>, BaseProps {
   label?: string;
   error?: string;
 }
@@ -21,10 +23,11 @@ export const CheckBox = React.forwardRef<
         <CheckboxPrimitive.Root
           ref={ref}
           className={cn(
-            "flex h-5 w-5 shrink-0 items-center justify-center rounded-sm border transition-all duration-200 focus-visible:outline-none",
-            "border-border bg-surface hover:border-mint-400",
+            "flex h-5 w-5 shrink-0 items-center justify-center rounded border transition-all duration-200 focus-visible:outline-none",
+            "border-border bg-surface hover:border-mint-500",
             "data-[state=checked]:bg-mint-500 data-[state=checked]:border-mint-500",
             error && "border-red-500 text-red-500",
+            getCommonClasses(props),
             className
           )}
           {...props}
@@ -34,7 +37,7 @@ export const CheckBox = React.forwardRef<
           </CheckboxPrimitive.Indicator>
         </CheckboxPrimitive.Root>
         {label && (
-          <span className="text-sm font-body text-primary select-none leading-none">
+          <span className="text-sm font-semibold text-text-primary select-none leading-none">
             {label}
           </span>
         )}

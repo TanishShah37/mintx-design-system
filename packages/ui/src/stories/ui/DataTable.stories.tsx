@@ -18,6 +18,12 @@ const meta: Meta<typeof DataTable<Transaction>> = {
   title: "UI/DataTable",
   component: DataTable,
   tags: ["autodocs"],
+  argTypes: {
+    loading: { control: "boolean" },
+    striped: { control: "boolean" },
+    compact: { control: "boolean" },
+    stickyHeader: { control: "boolean" },
+  },
 };
 
 export default meta;
@@ -35,7 +41,7 @@ const columns: ColumnDef<Transaction>[] = [
     header: "Type",
     accessorKey: "type",
     cell: (item) => (
-      <span className={item.type === "buy" ? "text-green-500 font-medium" : "text-red-500 font-medium"}>
+      <span className={item.type === "buy" ? "text-emerald-500 font-bold" : "text-red-500 font-bold"}>
         {item.type.toUpperCase()}
       </span>
     ),
@@ -52,12 +58,12 @@ const columns: ColumnDef<Transaction>[] = [
     header: "Status",
     accessorKey: "status",
     cell: (item) => {
-      const variants: Record<string, "green" | "amber" | "red" | "neutral"> = {
-        completed: "green",
-        pending: "amber",
-        failed: "red",
+      const variants: Record<string, "success" | "warning" | "danger" | "neutral"> = {
+        completed: "success",
+        pending: "warning",
+        failed: "danger",
       };
-      return <Badge variant={variants[item.status] || "neutral"} size="sm">{item.status}</Badge>;
+      return <Badge variant={variants[item.status] || "neutral"} style="subtle" size="sm" dot>{item.status}</Badge>;
     },
   },
   {
@@ -67,7 +73,7 @@ const columns: ColumnDef<Transaction>[] = [
     cell: (item) => (
       <div className="flex items-center gap-2 min-w-[100px]">
         <Progress value={item.risk} className="h-1.5" color={item.risk > 70 ? "red" : item.risk > 30 ? "amber" : "brand"} />
-        <span className="text-[11px] font-mono text-text-tertiary">{item.risk}%</span>
+        <span className="text-[11px] font-bold text-text-tertiary">{item.risk}%</span>
       </div>
     ),
     sortable: true,
@@ -98,11 +104,31 @@ export const Default: Story = {
   },
 };
 
-export const WithHighlight: Story = {
+export const Loading: Story = {
+  args: {
+    columns,
+    data: [], // Data is ignored when loading is true
+    loading: true,
+    skeletonRows: 5,
+  },
+};
+
+export const Empty: Story = {
+  args: {
+    columns,
+    data: [],
+    emptyStateTitle: "No transactions found",
+    emptyStateDescription: "Try adjusting your filters or search terms.",
+  },
+};
+
+export const Styled: Story = {
   args: {
     columns,
     data,
-    searchKey: "asset",
-    highlightKey: "isHighlight",
+    striped: true,
+    compact: true,
+    stickyHeader: true,
+    maxHeight: "300px",
   },
 };

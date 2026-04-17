@@ -85,6 +85,48 @@
   --dur-base: 200ms;
   --dur-slow: 350ms;
   --dur-page: 600ms;
+
+  /* ── BORDER WIDTH ── */
+  --bw-none:   0px;
+  --bw-thin:   1px;
+  --bw-medium: 2px;
+  --bw-thick:  4px;
+
+  /* ── Z-INDEX ── */
+  --z-hide:     -1;
+  --z-base:      0;
+  --z-docked:   10;
+  --z-dropdown: 1000;
+  --z-sticky:   1100;
+  --z-banner:   1200;
+  --z-overlay:  1300;
+  --z-modal:    1400;
+  --z-popover:  1500;
+  --z-skipLink: 1600;
+  --z-toast:    1700;
+  --z-tooltip:  1800;
+
+  /* ── OPACITY ── */
+  --op-0:   0;
+  --op-25:  0.25;
+  --op-40:  0.4;
+  --op-50:  0.5;
+  --op-60:  0.6;
+  --op-70:  0.7;
+  --op-80:  0.8;
+  --op-90:  0.9;
+  --op-100: 1;
+
+  /* ── BACKDROP ── */
+  --blur-none: 0;
+  --blur-sm:   4px;
+  --blur-md:   8px;
+  --blur-lg:   12px;
+  --blur-xl:   16px;
+
+  --backdrop-op-sm: 0.4;
+  --backdrop-op-md: 0.6;
+  --backdrop-op-lg: 0.8;
 }
 
 /* ── LIGHT MODE (default) ── */
@@ -118,6 +160,15 @@
   --shadow-lg:    0 12px 32px rgba(0,0,0,0.10), 0 4px 8px rgba(0,0,0,0.06);
   --shadow-xl:    0 24px 48px rgba(0,0,0,0.12), 0 8px 16px rgba(0,0,0,0.07);
   --shadow-brand: 0 4px 16px rgba(0, 179, 138, 0.25);
+
+  /* ── NEW ELEVATION SCALE ── */
+  --elevation-none: none;
+  --elevation-sm:   0 1px 2px 0 rgba(0,0,0,0.05);
+  --elevation-md:   0 4px 6px -1px rgba(0,0,0,0.1);
+  --elevation-lg:   0 10px 15px -3px rgba(0,0,0,0.1);
+  --elevation-xl:   0 20px 25px -5px rgba(0,0,0,0.1);
+  --elevation-2xl:  0 25px 50px -12px rgba(0,0,0,0.25);
+  --elevation-inner: inset 0 2px 4px 0 rgba(0,0,0,0.05);
 }
 
 /* ── DARK MODE ── */
@@ -151,6 +202,15 @@
   --shadow-lg:    0 12px 32px rgba(0,0,0,0.50), 0 4px 8px rgba(0,0,0,0.30);
   --shadow-xl:    0 24px 48px rgba(0,0,0,0.60), 0 8px 16px rgba(0,0,0,0.35);
   --shadow-brand: 0 4px 20px rgba(0, 179, 138, 0.35);
+
+  /* ── NEW ELEVATION SCALE (Dark) ── */
+  --elevation-none: none;
+  --elevation-sm:   0 1px 2px 0 rgba(0,0,0,0.3);
+  --elevation-md:   0 4px 6px -1px rgba(0,0,0,0.4);
+  --elevation-lg:   0 10px 15px -3px rgba(0,0,0,0.45);
+  --elevation-xl:   0 20px 25px -5px rgba(0,0,0,0.55);
+  --elevation-2xl:  0 25px 50px -12px rgba(0,0,0,0.65);
+  --elevation-inner: inset 0 2px 4px 0 rgba(0,0,0,0.4);
 }
 
 /* ── GLOBAL RESET ── */

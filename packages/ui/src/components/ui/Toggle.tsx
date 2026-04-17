@@ -1,6 +1,12 @@
+"use client";
+
 import React, { useId } from "react";
-import { cva, type VariantProps } from "class-variance-authority";
-export interface ToggleProps {
+import { cva } from "class-variance-authority";
+import { cn } from "../../tokens/cn";
+import { BaseProps } from "../../types";
+import { getCommonClasses } from "../../tokens/common-props";
+
+export interface ToggleProps extends BaseProps {
   checked?: boolean;
   defaultChecked?: boolean;
   disabled?: boolean;
@@ -8,9 +14,7 @@ export interface ToggleProps {
   label?: string;
   onChange?: (checked: boolean) => void;
   className?: string;
-  style?: React.CSSProperties;
 }
-import { cn } from "../../tokens/cn";
 
 const toggleVariants = cva(
   "inline-flex items-center gap-sp-2 cursor-pointer select-none disabled:opacity-50 disabled:cursor-not-allowed",
@@ -28,7 +32,7 @@ const toggleVariants = cva(
 );
 
 const trackVariants = cva(
-  "relative rounded-full shrink-0 transition-colors duration-200 peer-checked:bg-mint-400 bg-neutral-200",
+  "relative rounded-full shrink-0 transition-colors duration-200 peer-checked:bg-mint-500 bg-neutral-200 dark:bg-neutral-800",
   {
     variants: {
       size: {
@@ -65,15 +69,14 @@ export function Toggle({
   label,
   onChange,
   className,
-  style,
+  ...props
 }: ToggleProps): React.JSX.Element {
   const uid = useId();
 
   return (
     <label
       htmlFor={uid}
-      className={cn(toggleVariants({ size }), className)}
-      style={style}
+      className={cn(toggleVariants({ size }), getCommonClasses(props), className)}
     >
       <input
         id={uid}
@@ -87,9 +90,9 @@ export function Toggle({
         aria-checked={checked}
       />
       <div className={trackVariants({ size })} aria-hidden="true">
-        <div className={cn(thumbVariants({ size }), "peer-checked:translate-x-[18px]!")} />
+        <div className={cn(thumbVariants({ size }))} />
       </div>
-      {label && <span className="text-sm font-medium text-neutral-600">{label}</span>}
+      {label && <span className="text-sm font-medium text-text-secondary">{label}</span>}
     </label>
   );
 }

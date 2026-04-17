@@ -64,6 +64,68 @@ export const radius = {
   full: "9999px",
 } as const;
 
+export const elevation = {
+  none: "none",
+  sm: "0 1px 2px 0 rgba(0,0,0,0.05)",
+  md: "0 4px 6px -1px rgba(0,0,0,0.1)",
+  lg: "0 10px 15px -3px rgba(0,0,0,0.1)",
+  xl: "0 20px 25px -5px rgba(0,0,0,0.1)",
+  "2xl": "0 25px 50px -12px rgba(0,0,0,0.25)",
+  inner: "inset 0 2px 4px 0 rgba(0,0,0,0.05)",
+  // Dark mode variants
+  "sm-dark": "0 1px 2px 0 rgba(0,0,0,0.3)",
+  "md-dark": "0 4px 6px -1px rgba(0,0,0,0.4)",
+} as const;
+
+export const borderWidth = {
+  none: "0px",
+  thin: "1px",
+  medium: "2px",
+  thick: "4px",
+} as const;
+
+export const zIndex = {
+  hide: -1,
+  base: 0,
+  docked: 10,
+  dropdown: 1000,
+  sticky: 1100,
+  banner: 1200,
+  overlay: 1300,
+  modal: 1400,
+  popover: 1500,
+  skipLink: 1600,
+  toast: 1700,
+  tooltip: 1800,
+} as const;
+
+export const opacity = {
+  0: "0",
+  25: "0.25",
+  40: "0.4",
+  50: "0.5",
+  60: "0.6",
+  70: "0.7",
+  80: "0.8",
+  90: "0.9",
+  100: "1",
+} as const;
+
+export const backdrop = {
+  blur: {
+    none: "0",
+    sm: "4px",
+    md: "8px",
+    lg: "12px",
+    xl: "16px",
+  },
+  opacity: {
+    sm: "0.4",
+    md: "0.6",
+    lg: "0.8",
+  },
+} as const;
+
 export const typography = {
   fontDisplay: "'Syne', sans-serif",
   fontBody: "'DM Sans', sans-serif",
@@ -92,6 +154,43 @@ export const motion = {
   page: "600ms",
 } as const;
 
+export const animation = {
+  fade: {
+    in: "fade-in 200ms ease-out",
+    out: "fade-out 150ms ease-in",
+  },
+  slide: {
+    up: "slide-up 300ms ease-out",
+    down: "slide-down 300ms ease-out",
+    left: "slide-left 300ms ease-out",
+    right: "slide-right 300ms ease-out",
+  },
+  scale: {
+    in: "scale-in 200ms ease-out",
+    out: "scale-out 150ms ease-in",
+  },
+  spin: "spin 1s linear infinite",
+  pulse: "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+  bounce: "bounce 1s infinite",
+} as const;
+
+export const transition = {
+  property: {
+    none: "none",
+    all: "all",
+    colors: "background-color, border-color, color, fill, stroke",
+    opacity: "opacity",
+    shadow: "box-shadow",
+    transform: "transform",
+  },
+  duration: {
+    fast: "120ms",
+    base: "200ms",
+    slow: "300ms",
+    slower: "500ms",
+  },
+} as const;
+
 export const shadows = {
   sm: "0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04)",
   md: "0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.05)",
@@ -116,8 +215,15 @@ export const tokens = {
   },
   spacing,
   radius,
+  elevation,
+  borderWidth,
+  zIndex,
+  opacity,
+  backdrop,
   typography,
   motion,
+  animation,
+  transition,
   shadows,
 } as const;
 

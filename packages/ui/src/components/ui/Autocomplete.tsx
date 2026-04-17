@@ -5,13 +5,16 @@ import { cn } from "../../tokens/cn";
 import { Check, ChevronsUpDown, Search } from "lucide-react";
 import { Popover, PopoverContent, PopoverTrigger } from "./Popover";
 import { Button } from "./Button";
+import { TextField } from "./TextField";
+import { BaseProps } from "../../types";
+import { getCommonClasses } from "../../tokens/common-props";
 
 export interface AutocompleteOption {
   value: string;
   label: string;
 }
 
-export interface AutocompleteProps {
+export interface AutocompleteProps extends BaseProps {
   options: AutocompleteOption[];
   value?: string;
   onChange?: (value: string) => void;
@@ -29,6 +32,7 @@ export function Autocomplete({
   label,
   error,
   className,
+  ...props
 }: AutocompleteProps): React.JSX.Element {
   const [open, setOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
@@ -40,7 +44,7 @@ export function Autocomplete({
   const selectedOption = options.find((opt) => opt.value === value);
 
   return (
-    <div className={cn("flex flex-col gap-1.5 w-full", className)}>
+    <div className={cn("flex flex-col gap-1.5 w-full", getCommonClasses(props), className)}>
       {label && <label className="text-sm font-semibold text-foreground/80 leading-none">{label}</label>}
       <Popover open={open} onOpenChange={setOpen}>
         <PopoverTrigger asChild>
@@ -60,13 +64,14 @@ export function Autocomplete({
         </PopoverTrigger>
         <PopoverContent className="w-[var(--radix-popover-trigger-width)] p-1.5" align="start">
           <div className="flex flex-col gap-1.5">
-            <div className="relative flex items-center px-2 py-2 border-b border-border/50 mb-1">
-              <Search className="h-4 w-4 absolute left-3 opacity-40" />
-              <input
-                className="w-full bg-transparent pl-8 text-sm outline-none placeholder:opacity-50"
+            <div className="relative mb-1">
+              <TextField
                 placeholder="Search..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
+                leftIcon={<Search className="h-4 w-4" />}
+                size="sm"
+                className="bg-transparent border-none focus:ring-0"
               />
             </div>
             <div className="max-h-60 overflow-y-auto min-h-0 custom-scrollbar">

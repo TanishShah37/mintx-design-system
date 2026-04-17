@@ -1,6 +1,9 @@
 import React, { forwardRef } from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "../../tokens/cn";
+import { BaseProps } from "../../types";
+import { getCommonClasses } from "../../tokens/common-props";
+import { Tooltip, TooltipTrigger, TooltipContent } from "./Tooltip";
 
 const buttonVariants = cva(
   "inline-flex items-center justify-center gap-sp-2 font-body font-medium tracking-tight cursor-pointer border border-transparent relative overflow-hidden select-none whitespace-nowrap transition-all duration-120 ease-out focus-visible:outline-2 focus-visible:outline-mint-400 focus-visible:outline-offset-2 active:scale-[0.97] disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none",
@@ -13,6 +16,12 @@ const buttonVariants = cva(
         danger: "bg-red-500/10 text-red-600 border-red-500/20 hover:bg-red-600 hover:text-white hover:border-red-600",
         "outline-brand": "bg-transparent text-mint-600 border-mint-400 hover:bg-mint-50",
         dark: "bg-neutral-800 text-mint-300 border-mint-300/20 shadow-[0_4px_20px_rgba(0,0,0,0.4)] hover:bg-neutral-700 hover:border-mint-400",
+        success: "bg-emerald-500 text-white border-emerald-500 hover:bg-emerald-600 hover:border-emerald-600",
+        warning: "bg-amber-500 text-white border-amber-500 hover:bg-amber-600 hover:border-amber-600",
+        info: "bg-blue-500 text-white border-blue-500 hover:bg-blue-600 hover:border-blue-600",
+        outline: "bg-transparent border border-neutral-300 text-neutral-700 hover:bg-neutral-50 hover:border-neutral-400",
+        subtle: "bg-neutral-100 text-neutral-700 border-neutral-100 hover:bg-neutral-200",
+        link: "bg-transparent text-mint-600 border-transparent hover:underline hover:text-mint-700 p-0 h-auto",
       },
       size: {
         xs: "text-xs py-1 px-2.5 rounded-sm",
@@ -20,6 +29,8 @@ const buttonVariants = cva(
         md: "text-base py-[9px] px-5 rounded-md",
         lg: "text-lg py-3 px-[26px] rounded-lg",
         xl: "text-xl py-3.5 px-8 rounded-lg font-semibold",
+        "2xs": "text-[10px] py-0.5 px-2 rounded-sm",
+        icon: "p-2 rounded-md aspect-square",
       },
       fullWidth: {
         true: "w-full",
@@ -47,11 +58,17 @@ const buttonVariants = cva(
 
 export interface ButtonProps 
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants> {
+    VariantProps<typeof buttonVariants>,
+    BaseProps {
   loading?: boolean;
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
   iconOnly?: boolean;
+  active?: boolean;
+  pressed?: boolean;
+  width?: "auto" | "full" | "fit";
+  badge?: number | string;
+  tooltip?: string;
 }
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
@@ -64,20 +81,41 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       leftIcon,
       rightIcon,
       fullWidth,
+      active = false,
+      pressed = false,
+      width = "auto",
+      badge,
+      tooltip,
       disabled,
       className,
+      style,
       children,
-      ...rest
+      ...props
     },
     ref,
   ): React.JSX.Element => {
-    return (
+    const buttonElement = (
       <button
         ref={ref}
-        className={cn(buttonVariants({ variant, size, fullWidth, loading, iconOnly }), className)}
+        className={cn(
+          buttonVariants({ 
+            variant, 
+            size, 
+            fullWidth: fullWidth || width === "full", 
+            loading, 
+            iconOnly 
+          }),
+          active && "ring-2 ring-mint-400 ring-offset-2",
+          pressed && "bg-neutral-200 shadow-inner",
+          width === "fit" && "w-fit",
+          getCommonClasses(props),
+          className
+        )}
+        style={style}
         disabled={disabled || loading}
         aria-busy={loading}
-        {...rest}
+        aria-pressed={pressed}
+        {...props}
       >
         {loading && (
           <span 
@@ -94,9 +132,29 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           {!loading && rightIcon && (
             <span className="inline-flex items-center shrink-0">{rightIcon}</span>
           )}
+          {badge !== undefined && (
+            <span className="ml-1 px-1.5 py-0.5 text-[10px] font-bold bg-white/20 rounded-full min-w-[18px] text-center">
+              {badge}
+            </span>
+          )}
         </span>
       </button>
     );
+
+    if (tooltip) {
+      return (
+        <Tooltip>
+          <TooltipTrigger asChild>
+            {buttonElement}
+          </TooltipTrigger>
+          <TooltipContent>
+            {tooltip}
+          </TooltipContent>
+        </Tooltip>
+      );
+    }
+
+    return buttonElement;
   },
 );
 

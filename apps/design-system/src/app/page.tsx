@@ -114,6 +114,13 @@ import {
   TableRow,
   TableCell,
   TableCaption,
+  TextField,
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
   Card as UiCard,
   CheckBox,
   RadioGroup,
@@ -2115,10 +2122,10 @@ export default function MintxDesignSystem() {
               <UiCard variant="raised" padding="lg">
                 <h3 style={{ fontSize: 16, fontWeight: 700, marginBottom: 16 }}>Alerts</h3>
                 <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-                  <Alert variant="info" title="Market Update" description="Trading will be halted for 15 minutes due to circuit breaker." />
-                  <Alert variant="success" title="Order Executed" description="Buy 100 RELIANCE @ ₹2450.00 successful." />
-                  <Alert variant="warning" title="KYC Pending" description="Please complete your KYC to avoid account restrictions." />
-                  <Alert variant="destructive" title="System Error" description="Unable to connect to live data stream. Retrying..." />
+                  <Alert status="info" title="Market Update" description="Trading will be halted for 15 minutes due to circuit breaker." />
+                  <Alert status="success" title="Order Executed" description="Buy 100 RELIANCE @ ₹2450.00 successful." />
+                  <Alert status="warning" title="KYC Pending" description="Please complete your KYC to avoid account restrictions." />
+                  <Alert status="error" title="System Error" description="Unable to connect to live data stream. Retrying..." />
                 </div>
               </UiCard>
 
@@ -2167,9 +2174,9 @@ export default function MintxDesignSystem() {
                 <h3 style={{ fontSize: 16, fontWeight: 700, marginBottom: 16 }}>Animations & Icons</h3>
                 <div style={{ display: "flex", flexDirection: "column", gap: 20 }}>
                   <div style={{ display: "flex", gap: 12 }}>
-                    <FadeIn><Badge variant="mint">Fade In</Badge></FadeIn>
-                    <SlideIn direction="up"><Badge variant="blue">Slide Up</Badge></SlideIn>
-                    <ScaleIn><Badge variant="purple">Scale In</Badge></ScaleIn>
+                    <FadeIn><Badge color="primary">Fade In</Badge></FadeIn>
+                    <SlideIn direction="up"><Badge color="info">Slide Up</Badge></SlideIn>
+                    <ScaleIn><Badge color="neutral">Scale In</Badge></ScaleIn>
                   </div>
                   <div style={{ display: "flex", flexWrap: "wrap", gap: 16 }}>
                   <div className="flex flex-wrap gap-4">
@@ -2977,54 +2984,28 @@ function BtnIcon({ sz }: { sz: "sm" | "md" | "lg" }) {
   );
 }
 
-const badgeVariantStyles: Record<BadgeVariant, React.CSSProperties> = {
-  mint: { background: "var(--mint-50)", color: "var(--mint-700)" },
-  green: { background: "rgba(34,197,94,0.12)", color: "#15803D" },
-  red: { background: "rgba(248,113,113,0.12)", color: "#B91C1C" },
-  amber: { background: "rgba(251,191,36,0.12)", color: "#B45309" },
-  blue: { background: "rgba(96,165,250,0.12)", color: "#1D4ED8" },
-  purple: { background: "rgba(167,139,250,0.12)", color: "#6D28D9" },
-  neutral: {
-    background: "var(--bg-overlay)",
-    color: "var(--text-secondary)",
-    border: "1px solid var(--border-default)",
-  },
-  outline: {
-    background: "transparent",
-    color: "var(--text-brand)",
-    border: "1px solid var(--mint-400)",
-  },
-};
-const badgeSizes: Record<string, React.CSSProperties> = {
-  sm: { fontSize: 10, padding: "2px 7px" },
-  md: { fontSize: 11, padding: "3px 9px" },
-  lg: { fontSize: 12, padding: "4px 12px" },
-};
-
 function BadgeEl({
-  v,
-  sz = "md",
   children,
+  v = "neutral",
+  sz = "md",
 }: {
-  v: BadgeVariant;
-  sz?: string;
   children: React.ReactNode;
+  v?: BadgeVariant;
+  sz?: "sm" | "md" | "lg";
 }) {
+  const colorMap: Record<string, "info" | "success" | "warning" | "danger" | "neutral" | "primary"> = {
+    mint: "primary",
+    green: "success",
+    red: "danger",
+    amber: "warning",
+    blue: "info",
+    neutral: "neutral",
+  };
+
   return (
-    <span
-      style={{
-        display: "inline-flex",
-        alignItems: "center",
-        fontWeight: 600,
-        borderRadius: 9999,
-        border: "1px solid transparent",
-        letterSpacing: "0.01em",
-        ...badgeVariantStyles[v],
-        ...badgeSizes[sz],
-      }}
-    >
+    <Badge color={colorMap[v] || "neutral"} size={sz}>
       {children}
-    </span>
+    </Badge>
   );
 }
 
@@ -3120,6 +3101,25 @@ function CardVariantDemo({
   );
 }
 
+function AlertEl({ v, title, description }: { v: AlertVariant; title?: string; description?: string }) {
+  const statusMap: Record<string, "info" | "success" | "warning" | "error"> = {
+    info: "info",
+    success: "success",
+    warning: "warning",
+    danger: "error",
+    brand: "info",
+  };
+
+  return (
+    <Alert
+      status={statusMap[v] || "info"}
+      title={title || "Notification"}
+      description={description || "Integrated with the new design system."}
+      variant={v === "brand" ? "solid" : "subtle"}
+    />
+  );
+}
+
 function InputEl({
   label,
   placeholder,
@@ -3131,55 +3131,16 @@ function InputEl({
   placeholder?: string;
   hint?: string;
   error?: string;
-  type?: string;
+  type?: any;
 }) {
-  const [val, setVal] = React.useState("");
-  const [focused, setFoc] = React.useState(false);
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
-      <label
-        style={{
-          fontSize: 13,
-          fontWeight: 500,
-          color: "var(--text-secondary)",
-        }}
-      >
-        {label}
-      </label>
-      <input
-        type={type || "text"}
-        value={val}
-        placeholder={placeholder}
-        onChange={(e) => setVal(e.target.value)}
-        onFocus={() => setFoc(true)}
-        onBlur={() => setFoc(false)}
-        style={{
-          fontFamily: "var(--font-body)",
-          fontSize: 14,
-          color: "var(--text-primary)",
-          background: "var(--bg-surface)",
-          border: `1px solid ${error ? "var(--red-500)" : focused ? MINT : "var(--border-default)"}`,
-          borderRadius: 10,
-          padding: "9px 14px",
-          outline: "none",
-          width: "100%",
-          boxShadow: focused
-            ? error
-              ? "0 0 0 3px rgba(220,38,38,0.15)"
-              : "0 0 0 3px rgba(0,179,138,0.15)"
-            : "none",
-          transition: "all 0.12s",
-        }}
-      />
-      {hint && !error && (
-        <span style={{ fontSize: 11, color: "var(--text-tertiary)" }}>
-          {hint}
-        </span>
-      )}
-      {error && (
-        <span style={{ fontSize: 11, color: "var(--red-500)" }}>{error}</span>
-      )}
-    </div>
+    <TextField
+      label={label}
+      placeholder={placeholder}
+      hint={hint}
+      error={error}
+      type={type}
+    />
   );
 }
 
@@ -3193,62 +3154,23 @@ function SelectEl({
   hint?: string;
 }) {
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
-      <label
-        style={{
-          fontSize: 13,
-          fontWeight: 500,
-          color: "var(--text-secondary)",
-        }}
-      >
-        {label}
-      </label>
-      <div style={{ position: "relative" }}>
-        <select
-          style={{
-            width: "100%",
-            fontFamily: "var(--font-body)",
-            fontSize: 14,
-            color: "var(--text-primary)",
-            background: "var(--bg-surface)",
-            border: "1px solid var(--border-default)",
-            borderRadius: 10,
-            padding: "9px 36px 9px 14px",
-            outline: "none",
-            appearance: "none",
-          }}
-        >
-          {options.map((o) => (
-            <option key={o}>{o}</option>
-          ))}
-        </select>
-        <span
-          style={{
-            position: "absolute",
-            right: 12,
-            top: "50%",
-            transform: "translateY(-50%)",
-            color: "var(--text-tertiary)",
-            pointerEvents: "none",
-          }}
-        >
-          <svg
-            width="12"
-            height="12"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-          >
-            <polyline points="6 9 12 15 18 9" />
-          </svg>
-        </span>
-      </div>
-      {hint && (
-        <span style={{ fontSize: 11, color: "var(--text-tertiary)" }}>
-          {hint}
-        </span>
-      )}
+    <div className="flex flex-col gap-1.5">
+      {label && <label className="text-sm font-semibold text-text-secondary">{label}</label>}
+      <Select>
+        <SelectTrigger>
+          <SelectValue placeholder="Select option" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectGroup>
+            {options.map((o) => (
+              <SelectItem key={o} value={o.toLowerCase()}>
+                {o}
+              </SelectItem>
+            ))}
+          </SelectGroup>
+        </SelectContent>
+      </Select>
+      {hint && <span className="text-[11px] text-text-tertiary">{hint}</span>}
     </div>
   );
 }
@@ -3259,56 +3181,16 @@ function ToggleEl({
   onChange,
 }: {
   label: string;
-  checked: boolean;
+  checked?: boolean;
   onChange?: (v: boolean) => void;
 }) {
   return (
-    <label
-      style={{
-        display: "inline-flex",
-        alignItems: "center",
-        gap: 10,
-        cursor: "pointer",
-        userSelect: "none",
-      }}
-    >
-      <div
-        onClick={() => onChange?.(!checked)}
-        style={{
-          width: 40,
-          height: 22,
-          borderRadius: 99,
-          background: checked ? MINT : "var(--border-default)",
-          position: "relative",
-          transition: "background 0.2s",
-          flexShrink: 0,
-          cursor: "pointer",
-        }}
-      >
-        <div
-          style={{
-            position: "absolute",
-            top: 3,
-            left: checked ? 21 : 3,
-            width: 16,
-            height: 16,
-            borderRadius: "50%",
-            background: "#fff",
-            boxShadow: "0 1px 3px rgba(0,0,0,0.2)",
-            transition: "left 0.2s cubic-bezier(0.34,1.56,0.64,1)",
-          }}
-        />
-      </div>
-      <span
-        style={{
-          fontSize: 13,
-          fontWeight: 500,
-          color: "var(--text-secondary)",
-        }}
-      >
+    <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+      <Switch checked={checked} onCheckedChange={onChange} />
+      <span style={{ fontSize: 13, fontWeight: 500, color: "var(--text-secondary)" }}>
         {label}
       </span>
-    </label>
+    </div>
   );
 }
 
@@ -3361,32 +3243,7 @@ const alertMessages: Record<AlertVariant, string> = {
   brand: "New Fibonacci zone detected on NIFTY at 24,200.",
 };
 
-function AlertEl({ v }: { v: AlertVariant }) {
-  const c = alertCfg[v];
-  return (
-    <div
-      style={{
-        display: "flex",
-        gap: 12,
-        alignItems: "flex-start",
-        padding: "12px 16px",
-        borderRadius: 10,
-        border: `1px solid ${c.border}`,
-        background: c.bg,
-        color: c.color,
-        fontSize: 13,
-      }}
-    >
-      <span style={{ flexShrink: 0, marginTop: 1, fontSize: 15 }}>
-        {c.icon}
-      </span>
-      <div>
-        <span style={{ fontWeight: 600 }}>{c.title} — </span>
-        {alertMessages[v]}
-      </div>
-    </div>
-  );
-}
+
 
 function ProgressEl({
   value,
@@ -3501,7 +3358,7 @@ import { ThemeProvider } from "@mintx/ui";`}
 export default function Page() {
   return (
     <div className="p-8">
-      <Alert variant="brand" title="Signal">
+      <Alert status="info" title="Signal">
         New Fibonacci zone detected.
       </Alert>
       <Button variant="primary">Trade Now</Button>

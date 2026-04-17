@@ -2,7 +2,7 @@ import React from "react";
 import { X } from "lucide-react";
 import { cn } from "../../tokens/cn";
 
-export interface ChipProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface ChipProps extends Omit<React.HTMLAttributes<HTMLDivElement>, "color"> {
   label: string;
   onDelete?: () => void;
   icon?: React.ReactNode;

@@ -1,16 +1,21 @@
-import React from "react";
-import { cva, type VariantProps } from "class-variance-authority";
-export interface CardProps {
+import { BaseProps } from "../../types";
+import { cn } from "../../tokens/cn";
+import { getCommonClasses } from "../../tokens/common-props";
+
+export interface CardProps extends BaseProps {
   variant?: "flat" | "raised" | "glass" | "outlined";
   padding?: "none" | "xs" | "sm" | "md" | "lg" | "xl";
   hover?: boolean;
   interactive?: boolean;
+  shadow?: "none" | "sm" | "md" | "lg" | "xl";
+  border?: boolean;
+  borderColor?: string;
+  borderLeft?: boolean;
+  borderLeftColor?: string;
+  borderWidth?: "thin" | "medium" | "thick";
   onClick?: () => void;
-  className?: string;
-  style?: React.CSSProperties;
   children?: React.ReactNode;
 }
-import { cn } from "../../tokens/cn";
 
 const cardVariants = cva(
   "rounded-lg overflow-hidden transition-all duration-200 ease-smooth",
@@ -49,16 +54,36 @@ export function Card({
   hover = false,
   interactive = false,
   padding = "md",
+  shadow,
+  border,
+  borderColor,
+  borderLeft,
+  borderLeftColor,
+  borderWidth,
   onClick,
   className,
   style,
   children,
+  ...props
 }: CardProps): React.JSX.Element {
   const isClickable = !!onClick || interactive;
 
+  const shadowClass = shadow ? `shadow-${shadow}` : "";
+  const borderClass = border === true ? "border" : border === false ? "border-0" : "";
+  const borderLeftClass = borderLeft ? `border-l-${borderWidth === 'thick' ? '4' : borderWidth === 'medium' ? '2' : '1'}` : "";
+
   return (
     <div
-      className={cn(cardVariants({ variant, padding, hover, interactive: isClickable }), className)}
+      className={cn(
+        cardVariants({ variant, padding, hover, interactive: isClickable }),
+        shadowClass,
+        borderClass,
+        borderLeftClass,
+        borderColor,
+        borderLeftColor,
+        getCommonClasses(props),
+        className
+      )}
       style={style}
       onClick={onClick}
       role={isClickable ? "button" : undefined}

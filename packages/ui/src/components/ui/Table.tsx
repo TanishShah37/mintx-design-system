@@ -1,25 +1,46 @@
 import React from "react";
 import { cn } from "../../tokens/cn";
+import { BaseProps } from "../../types";
+import { getCommonClasses } from "../../tokens/common-props";
 
-export const Table = React.forwardRef<
-  HTMLTableElement,
-  React.HTMLAttributes<HTMLTableElement>
->(({ className, ...props }, ref): React.JSX.Element => (
-  <div className="relative w-full overflow-auto rounded-2xl border border-border">
-    <table
-      ref={ref}
-      className={cn("w-full caption-bottom text-sm", className)}
-      {...props}
-    />
-  </div>
-));
+export interface TableProps extends React.HTMLAttributes<HTMLTableElement>, BaseProps {
+  stickyHeader?: boolean;
+  striped?: boolean;
+  compact?: boolean;
+}
+
+export const Table = React.forwardRef<HTMLTableElement, TableProps>(
+  ({ className, stickyHeader, striped, compact, ...props }, ref): React.JSX.Element => (
+    <div className={cn("relative w-full overflow-auto rounded-2xl border border-border", getCommonClasses(props))}>
+      <table
+        ref={ref}
+        className={cn(
+          "w-full caption-bottom text-sm",
+          stickyHeader && "border-separate border-spacing-0",
+          striped && "[&_tbody_tr:nth-child(even)]:bg-muted/30",
+          compact && "[&_td]:p-2 [&_th]:p-2 [&_th]:h-8",
+          className
+        )}
+        {...props}
+      />
+    </div>
+  )
+);
 Table.displayName = "Table";
 
 export const TableHeader = React.forwardRef<
   HTMLTableSectionElement,
-  React.HTMLAttributes<HTMLTableSectionElement>
->(({ className, ...props }, ref): React.JSX.Element => (
-  <thead ref={ref} className={cn("[&_tr]:border-b bg-muted/30", className)} {...props} />
+  React.HTMLAttributes<HTMLTableSectionElement> & { sticky?: boolean }
+>(({ className, sticky, ...props }, ref): React.JSX.Element => (
+  <thead
+    ref={ref}
+    className={cn(
+      "[&_tr]:border-b bg-muted/30",
+      sticky && "sticky top-0 z-10 bg-surface shadow-sm",
+      className
+    )}
+    {...props}
+  />
 ));
 TableHeader.displayName = "TableHeader";
 

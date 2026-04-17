@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Alert } from "../../components/ui/Alert";
+import { Button } from "../../components/ui/Button";
 import React from "react";
 
 const meta: Meta<typeof Alert> = {
@@ -10,17 +11,21 @@ const meta: Meta<typeof Alert> = {
     docs: {
       description: {
         component:
-          "Inline contextual feedback banners. Five semantic variants with auto-matched icons, optional title, optional dismiss button, and custom icon slot. Used for market warnings, trade confirmations, SEBI disclaimers, and system notices. All alerts use role='alert' for screen readers.",
+          "Unified contextual feedback banners. Supports 4 semantic statuses (info, success, warning, error) and 4 visual variants (subtle, solid, outline, ghost). Includes smooth exit animations via Framer Motion.",
       },
     },
   },
   argTypes: {
+    status: {
+      control: "select",
+      options: ["info", "success", "warning", "error"],
+    },
     variant: {
       control: "select",
-      options: ["info", "success", "warning", "danger", "brand"],
+      options: ["subtle", "solid", "outline", "ghost"],
     },
     title: { control: "text" },
-    onDismiss: { action: "dismissed" },
+    dismissible: { control: "boolean" },
   },
 };
 
@@ -29,72 +34,64 @@ type Story = StoryObj<typeof Alert>;
 
 export const Default: Story = {
   args: {
-    variant: "brand",
-    title: "Fibonacci Zone Detected",
-    children:
-      "NIFTY 50 is approaching the 61.8% Fibonacci retracement at 24,200. This is a historically watched support zone.",
+    status: "info",
+    variant: "subtle",
+    title: "Market Analysis",
+    description: "NIFTY 50 is trending near its 52-week high. Monitor volume breakouts for potential entries.",
   },
 };
 
-export const AllVariants: Story = {
-  name: "All Variants",
+export const Statuses: Story = {
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-      <Alert variant="info" title="Info">
-        Educational information only — not investment advice.
-      </Alert>
-      <Alert variant="success" title="Order Placed">
-        Your SIP of ₹5,000/month has been activated successfully.
-      </Alert>
-      <Alert variant="warning" title="High Volatility">
-        Market volatility (VIX: 18.4) is elevated. Review your positions.
-      </Alert>
-      <Alert variant="danger" title="Session Expired">
-        Your session has timed out. Please sign in again.
-      </Alert>
-      <Alert variant="brand" title="New Signal">
-        Volume breakout detected on TCS — 3× average. Educational only.
-      </Alert>
+    <div className="flex flex-col gap-4">
+      <Alert status="info" title="Informational" description="Educational content for market research." />
+      <Alert status="success" title="Success" description="Your trade was executed successfully." />
+      <Alert status="warning" title="Warning" description="High volatility detected in this asset." />
+      <Alert status="error" title="Error" description="Failed to fetch real-time market data." />
     </div>
   ),
 };
 
-export const WithDismiss: Story = {
-  name: "With Dismiss Button",
+export const Variants: Story = {
+  render: () => (
+    <div className="flex flex-col gap-4">
+      <Alert status="info" variant="subtle" title="Subtle (Default)" description="Light background with tonal borders." />
+      <Alert status="info" variant="solid" title="Solid" description="High-visibility filled banner." />
+      <Alert status="info" variant="outline" title="Outline" description="Transparent background with defined borders." />
+      <Alert status="info" variant="ghost" title="Ghost" description="No borders or background, minimal footprint." />
+    </div>
+  ),
+};
+
+export const WithActions: Story = {
   args: {
-    variant: "warning",
-    title: "Market Closure",
-    onDismiss: () => {},
-    children:
-      "Markets will be closed on January 26th for Republic Day. Plan your orders accordingly.",
+    status: "warning",
+    title: "High Risk Trade",
+    description: "This option is deep out-of-the-money. Probability of profit is less than 15%.",
+    action: (
+      <div className="flex gap-2">
+        <Button size="sm" variant="danger">Confirm Trade</Button>
+        <Button size="sm" variant="ghost">Cancel</Button>
+      </div>
+    ),
   },
 };
 
-export const TitleOnly: Story = {
-  name: "Title Only (no body)",
+export const Dismissible: Story = {
   args: {
-    variant: "success",
-    title: "Watchlist updated successfully.",
-  },
-};
-
-export const BodyOnly: Story = {
-  name: "Body Only (no title)",
-  args: {
-    variant: "info",
-    children:
-      "SEBI Disclaimer: Investments in securities market are subject to market risks. Read all related documents carefully before investing.",
+    status: "success",
+    title: "Portfolio Sync Complete",
+    description: "All historical transactions have been imported successfully.",
+    dismissible: true,
   },
 };
 
 export const SEBIDisclaimer: Story = {
-  name: "SEBI Disclaimer Pattern",
-  render: () => (
-    <Alert variant="info" style={{ borderColor: "rgba(116,138,131,0.3)", background: "rgba(116,138,131,0.06)", color: "var(--text-secondary, #3A524D)" }}>
-      <strong>Regulatory Notice:</strong> All analysis, charts, and signals on
-      Mintx are for educational and informational purposes only. They do not
-      constitute investment advice. Past performance is not indicative of future
-      results. Consult a SEBI-registered advisor before investing.
-    </Alert>
-  ),
+  name: "SEBI Style Disclaimer",
+  args: {
+    status: "info",
+    variant: "subtle",
+    description: "SEBI Disclaimer: Investments in securities market are subject to market risks. Read all the related documents carefully before investing.",
+    className: "opacity-80 grayscale-[0.5]",
+  },
 };

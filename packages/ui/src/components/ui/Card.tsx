@@ -1,26 +1,23 @@
 import React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
-export interface CardProps {
-  variant?: "flat" | "raised" | "glass" | "outlined";
-  padding?: "none" | "xs" | "sm" | "md" | "lg" | "xl";
+import { cn } from "../../tokens/cn";
+import { BaseProps } from "../../types";
+import { getCommonClasses } from "../../tokens/common-props";
+
+export interface CardProps extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof cardVariants>, BaseProps {
   hover?: boolean;
   interactive?: boolean;
-  onClick?: () => void;
-  className?: string;
-  style?: React.CSSProperties;
-  children?: React.ReactNode;
 }
-import { cn } from "../../tokens/cn";
 
 const cardVariants = cva(
-  "rounded-lg overflow-hidden transition-all duration-200 ease-smooth",
+  "rounded-xl overflow-hidden transition-all duration-200 ease-smooth border",
   {
     variants: {
       variant: {
-        flat: "bg-surface border border-neutral-100",
-        raised: "bg-surface shadow-md",
+        flat: "bg-surface border-border shadow-none",
+        raised: "bg-surface border-border/50 shadow-md",
         glass: "bg-white/40 backdrop-blur-md border border-white/20 shadow-lg",
-        outlined: "bg-transparent border border-neutral-200",
+        outlined: "bg-transparent border-border shadow-none",
       },
       padding: {
         none: "p-0",
@@ -45,31 +42,43 @@ const cardVariants = cva(
 );
 
 export function Card({
-  variant = "flat",
+  variant,
   hover = false,
   interactive = false,
-  padding = "md",
+  padding,
   onClick,
   className,
-  style,
   children,
+  ...props
 }: CardProps): React.JSX.Element {
   const isClickable = !!onClick || interactive;
 
   return (
     <div
-      className={cn(cardVariants({ variant, padding, hover, interactive: isClickable }), className)}
-      style={style}
+      className={cn(
+        cardVariants({ variant, padding, hover, interactive: isClickable }),
+        getCommonClasses(props),
+        className
+      )}
       onClick={onClick}
       role={isClickable ? "button" : undefined}
       tabIndex={isClickable ? 0 : undefined}
       onKeyDown={
         isClickable
           ? (e) => {
-              if (e.key === "Enter" || e.key === " ") onClick?.();
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                const mouseEvent = new MouseEvent("click", {
+                  bubbles: true,
+                  cancelable: true,
+                  view: window,
+                }) as unknown as React.MouseEvent<HTMLDivElement>;
+                onClick?.(mouseEvent);
+              }
             }
           : undefined
       }
+      {...props}
     >
       {children}
     </div>

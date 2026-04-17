@@ -12,7 +12,7 @@ const meta: Meta<typeof Card> = {
     docs: {
       description: {
         component:
-          "Surface container for grouping related content. Four visual variants (flat, raised, glass, outlined), optional hover lift, and interactive click mode. Underpins Stock Cards, Insight Cards, Metric Cards, and all dashboard panels.",
+          "Surface container for grouping related content. Four visual variants (flat, raised, glass, outlined), optional hover lift, and interactive click mode. Supports new design tokens for elevation and borders.",
       },
     },
   },
@@ -24,6 +24,14 @@ const meta: Meta<typeof Card> = {
     padding: {
       control: "select",
       options: ["none", "xs", "sm", "md", "lg", "xl"],
+    },
+    shadow: {
+      control: "select",
+      options: ["none", "xs", "sm", "md", "lg", "xl", "2xl", "inner"],
+    },
+    borderWidth: {
+      control: "select",
+      options: ["none", "thin", "medium", "thick"],
     },
     hover: { control: "boolean" },
     interactive: { control: "boolean" },
@@ -40,148 +48,84 @@ export const Default: Story = {
     children: (
       <p style={{ color: "var(--text-secondary, #3A524D)", fontSize: 14 }}>
         A flat card with default padding. The most common surface container in
-        the Mintx design system.
+        the Mintx design system. Now with expanded token support!
       </p>
     ),
   },
 };
 
-export const AllVariants: Story = {
-  name: "All Variants",
-  render: () => (
-    <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
-      {(
-        [
-          { v: "flat", label: "Flat", desc: "Subtle border, no shadow — default choice" },
-          { v: "raised", label: "Raised", desc: "md shadow, stronger border — dashboard panels" },
-          { v: "glass", label: "Glass", desc: "Blur backdrop — overlay panels, modals" },
-          { v: "outlined", label: "Outlined", desc: "Transparent bg — secondary groupings" },
-        ] as const
-      ).map(({ v, label, desc }) => (
-        <Card key={v} variant={v} padding="md">
-          <p
-            style={{
-              fontSize: 13,
-              fontWeight: 700,
-              color: "var(--text-primary, #141F1D)",
-              marginBottom: 4,
-            }}
-          >
-            {label}
-          </p>
-          <p
-            style={{
-              fontSize: 12,
-              color: "var(--text-tertiary, #748A83)",
-            }}
-          >
-            {desc}
-          </p>
-        </Card>
-      ))}
-    </div>
-  ),
+export const Raised: Story = {
+  args: {
+    variant: "raised",
+    shadow: "lg",
+    padding: "md",
+    children: (
+      <div className="flex flex-col gap-2">
+        <h4 className="font-bold">Emphasized Surface</h4>
+        <p className="text-sm opacity-70 italic">Using raised variant with lg shadow.</p>
+      </div>
+    ),
+  },
 };
 
-export const HoverState: Story = {
-  name: "Hover (lift on hover)",
+export const Interactivity: Story = {
   args: {
     variant: "flat",
     hover: true,
-    padding: "md",
+    interactive: true,
+    shadow: "sm",
     children: (
-      <div>
-        <p
-          style={{
-            fontSize: 14,
-            fontWeight: 600,
-            color: "var(--text-primary, #141F1D)",
-            marginBottom: 6,
-          }}
-        >
-          TCS · Tata Consultancy Services
-        </p>
-        <p style={{ fontSize: 12, color: "var(--text-tertiary, #748A83)" }}>
-          Hover over this card to see the mint border and lift effect. Used for
-          watchlist items, search results, and recommendation tiles.
-        </p>
+      <div className="flex flex-col gap-2">
+        <h4 className="font-bold">Clickable Tile</h4>
+        <p className="text-sm opacity-70">Hover for elevation, click for active depth.</p>
       </div>
     ),
+    onClick: () => alert("Interactive card clicked!"),
   },
 };
 
-export const InteractiveClickable: Story = {
-  name: "Interactive (clickable)",
-  args: {
-    variant: "flat",
-    interactive: true,
-    padding: "md",
-    onClick: () => alert("Card clicked!"),
-    children: (
-      <p style={{ fontSize: 14, color: "var(--text-secondary, #3A524D)" }}>
-        Click me — this card is interactive. It has role="button", keyboard
-        support, and active scale feedback.
-      </p>
-    ),
-  },
-};
-
-export const PaddingScale: Story = {
-  name: "Padding Scale",
+export const FinancialContext: Story = {
+  name: "Financial Summary Card",
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-      {(["xs", "sm", "md", "lg"] as const).map((p) => (
-        <Card key={p} variant="flat" padding={p}>
-          <span
-            style={{
-              fontFamily: "var(--font-mono, 'DM Mono', monospace)",
-              fontSize: 12,
-              color: "var(--text-brand, #008F6E)",
-            }}
-          >
-            padding="{p}"
-          </span>
-        </Card>
-      ))}
-    </div>
+    <Card 
+      variant="raised" 
+      padding="lg" 
+      shadow="xl" 
+      borderLeft="thick" 
+      borderColor="mint-500"
+      className="max-w-[340px]"
+    >
+      <div className="flex justify-between items-start mb-4">
+        <div>
+          <h3 className="text-lg font-bold tracking-tight text-text-primary">Portfolio Summary</h3>
+          <Badge variant="primary" style="solid" size="sm">Pro Plan</Badge>
+        </div>
+      </div>
+      <p className="text-3xl font-bold tracking-tighter text-emerald-500">
+        ₹4,82,350.00
+      </p>
+      <p className="text-xs text-neutral-400 mt-1">
+        +₹12,840 (+2.74%) today
+      </p>
+      <div className="mt-6">
+        <Button variant="primary" size="sm" width="full">View Breakdown</Button>
+      </div>
+    </Card>
   ),
 };
 
-export const WithContent: Story = {
-  name: "With Rich Content",
+export const LayoutGrid: Story = {
+  name: "Layout Chunks",
   render: () => (
-    <Card variant="raised" padding="md" style={{ maxWidth: 340 }}>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "flex-start",
-          marginBottom: 16,
-        }}
-      >
-        <div>
-          <p
-            style={{
-              fontSize: 18,
-              fontWeight: 700,
-              fontFamily: "var(--font-display, 'Syne', sans-serif)",
-              color: "var(--text-primary, #141F1D)",
-            }}
-          >
-            Portfolio Summary
-          </p>
-          <Badge variant="mint" size="sm">Pro Plan</Badge>
-        </div>
-      </div>
-      <p style={{ fontSize: 28, fontWeight: 700, color: "#22C55E", fontFamily: "var(--font-display, 'Syne', sans-serif)" }}>
-        ₹4,82,350
-      </p>
-      <p style={{ fontSize: 12, color: "var(--text-tertiary, #748A83)", marginTop: 4 }}>
-        +₹12,840 (+2.74%) today
-      </p>
-      <div style={{ marginTop: 16 }}>
-        <Button variant="primary" size="sm">View Portfolio</Button>
-      </div>
-    </Card>
+    <div className="grid grid-cols-2 gap-4">
+      <Card variant="outlined" padding="md" shadow="xs">
+        <h4 className="font-bold mb-2">Fundamental Data</h4>
+        <p className="text-xs opacity-70">Quarterly results, balance sheets and peer comparisons.</p>
+      </Card>
+      <Card variant="outlined" padding="md" shadow="xs">
+        <h4 className="font-bold mb-2">Technical Analysis</h4>
+        <p className="text-xs opacity-70">View charts, patterns and indicators for various timeframes.</p>
+      </Card>
+    </div>
   ),
 };

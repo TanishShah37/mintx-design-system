@@ -11,7 +11,6 @@ import * as SwitchPrimitive from '@radix-ui/react-switch';
 import * as SliderPrimitive from '@radix-ui/react-slider';
 import * as SelectPrimitive from '@radix-ui/react-select';
 import * as AvatarPrimitive from '@radix-ui/react-avatar';
-import * as react_jsx_runtime from 'react/jsx-runtime';
 import * as TooltipPrimitive from '@radix-ui/react-tooltip';
 export { TooltipProps } from '@radix-ui/react-tooltip';
 import * as AccordionPrimitive from '@radix-ui/react-accordion';
@@ -19,16 +18,25 @@ import * as ProgressPrimitive from '@radix-ui/react-progress';
 import * as DialogPrimitive from '@radix-ui/react-dialog';
 import * as ToastPrimitive from '@radix-ui/react-toast';
 import { EmblaOptionsType } from 'embla-carousel';
+import * as react_jsx_runtime from 'react/jsx-runtime';
 import { HTMLMotionProps } from 'framer-motion';
 
+type Elevation = "none" | "sm" | "md" | "lg" | "xl" | "2xl" | "inner";
+type BorderWidth = "none" | "thin" | "medium" | "thick";
+type ZIndex = "hide" | "base" | "docked" | "dropdown" | "sticky" | "banner" | "overlay" | "modal" | "popover" | "skipLink" | "toast" | "tooltip";
+type Opacity = 0 | 25 | 40 | 50 | 60 | 70 | 80 | 90 | 100;
 interface BaseProps {
     className?: string;
     style?: CSSProperties;
+    elevation?: Elevation;
+    borderWidth?: BorderWidth;
+    zIndex?: ZIndex;
+    opacity?: Opacity;
 }
 interface ChildrenProps extends BaseProps {
     children?: ReactNode;
 }
-type Size = "xs" | "sm" | "md" | "lg" | "xl";
+type Size = "2xs" | "xs" | "sm" | "md" | "lg" | "xl";
 
 declare function cn(...inputs: ClassValue[]): string;
 
@@ -103,6 +111,62 @@ declare const radius: {
     readonly "2xl": "28px";
     readonly full: "9999px";
 };
+declare const elevation: {
+    readonly none: "none";
+    readonly sm: "0 1px 2px 0 rgba(0,0,0,0.05)";
+    readonly md: "0 4px 6px -1px rgba(0,0,0,0.1)";
+    readonly lg: "0 10px 15px -3px rgba(0,0,0,0.1)";
+    readonly xl: "0 20px 25px -5px rgba(0,0,0,0.1)";
+    readonly "2xl": "0 25px 50px -12px rgba(0,0,0,0.25)";
+    readonly inner: "inset 0 2px 4px 0 rgba(0,0,0,0.05)";
+    readonly "sm-dark": "0 1px 2px 0 rgba(0,0,0,0.3)";
+    readonly "md-dark": "0 4px 6px -1px rgba(0,0,0,0.4)";
+};
+declare const borderWidth: {
+    readonly none: "0px";
+    readonly thin: "1px";
+    readonly medium: "2px";
+    readonly thick: "4px";
+};
+declare const zIndex: {
+    readonly hide: -1;
+    readonly base: 0;
+    readonly docked: 10;
+    readonly dropdown: 1000;
+    readonly sticky: 1100;
+    readonly banner: 1200;
+    readonly overlay: 1300;
+    readonly modal: 1400;
+    readonly popover: 1500;
+    readonly skipLink: 1600;
+    readonly toast: 1700;
+    readonly tooltip: 1800;
+};
+declare const opacity: {
+    readonly 0: "0";
+    readonly 25: "0.25";
+    readonly 40: "0.4";
+    readonly 50: "0.5";
+    readonly 60: "0.6";
+    readonly 70: "0.7";
+    readonly 80: "0.8";
+    readonly 90: "0.9";
+    readonly 100: "1";
+};
+declare const backdrop: {
+    readonly blur: {
+        readonly none: "0";
+        readonly sm: "4px";
+        readonly md: "8px";
+        readonly lg: "12px";
+        readonly xl: "16px";
+    };
+    readonly opacity: {
+        readonly sm: "0.4";
+        readonly md: "0.6";
+        readonly lg: "0.8";
+    };
+};
 declare const typography: {
     readonly fontDisplay: "'Syne', sans-serif";
     readonly fontBody: "'DM Sans', sans-serif";
@@ -128,6 +192,41 @@ declare const motion: {
     readonly base: "200ms";
     readonly slow: "350ms";
     readonly page: "600ms";
+};
+declare const animation: {
+    readonly fade: {
+        readonly in: "fade-in 200ms ease-out";
+        readonly out: "fade-out 150ms ease-in";
+    };
+    readonly slide: {
+        readonly up: "slide-up 300ms ease-out";
+        readonly down: "slide-down 300ms ease-out";
+        readonly left: "slide-left 300ms ease-out";
+        readonly right: "slide-right 300ms ease-out";
+    };
+    readonly scale: {
+        readonly in: "scale-in 200ms ease-out";
+        readonly out: "scale-out 150ms ease-in";
+    };
+    readonly spin: "spin 1s linear infinite";
+    readonly pulse: "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite";
+    readonly bounce: "bounce 1s infinite";
+};
+declare const transition: {
+    readonly property: {
+        readonly none: "none";
+        readonly all: "all";
+        readonly colors: "background-color, border-color, color, fill, stroke";
+        readonly opacity: "opacity";
+        readonly shadow: "box-shadow";
+        readonly transform: "transform";
+    };
+    readonly duration: {
+        readonly fast: "120ms";
+        readonly base: "200ms";
+        readonly slow: "300ms";
+        readonly slower: "500ms";
+    };
 };
 declare const shadows: {
     readonly sm: "0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04)";
@@ -215,6 +314,62 @@ declare const tokens: {
         readonly "2xl": "28px";
         readonly full: "9999px";
     };
+    readonly elevation: {
+        readonly none: "none";
+        readonly sm: "0 1px 2px 0 rgba(0,0,0,0.05)";
+        readonly md: "0 4px 6px -1px rgba(0,0,0,0.1)";
+        readonly lg: "0 10px 15px -3px rgba(0,0,0,0.1)";
+        readonly xl: "0 20px 25px -5px rgba(0,0,0,0.1)";
+        readonly "2xl": "0 25px 50px -12px rgba(0,0,0,0.25)";
+        readonly inner: "inset 0 2px 4px 0 rgba(0,0,0,0.05)";
+        readonly "sm-dark": "0 1px 2px 0 rgba(0,0,0,0.3)";
+        readonly "md-dark": "0 4px 6px -1px rgba(0,0,0,0.4)";
+    };
+    readonly borderWidth: {
+        readonly none: "0px";
+        readonly thin: "1px";
+        readonly medium: "2px";
+        readonly thick: "4px";
+    };
+    readonly zIndex: {
+        readonly hide: -1;
+        readonly base: 0;
+        readonly docked: 10;
+        readonly dropdown: 1000;
+        readonly sticky: 1100;
+        readonly banner: 1200;
+        readonly overlay: 1300;
+        readonly modal: 1400;
+        readonly popover: 1500;
+        readonly skipLink: 1600;
+        readonly toast: 1700;
+        readonly tooltip: 1800;
+    };
+    readonly opacity: {
+        readonly 0: "0";
+        readonly 25: "0.25";
+        readonly 40: "0.4";
+        readonly 50: "0.5";
+        readonly 60: "0.6";
+        readonly 70: "0.7";
+        readonly 80: "0.8";
+        readonly 90: "0.9";
+        readonly 100: "1";
+    };
+    readonly backdrop: {
+        readonly blur: {
+            readonly none: "0";
+            readonly sm: "4px";
+            readonly md: "8px";
+            readonly lg: "12px";
+            readonly xl: "16px";
+        };
+        readonly opacity: {
+            readonly sm: "0.4";
+            readonly md: "0.6";
+            readonly lg: "0.8";
+        };
+    };
     readonly typography: {
         readonly fontDisplay: "'Syne', sans-serif";
         readonly fontBody: "'DM Sans', sans-serif";
@@ -240,6 +395,41 @@ declare const tokens: {
         readonly base: "200ms";
         readonly slow: "350ms";
         readonly page: "600ms";
+    };
+    readonly animation: {
+        readonly fade: {
+            readonly in: "fade-in 200ms ease-out";
+            readonly out: "fade-out 150ms ease-in";
+        };
+        readonly slide: {
+            readonly up: "slide-up 300ms ease-out";
+            readonly down: "slide-down 300ms ease-out";
+            readonly left: "slide-left 300ms ease-out";
+            readonly right: "slide-right 300ms ease-out";
+        };
+        readonly scale: {
+            readonly in: "scale-in 200ms ease-out";
+            readonly out: "scale-out 150ms ease-in";
+        };
+        readonly spin: "spin 1s linear infinite";
+        readonly pulse: "pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite";
+        readonly bounce: "bounce 1s infinite";
+    };
+    readonly transition: {
+        readonly property: {
+            readonly none: "none";
+            readonly all: "all";
+            readonly colors: "background-color, border-color, color, fill, stroke";
+            readonly opacity: "opacity";
+            readonly shadow: "box-shadow";
+            readonly transform: "transform";
+        };
+        readonly duration: {
+            readonly fast: "120ms";
+            readonly base: "200ms";
+            readonly slow: "300ms";
+            readonly slower: "500ms";
+        };
     };
     readonly shadows: {
         readonly sm: "0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04)";
@@ -286,44 +476,56 @@ declare function useDisclosure(initial?: boolean): {
 declare function useLocalStorage<T>(key: string, defaultValue: T): readonly [T, (newValue: T | ((prev: T) => T)) => void];
 
 declare const buttonVariants$1: (props?: ({
-    variant?: "primary" | "secondary" | "ghost" | "danger" | "outline-brand" | "dark" | null | undefined;
-    size?: "xs" | "sm" | "md" | "lg" | "xl" | null | undefined;
+    variant?: "link" | "primary" | "secondary" | "ghost" | "danger" | "outline-brand" | "dark" | "success" | "warning" | "info" | "outline" | "subtle" | null | undefined;
+    size?: "sm" | "md" | "lg" | "xl" | "2xs" | "xs" | "icon" | null | undefined;
     fullWidth?: boolean | null | undefined;
     loading?: boolean | null | undefined;
     iconOnly?: boolean | null | undefined;
 } & class_variance_authority_types.ClassProp) | undefined) => string;
-interface ButtonProps$1 extends React__default.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants$1> {
+interface ButtonProps$1 extends React__default.ButtonHTMLAttributes<HTMLButtonElement>, VariantProps<typeof buttonVariants$1>, BaseProps {
     loading?: boolean;
     leftIcon?: React__default.ReactNode;
     rightIcon?: React__default.ReactNode;
     iconOnly?: boolean;
+    active?: boolean;
+    pressed?: boolean;
+    width?: "auto" | "full" | "fit";
+    badge?: number | string;
+    tooltip?: string;
 }
 declare const Button: React__default.ForwardRefExoticComponent<ButtonProps$1 & React__default.RefAttributes<HTMLButtonElement>>;
 
 declare const badgeVariants: (props?: ({
-    variant?: "default" | "secondary" | "destructive" | "outline" | "success" | "warning" | "error" | "mint" | "blue" | "purple" | "neutral" | null | undefined;
+    color?: "primary" | "danger" | "success" | "warning" | "info" | "neutral" | null | undefined;
+    variant?: "ghost" | "outline" | "subtle" | "solid" | null | undefined;
     size?: "sm" | "md" | "lg" | null | undefined;
 } & class_variance_authority_types.ClassProp) | undefined) => string;
-interface BadgeProps extends React__default.HTMLAttributes<HTMLDivElement>, VariantProps<typeof badgeVariants> {
+interface BadgeProps extends Omit<React__default.HTMLAttributes<HTMLDivElement>, "color">, VariantProps<typeof badgeVariants>, BaseProps {
+    dot?: boolean;
+    pulse?: boolean;
+    removable?: boolean;
+    onRemove?: () => void;
+    count?: number;
+    maxCount?: number;
 }
-declare function Badge({ className, variant, size, ...props }: BadgeProps): React__default.JSX.Element;
+declare function Badge({ className, color, variant, size, dot, pulse, removable, onRemove, count, maxCount, children, ...props }: BadgeProps): React__default.JSX.Element;
 
-interface CardProps {
-    variant?: "flat" | "raised" | "glass" | "outlined";
-    padding?: "none" | "xs" | "sm" | "md" | "lg" | "xl";
+interface CardProps extends React__default.HTMLAttributes<HTMLDivElement>, VariantProps<typeof cardVariants$2>, BaseProps {
     hover?: boolean;
     interactive?: boolean;
-    onClick?: () => void;
-    className?: string;
-    style?: React__default.CSSProperties;
-    children?: React__default.ReactNode;
 }
-declare function Card({ variant, hover, interactive, padding, onClick, className, style, children, }: CardProps): React__default.JSX.Element;
+declare const cardVariants$2: (props?: ({
+    variant?: "flat" | "raised" | "glass" | "outlined" | null | undefined;
+    padding?: "none" | "sm" | "md" | "lg" | "xl" | "xs" | null | undefined;
+    hover?: boolean | null | undefined;
+    interactive?: boolean | null | undefined;
+} & class_variance_authority_types.ClassProp) | undefined) => string;
+declare function Card({ variant, hover, interactive, padding, onClick, className, children, ...props }: CardProps): React__default.JSX.Element;
 declare namespace Card {
     var displayName: string;
 }
 
-interface InputProps extends Omit<React__default.InputHTMLAttributes<HTMLInputElement>, "size"> {
+interface InputProps extends Omit<React__default.InputHTMLAttributes<HTMLInputElement>, "size">, BaseProps {
     label?: string;
     hint?: string;
     error?: string;
@@ -334,7 +536,7 @@ interface InputProps extends Omit<React__default.InputHTMLAttributes<HTMLInputEl
 }
 declare const Input: React__default.ForwardRefExoticComponent<InputProps & React__default.RefAttributes<HTMLInputElement>>;
 
-interface ToggleProps {
+interface ToggleProps extends BaseProps {
     checked?: boolean;
     defaultChecked?: boolean;
     disabled?: boolean;
@@ -342,9 +544,8 @@ interface ToggleProps {
     label?: string;
     onChange?: (checked: boolean) => void;
     className?: string;
-    style?: React__default.CSSProperties;
 }
-declare function Toggle({ checked, defaultChecked, disabled, size, label, onChange, className, style, }: ToggleProps): React__default.JSX.Element;
+declare function Toggle({ checked, defaultChecked, disabled, size, label, onChange, className, ...props }: ToggleProps): React__default.JSX.Element;
 declare namespace Toggle {
     var displayName: string;
 }
@@ -439,7 +640,7 @@ interface IconButtonProps extends Omit<ButtonProps$1, "iconOnly" | "leftIcon" | 
 }
 declare const IconButton: React__default.ForwardRefExoticComponent<IconButtonProps & React__default.RefAttributes<HTMLButtonElement>>;
 
-interface CheckBoxProps extends React__default.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root> {
+interface CheckBoxProps extends React__default.ComponentPropsWithoutRef<typeof CheckboxPrimitive.Root>, BaseProps {
     label?: string;
     error?: string;
 }
@@ -462,12 +663,24 @@ interface SliderProps extends React__default.ComponentPropsWithoutRef<typeof Sli
 }
 declare const Slider: React__default.ForwardRefExoticComponent<SliderProps & React__default.RefAttributes<HTMLSpanElement>>;
 
-interface TextFieldProps extends React__default.InputHTMLAttributes<HTMLInputElement> {
+interface TextFieldProps extends Omit<React__default.InputHTMLAttributes<HTMLInputElement>, "size">, BaseProps {
     label?: string;
     error?: string;
+    helper?: string;
+    hint?: string;
     leftIcon?: React__default.ReactNode;
     rightIcon?: React__default.ReactNode;
     containerClassName?: string;
+    size?: "sm" | "md" | "lg";
+    variant?: "default" | "filled" | "flushed" | "unstyled";
+    borderRadius?: "sm" | "md" | "lg" | "full";
+    clearable?: boolean;
+    loading?: boolean;
+    success?: boolean;
+    mask?: string;
+    maxLength?: number;
+    autoSelect?: boolean;
+    onClear?: () => void;
 }
 declare const TextField: React__default.ForwardRefExoticComponent<TextFieldProps & React__default.RefAttributes<HTMLInputElement>>;
 
@@ -497,8 +710,11 @@ declare const TextArea: React__default.ForwardRefExoticComponent<TextAreaProps &
 
 declare const Select: React__default.FC<SelectPrimitive.SelectProps>;
 declare const SelectValue: React__default.ForwardRefExoticComponent<SelectPrimitive.SelectValueProps & React__default.RefAttributes<HTMLSpanElement>>;
-declare const SelectTrigger: React__default.ForwardRefExoticComponent<Omit<SelectPrimitive.SelectTriggerProps & React__default.RefAttributes<HTMLButtonElement>, "ref"> & React__default.RefAttributes<HTMLButtonElement>>;
+declare const SelectTrigger: React__default.ForwardRefExoticComponent<Omit<SelectPrimitive.SelectTriggerProps & React__default.RefAttributes<HTMLButtonElement>, "ref"> & BaseProps & React__default.RefAttributes<HTMLButtonElement>>;
 declare const SelectContent: React__default.ForwardRefExoticComponent<Omit<SelectPrimitive.SelectContentProps & React__default.RefAttributes<HTMLDivElement>, "ref"> & React__default.RefAttributes<HTMLDivElement>>;
+declare const SelectLabel: React__default.ForwardRefExoticComponent<Omit<SelectPrimitive.SelectLabelProps & React__default.RefAttributes<HTMLDivElement>, "ref"> & React__default.RefAttributes<HTMLDivElement>>;
+declare const SelectSeparator: React__default.ForwardRefExoticComponent<Omit<SelectPrimitive.SelectSeparatorProps & React__default.RefAttributes<HTMLDivElement>, "ref"> & React__default.RefAttributes<HTMLDivElement>>;
+declare const SelectGroup: React__default.ForwardRefExoticComponent<SelectPrimitive.SelectGroupProps & React__default.RefAttributes<HTMLDivElement>>;
 declare const SelectItem: React__default.ForwardRefExoticComponent<Omit<SelectPrimitive.SelectItemProps & React__default.RefAttributes<HTMLDivElement>, "ref"> & React__default.RefAttributes<HTMLDivElement>>;
 
 interface FileUploaderProps {
@@ -530,7 +746,7 @@ interface AutocompleteOption {
     value: string;
     label: string;
 }
-interface AutocompleteProps {
+interface AutocompleteProps extends BaseProps {
     options: AutocompleteOption[];
     value?: string;
     onChange?: (value: string) => void;
@@ -539,7 +755,7 @@ interface AutocompleteProps {
     error?: string;
     className?: string;
 }
-declare function Autocomplete({ options, value, onChange, placeholder, label, error, className, }: AutocompleteProps): React__default.JSX.Element;
+declare function Autocomplete({ options, value, onChange, placeholder, label, error, className, ...props }: AutocompleteProps): React__default.JSX.Element;
 declare namespace Autocomplete {
     var displayName: string;
 }
@@ -595,7 +811,7 @@ declare const AvatarImage: React__default.ForwardRefExoticComponent<Omit<AvatarP
 declare const AvatarFallback: React__default.ForwardRefExoticComponent<Omit<AvatarPrimitive.AvatarFallbackProps & React__default.RefAttributes<HTMLSpanElement>, "ref"> & React__default.RefAttributes<HTMLSpanElement>>;
 type AvatarProps = React__default.ComponentPropsWithoutRef<typeof AvatarPrimitive.Root>;
 
-interface ChipProps extends React__default.HTMLAttributes<HTMLDivElement> {
+interface ChipProps extends Omit<React__default.HTMLAttributes<HTMLDivElement>, "color"> {
     label: string;
     onDelete?: () => void;
     icon?: React__default.ReactNode;
@@ -635,15 +851,21 @@ interface ColumnDef$1<TData> {
     cell?: (item: TData) => React$1.ReactNode;
     sortable?: boolean;
 }
-interface DataTableProps$1<TData> {
+interface DataTableProps$1<TData> extends BaseProps {
     columns: ColumnDef$1<TData>[];
     data: TData[];
     searchKey?: keyof TData;
     searchPlaceholder?: string;
     highlightKey?: keyof TData;
     pageSize?: number;
+    loading?: boolean;
+    skeletonRows?: number;
+    emptyState?: React$1.ReactNode;
+    stickyHeader?: boolean;
+    striped?: boolean;
+    compact?: boolean;
 }
-declare function DataTable$1<TData>({ columns, data, searchKey, searchPlaceholder, highlightKey, pageSize, }: DataTableProps$1<TData>): react_jsx_runtime.JSX.Element;
+declare function DataTable$1<TData>({ columns, data, searchKey, searchPlaceholder, highlightKey, pageSize, loading, skeletonRows, emptyState, stickyHeader, striped, compact, className, ...props }: DataTableProps$1<TData>): React$1.JSX.Element;
 
 interface ListProps {
     children: React__default.ReactNode;
@@ -665,8 +887,15 @@ declare namespace ListItem {
     var displayName: string;
 }
 
-declare const Table$1: React__default.ForwardRefExoticComponent<React__default.HTMLAttributes<HTMLTableElement> & React__default.RefAttributes<HTMLTableElement>>;
-declare const TableHeader: React__default.ForwardRefExoticComponent<React__default.HTMLAttributes<HTMLTableSectionElement> & React__default.RefAttributes<HTMLTableSectionElement>>;
+interface TableProps extends React__default.HTMLAttributes<HTMLTableElement>, BaseProps {
+    stickyHeader?: boolean;
+    striped?: boolean;
+    compact?: boolean;
+}
+declare const Table$1: React__default.ForwardRefExoticComponent<TableProps & React__default.RefAttributes<HTMLTableElement>>;
+declare const TableHeader: React__default.ForwardRefExoticComponent<React__default.HTMLAttributes<HTMLTableSectionElement> & {
+    sticky?: boolean;
+} & React__default.RefAttributes<HTMLTableSectionElement>>;
 declare const TableBody: React__default.ForwardRefExoticComponent<React__default.HTMLAttributes<HTMLTableSectionElement> & React__default.RefAttributes<HTMLTableSectionElement>>;
 declare const TableFooter: React__default.ForwardRefExoticComponent<React__default.HTMLAttributes<HTMLTableSectionElement> & React__default.RefAttributes<HTMLTableSectionElement>>;
 declare const TableRow: React__default.ForwardRefExoticComponent<React__default.HTMLAttributes<HTMLTableRowElement> & React__default.RefAttributes<HTMLTableRowElement>>;
@@ -680,7 +909,7 @@ declare const TooltipTrigger: React__default.ForwardRefExoticComponent<TooltipPr
 declare const TooltipContent: React__default.ForwardRefExoticComponent<Omit<TooltipPrimitive.TooltipContentProps & React__default.RefAttributes<HTMLDivElement>, "ref"> & React__default.RefAttributes<HTMLDivElement>>;
 
 declare const progressVariants: (props?: ({
-    size?: "xs" | "sm" | "md" | "lg" | null | undefined;
+    size?: "sm" | "md" | "lg" | "xs" | null | undefined;
 } & class_variance_authority_types.ClassProp) | undefined) => string;
 type ProgressColor = "brand" | "success" | "danger" | "warning" | "info";
 interface ProgressProps extends Omit<React__default.HTMLAttributes<HTMLDivElement>, "color">, VariantProps<typeof progressVariants> {
@@ -765,16 +994,21 @@ declare const AccordionTrigger: React__default.ForwardRefExoticComponent<Omit<Ac
 declare const AccordionContent: React__default.ForwardRefExoticComponent<Omit<AccordionPrimitive.AccordionContentProps & React__default.RefAttributes<HTMLDivElement>, "ref"> & React__default.RefAttributes<HTMLDivElement>>;
 
 declare const alertVariants: (props?: ({
-    variant?: "default" | "destructive" | "success" | "warning" | "brand" | "info" | null | undefined;
+    status?: "success" | "warning" | "info" | "error" | null | undefined;
+    variant?: "ghost" | "outline" | "subtle" | "solid" | null | undefined;
 } & class_variance_authority_types.ClassProp) | undefined) => string;
-interface AlertProps extends React__default.HTMLAttributes<HTMLDivElement>, VariantProps<typeof alertVariants> {
+interface AlertProps extends Omit<React__default.HTMLAttributes<HTMLDivElement>, "onDrag" | "onDragStart" | "onDragEnd" | "onAnimationStart">, VariantProps<typeof alertVariants>, BaseProps {
     title?: string;
     description?: string;
+    icon?: React__default.ReactNode;
+    dismissible?: boolean;
+    onDismiss?: () => void;
+    action?: React__default.ReactNode;
 }
 declare const Alert: React__default.ForwardRefExoticComponent<AlertProps & React__default.RefAttributes<HTMLDivElement>>;
 
 declare const loaderVariants: (props?: ({
-    size?: "sm" | "md" | "lg" | "xl" | null | undefined;
+    size?: "sm" | "md" | "lg" | "xl" | "xs" | null | undefined;
     color?: "primary" | "neutral" | "brand" | null | undefined;
 } & class_variance_authority_types.ClassProp) | undefined) => string;
 interface LoaderProps extends Omit<React__default.HTMLAttributes<HTMLDivElement>, "color">, VariantProps<typeof loaderVariants> {
@@ -836,7 +1070,7 @@ declare const DialogDescription: React__default.ForwardRefExoticComponent<Omit<D
 declare const ToastProvider: React__default.FC<ToastPrimitive.ToastProviderProps>;
 declare const ToastViewport: React__default.ForwardRefExoticComponent<Omit<ToastPrimitive.ToastViewportProps & React__default.RefAttributes<HTMLOListElement>, "ref"> & React__default.RefAttributes<HTMLOListElement>>;
 declare const Toast: React__default.ForwardRefExoticComponent<Omit<ToastPrimitive.ToastProps & React__default.RefAttributes<HTMLLIElement>, "ref"> & VariantProps<(props?: ({
-    variant?: "default" | "destructive" | "success" | "warning" | "info" | null | undefined;
+    variant?: "default" | "success" | "warning" | "info" | "destructive" | null | undefined;
 } & class_variance_authority_types.ClassProp) | undefined) => string> & React__default.RefAttributes<HTMLLIElement>>;
 declare const ToastAction: React__default.ForwardRefExoticComponent<Omit<ToastPrimitive.ToastActionProps & React__default.RefAttributes<HTMLButtonElement>, "ref"> & React__default.RefAttributes<HTMLButtonElement>>;
 declare const ToastClose: React__default.ForwardRefExoticComponent<Omit<ToastPrimitive.ToastCloseProps & React__default.RefAttributes<HTMLButtonElement>, "ref"> & React__default.RefAttributes<HTMLButtonElement>>;
@@ -1425,7 +1659,7 @@ declare const Menu: React__default.FC<DropdownMenuPrimitive.DropdownMenuProps>;
 
 declare const buttonVariants: (props?: ({
     variant?: "primary" | "secondary" | "ghost" | "danger" | "outline-brand" | "dark" | null | undefined;
-    size?: "xs" | "sm" | "md" | "lg" | "xl" | null | undefined;
+    size?: "sm" | "md" | "lg" | "xl" | "xs" | null | undefined;
     fullWidth?: boolean | null | undefined;
     loading?: boolean | null | undefined;
     iconOnly?: boolean | null | undefined;
@@ -1614,4 +1848,4 @@ declare function NotiStackProvider({ children, }: {
     children: React__default.ReactNode;
 }): React__default.JSX.Element;
 
-export { Accordion, AccordionContent, AccordionItem, AccordionTrigger, AdvancedRealTimeChart, Alert, type AlertProps, AppBar, type AppBarProps, AppFooter, type AppFooterProps, AppHeader, type AppHeaderNavItem, type AppHeaderProps, AreaChart, AssetLibrary, Autocomplete, type AutocompleteOption, type AutocompleteProps, Avatar, AvatarFallback, AvatarImage, type AvatarProps, Backdrop, type BackdropProps, Badge, type BadgeProps, type BaseProps, BaselineChart, BoneyardSkeleton, BottomNav, type BottomNavItem, BottomNavigation, type BottomNavigationItem, type BottomNavigationProps, Box, type BoxProps, type BreadcrumbItem$1 as BreadcrumbItem, Breadcrumbs$1 as Breadcrumbs, type BreadcrumbsProps$1 as BreadcrumbsProps, Button, type ButtonProps$1 as ButtonProps, CandlestickChart, Card, type CardProps, Carousel, type CarouselProps, CheckBox, type CheckBoxProps, type ChildrenProps, Chip, type ChipProps, type ColumnDef$1 as ColumnDef, CommunitySection, type CommunitySectionProps, CustomTickerTape$1 as CustomTickerTape, DataTable$1 as DataTable, DatePicker, type DatePickerProps, type DesignTokens, Dialog$1 as Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogOverlay, DialogPortal, DialogTitle, DialogTrigger, DiffCard, type DiffCardProps, type Differentiator, Differentiators, type DifferentiatorsProps, DigitInput, type DigitInputProps, Divider, type DividerProps, Drawer$1 as Drawer, type DrawerProps$1 as DrawerProps, Nudge as EngagementNudge, NudgesPanel as EngagementNudgesPanel, Fab$1 as Fab, type FabProps$1 as FabProps, FadeIn, FibSpiral, type FibSpiralProps, FileUploader, type FileUploaderProps, type FooterColumn, type FooterLink, type GlobalBadgeVariant, Hero, type HeroProps, HowItWorks, type HowItWorksProps, type HowItWorksStep, ICONS, ILLUSTRATIONS, IconButton, type IconButtonProps, type IconCategory, type IconDef, type IllustrationCategory, type IllustrationDef, Image, ImageList, type ImageListProps, type ImageProps, Input, type InputProps, InsightCard, Link, type LinkProps, List, ListItem, type ListItemProps, type ListProps, Loader, type LoaderProps, MarketStatus as MarketDataStatus, DataTable as MarketDataTable, MetricCard as MarketMetricCard, MarketOverview, Pagination as MarketPagination, PriceChange as MarketPriceChange, Sparkline as MarketSparkline, MarketStatus$1 as MarketStatus, Status as MarketStatusIndicator, StockCard as MarketStockCard, Table as MarketTable, CustomTickerTape as MarketTickerTape, Menu$1 as Menu, MenuContent, MenuGroup, MenuItem, MenuLabel, MenuPortal, MenuSeparator, MenuSub, MenuTrigger, MetricCard$1 as MetricCard, type MintShade, MintxLogo, type NavItem, type NeutralShade, NotiStackProvider$1 as NotiStackProvider, Nudge$1 as Nudge, type NudgeProps$1 as NudgeProps, NudgesPanel$1 as NudgesPanel, Breadcrumbs as OnboardingBreadcrumbs, Dialog as OnboardingDialog, Drawer as OnboardingDrawer, Fab as OnboardingFab, Menu as OnboardingMenu, SupportLiveBar as OnboardingSupportLiveBar, Pagination$1 as Pagination, type PaginationProps$1 as PaginationProps, Popover, PopoverContent, PopoverTrigger, PriceChange$1 as PriceChange, Progress, ProgressIndicator, type ProgressIndicatorProps, type ProgressProps, ProgressTracker, type ProgressTrackerProps, type ProgressTrackerStep, RadioGroup, RadioGroupItem, type RadioItemProps, type RadiusKey, Rating, type RatingProps, SVGS, ScaleIn, Select, SelectContent, SelectItem, SelectTrigger, SelectValue, Separator, type SeparatorProps, Sidebar, type Size, Skeleton, SlideIn, Slider, type SliderProps, type SpacingKey, Sparkline$1 as Sparkline, Stack, type StackProps, type StatItem, StatsSection, type StatsSectionProps, StockCard$1 as StockCard, SupportLiveBar$1 as SupportLiveBar, Switch, type SwitchProps, SymbolOverviewMini, Table$1 as Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow, Tabs, type TabsProps, Tag, TagGroup, type TagGroupProps, type TagProps, TechnicalAnalysis, TextArea, type TextAreaProps, TextField, TextFieldPassword, type TextFieldPasswordProps, type TextFieldProps, type TextSizeKey, type Theme, type ThemeContextValue, ThemeProvider, ThemeToggle, Ticker, type TickerProps, TickerTape, Toast, ToastAction, type ToastActionElement, ToastClose, ToastContext, ToastDescription, type ToastProps, ToastProvider, ToastTitle, ToastViewport, Toggle, type ToggleProps, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger, VolumeChart, WaitlistForm, type WaitlistFormProps, type WaitlistStatus, NotiStackProvider as WrapperNotiStackProvider, badgeVariants, cn, mintColors, motion, neutralColors, radius, semanticColors, shadows, spacing, tokens, typography, useCountUp, useDisclosure, useIsMobile, useLocalStorage, useMediaQuery, usePriceDirection, useTheme, useToast };
+export { Accordion, AccordionContent, AccordionItem, AccordionTrigger, AdvancedRealTimeChart, Alert, type AlertProps, AppBar, type AppBarProps, AppFooter, type AppFooterProps, AppHeader, type AppHeaderNavItem, type AppHeaderProps, AreaChart, AssetLibrary, Autocomplete, type AutocompleteOption, type AutocompleteProps, Avatar, AvatarFallback, AvatarImage, type AvatarProps, Backdrop, type BackdropProps, Badge, type BadgeProps, type BaseProps, BaselineChart, BoneyardSkeleton, type BorderWidth, BottomNav, type BottomNavItem, BottomNavigation, type BottomNavigationItem, type BottomNavigationProps, Box, type BoxProps, type BreadcrumbItem$1 as BreadcrumbItem, Breadcrumbs$1 as Breadcrumbs, type BreadcrumbsProps$1 as BreadcrumbsProps, Button, type ButtonProps$1 as ButtonProps, CandlestickChart, Card, type CardProps, Carousel, type CarouselProps, CheckBox, type CheckBoxProps, type ChildrenProps, Chip, type ChipProps, type ColumnDef$1 as ColumnDef, CommunitySection, type CommunitySectionProps, CustomTickerTape$1 as CustomTickerTape, DataTable$1 as DataTable, DatePicker, type DatePickerProps, type DesignTokens, Dialog$1 as Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogOverlay, DialogPortal, DialogTitle, DialogTrigger, DiffCard, type DiffCardProps, type Differentiator, Differentiators, type DifferentiatorsProps, DigitInput, type DigitInputProps, Divider, type DividerProps, Drawer$1 as Drawer, type DrawerProps$1 as DrawerProps, type Elevation, Nudge as EngagementNudge, NudgesPanel as EngagementNudgesPanel, Fab$1 as Fab, type FabProps$1 as FabProps, FadeIn, FibSpiral, type FibSpiralProps, FileUploader, type FileUploaderProps, type FooterColumn, type FooterLink, type GlobalBadgeVariant, Hero, type HeroProps, HowItWorks, type HowItWorksProps, type HowItWorksStep, ICONS, ILLUSTRATIONS, IconButton, type IconButtonProps, type IconCategory, type IconDef, type IllustrationCategory, type IllustrationDef, Image, ImageList, type ImageListProps, type ImageProps, Input, type InputProps, InsightCard, Link, type LinkProps, List, ListItem, type ListItemProps, type ListProps, Loader, type LoaderProps, MarketStatus as MarketDataStatus, DataTable as MarketDataTable, MetricCard as MarketMetricCard, MarketOverview, Pagination as MarketPagination, PriceChange as MarketPriceChange, Sparkline as MarketSparkline, MarketStatus$1 as MarketStatus, Status as MarketStatusIndicator, StockCard as MarketStockCard, Table as MarketTable, CustomTickerTape as MarketTickerTape, Menu$1 as Menu, MenuContent, MenuGroup, MenuItem, MenuLabel, MenuPortal, MenuSeparator, MenuSub, MenuTrigger, MetricCard$1 as MetricCard, type MintShade, MintxLogo, type NavItem, type NeutralShade, NotiStackProvider$1 as NotiStackProvider, Nudge$1 as Nudge, type NudgeProps$1 as NudgeProps, NudgesPanel$1 as NudgesPanel, Breadcrumbs as OnboardingBreadcrumbs, Dialog as OnboardingDialog, Drawer as OnboardingDrawer, Fab as OnboardingFab, Menu as OnboardingMenu, SupportLiveBar as OnboardingSupportLiveBar, type Opacity, Pagination$1 as Pagination, type PaginationProps$1 as PaginationProps, Popover, PopoverContent, PopoverTrigger, PriceChange$1 as PriceChange, Progress, ProgressIndicator, type ProgressIndicatorProps, type ProgressProps, ProgressTracker, type ProgressTrackerProps, type ProgressTrackerStep, RadioGroup, RadioGroupItem, type RadioItemProps, type RadiusKey, Rating, type RatingProps, SVGS, ScaleIn, Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectSeparator, SelectTrigger, SelectValue, Separator, type SeparatorProps, Sidebar, type Size, Skeleton, SlideIn, Slider, type SliderProps, type SpacingKey, Sparkline$1 as Sparkline, Stack, type StackProps, type StatItem, StatsSection, type StatsSectionProps, StockCard$1 as StockCard, SupportLiveBar$1 as SupportLiveBar, Switch, type SwitchProps, SymbolOverviewMini, Table$1 as Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, type TableProps, TableRow, Tabs, type TabsProps, Tag, TagGroup, type TagGroupProps, type TagProps, TechnicalAnalysis, TextArea, type TextAreaProps, TextField, TextFieldPassword, type TextFieldPasswordProps, type TextFieldProps, type TextSizeKey, type Theme, type ThemeContextValue, ThemeProvider, ThemeToggle, Ticker, type TickerProps, TickerTape, Toast, ToastAction, type ToastActionElement, ToastClose, ToastContext, ToastDescription, type ToastProps, ToastProvider, ToastTitle, ToastViewport, Toggle, type ToggleProps, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger, VolumeChart, WaitlistForm, type WaitlistFormProps, type WaitlistStatus, NotiStackProvider as WrapperNotiStackProvider, type ZIndex, animation, backdrop, badgeVariants, borderWidth, cn, elevation, mintColors, motion, neutralColors, opacity, radius, semanticColors, shadows, spacing, tokens, transition, typography, useCountUp, useDisclosure, useIsMobile, useLocalStorage, useMediaQuery, usePriceDirection, useTheme, useToast, zIndex };

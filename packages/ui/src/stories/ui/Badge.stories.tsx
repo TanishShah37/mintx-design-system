@@ -10,34 +10,29 @@ const meta: Meta<typeof Badge> = {
     docs: {
       description: {
         component:
-          "Compact labels for status, category, and metadata. Supports 8 semantic variants, 3 sizes, and an optional leading dot indicator. Used throughout watchlists, stock cards, insight panels, and alert banners.",
+          "Compact labels for status, category, and metadata. Supports 6 semantic variants, 4 visual styles, and interactive features like pulse animations and removable tags.",
       },
     },
   },
   argTypes: {
+    color: {
+      control: "select",
+      options: ["neutral", "primary", "success", "warning", "danger", "info"],
+      description: "Semantic color variant",
+    },
     variant: {
       control: "select",
-      options: [
-        "mint",
-        "green",
-        "red",
-        "amber",
-        "blue",
-        "purple",
-        "neutral",
-        "outline",
-      ],
-      description: "Semantic colour variant",
+      options: ["solid", "subtle", "outline", "ghost"],
+      description: "Visual style variant",
     },
     size: {
       control: "select",
       options: ["sm", "md", "lg"],
       description: "Badge size",
     },
-    dot: {
-      control: "boolean",
-      description: "Show leading dot indicator",
-    },
+    dot: { control: "boolean" },
+    pulse: { control: "boolean" },
+    removable: { control: "boolean" },
   },
 };
 
@@ -46,123 +41,61 @@ type Story = StoryObj<typeof Badge>;
 
 export const Default: Story = {
   args: {
-    variant: "mint",
-    children: "Mintx Pro",
+    children: "Badge",
+    color: "neutral",
+    variant: "subtle",
   },
 };
 
-export const AllVariants: Story = {
-  name: "All Variants",
+export const Styles: Story = {
   render: () => (
-    <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-      <Badge variant="mint">Mint</Badge>
-      <Badge variant="green">Bullish</Badge>
-      <Badge variant="red">Bearish</Badge>
-      <Badge variant="amber">Caution</Badge>
-      <Badge variant="blue">Info</Badge>
-      <Badge variant="purple">Premium</Badge>
-      <Badge variant="neutral">Neutral</Badge>
-      <Badge variant="outline">Outline</Badge>
+    <div style={{ display: "flex", flexWrap: "wrap", gap: 12, alignItems: "center" }}>
+      <Badge color="primary" variant="solid">Solid</Badge>
+      <Badge color="primary" variant="subtle">Subtle</Badge>
+      <Badge color="primary" variant="outline">Outline</Badge>
+      <Badge color="primary" variant="ghost">Ghost</Badge>
     </div>
   ),
 };
 
-export const Sizes: Story = {
-  name: "Sizes",
+export const SemanticVariants: Story = {
   render: () => (
-    <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-      <Badge variant="mint" size="sm">Small</Badge>
-      <Badge variant="mint" size="md">Medium</Badge>
-      <Badge variant="mint" size="lg">Large</Badge>
+    <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
+      <Badge color="neutral">Neutral</Badge>
+      <Badge color="primary">Primary</Badge>
+      <Badge color="success">Success</Badge>
+      <Badge color="warning">Warning</Badge>
+      <Badge color="danger">Danger</Badge>
+      <Badge color="info">Info</Badge>
     </div>
   ),
 };
 
-export const WithDot: Story = {
-  name: "With Leading Dot",
+export const StatusIndicators: Story = {
   render: () => (
-    <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-      <Badge variant="green" dot>Live</Badge>
-      <Badge variant="red" dot>Bearish</Badge>
-      <Badge variant="amber" dot>Pre-Open</Badge>
-      <Badge variant="mint" dot>Pro Plan</Badge>
-      <Badge variant="blue" dot>NSE</Badge>
+    <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
+      <Badge color="success" dot>Market Open</Badge>
+      <Badge color="danger" dot pulse>Live Error</Badge>
+      <Badge color="warning" dot>Caution</Badge>
     </div>
   ),
 };
 
-export const FinancialContext: Story = {
-  name: "Financial Use Cases",
+export const Counters: Story = {
   render: () => (
-    <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
-      <div>
-        <p
-          style={{
-            fontSize: 11,
-            fontWeight: 700,
-            textTransform: "uppercase",
-            letterSpacing: "0.1em",
-            color: "var(--text-tertiary, #748A83)",
-            marginBottom: 8,
-          }}
-        >
-          Market Status
-        </p>
-        <div style={{ display: "flex", gap: 8 }}>
-          <Badge variant="green" dot size="md">Market Open</Badge>
-          <Badge variant="amber" dot size="md">Pre-Open</Badge>
-          <Badge variant="neutral" dot size="md">Market Closed</Badge>
-        </div>
-      </div>
-      <div>
-        <p
-          style={{
-            fontSize: 11,
-            fontWeight: 700,
-            textTransform: "uppercase",
-            letterSpacing: "0.1em",
-            color: "var(--text-tertiary, #748A83)",
-            marginBottom: 8,
-          }}
-        >
-          Insight Tags
-        </p>
-        <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
-          <Badge variant="mint" size="sm">Fibonacci Zone</Badge>
-          <Badge variant="blue" size="sm">Volume Breakout</Badge>
-          <Badge variant="amber" size="sm">Resistance Level</Badge>
-          <Badge variant="purple" size="sm">Institutional Flow</Badge>
-          <Badge variant="neutral" size="sm">Illustrative Only</Badge>
-        </div>
-      </div>
-      <div>
-        <p
-          style={{
-            fontSize: 11,
-            fontWeight: 700,
-            textTransform: "uppercase",
-            letterSpacing: "0.1em",
-            color: "var(--text-tertiary, #748A83)",
-            marginBottom: 8,
-          }}
-        >
-          Plan Tiers
-        </p>
-        <div style={{ display: "flex", gap: 8 }}>
-          <Badge variant="neutral" size="sm">Free</Badge>
-          <Badge variant="mint" size="sm">Pro</Badge>
-          <Badge variant="purple" size="sm">Enterprise</Badge>
-        </div>
-      </div>
+    <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
+      <Badge color="primary" variant="solid" count={5} />
+      <Badge color="danger" count={120} maxCount={99} />
+      <Badge color="neutral" count={0} />
     </div>
   ),
 };
 
-export const SmallDark: Story = {
-  name: "Small (sm)",
-  args: { variant: "green", size: "sm", children: "Bullish" },
-};
-export const LargePurple: Story = {
-  name: "Large Purple",
-  args: { variant: "purple", size: "lg", children: "Enterprise" },
+export const Removable: Story = {
+  render: () => (
+    <div style={{ display: "flex", flexWrap: "wrap", gap: 12 }}>
+      <Badge color="neutral" removable onRemove={() => alert("Removed!")}>Nifty 50</Badge>
+      <Badge color="primary" removable onRemove={() => alert("Removed!")}>Tech</Badge>
+    </div>
+  ),
 };

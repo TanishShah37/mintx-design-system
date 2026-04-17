@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { Button } from "../../components/ui/Button";
-import { Plus, Loader2 } from "lucide-react";
+import { Plus, ArrowRight, Download, Settings, Trash2 } from "lucide-react";
 import React from "react";
 
 const meta: Meta<typeof Button> = {
@@ -10,14 +10,31 @@ const meta: Meta<typeof Button> = {
   argTypes: {
     variant: {
       control: "select",
-      options: ["primary", "secondary", "ghost", "danger", "outline-brand", "dark"],
+      options: [
+        "primary",
+        "secondary",
+        "ghost",
+        "danger",
+        "outline-brand",
+        "dark",
+        "success",
+        "warning",
+        "info",
+        "outline",
+        "subtle",
+        "link",
+      ],
     },
     size: {
       control: "select",
-      options: ["sm", "md", "lg", "xl", "icon"],
+      options: ["2xs", "xs", "sm", "md", "lg", "xl", "icon"],
     },
-    isLoading: { control: "boolean" },
+    loading: { control: "boolean" },
     disabled: { control: "boolean" },
+    active: { control: "boolean" },
+    pressed: { control: "boolean" },
+    badge: { control: "text" },
+    tooltip: { control: "text" },
   },
 };
 
@@ -45,6 +62,20 @@ export const Ghost: Story = {
   },
 };
 
+export const Success: Story = {
+  args: {
+    variant: "success",
+    children: "Complete Payment",
+  },
+};
+
+export const Warning: Story = {
+  args: {
+    variant: "warning",
+    children: "Risk Warning",
+  },
+};
+
 export const Danger: Story = {
   args: {
     variant: "danger",
@@ -52,28 +83,64 @@ export const Danger: Story = {
   },
 };
 
-export const WithIcon: Story = {
+export const Link: Story = {
+  args: {
+    variant: "link",
+    children: "View all transactions",
+  },
+};
+
+export const Subtle: Story = {
+  args: {
+    variant: "subtle",
+    children: "Cancel changes",
+  },
+};
+
+export const WithIcons: Story = {
   args: {
     variant: "primary",
-    children: (
-      <>
-        <Plus className="w-4 h-4 mr-2" />
-        Add Asset
-      </>
-    ),
+    leftIcon: <Plus size={16} />,
+    rightIcon: <ArrowRight size={16} />,
+    children: "Buy Asset",
+  },
+};
+
+export const IconOnly: Story = {
+  args: {
+    variant: "outline",
+    size: "icon",
+    children: <Settings size={20} />,
+    tooltip: "Settings",
   },
 };
 
 export const Loading: Story = {
   args: {
-    isLoading: true,
-    children: "Processing",
+    loading: true,
+    children: "Processing order...",
   },
 };
 
-export const Large: Story = {
+export const WithBadge: Story = {
   args: {
-    size: "lg",
-    children: "Get Started",
+    variant: "secondary",
+    children: "Notifications",
+    badge: 5,
+  },
+};
+
+export const Tiny: Story = {
+  args: {
+    size: "2xs",
+    children: "New",
+  },
+};
+
+export const FullWidth: Story = {
+  args: {
+    variant: "primary",
+    width: "full",
+    children: "Deposit Funds",
   },
 };

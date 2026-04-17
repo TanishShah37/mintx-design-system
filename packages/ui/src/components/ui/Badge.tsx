@@ -1,26 +1,27 @@
 import React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "../../tokens/cn";
+import { BaseProps } from "../../types";
+import { getCommonClasses } from "../../tokens/common-props";
+import { X } from "lucide-react";
 
 const badgeVariants = cva(
   "inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-bold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 uppercase tracking-wider",
   {
     variants: {
+      color: {
+        neutral: "bg-neutral-100 text-neutral-700 border-neutral-200",
+        primary: "bg-mint-100 text-mint-700 border-mint-200",
+        success: "bg-emerald-100 text-emerald-700 border-emerald-200",
+        warning: "bg-amber-100 text-amber-700 border-amber-200",
+        danger: "bg-red-100 text-red-700 border-red-200",
+        info: "bg-blue-100 text-blue-700 border-blue-200",
+      },
       variant: {
-        default:
-          "border-transparent bg-primary text-primary-foreground shadow hover:bg-primary/80",
-        secondary:
-          "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80",
-        destructive:
-          "border-transparent bg-destructive text-destructive-foreground shadow hover:bg-destructive/80",
-        outline: "text-foreground border-border",
-        success: "border-transparent bg-green-500/10 text-green-500",
-        warning: "border-transparent bg-yellow-500/10 text-yellow-500",
-        error: "border-transparent bg-red-500/10 text-red-500",
-        mint: "border-transparent bg-[#10C9A0]/10 text-[#10C9A0]",
-        blue: "border-transparent bg-blue-500/10 text-blue-500",
-        purple: "border-transparent bg-purple-500/10 text-purple-500",
-        neutral: "border-transparent bg-neutral-500/10 text-neutral-500",
+        solid: "border-transparent",
+        subtle: "border-transparent",
+        outline: "bg-transparent",
+        ghost: "bg-transparent border-transparent",
       },
       size: {
         sm: "px-2 py-0.5 text-[10px]",
@@ -28,20 +29,91 @@ const badgeVariants = cva(
         lg: "px-3 py-1 text-sm",
       },
     },
+    compoundVariants: [
+      // Solid variants
+      { color: "neutral", variant: "solid", className: "bg-neutral-500 text-white" },
+      { color: "primary", variant: "solid", className: "bg-mint-500 text-white" },
+      { color: "success", variant: "solid", className: "bg-emerald-500 text-white" },
+      { color: "warning", variant: "solid", className: "bg-amber-500 text-white" },
+      { color: "danger", variant: "solid", className: "bg-red-500 text-white" },
+      { color: "info", variant: "solid", className: "bg-blue-500 text-white" },
+      // Outline variants
+      { color: "neutral", variant: "outline", className: "border-neutral-500 text-neutral-500" },
+      { color: "primary", variant: "outline", className: "border-mint-500 text-mint-500" },
+      { color: "success", variant: "outline", className: "border-emerald-500 text-emerald-500" },
+      { color: "warning", variant: "outline", className: "border-amber-500 text-amber-500" },
+      { color: "danger", variant: "outline", className: "border-red-500 text-red-500" },
+      { color: "info", variant: "outline", className: "border-blue-500 text-blue-500" },
+      // Ghost variants
+      { color: "neutral", variant: "ghost", className: "text-neutral-500" },
+      { color: "primary", variant: "ghost", className: "text-mint-500" },
+      { color: "success", variant: "ghost", className: "text-emerald-500" },
+      { color: "warning", variant: "ghost", className: "text-amber-500" },
+      { color: "danger", variant: "ghost", className: "text-red-500" },
+      { color: "info", variant: "ghost", className: "text-blue-500" },
+    ],
     defaultVariants: {
-      variant: "default",
+      color: "neutral",
+      variant: "subtle",
       size: "md",
     },
   }
 );
 
 export interface BadgeProps
-  extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof badgeVariants> {}
+  extends Omit<React.HTMLAttributes<HTMLDivElement>, "color">,
+    VariantProps<typeof badgeVariants>,
+    BaseProps {
+  dot?: boolean;
+  pulse?: boolean;
+  removable?: boolean;
+  onRemove?: () => void;
+  count?: number;
+  maxCount?: number;
+}
 
-export function Badge({ className, variant, size, ...props }: BadgeProps): React.JSX.Element {
+export function Badge({
+  className,
+  color,
+  variant,
+  size,
+  dot,
+  pulse,
+  removable,
+  onRemove,
+  count,
+  maxCount = 99,
+  children,
+  ...props
+}: BadgeProps): React.JSX.Element {
+  const displayCount = count !== undefined ? (count > maxCount ? `${maxCount}+` : count) : null;
+
   return (
-    <div className={cn(badgeVariants({ variant, size }), className)} {...props} />
+    <div
+      className={cn(badgeVariants({ color, variant, size }), getCommonClasses(props), className)}
+      {...props}
+    >
+      {dot && (
+        <span
+          className={cn(
+            "mr-1.5 h-2 w-2 rounded-full bg-current opacity-70",
+            pulse && "animate-pulse"
+          )}
+        />
+      )}
+      {count !== undefined ? displayCount : children}
+      {removable && (
+        <button
+          onClick={(e) => {
+            e.stopPropagation();
+            onRemove?.();
+          }}
+          className="ml-1.5 rounded-full outline-none transition-colors hover:bg-black/10 p-0.5"
+        >
+          <X className="h-3 w-3" />
+        </button>
+      )}
+    </div>
   );
 }
 
