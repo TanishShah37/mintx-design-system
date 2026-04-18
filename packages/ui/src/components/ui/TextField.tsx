@@ -73,15 +73,15 @@ export const TextField = React.forwardRef<HTMLInputElement, TextFieldProps>(
     };
 
     const sizeClasses = {
-      sm: "h-9 text-xs",
-      md: "h-11 text-sm",
-      lg: "h-14 text-base",
+      sm: "h-10 text-sm", // Increased for better readability/touch (40px)
+      md: "h-11 text-base", // Rule §5: 16px base for main inputs
+      lg: "h-14 text-lg",
     };
 
     const variantClasses = {
-      default: "border-border bg-background focus:ring-primary/20 focus:border-primary",
-      filled: "border-transparent bg-neutral-100 focus:bg-background focus:border-primary",
-      flushed: "border-0 border-b border-border rounded-none bg-transparent px-0 focus:border-primary",
+      default: "border-border bg-background focus:ring-mint-400/20 focus:border-mint-400",
+      filled: "border-transparent bg-neutral-100 focus:bg-background focus:border-mint-400",
+      flushed: "border-0 border-b border-border rounded-none bg-transparent px-0 focus:border-mint-400",
       unstyled: "border-0 bg-transparent p-0 focus:ring-0",
     };
 

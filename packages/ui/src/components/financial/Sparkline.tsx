@@ -50,9 +50,11 @@ export function Sparkline({
       className={cn("block w-full", className)}
       viewBox={`0 0 200 ${height}`}
       preserveAspectRatio="none"
-      aria-hidden="true"
+      aria-label={`Sparkline showing ${direction} trend with ${data.length} data points`}
+      role="img"
       style={{ height }}
     >
+      <title>{`Sparkline: ${direction} trend`}</title>
       {/* Fill area */}
       <polygon points={closedPts} fill={colors.fill} stroke="none" />
       {/* Line */}

@@ -4,6 +4,13 @@ Wealth intelligence. Built for every Indian investor.
 
 This design system provides a collection of high-performance UI components built with **Tailwind CSS**, **Class Variance Authority (CVA)**, and **Radix UI**. It enforces a **Token-First** styling approach to ensure perfect brand consistency and dark mode support.
 
+## 🚀 Design Intelligence (UI/UX Pro Max)
+This project is integrated with the **UI/UX Pro Max** skill (v1.0), enforcing professional-grade design standards:
+- **Accessibility**: Strict adherence to WCAG 2.1 contrast and touch target rules (min 44x44px).
+- **Motion**: Standardized 150-300ms durations with natural spring physics.
+- **Rhythm**: Explicit 4/8px spacing grid across all components.
+- **Feedback**: Immediate visual interaction feedback (Scale & State layers).
+
 ## 💎 Design Tokens
 
 All styles MUST use these tokens. Avoid arbitrary hex codes or hardcoded pixel values.

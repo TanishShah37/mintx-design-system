@@ -6,7 +6,7 @@ import { getCommonClasses } from "../../tokens/common-props";
 import { Tooltip, TooltipTrigger, TooltipContent } from "./Tooltip";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-sp-2 font-body font-medium tracking-tight cursor-pointer border border-transparent relative overflow-hidden select-none whitespace-nowrap transition-all duration-120 ease-out focus-visible:outline-2 focus-visible:outline-mint-400 focus-visible:outline-offset-2 active:scale-[0.97] disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none",
+  "inline-flex items-center justify-center gap-sp-2 font-body font-medium tracking-tight cursor-pointer border border-transparent relative overflow-hidden select-none whitespace-nowrap transition-all duration-200 ease-out focus-visible:outline-2 focus-visible:outline-mint-400 focus-visible:outline-offset-2 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none before:absolute before:inset-[-8px] before:content-['']",
   {
     variants: {
       variant: {
@@ -21,33 +21,33 @@ const buttonVariants = cva(
         info: "bg-blue-500 text-white border-blue-500 hover:bg-blue-600 hover:border-blue-600",
         outline: "bg-transparent border border-neutral-300 text-neutral-700 hover:bg-neutral-50 hover:border-neutral-400",
         subtle: "bg-neutral-100 text-neutral-700 border-neutral-100 hover:bg-neutral-200",
-        link: "bg-transparent text-mint-600 border-transparent hover:underline hover:text-mint-700 p-0 h-auto",
+        link: "bg-transparent text-mint-600 border-transparent hover:underline hover:text-mint-700 p-0 h-auto before:hidden",
       },
       size: {
-        xs: "text-xs py-1 px-2.5 rounded-sm",
-        sm: "text-sm py-1.5 px-3.5 rounded-md",
-        md: "text-base py-[9px] px-5 rounded-md",
-        lg: "text-lg py-3 px-[26px] rounded-lg",
-        xl: "text-xl py-3.5 px-8 rounded-lg font-semibold",
-        "2xs": "text-[10px] py-0.5 px-2 rounded-sm",
-        icon: "p-2 rounded-md aspect-square",
+        xs: "text-xs py-1 px-2.5 rounded-sm min-h-[32px] min-w-[32px]", // Hit area expanded via 'before' inset
+        sm: "text-sm py-1.5 px-3.5 rounded-md min-h-[36px] min-w-[36px]",
+        md: "text-base py-[11px] px-6 rounded-md min-h-[44px]", // Rule §2: Pro Max Touch Target
+        lg: "text-lg py-3.5 px-8 rounded-lg min-h-[52px]",
+        xl: "text-xl py-4 px-10 rounded-lg font-semibold min-h-[60px]",
+        "2xs": "text-[10px] py-0.5 px-2 rounded-sm min-h-[28px]",
+        icon: "p-2 rounded-md aspect-square min-h-[44px] min-w-[44px]",
       },
       fullWidth: {
         true: "w-full",
       },
       loading: {
-        true: "cursor-wait",
+        true: "cursor-wait active:scale-100",
       },
       iconOnly: {
         true: "p-0 aspect-square",
       }
     },
     compoundVariants: [
-      { size: "xs", iconOnly: true, className: "w-7 h-7" },
-      { size: "sm", iconOnly: true, className: "w-8 h-8" },
-      { size: "md", iconOnly: true, className: "w-[38px] h-[38px]" },
-      { size: "lg", iconOnly: true, className: "w-[46px] h-[46px]" },
-      { size: "xl", iconOnly: true, className: "w-[52px] h-[52px]" },
+      { size: "xs", iconOnly: true, className: "w-8 h-8" },
+      { size: "sm", iconOnly: true, className: "w-9 h-9" },
+      { size: "md", iconOnly: true, className: "w-11 h-11" },
+      { size: "lg", iconOnly: true, className: "w-13 h-13" },
+      { size: "xl", iconOnly: true, className: "w-15 h-15" },
     ],
     defaultVariants: {
       variant: "primary",

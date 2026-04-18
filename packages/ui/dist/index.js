@@ -5713,11 +5713,31 @@ var neutralColors = {
   950: "#040807"
 };
 var semanticColors = {
-  green: { 400: "#22C55E", 500: "#16A34A" },
-  red: { 400: "#F87171", 500: "#DC2626" },
-  amber: { 400: "#FBBF24", 500: "#D97706" },
-  blue: { 400: "#60A5FA", 500: "#2563EB" },
-  purple: { 400: "#A78BFA" }
+  // EXTEND existing with full color scales:
+  green: { 300: "#86EFAC", 400: "#22C55E", 500: "#16A34A" },
+  red: { 300: "#FCA5A5", 400: "#F87171", 500: "#DC2626" },
+  // NEW COLOR FAMILIES:
+  orange: { 300: "#FDBA74", 400: "#FB923C", 500: "#F97316", 600: "#EA580C" },
+  amber: { 300: "#FCD34D", 400: "#FBBF24", 500: "#F59E0B", 600: "#D97706" },
+  yellow: { 300: "#FDE047", 400: "#FACC15", 500: "#EAB308" },
+  lime: { 300: "#BEF264", 400: "#A3E635", 500: "#84CC16" },
+  cyan: { 300: "#67E8F9", 400: "#22D3EE", 500: "#06B6D4" },
+  sky: { 300: "#7DD3FC", 400: "#38BDF8", 500: "#0EA5E9" },
+  indigo: { 300: "#A5B4FC", 400: "#818CF8", 500: "#6366F1", 600: "#4F46E5" },
+  violet: { 300: "#C4B5FD", 400: "#A78BFA", 500: "#8B5CF6", 600: "#7C3AED" },
+  purple: { 300: "#D8B4FE", 400: "#C084FC", 500: "#A855F7" },
+  pink: { 300: "#F9A8D4", 400: "#F472B6", 500: "#EC4899" },
+  rose: { 300: "#FDA4AF", 400: "#FB7185", 500: "#E11D48" },
+  slate: { 50: "#F8FAFC", 100: "#F1F5F9", 200: "#E2E8F0", 300: "#CBD5E1", 400: "#94A3B8", 500: "#64748B", 600: "#475569", 700: "#334155", 800: "#1E293B", 900: "#0F172A", 950: "#020617" },
+  gray: { 50: "#F9FAFB", 100: "#F3F4F6", 200: "#E5E7EB", 300: "#D1D5DB", 400: "#9CA3AF", 500: "#6B7280", 600: "#4B5563", 700: "#374151", 800: "#1F2937", 900: "#111827", 950: "#030712" },
+  emerald: { 600: "#059669", 700: "#047857", 800: "#065F46" },
+  blue: { 400: "#60A5FA", 500: "#2563EB" }
+};
+var hexToRgba = (hex, alpha) => {
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 };
 var chartColors = {
   // Primary series colors (distinct for multi-line charts)
@@ -17792,6 +17812,7 @@ exports.chartColors = chartColors;
 exports.cn = cn;
 exports.elevation = elevation;
 exports.getCommonClasses = getCommonClasses;
+exports.hexToRgba = hexToRgba;
 exports.mintColors = mintColors;
 exports.motion = motion;
 exports.neutralColors = neutralColors;

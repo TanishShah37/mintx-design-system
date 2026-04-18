@@ -171,10 +171,10 @@ export const typography = {
   fontBody: "'DM Sans', sans-serif",
   fontMono: "'DM Mono', monospace",
   scale: {
-    xs: "11px",
-    sm: "13px",
-    base: "15px",
-    lg: "17px",
+    xs: "12px",
+    sm: "14px",
+    base: "16px",
+    lg: "18px",
     xl: "20px",
     "2xl": "24px",
     "3xl": "30px",
@@ -188,10 +188,10 @@ export const motion = {
   easeOut: "cubic-bezier(0.16, 1, 0.3, 1)",
   easeSpring: "cubic-bezier(0.34, 1.56, 0.64, 1)",
   easeSmooth: "cubic-bezier(0.4, 0, 0.2, 1)",
-  fast: "120ms",
-  base: "200ms",
-  slow: "350ms",
-  page: "600ms",
+  fast: "150ms",
+  base: "250ms",
+  slow: "300ms",
+  page: "500ms",
 } as const;
 
 export const animation = {
