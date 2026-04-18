@@ -6786,22 +6786,27 @@ function Drawer({
     bottom: "inset-x-0 bottom-0 h-auto w-full border-t animate-in slide-in-from-bottom"
   };
   return /* @__PURE__ */ jsxRuntime.jsx(DialogPrimitive2__namespace.Root, { open, onOpenChange, children: /* @__PURE__ */ jsxRuntime.jsxs(DialogPrimitive2__namespace.Portal, { children: [
-    /* @__PURE__ */ jsxRuntime.jsx(DialogPrimitive2__namespace.Overlay, { className: "fixed inset-0 z-50 bg-background/80 backdrop-blur-sm animate-in fade-in" }),
+    /* @__PURE__ */ jsxRuntime.jsx(DialogPrimitive2__namespace.Overlay, { className: "fixed inset-0 z-50 bg-black/60 backdrop-blur-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=fade-in-0] data-[state=closed]:fade-out-0 transition-opacity" }),
     /* @__PURE__ */ jsxRuntime.jsx(
       DialogPrimitive2__namespace.Content,
       {
         className: cn(
-          "fixed z-50 bg-background p-6 shadow-xl outline-none duration-300",
+          "fixed z-50 bg-background p-6 shadow-2xl outline-none",
+          "data-[state=open]:animate-in data-[state=closed]:animate-out duration-300 ease-out",
+          "data-[state=open]:duration-300 data-[state=closed]:duration-200",
+          // Rule §7: Exit faster than enter
+          side === "bottom" && "pb-safe-offset-6",
+          // Rule §5: Safe area compliance
           sideClasses[side],
           className
         ),
         children: /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex flex-col h-full", children: [
           /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex items-center justify-between mb-4", children: [
             /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "flex flex-col gap-1", children: [
-              title && /* @__PURE__ */ jsxRuntime.jsx(DialogPrimitive2__namespace.Title, { className: "text-lg font-bold leading-none tracking-tight", children: title }),
-              description && /* @__PURE__ */ jsxRuntime.jsx(DialogPrimitive2__namespace.Description, { className: "text-sm text-muted-foreground", children: description })
+              title && /* @__PURE__ */ jsxRuntime.jsx(DialogPrimitive2__namespace.Title, { className: "text-xl font-bold leading-tight tracking-tight text-foreground", children: title }),
+              description && /* @__PURE__ */ jsxRuntime.jsx(DialogPrimitive2__namespace.Description, { className: "text-sm text-muted-foreground leading-relaxed", children: description })
             ] }),
-            /* @__PURE__ */ jsxRuntime.jsxs(DialogPrimitive2__namespace.Close, { className: "rounded-md opacity-70 transition-opacity hover:opacity-100 focus:outline-none disabled:pointer-events-none", children: [
+            /* @__PURE__ */ jsxRuntime.jsxs(DialogPrimitive2__namespace.Close, { className: "rounded-full opacity-70 p-2 transition-all hover:opacity-100 hover:bg-neutral-100 focus:outline-none focus:ring-2 focus:ring-mint-500 min-h-[44px] min-w-[44px] flex items-center justify-center", children: [
               /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.X, { className: "h-5 w-5" }),
               /* @__PURE__ */ jsxRuntime.jsx("span", { className: "sr-only", children: "Close" })
             ] })
@@ -6977,9 +6982,13 @@ var CheckBox = React27__namespace.default.forwardRef(({ label, error, className,
         {
           ref,
           className: cn(
-            "flex h-5 w-5 shrink-0 items-center justify-center rounded border transition-all duration-200 focus-visible:outline-none",
+            "flex h-5 w-5 shrink-0 items-center justify-center rounded border transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint-500 focus-visible:ring-offset-2 relative",
             "border-border bg-surface hover:border-mint-500",
             "data-[state=checked]:bg-mint-500 data-[state=checked]:border-mint-500",
+            "active:scale-90",
+            // Rule §7: Interaction feedback
+            // Rule §2: Expanded hit area for accessibility
+            "before:absolute before:inset-[-12px] before:content-['']",
             error && "border-red-500 text-red-500",
             getCommonClasses(props),
             className
@@ -7031,6 +7040,8 @@ var Switch = React27__namespace.default.forwardRef(({ label, className, ...props
           "relative h-6 w-11 shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint-500 focus-visible:ring-offset-2",
           "bg-neutral-800",
           "data-[state=checked]:bg-mint-500",
+          // Rule §2: Expanded hit area for accessibility
+          "before:absolute before:inset-[-10px] before:content-['']",
           className
         ),
         ...props,
@@ -7038,7 +7049,7 @@ var Switch = React27__namespace.default.forwardRef(({ label, className, ...props
           SwitchPrimitive__namespace.Thumb,
           {
             className: cn(
-              "pointer-events-none block h-5 w-5 rounded-full bg-white shadow-lg ring-0 transition-transform duration-200",
+              "pointer-events-none block h-5 w-5 rounded-full bg-white shadow-lg ring-0 transition-transform duration-200 ease-out",
               "data-[state=checked]:translate-x-5 data-[state=unchecked]:translate-x-0"
             )
           }
@@ -7363,7 +7374,7 @@ var SelectTrigger = React27__namespace.default.forwardRef(({ className, children
   {
     ref,
     className: cn(
-      "flex h-11 w-full items-center justify-between rounded-xl border border-border bg-background px-3 py-2 text-sm shadow-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary disabled:cursor-not-allowed disabled:opacity-50 transition-all",
+      "flex h-11 w-full items-center justify-between rounded-xl border border-border bg-background px-3 py-2 text-base shadow-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-mint-400/20 focus:border-mint-400 disabled:cursor-not-allowed disabled:opacity-50 transition-all",
       getCommonClasses(props),
       className
     ),
@@ -7380,7 +7391,7 @@ var SelectContent = React27__namespace.default.forwardRef(({ className, children
   {
     ref,
     className: cn(
-      "relative z-50 min-w-[8rem] overflow-hidden rounded-xl border bg-background/80 backdrop-blur-md text-popover-foreground shadow-xl animate-in fade-in zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
+      "relative z-50 min-w-[8rem] overflow-hidden rounded-xl border bg-background/90 backdrop-blur-xl text-popover-foreground shadow-2xl animate-in fade-in zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2",
       position === "popper" && "data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1",
       className
     ),
@@ -7423,12 +7434,12 @@ var SelectItem = React27__namespace.default.forwardRef(({ className, children, .
   {
     ref,
     className: cn(
-      "relative flex w-full cursor-default select-none items-center rounded-lg py-2 pl-8 pr-2.5 text-sm outline-none transition-colors focus:bg-muted focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
+      "relative flex w-full cursor-default select-none items-center rounded-lg py-2.5 pl-8 pr-2.5 text-base outline-none transition-colors focus:bg-mint-50 focus:text-mint-900 data-[disabled]:pointer-events-none data-[disabled]:opacity-50",
       className
     ),
     ...props,
     children: [
-      /* @__PURE__ */ jsxRuntime.jsx("span", { className: "absolute left-2 flex h-3.5 w-3.5 items-center justify-center", children: /* @__PURE__ */ jsxRuntime.jsx(SelectPrimitive__namespace.ItemIndicator, { children: /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.Check, { className: "h-4 w-4 text-primary stroke-[3]" }) }) }),
+      /* @__PURE__ */ jsxRuntime.jsx("span", { className: "absolute left-2 flex h-3.5 w-3.5 items-center justify-center", children: /* @__PURE__ */ jsxRuntime.jsx(SelectPrimitive__namespace.ItemIndicator, { children: /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.Check, { className: "h-4 w-4 text-mint-600 stroke-[3]" }) }) }),
       /* @__PURE__ */ jsxRuntime.jsx(SelectPrimitive__namespace.ItemText, { children })
     ]
   }
@@ -8676,7 +8687,8 @@ var DialogOverlay = React27__namespace.default.forwardRef(({ className, ...props
   {
     ref,
     className: cn(
-      "fixed inset-0 z-50 bg-black/80 backdrop-blur-sm data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=fade-in-0] data-[state=closed]:fade-out-0",
+      "fixed inset-0 z-50 bg-black/60 backdrop-blur-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=fade-in-0] data-[state=closed]:fade-out-0 transition-opacity",
+      // Rule §22: Scrim strength
       className
     ),
     ...props
@@ -8690,14 +8702,16 @@ var DialogContent = React27__namespace.default.forwardRef(({ className, children
     {
       ref,
       className: cn(
-        "fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-xl duration-200 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] rounded-3xl",
+        "fixed left-[50%] top-[50%] z-50 grid w-full max-w-lg translate-x-[-50%] translate-y-[-50%] gap-4 border bg-background p-6 shadow-2xl data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[state=closed]:slide-out-to-left-1/2 data-[state=closed]:slide-out-to-top-[48%] data-[state=open]:slide-in-from-left-1/2 data-[state=open]:slide-in-from-top-[48%] rounded-3xl",
+        "data-[state=open]:duration-300 data-[state=closed]:duration-200",
+        // Rule §7: Exit faster than enter
         className
       ),
       ...props,
       children: [
         children,
-        /* @__PURE__ */ jsxRuntime.jsxs(DialogPrimitive2__namespace.Close, { className: "absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground", children: [
-          /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.X, { className: "h-4 w-4" }),
+        /* @__PURE__ */ jsxRuntime.jsxs(DialogPrimitive2__namespace.Close, { className: "absolute right-4 top-4 rounded-full opacity-70 p-2 ring-offset-background transition-opacity hover:opacity-100 hover:bg-neutral-100 focus:outline-none focus:ring-2 focus:ring-mint-500 focus:ring-offset-2 disabled:pointer-events-none data-[state=open]:bg-accent data-[state=open]:text-muted-foreground min-h-[44px] min-w-[44px]", children: [
+          /* @__PURE__ */ jsxRuntime.jsx(LucideIcons.X, { className: "h-4.5 w-4.5" }),
           /* @__PURE__ */ jsxRuntime.jsx("span", { className: "sr-only", children: "Close" })
         ] })
       ]
@@ -16252,7 +16266,7 @@ var cardVariants4 = classVarianceAuthority.cva(
         true: "hover:shadow-lg hover:-translate-y-0.5"
       },
       interactive: {
-        true: "cursor-pointer active:scale-[0.98] active:shadow-sm"
+        true: "cursor-pointer active:scale-95 active:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint-500 focus-visible:ring-offset-2"
       }
     },
     defaultVariants: {

@@ -4,6 +4,10 @@ export * from "./tokens/tokens";
 export * from "./tokens/common-props";
 export * from "./hooks";
 
+// ── Icons ───────────────────────────────────────────────────
+// Re-export all lucide-react icons for easier consumption
+export * from "lucide-react";
+
 // ── Canonical UI Components ─────────────────────────────────
 export * from "./components/ui";
 
