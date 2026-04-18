@@ -179,7 +179,7 @@ interface MyCardProps {
 
 ---
 
-## ✨ Animation System
+## ✨ Animation Systema
 
 MintX provides pre-configured motion wrappers built on Framer Motion to ensure consistent, professional transitions across your apps.
 
