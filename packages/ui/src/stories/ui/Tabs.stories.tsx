@@ -50,7 +50,7 @@ export const AllVariants: Story = {
               fontWeight: 700,
               textTransform: "uppercase",
               letterSpacing: "0.1em",
-              color: "var(--text-tertiary, #748A83)",
+              color: "var(--text-tertiary, var(--chart-neutral, var(--chart-neutral, #748A83)))",
               marginBottom: 10,
             }}
           >
@@ -117,7 +117,7 @@ export const Sizes: Story = {
         <p
           style={{
             fontSize: 11,
-            color: "var(--text-tertiary, #748A83)",
+            color: "var(--text-tertiary, var(--chart-neutral, var(--chart-neutral, #748A83)))",
             marginBottom: 8,
             fontFamily: "'DM Mono', monospace",
           }}
@@ -130,7 +130,7 @@ export const Sizes: Story = {
         <p
           style={{
             fontSize: 11,
-            color: "var(--text-tertiary, #748A83)",
+            color: "var(--text-tertiary, var(--chart-neutral, var(--chart-neutral, #748A83)))",
             marginBottom: 8,
             fontFamily: "'DM Mono', monospace",
           }}
@@ -165,11 +165,11 @@ export const Controlled: Story = {
           style={{
             marginTop: 20,
             padding: 20,
-            background: "var(--bg-surface, #0D1614)",
+            background: "var(--bg-surface, var(--bg-surface, #0D1614))",
             border: "1px solid rgba(232,239,237,0.08)",
             borderRadius: 12,
             fontSize: 14,
-            color: "var(--text-secondary, #9BACA6)",
+            color: "var(--text-secondary, var(--text-secondary, #9BACA6))",
           }}
         >
           {content[tab]}
@@ -198,12 +198,12 @@ export const StockDetailPage: Story = {
               fontFamily: "'Syne', sans-serif",
               fontSize: 24,
               fontWeight: 800,
-              color: "var(--text-primary, #E8EFED)",
+              color: "var(--text-primary, var(--text-primary, #E8EFED))",
             }}
           >
             TCS
           </p>
-          <p style={{ fontSize: 13, color: "var(--text-tertiary, #748A83)" }}>
+          <p style={{ fontSize: 13, color: "var(--text-tertiary, var(--chart-neutral, var(--chart-neutral, #748A83)))" }}>
             Tata Consultancy Services Ltd · NSE
           </p>
         </div>
@@ -223,7 +223,7 @@ export const StockDetailPage: Story = {
           style={{
             padding: "24px 0",
             fontSize: 14,
-            color: "var(--text-secondary, #9BACA6)",
+            color: "var(--text-secondary, var(--text-secondary, #9BACA6))",
           }}
         >
           {panelContent[tab]}

@@ -132,11 +132,11 @@ const config: Config = {
     extend: {
       colors: {
         mint: {
-          50:  "#E6FBF5",
+          50:  "var(--bg-brand-soft, #E6FBF5)",
           100: "#BFFAE9",
           200: "#7DEFD2",
           300: "#3DDCBA",
-          400: "#10C9A0",  // ★ Primary brand
+          400: "var(--mint-400, #10C9A0)",  // ★ Primary brand
           500: "#00B38A",
           600: "#008F6E",
           700: "#006B52",
@@ -147,13 +147,13 @@ const config: Config = {
           50:  "#F5F8F7",
           100: "#EBF0EE",
           200: "#C2CECA",
-          300: "#9BACA6",
-          400: "#748A83",
+          300: "var(--text-secondary, #9BACA6)",
+          400: "var(--chart-neutral, var(--chart-neutral, #748A83))",
           500: "#55706A",
           600: "#3A524D",
           700: "#253733",
           800: "#141F1D",
-          850: "#0D1614",
+          850: "var(--bg-surface, #0D1614)",
           900: "#080E0D",
         },
         surface: {
@@ -162,7 +162,7 @@ const config: Config = {
           base: "var(--bg-base)",
         },
         brand: {
-          DEFAULT: "var(--mint-400, #10C9A0)",
+          DEFAULT: "var(--mint-400, var(--mint-400, #10C9A0))",
         },
       },
       fontFamily: {

@@ -78,19 +78,69 @@ import { TextField } from "@mintx/ui";
 />
 ```
 
-## 📦 Getting Started
+## 🔌 Integration & Consumption
 
-### Installation
-```bash
-npm install
+If you are using `@mintx/ui` in a separate application, follow these steps to ensure the design remains consistent with the system.
+
+### 1. Global CSS Import
+The design system relies on CSS variables (tokens) for its identity. Import the master tokens in your app's entry point (e.g., `_app.tsx` or `layout.tsx`):
+
+```tsx
+// This contains the :root / data-theme="dark" variable definitions
+import "@mintx/ui/src/tokens/tokens.css";
 ```
 
-### Development
-```bash
-npm run dev
+### 2. Tailwind Configuration
+To use MintX utility classes (like `text-mint-400` or `bg-surface`), you must extend your `tailwind.config.js` with the MintX theme.
+
+**Important:** Your `content` array must scan the `@mintx/ui` source:
+```javascript
+content: [
+  "./src/**/*.{js,ts,jsx,tsx}",
+  // Add this line so Tailwind generates classes used inside the UI library
+  "./node_modules/@mintx/ui/**/*.{js,ts,jsx,tsx}", 
+],
 ```
 
+### 3. Setup ThemeProvider
+Wrap your root layout in the `ThemeProvider`. This manages the `data-theme` attribute which activates the correct dark/light mode tokens.
+
+```tsx
+import { ThemeProvider } from "@mintx/ui";
+
+export default function RootLayout({ children }) {
+  return (
+    <ThemeProvider defaultTheme="dark">
+      {children}
+    </ThemeProvider>
+  );
+}
+```
+
+### 4. Load Required Fonts
+MintX looks for **Syne** and **DM Sans**. Ensure these are loaded in your project (via Google Fonts or Next.js Fonts).
+
+---
+
+## 🛠 Development & Docs
+
+### Local Documentation
 The Design System documentation is available at [http://localhost:3000](http://localhost:3000).
+
+```bash
+# Start the docs app
+npm run dev
+
+# Build the docs app
+npm run build:docs
+```
+
+### Storybook
+View components in isolation with Storybook:
+
+```bash
+npm run storybook
+```
 
 ## 🚀 Tech Stack
 
@@ -99,3 +149,4 @@ The Design System documentation is available at [http://localhost:3000](http://l
 - **Variants**: [CVA](https://cva.style/)
 - **Animations**: [Framer Motion](https://www.framer.com/motion/)
 - **Icons**: [Lucide React](https://lucide.dev/)
+

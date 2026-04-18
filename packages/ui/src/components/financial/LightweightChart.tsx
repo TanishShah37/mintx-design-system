@@ -1,6 +1,11 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
+import { tokens } from "../../tokens/tokens";
+
+const DEFAULT_CHART_COLOR = tokens.colors.charts.primary;
+const SUCCESS_COLOR = tokens.colors.charts.bullish;
+const DANGER_COLOR = tokens.colors.charts.bearish;
 
 // Use a pinned version with stable API
 const LWC_URL = "https://unpkg.com/lightweight-charts@4.2.0/dist/lightweight-charts.standalone.production.js";
@@ -74,16 +79,16 @@ const BaseChart = ({
         chart = LWT.createChart(containerRef.current, {
           layout: {
             background: { type: "solid", color: "transparent" },
-            textColor: theme === "dark" ? "#9BACA6" : "#3A524D",
-            fontFamily: "'DM Sans', sans-serif",
+            textColor: theme === "dark" ? tokens.colors.neutral[300] : tokens.colors.neutral[600],
+            fontFamily: tokens.typography.fontBody,
           },
           grid: {
             vertLines: { color: theme === "dark" ? "rgba(232,239,237,0.06)" : "rgba(8,14,13,0.06)" },
             horzLines: { color: theme === "dark" ? "rgba(232,239,237,0.06)" : "rgba(8,14,13,0.06)" },
           },
           crosshair: {
-            vertLine: { color: "#3DDCBA", width: 1, style: 3, labelBackgroundColor: "#00B38A" },
-            horzLine: { color: "#3DDCBA", width: 1, style: 3, labelBackgroundColor: "#00B38A" },
+            vertLine: { color: tokens.colors.mint[300], width: 1, style: 3, labelBackgroundColor: tokens.colors.mint[500] },
+            horzLine: { color: tokens.colors.mint[300], width: 1, style: 3, labelBackgroundColor: tokens.colors.mint[500] },
           },
           timeScale: {
             borderColor: theme === "dark" ? "rgba(232,239,237,0.1)" : "rgba(8,14,13,0.1)",
@@ -124,7 +129,7 @@ const BaseChart = ({
 
   if (error) {
     return (
-      <div style={{ height, display: "flex", alignItems: "center", justifyContent: "center", color: "#EF4444", fontSize: 13, borderRadius: 12, border: "1px solid rgba(239,68,68,0.3)", background: "rgba(239,68,68,0.05)" }}>
+      <div style={{ height, display: "flex", alignItems: "center", justifyContent: "center", color: "var(--chart-bearish, var(--chart-bearish, #EF4444))", fontSize: 13, borderRadius: 12, border: "1px solid rgba(239,68,68,0.3)", background: "rgba(239,68,68,0.05)" }}>
         Chart failed to load: {error}
       </div>
     );
@@ -146,7 +151,7 @@ const BaseChart = ({
   );
 };
 
-export const AreaChart = ({ data, color = "#00B38A", ...props }: ChartProps) => (
+export const AreaChart = ({ data, color = DEFAULT_CHART_COLOR, ...props }: ChartProps) => (
   <BaseChart
     {...props}
     renderFn={(_LWT, chart) => {
@@ -167,18 +172,18 @@ export const CandlestickChart = ({ data, ...props }: ChartProps) => (
     {...props}
     renderFn={(_LWT, chart) => {
       const series = chart.addCandlestickSeries({
-        upColor: "#00B38A",
-        downColor: "#EF4444",
+        upColor: SUCCESS_COLOR,
+        downColor: DANGER_COLOR,
         borderVisible: false,
-        wickUpColor: "#00B38A",
-        wickDownColor: "#EF4444",
+        wickUpColor: SUCCESS_COLOR,
+        wickDownColor: DANGER_COLOR,
       });
       series.setData(data);
     }}
   />
 );
 
-export const BaselineChart = ({ data, color = "#00B38A", ...props }: ChartProps) => (
+export const BaselineChart = ({ data, color = DEFAULT_CHART_COLOR, ...props }: ChartProps) => (
   <BaseChart
     {...props}
     renderFn={(_LWT, chart) => {
@@ -188,7 +193,7 @@ export const BaselineChart = ({ data, color = "#00B38A", ...props }: ChartProps)
         topLineColor: color,
         bottomFillColor1: "rgba(239,68,68,0)",
         bottomFillColor2: "rgba(239,68,68,0.3)",
-        bottomLineColor: "#EF4444",
+        bottomLineColor: DANGER_COLOR,
         lineWidth: 2,
       });
       series.setData(data);
@@ -196,7 +201,7 @@ export const BaselineChart = ({ data, color = "#00B38A", ...props }: ChartProps)
   />
 );
 
-export const VolumeChart = ({ data, color = "#00B38A", ...props }: ChartProps) => (
+export const VolumeChart = ({ data, color = DEFAULT_CHART_COLOR, ...props }: ChartProps) => (
   <BaseChart
     {...props}
     renderFn={(_LWT, chart) => {
@@ -211,7 +216,7 @@ export const VolumeChart = ({ data, color = "#00B38A", ...props }: ChartProps) =
         data.map((d: any) => ({
           time: d.time,
           value: d.value ?? 0,
-          color: (d.value ?? 0) > 25 ? `${color}B3` : "#EF444480",
+          color: (d.value ?? 0) > 25 ? `${color}B3` : `${DANGER_COLOR}80`,
         }))
       );
     }}

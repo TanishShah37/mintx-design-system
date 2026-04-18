@@ -74,7 +74,7 @@ const BaseChart = ({
         chart = LWT.createChart(containerRef.current, {
           layout: {
             background: { type: "solid", color: "transparent" },
-            textColor: theme === "dark" ? "#9BACA6" : "#3A524D",
+            textColor: theme === "dark" ? "var(--text-secondary, #9BACA6)" : "#3A524D",
             fontFamily: "'DM Sans', sans-serif",
           },
           grid: {
@@ -124,7 +124,7 @@ const BaseChart = ({
 
   if (error) {
     return (
-      <div style={{ height, display: "flex", alignItems: "center", justifyContent: "center", color: "#EF4444", fontSize: 13, borderRadius: 12, border: "1px solid rgba(239,68,68,0.3)", background: "rgba(239,68,68,0.05)" }}>
+      <div style={{ height, display: "flex", alignItems: "center", justifyContent: "center", color: "var(--chart-bearish, var(--chart-bearish, #EF4444))", fontSize: 13, borderRadius: 12, border: "1px solid rgba(239,68,68,0.3)", background: "rgba(239,68,68,0.05)" }}>
         Chart failed to load: {error}
       </div>
     );
@@ -168,10 +168,10 @@ export const CandlestickChart = ({ data, ...props }: ChartProps) => (
     renderFn={(_LWT, chart) => {
       const series = chart.addCandlestickSeries({
         upColor: "#00B38A",
-        downColor: "#EF4444",
+        downColor: "var(--chart-bearish, var(--chart-bearish, #EF4444))",
         borderVisible: false,
         wickUpColor: "#00B38A",
-        wickDownColor: "#EF4444",
+        wickDownColor: "var(--chart-bearish, var(--chart-bearish, #EF4444))",
       });
       series.setData(data);
     }}
@@ -188,7 +188,7 @@ export const BaselineChart = ({ data, color = "#00B38A", ...props }: ChartProps)
         topLineColor: color,
         bottomFillColor1: "rgba(239,68,68,0)",
         bottomFillColor2: "rgba(239,68,68,0.3)",
-        bottomLineColor: "#EF4444",
+        bottomLineColor: "var(--chart-bearish, var(--chart-bearish, #EF4444))",
         lineWidth: 2,
       });
       series.setData(data);
@@ -211,7 +211,7 @@ export const VolumeChart = ({ data, color = "#00B38A", ...props }: ChartProps) =
         data.map((d: any) => ({
           time: d.time,
           value: d.value ?? 0,
-          color: (d.value ?? 0) > 25 ? `${color}B3` : "#EF444480",
+          color: (d.value ?? 0) > 25 ? `${color}B3` : "var(--chart-bearish, var(--chart-bearish, #EF4444))80",
         }))
       );
     }}

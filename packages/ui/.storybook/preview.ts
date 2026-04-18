@@ -1,6 +1,6 @@
 import type { Preview } from "@storybook/react";
 import React from "react";
-import { ThemeProvider } from "../src/components/layout/ThemeProvider";
+import { ThemeProvider } from "../src/components/shell/ThemeProvider";
 import "../src/storybook.css";
 // Import token CSS so CSS variables are available in all stories
 import "../src/tokens/tokens.css";

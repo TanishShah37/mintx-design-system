@@ -57,7 +57,7 @@ export function DiffCard({ item, i, theme = 'dark' }: DiffCardProps) {
                 ? 'rgba(232,239,237,0.05)'
                 : 'rgba(20,31,29,0.04)',
             border: `1px solid ${hovered ? `${item.accent}30` : dark ? 'rgba(232,239,237,0.08)' : 'rgba(20,31,29,0.08)'}`,
-            color: hovered ? item.accent : dark ? '#5A706A' : '#748A83',
+            color: hovered ? item.accent : dark ? 'var(--text-tertiary, #5A706A)' : 'var(--chart-neutral, var(--chart-neutral, #748A83))',
           }}
         >
           {item.icon}
@@ -86,7 +86,7 @@ export function DiffCard({ item, i, theme = 'dark' }: DiffCardProps) {
           fontFamily: 'Syne, sans-serif',
           fontWeight: 800,
           fontSize: 'clamp(20px, 2.2vw, 26px)',
-          color: dark ? '#E8EFED' : '#141F1D',
+          color: dark ? 'var(--text-primary, #E8EFED)' : '#141F1D',
           whiteSpace: 'pre-line',
         }}
       >
@@ -98,7 +98,7 @@ export function DiffCard({ item, i, theme = 'dark' }: DiffCardProps) {
         style={{
           fontSize: '13px',
           lineHeight: 1.7,
-          color: dark ? '#5A706A' : '#748A83',
+          color: dark ? 'var(--text-tertiary, #5A706A)' : 'var(--chart-neutral, var(--chart-neutral, #748A83))',
         }}
       >
         {item.body}
@@ -127,7 +127,7 @@ export function DiffCard({ item, i, theme = 'dark' }: DiffCardProps) {
             style={{
               fontFamily: 'DM Mono, monospace',
               fontSize: '10px',
-              color: dark ? '#3A524D' : '#9BACA6',
+              color: dark ? '#3A524D' : 'var(--text-secondary, #9BACA6)',
               marginTop: '4px',
             }}
           >

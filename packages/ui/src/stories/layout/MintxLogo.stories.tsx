@@ -51,7 +51,7 @@ export const AllVariants: Story = {
             style={{
               fontFamily: "var(--font-mono, 'DM Mono', monospace)",
               fontSize: 11,
-              color: "var(--text-tertiary, #748A83)",
+              color: "var(--text-tertiary, var(--chart-neutral, var(--chart-neutral, #748A83)))",
               width: 80,
               flexShrink: 0,
             }}
@@ -82,7 +82,7 @@ export const AllSizes: Story = {
             style={{
               fontFamily: "var(--font-mono, 'DM Mono', monospace)",
               fontSize: 11,
-              color: "var(--text-tertiary, #748A83)",
+              color: "var(--text-tertiary, var(--chart-neutral, var(--chart-neutral, #748A83)))",
               width: 40,
               flexShrink: 0,
             }}
@@ -103,13 +103,13 @@ export const AllThemes: Story = {
       <div
         style={{ padding: "20px 24px", background: "#FFFFFF" }}
       >
-        <p style={{ fontSize: 10, color: "#748A83", marginBottom: 10, fontFamily: "'DM Mono', monospace" }}>
+        <p style={{ fontSize: 10, color: "var(--chart-neutral, var(--chart-neutral, #748A83))", marginBottom: 10, fontFamily: "'DM Mono', monospace" }}>
           theme="light" on white bg
         </p>
         <MintxLogo variant="full" theme="light" size="md" />
       </div>
       <div
-        style={{ padding: "20px 24px", background: "#10C9A0" }}
+        style={{ padding: "20px 24px", background: "var(--mint-400, #10C9A0)" }}
       >
         <p style={{ fontSize: 10, color: "#004736", marginBottom: 10, fontFamily: "'DM Mono', monospace" }}>
           theme="brand" on mint bg
@@ -117,9 +117,9 @@ export const AllThemes: Story = {
         <MintxLogo variant="full" theme="brand" size="md" />
       </div>
       <div
-        style={{ padding: "20px 24px", background: "#0D1614" }}
+        style={{ padding: "20px 24px", background: "var(--bg-surface, #0D1614)" }}
       >
-        <p style={{ fontSize: 10, color: "#5A706A", marginBottom: 10, fontFamily: "'DM Mono', monospace" }}>
+        <p style={{ fontSize: 10, color: "var(--text-tertiary, #5A706A)", marginBottom: 10, fontFamily: "'DM Mono', monospace" }}>
           theme="dark" on dark bg
         </p>
         <MintxLogo variant="full" theme="dark" size="md" />
@@ -127,7 +127,7 @@ export const AllThemes: Story = {
       <div
         style={{ padding: "20px 24px", background: "#080E0D" }}
       >
-        <p style={{ fontSize: 10, color: "#5A706A", marginBottom: 10, fontFamily: "'DM Mono', monospace" }}>
+        <p style={{ fontSize: 10, color: "var(--text-tertiary, #5A706A)", marginBottom: 10, fontFamily: "'DM Mono', monospace" }}>
           theme="white" on near-black bg
         </p>
         <MintxLogo variant="full" theme="white" size="md" />
@@ -152,7 +152,7 @@ export const InNavbar: Story = {
   render: () => (
     <div
       style={{
-        background: "var(--bg-surface, #0D1614)",
+        background: "var(--bg-surface, var(--bg-surface, #0D1614))",
         borderBottom: "1px solid rgba(232,239,237,0.08)",
         height: 56,
         display: "flex",
@@ -169,7 +169,7 @@ export const InNavbar: Story = {
             style={{
               background: "none",
               border: "none",
-              color: "#9BACA6",
+              color: "var(--text-secondary, #9BACA6)",
               fontSize: 13,
               fontWeight: 500,
               cursor: "pointer",

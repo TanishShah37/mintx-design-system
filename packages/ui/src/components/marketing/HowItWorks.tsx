@@ -41,7 +41,7 @@ export function HowItWorks({
               fontSize: '10px',
               textTransform: 'uppercase',
               letterSpacing: '0.22em',
-              color: dark ? '#3A524D' : '#9BACA6',
+              color: dark ? '#3A524D' : 'var(--text-secondary, #9BACA6)',
             }}
           >
             {label}
@@ -81,12 +81,12 @@ export function HowItWorks({
                   fontWeight: 800,
                   fontSize: '18px',
                   lineHeight: 1.2,
-                  color: dark ? '#E8EFED' : '#141F1D',
+                  color: dark ? 'var(--text-primary, #E8EFED)' : '#141F1D',
                 }}
               >
                 {step.title}
               </h3>
-              <p style={{ fontSize: '13px', lineHeight: 1.7, color: dark ? '#5A706A' : '#748A83' }}>
+              <p style={{ fontSize: '13px', lineHeight: 1.7, color: dark ? 'var(--text-tertiary, #5A706A)' : 'var(--chart-neutral, var(--chart-neutral, #748A83))' }}>
                 {step.body}
               </p>
             </div>

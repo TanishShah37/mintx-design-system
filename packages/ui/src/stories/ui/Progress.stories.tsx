@@ -124,7 +124,7 @@ export const OnboardingSteps: Story = {
       <p
         style={{
           fontSize: 12,
-          color: "var(--text-tertiary, #748A83)",
+          color: "var(--text-tertiary, var(--chart-neutral, var(--chart-neutral, #748A83)))",
           marginBottom: 20,
         }}
       >
@@ -144,7 +144,7 @@ export const OnboardingSteps: Story = {
                 width: 18,
                 height: 18,
                 borderRadius: "50%",
-                background: done ? "#10C9A0" : "rgba(20,31,29,0.1)",
+                background: done ? "var(--mint-400, #10C9A0)" : "rgba(20,31,29,0.1)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -152,7 +152,7 @@ export const OnboardingSteps: Story = {
               }}
             >
               {done && (
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#001A13" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--n-950, #001A13)" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
                   <polyline points="20 6 9 17 4 12" />
                 </svg>
               )}
@@ -162,7 +162,7 @@ export const OnboardingSteps: Story = {
                 fontSize: 13,
                 color: done
                   ? "var(--text-primary, #141F1D)"
-                  : "var(--text-tertiary, #748A83)",
+                  : "var(--text-tertiary, var(--chart-neutral, var(--chart-neutral, #748A83)))",
                 fontWeight: done ? 500 : 400,
               }}
             >

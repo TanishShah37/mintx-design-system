@@ -110,8 +110,8 @@ function Logo({ collapsed = false }: { collapsed?: boolean }) {
     >
       <svg width="26" height="26" viewBox="0 0 96 96" fill="none" aria-hidden>
         <rect width="96" height="96" rx="20" fill="var(--mint)" />
-        <path d="M20 64L34 42L44 52L62 30" stroke="#001A13" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
-        <circle cx="62" cy="30" r="6" fill="#001A13" />
+        <path d="M20 64L34 42L44 52L62 30" stroke="var(--n-950, var(--n-950, #001A13))" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
+        <circle cx="62" cy="30" r="6" fill="var(--n-950, var(--n-950, #001A13))" />
       </svg>
       {!collapsed && (
         <span>
@@ -268,7 +268,7 @@ function UserMenu({
         className="flex items-center gap-2 rounded-[var(--r2)] px-2 py-1.5 transition-colors hover:bg-[var(--bd2)]"
       >
         {/* Avatar */}
-        <div className="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-[var(--mint)] to-[var(--mint-d)] font-display text-[11px] font-bold text-[#001A13]">
+        <div className="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-[var(--mint)] to-[var(--mint-d)] font-display text-[11px] font-bold text-[var(--n-950, var(--n-950, #001A13))]">
           {user.avatarUrl ? (
             <img src={user.avatarUrl} alt={user.name} className="h-7 w-7 rounded-full object-cover" />
           ) : (
@@ -325,7 +325,7 @@ function UserMenu({
               <Link
                 href="/pricing"
                 onClick={() => setOpen(false)}
-                className="block w-full rounded-[var(--r1)] bg-[var(--mint)] px-3 py-2 text-center text-[12px] font-semibold text-[#001A13] shadow-[var(--sh-brand)] hover:bg-[var(--mint-300)] transition-colors"
+                className="block w-full rounded-[var(--r1)] bg-[var(--mint)] px-3 py-2 text-center text-[12px] font-semibold text-[var(--n-950, var(--n-950, #001A13))] shadow-[var(--sh-brand)] hover:bg-[var(--mint-300)] transition-colors"
               >
                 Upgrade to Pro ↗
               </Link>
@@ -475,7 +475,7 @@ function MobileMenu({
               <Link
                 href="/pricing"
                 onClick={onClose}
-                className="w-full rounded-[var(--r2)] bg-[var(--mint)] py-2.5 text-center text-sm font-semibold text-[#001A13]"
+                className="w-full rounded-[var(--r2)] bg-[var(--mint)] py-2.5 text-center text-sm font-semibold text-[var(--n-950, var(--n-950, #001A13))]"
               >
                 Upgrade to Pro
               </Link>
@@ -499,7 +499,7 @@ function MobileMenu({
             <Link
               href="/auth/signup"
               onClick={onClose}
-              className="w-full rounded-[var(--r2)] bg-[var(--mint)] py-2.5 text-center text-sm font-semibold text-[#001A13] shadow-[var(--sh-brand)]"
+              className="w-full rounded-[var(--r2)] bg-[var(--mint)] py-2.5 text-center text-sm font-semibold text-[var(--n-950, var(--n-950, #001A13))] shadow-[var(--sh-brand)]"
             >
               Get started free
             </Link>
@@ -588,7 +588,7 @@ export function AppHeader({
                 </Link>
                 <Link
                   href="/auth/signup"
-                  className="rounded-[var(--r2)] bg-[var(--mint)] px-3.5 py-1.5 text-[13px] font-semibold text-[#001A13] shadow-[var(--sh-brand)] hover:bg-[var(--mint-300)] transition-all"
+                  className="rounded-[var(--r2)] bg-[var(--mint)] px-3.5 py-1.5 text-[13px] font-semibold text-[var(--n-950, var(--n-950, #001A13))] shadow-[var(--sh-brand)] hover:bg-[var(--mint-300)] transition-all"
                 >
                   Get started
                 </Link>

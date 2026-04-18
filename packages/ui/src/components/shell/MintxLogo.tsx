@@ -35,10 +35,10 @@ function IconMark({
   theme,
 }: { size: number; theme: LogoTheme }): React.JSX.Element {
   const bgColor =
-    theme === "white" ? "#FFFFFF" : theme === "light" ? "#F5F8F7" : "#00B38A"; // brand + dark
+    theme === "white" ? "#FFFFFF" : theme === "light" ? "var(--n-50, #F5F8F7)" : "var(--mint-400, #00B38A)"; // brand + dark
 
   const strokeColor =
-    theme === "white" || theme === "light" ? "#00B38A" : "#001A13";
+    theme === "white" || theme === "light" ? "var(--mint-400, #00B38A)" : "var(--n-950, var(--n-950, #001A13))";
 
   const rx = Math.round(size * 0.25);
 
@@ -84,9 +84,9 @@ function Wordmark({
   theme,
 }: { fontSize: number; theme: LogoTheme }): React.JSX.Element {
   const primaryColor =
-    theme === "white" ? "#FFFFFF" : theme === "dark" ? "#E8EFED" : "#141F1D";
+    theme === "white" ? "#FFFFFF" : theme === "dark" ? "var(--text-primary, var(--text-primary, #E8EFED))" : "var(--text-primary, #141F1D)";
 
-  const accentColor = theme === "white" ? "rgba(255,255,255,0.7)" : "#00B38A";
+  const accentColor = theme === "white" ? "rgba(255,255,255,0.7)" : "var(--mint-400, #00B38A)";
 
   return (
     <span

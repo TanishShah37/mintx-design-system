@@ -32,9 +32,9 @@ export function Hero({
   chips,
 }: HeroProps) {
   const dark = theme === 'dark'
-  const t2 = dark ? '#9BACA6' : '#3A524D'
-  const t3 = dark ? '#5A706A' : '#748A83'
-  const t4 = dark ? '#3A524D' : '#9BACA6'
+  const t2 = dark ? 'var(--text-secondary, #9BACA6)' : '#3A524D'
+  const t3 = dark ? 'var(--text-tertiary, #5A706A)' : 'var(--chart-neutral, var(--chart-neutral, #748A83))'
+  const t4 = dark ? '#3A524D' : 'var(--text-secondary, #9BACA6)'
 
   return (
     <section className={cn('relative z-10 mx-auto max-w-7xl px-6 pb-20 pt-10 lg:px-12 lg:pt-14', className)}>
@@ -108,7 +108,7 @@ export function Hero({
                   style={{
                     fontFamily: 'DM Mono, monospace',
                     fontSize: '11px',
-                    color: dark ? '#9BACA6' : '#3A524D',
+                    color: dark ? 'var(--text-secondary, #9BACA6)' : '#3A524D',
                     background: dark
                       ? 'rgba(232,239,237,0.05)'
                       : 'rgba(20,31,29,0.05)',
@@ -176,7 +176,7 @@ export function Hero({
                 style={{
                   fontFamily: 'DM Mono, monospace',
                   fontSize: '10px',
-                  color: '#22C55E',
+                  color: 'var(--chart-bullish, var(--chart-bullish, #22C55E))',
                 }}
               >
                 {chips.left.sub}

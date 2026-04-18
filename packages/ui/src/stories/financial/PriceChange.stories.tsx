@@ -72,7 +72,7 @@ export const AutoDirection: Story = {
   name: "Auto Direction (from value sign)",
   render: () => (
     <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-      <p style={{ fontSize: 11, color: "var(--text-tertiary, #748A83)", marginBottom: 4 }}>
+      <p style={{ fontSize: 11, color: "var(--text-tertiary, var(--chart-neutral, var(--chart-neutral, #748A83)))", marginBottom: 4 }}>
         Direction derived from value — no direction prop needed:
       </p>
       <PriceChange value={250} />
@@ -87,7 +87,7 @@ export const InTableRow: Story = {
   render: () => (
     <div
       style={{
-        background: "var(--bg-surface, #0D1614)",
+        background: "var(--bg-surface, var(--bg-surface, #0D1614))",
         border: "1px solid rgba(232,239,237,0.08)",
         borderRadius: 10,
         overflow: "hidden",
@@ -110,16 +110,16 @@ export const InTableRow: Story = {
             fontSize: 13,
           }}
         >
-          <span style={{ fontWeight: 700, color: "#E8EFED", fontFamily: "'Syne', sans-serif" }}>
+          <span style={{ fontWeight: 700, color: "var(--text-primary, #E8EFED)", fontFamily: "'Syne', sans-serif" }}>
             {row.ticker}
           </span>
-          <span style={{ fontFamily: "'DM Mono', monospace", color: "#9BACA6" }}>
+          <span style={{ fontFamily: "'DM Mono', monospace", color: "var(--text-secondary, #9BACA6)" }}>
             {row.qty}
           </span>
-          <span style={{ fontFamily: "'DM Mono', monospace", color: "#9BACA6" }}>
+          <span style={{ fontFamily: "'DM Mono', monospace", color: "var(--text-secondary, #9BACA6)" }}>
             ₹{row.avg.toLocaleString("en-IN")}
           </span>
-          <span style={{ fontFamily: "'DM Mono', monospace", color: "#E8EFED", fontWeight: 600 }}>
+          <span style={{ fontFamily: "'DM Mono', monospace", color: "var(--text-primary, #E8EFED)", fontWeight: 600 }}>
             ₹{row.ltp.toLocaleString("en-IN")}
           </span>
           <PriceChange value={row.change} percent={row.pct} />

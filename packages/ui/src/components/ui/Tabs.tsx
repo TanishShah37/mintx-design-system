@@ -61,7 +61,7 @@ const itemVariants = cva(
     },
     compoundVariants: [
       { variant: "default", isActive: true, className: "bg-surface text-neutral-900 shadow-sm font-semibold" },
-      { variant: "brand", isActive: true, className: "bg-mint-400 text-[#001A13] font-bold shadow-[0_4px_16px_rgba(0,179,138,0.25)]" },
+      { variant: "brand", isActive: true, className: "bg-mint-400 text-[var(--n-950, #001A13)] font-bold shadow-[0_4px_16px_rgba(0,179,138,0.25)]" },
       { variant: "pills", isActive: true, className: "bg-mint-50 text-mint-600 border-mint-400/25" },
       { variant: "underline", isActive: true, className: "text-mint-600 border-b-mint-400 font-semibold" },
     ],

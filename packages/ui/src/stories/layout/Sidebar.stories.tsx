@@ -70,7 +70,7 @@ export const Default: Story = {
             flex: 1,
             padding: 32,
             background: "#080E0D",
-            color: "#9BACA6",
+            color: "var(--text-secondary, #9BACA6)",
             fontSize: 14,
           }}
         >
@@ -92,7 +92,7 @@ export const Collapsed: Story = {
             flex: 1,
             padding: 32,
             background: "#080E0D",
-            color: "#9BACA6",
+            color: "var(--text-secondary, #9BACA6)",
             fontSize: 14,
           }}
         >
@@ -125,12 +125,12 @@ export const CollapsibleInteractive: Story = {
               flex: 1,
               padding: 32,
               background: "#080E0D",
-              color: "#9BACA6",
+              color: "var(--text-secondary, #9BACA6)",
               fontSize: 14,
             }}
           >
-            <p>Active: <strong style={{ color: "#E8EFED" }}>{active}</strong></p>
-            <p style={{ marginTop: 8 }}>Collapsed: <strong style={{ color: "#E8EFED" }}>{String(collapsed)}</strong></p>
+            <p>Active: <strong style={{ color: "var(--text-primary, #E8EFED)" }}>{active}</strong></p>
+            <p style={{ marginTop: 8 }}>Collapsed: <strong style={{ color: "var(--text-primary, #E8EFED)" }}>{String(collapsed)}</strong></p>
             <p style={{ marginTop: 16, fontSize: 12 }}>Click the menu icon in the sidebar header to toggle.</p>
           </div>
         </div>
@@ -193,7 +193,7 @@ export const WithNestedItems: Story = {
             flex: 1,
             padding: 32,
             background: "#080E0D",
-            color: "#9BACA6",
+            color: "var(--text-secondary, #9BACA6)",
             fontSize: 14,
           }}
         >

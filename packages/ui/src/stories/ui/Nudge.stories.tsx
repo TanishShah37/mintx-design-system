@@ -52,7 +52,7 @@ export const NudgesPanelDemo: StoryObj = {
   name: "NudgesPanel",
   render: () => (
     <div style={{ position: "relative", height: 400, border: "1px dashed rgba(255,255,255,0.1)", borderRadius: 12, overflow: "hidden" }}>
-      <p style={{ padding: 24, color: "var(--text-tertiary, #748A83)", fontSize: 13 }}>
+      <p style={{ padding: 24, color: "var(--text-tertiary, var(--chart-neutral, var(--chart-neutral, #748A83)))", fontSize: 13 }}>
         The NudgesPanel renders floating nudges in a fixed corner. Below is a simulated preview.
       </p>
       <div style={{ display: "flex", flexDirection: "column", gap: 12, padding: 16 }}>

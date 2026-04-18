@@ -29,18 +29,18 @@ const meta: Meta<typeof AppFooter> = {
       <div
         style={{
           '--mint': '#00B38A',
-          '--mint-l': '#E6FBF5',
+          '--mint-l': 'var(--bg-brand-soft, #E6FBF5)',
           '--mint-300': '#3DDCBA',
           '--mint-d': '#006B52',
           '--bg': '#F5F8F7',
           '--surf': '#FFFFFF',
           '--t1': '#141F1D',
           '--t2': '#3A524D',
-          '--t3': '#748A83',
+          '--t3': 'var(--chart-neutral, var(--chart-neutral, #748A83))',
           '--t4': '#C2CECA',
           '--bd': 'rgba(20,31,29,.10)',
           '--bd2': 'rgba(20,31,29,.06)',
-          '--grn': '#22C55E',
+          '--grn': 'var(--chart-bullish, var(--chart-bullish, #22C55E))',
           '--r1': '6px',
           '--r2': '10px',
         } as React.CSSProperties}

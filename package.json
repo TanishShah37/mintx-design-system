@@ -16,7 +16,8 @@
     "build:design-system": "turbo build --filter=@mintx/design-system",
     "build:docs": "turbo build:docs --filter=@mintx/design-system",
     "build:ui": "turbo build --filter=@mintx/ui",
-    "build:all": "npm run build:storybook && npm run build:docs"
+    "build:all": "npm run build:storybook && npm run build:docs",
+    "standardize-tokens": "node scripts/standardize-tokens.mjs"
   },
   "devDependencies": {
     "@storybook/addon-essentials": "^8.6.2",

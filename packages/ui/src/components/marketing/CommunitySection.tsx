@@ -23,9 +23,9 @@ export function CommunitySection({
   children,
 }: CommunitySectionProps) {
   const dark = theme === 'dark'
-  const t1 = dark ? '#E8EFED' : '#141F1D'
-  const t3 = dark ? '#5A706A' : '#748A83'
-  const t4 = dark ? '#3A524D' : '#9BACA6'
+  const t1 = dark ? 'var(--text-primary, #E8EFED)' : '#141F1D'
+  const t3 = dark ? 'var(--text-tertiary, #5A706A)' : 'var(--chart-neutral, var(--chart-neutral, #748A83))'
+  const t4 = dark ? '#3A524D' : 'var(--text-secondary, #9BACA6)'
 
   return (
     <section className={cn('relative overflow-hidden', className)}>

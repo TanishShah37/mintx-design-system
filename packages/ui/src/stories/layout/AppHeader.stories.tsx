@@ -50,7 +50,7 @@ const meta: Meta<typeof AppHeader> = {
       <div
         style={{
           '--mint': '#00B38A',
-          '--mint-l': '#E6FBF5',
+          '--mint-l': 'var(--bg-brand-soft, #E6FBF5)',
           '--mint-300': '#3DDCBA',
           '--mint-d': '#006B52',
           '--bg': '#F5F8F7',
@@ -58,12 +58,12 @@ const meta: Meta<typeof AppHeader> = {
           '--elev': '#FFFFFF',
           '--t1': '#141F1D',
           '--t2': '#3A524D',
-          '--t3': '#748A83',
+          '--t3': 'var(--chart-neutral, var(--chart-neutral, #748A83))',
           '--t4': '#C2CECA',
           '--bd': 'rgba(20,31,29,.10)',
           '--bd2': 'rgba(20,31,29,.06)',
-          '--grn': '#22C55E',
-          '--red': '#EF4444',
+          '--grn': 'var(--chart-bullish, var(--chart-bullish, #22C55E))',
+          '--red': 'var(--chart-bearish, var(--chart-bearish, #EF4444))',
           '--amb': '#F59E0B',
           '--sh-brand': '0 4px 20px rgba(0,179,138,.28)',
           '--sh': '0 1px 3px rgba(0,0,0,.06)',
@@ -123,7 +123,7 @@ export const WithCustomCTA: Story = {
     cta: (
       <a
         href="/waitlist"
-        className="rounded-[var(--r2)] bg-[var(--mint)] px-3.5 py-1.5 text-[13px] font-semibold text-[#001A13] shadow-[var(--sh-brand)] hover:bg-[var(--mint-300)] transition-all"
+        className="rounded-[var(--r2)] bg-[var(--mint)] px-3.5 py-1.5 text-[13px] font-semibold text-[var(--n-950, #001A13)] shadow-[var(--sh-brand)] hover:bg-[var(--mint-300)] transition-all"
       >
         Join waitlist →
       </a>

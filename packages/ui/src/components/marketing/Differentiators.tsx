@@ -30,7 +30,7 @@ export function Differentiators({
             fontSize: '10px',
             textTransform: 'uppercase',
             letterSpacing: '0.22em',
-            color: dark ? '#3A524D' : '#9BACA6',
+            color: dark ? '#3A524D' : 'var(--text-secondary, #9BACA6)',
           }}
         >
           {title}

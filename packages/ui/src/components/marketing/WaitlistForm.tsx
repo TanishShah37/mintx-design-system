@@ -94,15 +94,15 @@ export function WaitlistForm({
             fontFamily: 'Syne, sans-serif',
             fontWeight: 800,
             fontSize: '18px',
-            color: dark ? '#E8EFED' : '#141F1D',
+            color: dark ? 'var(--text-primary, #E8EFED)' : '#141F1D',
           }}
         >
           You&rsquo;re in
           {position ? ` - #${position.toLocaleString('en-IN')}` : ''}
         </p>
-        <p style={{ fontSize: '13px', color: dark ? '#5A706A' : '#748A83' }}>
+        <p style={{ fontSize: '13px', color: dark ? 'var(--text-tertiary, #5A706A)' : 'var(--chart-neutral, var(--chart-neutral, #748A83))' }}>
           We&rsquo;ll email{' '}
-          <span style={{ color: dark ? '#9BACA6' : '#3A524D' }}>{email}</span>{' '}
+          <span style={{ color: dark ? 'var(--text-secondary, #9BACA6)' : '#3A524D' }}>{email}</span>{' '}
           when early access opens.
         </p>
       </div>
@@ -143,11 +143,11 @@ export function WaitlistForm({
             padding: size === 'sm' ? '12px 20px' : '15px 20px',
             fontFamily: 'DM Sans, sans-serif',
             fontSize: '14px',
-            color: dark ? '#E8EFED' : '#141F1D',
+            color: dark ? 'var(--text-primary, #E8EFED)' : '#141F1D',
             outline: 'none',
             border: 'none',
           }}
-          className="placeholder:text-[#5A706A]"
+          className="placeholder:text-[var(--text-tertiary, #5A706A)]"
         />
         <button
           type="submit"
@@ -159,7 +159,7 @@ export function WaitlistForm({
             fontFamily: 'DM Sans, sans-serif',
             fontSize: '13px',
             fontWeight: 600,
-            color: '#001A13',
+            color: 'var(--n-950, #001A13)',
             boxShadow: '0 4px 20px rgba(0,179,138,0.32)',
             whiteSpace: 'nowrap',
           }}
@@ -206,7 +206,7 @@ export function WaitlistForm({
       {error && (
         <p
           className="mt-2 text-center text-xs"
-          style={{ color: '#EF4444' }}
+          style={{ color: 'var(--chart-bearish, var(--chart-bearish, #EF4444))' }}
           role="alert"
         >
           {error}
@@ -217,14 +217,14 @@ export function WaitlistForm({
         style={{
           fontFamily: 'DM Sans, sans-serif',
           fontSize: '11px',
-          color: dark ? '#3A524D' : '#9BACA6',
+          color: dark ? '#3A524D' : 'var(--text-secondary, #9BACA6)',
         }}
       >
         No spam. Unsubscribe anytime.{' '}
         <Link
           href="/privacy"
           className="underline underline-offset-2 transition-colors"
-          style={{ color: dark ? '#5A706A' : '#748A83' }}
+          style={{ color: dark ? 'var(--text-tertiary, #5A706A)' : 'var(--chart-neutral, var(--chart-neutral, #748A83))' }}
         >
           Privacy policy
         </Link>

@@ -40,6 +40,23 @@ export const semanticColors = {
   purple: { 400: "#A78BFA" },
 } as const;
 
+export const chartColors = {
+  // Primary series colors (distinct for multi-line charts)
+  primary: mintColors[400],      // #10C9A0 - Brand/Mint
+  secondary: semanticColors.blue[500],   // #2563EB - Blue
+  tertiary: semanticColors.purple[400],    // #A78BFA - Purple
+  quaternary: "#F97316",                   // Orange-500
+  
+  // Status colors
+  bullish: semanticColors.green[500],      // #16A34A
+  bearish: semanticColors.red[500],        // #DC2626
+  neutral: neutralColors[400],             // #748A83
+  
+  // Volume/indicator colors
+  volumeUp: "#22C55E",                     // Green-500
+  volumeDown: "#EF4444",                   // Red-500
+} as const;
+
 export const spacing = {
   1: "4px",
   2: "8px",
@@ -212,6 +229,7 @@ export const tokens = {
     mint: mintColors,
     neutral: neutralColors,
     semantic: semanticColors,
+    charts: chartColors,
   },
   spacing,
   radius,

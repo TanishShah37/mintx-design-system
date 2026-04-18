@@ -1312,16 +1312,16 @@ const CATEGORY_COLORS: Record<
   { dot: string; label: string; bg: string; text: string }
 > = {
   navigation: {
-    dot: "#10C9A0",
+    dot: "var(--mint-400, #10C9A0)",
     label: "Navigation",
     bg: "rgba(0,179,138,0.1)",
     text: "#3DDCBA",
   },
   market: {
-    dot: "#22C55E",
+    dot: "var(--chart-bullish, var(--chart-bullish, #22C55E))",
     label: "Market & Trading",
     bg: "rgba(34,197,94,0.1)",
-    text: "#22C55E",
+    text: "var(--chart-bullish, var(--chart-bullish, #22C55E))",
   },
   action: {
     dot: "#60A5FA",
@@ -1342,10 +1342,10 @@ const CATEGORY_COLORS: Record<
     text: "#A78BFA",
   },
   device: {
-    dot: "#F87171",
+    dot: "var(--chart-bearish, var(--chart-bearish, #F87171))",
     label: "Device & Platform",
     bg: "rgba(248,113,113,0.1)",
-    text: "#F87171",
+    text: "var(--chart-bearish, var(--chart-bearish, #F87171))",
   },
   finance: {
     dot: "#FBBF24",
@@ -1396,7 +1396,7 @@ function IconGrid({ icons, size = 22 }: { icons: IconDef[]; size?: number }) {
             style={{
               background: isCopied
                 ? "rgba(34,197,94,0.08)"
-                : "var(--bg-surface, #0D1614)",
+                : "var(--bg-surface, var(--bg-surface, #0D1614))",
               border: `1px solid ${isCopied ? "rgba(34,197,94,0.4)" : "rgba(232,239,237,0.08)"}`,
               borderRadius: 10,
               padding: "14px 8px 10px",
@@ -1423,7 +1423,7 @@ function IconGrid({ icons, size = 22 }: { icons: IconDef[]; size?: number }) {
                 (e.currentTarget as HTMLElement).style.borderColor =
                   "rgba(232,239,237,0.08)";
                 (e.currentTarget as HTMLElement).style.background =
-                  "var(--bg-surface, #0D1614)";
+                  "var(--bg-surface, var(--bg-surface, #0D1614))";
                 (e.currentTarget as HTMLElement).style.transform = "none";
               }
             }}
@@ -1436,7 +1436,7 @@ function IconGrid({ icons, size = 22 }: { icons: IconDef[]; size?: number }) {
                   right: 4,
                   fontSize: 8,
                   fontWeight: 700,
-                  background: "#22C55E",
+                  background: "var(--chart-bullish, var(--chart-bullish, #22C55E))",
                   color: "#fff",
                   padding: "1px 5px",
                   borderRadius: 3,
@@ -1447,14 +1447,14 @@ function IconGrid({ icons, size = 22 }: { icons: IconDef[]; size?: number }) {
             )}
             <Icon
               size={size}
-              color={isCopied ? "#22C55E" : "var(--text-primary, #E8EFED)"}
+              color={isCopied ? "var(--chart-bullish, var(--chart-bullish, #22C55E))" : "var(--text-primary, var(--text-primary, #E8EFED))"}
               strokeWidth={1.8}
             />
             <span
               style={{
                 fontFamily: "'DM Mono', monospace",
                 fontSize: 9,
-                color: isCopied ? "#22C55E" : "var(--text-tertiary, #5A706A)",
+                color: isCopied ? "var(--chart-bullish, var(--chart-bullish, #22C55E))" : "var(--text-tertiary, var(--text-tertiary, #5A706A))",
                 textAlign: "center",
                 lineHeight: 1.3,
                 wordBreak: "break-word",
@@ -1509,11 +1509,11 @@ function IconBrowser({
         style={{ display: "flex", gap: 10, flexWrap: "wrap", marginBottom: 20 }}
       >
         {[
-          { label: `${ICONS.length} icons`, color: "#10C9A0" },
+          { label: `${ICONS.length} icons`, color: "var(--mint-400, #10C9A0)" },
           { label: "8 categories", color: "#60A5FA" },
           { label: "23 MUSR stories", color: "#A78BFA" },
           { label: "1.8px stroke weight", color: "#FBBF24" },
-          { label: "Click to copy import", color: "#9BACA6" },
+          { label: "Click to copy import", color: "var(--text-secondary, #9BACA6)" },
         ].map(({ label, color }) => (
           <span
             key={label}
@@ -1541,7 +1541,7 @@ function IconBrowser({
             left: 12,
             top: "50%",
             transform: "translateY(-50%)",
-            color: "var(--text-tertiary, #5A706A)",
+            color: "var(--text-tertiary, var(--text-tertiary, #5A706A))",
             pointerEvents: "none",
           }}
         />
@@ -1553,8 +1553,8 @@ function IconBrowser({
             width: "100%",
             fontFamily: "'DM Sans', sans-serif",
             fontSize: 13,
-            color: "var(--text-primary, #E8EFED)",
-            background: "var(--bg-surface, #0D1614)",
+            color: "var(--text-primary, var(--text-primary, #E8EFED))",
+            background: "var(--bg-surface, var(--bg-surface, #0D1614))",
             border: "1px solid rgba(232,239,237,0.1)",
             borderRadius: 10,
             padding: "8px 14px 8px 36px",
@@ -1582,12 +1582,12 @@ function IconBrowser({
               borderRadius: 99,
               border: "1px solid",
               borderColor:
-                activeCategory === "all" ? "#10C9A0" : "rgba(232,239,237,0.1)",
-              background: activeCategory === "all" ? "#10C9A0" : "none",
+                activeCategory === "all" ? "var(--mint-400, #10C9A0)" : "rgba(232,239,237,0.1)",
+              background: activeCategory === "all" ? "var(--mint-400, #10C9A0)" : "none",
               color:
                 activeCategory === "all"
-                  ? "#001A13"
-                  : "var(--text-tertiary, #5A706A)",
+                  ? "var(--n-950, #001A13)"
+                  : "var(--text-tertiary, var(--text-tertiary, #5A706A))",
               cursor: "pointer",
               fontFamily: "'DM Sans', sans-serif",
             }}
@@ -1612,7 +1612,7 @@ function IconBrowser({
                       ? catInfo.dot
                       : "rgba(232,239,237,0.1)",
                   background: activeCategory === cat ? catInfo.dot : "none",
-                  color: activeCategory === cat ? "#001A13" : catInfo.text,
+                  color: activeCategory === cat ? "var(--n-950, #001A13)" : catInfo.text,
                   cursor: "pointer",
                   fontFamily: "'DM Sans', sans-serif",
                   textTransform: "capitalize",
@@ -1629,7 +1629,7 @@ function IconBrowser({
       <p
         style={{
           fontSize: 11,
-          color: "var(--text-tertiary, #5A706A)",
+          color: "var(--text-tertiary, var(--text-tertiary, #5A706A))",
           marginBottom: 20,
           fontFamily: "'DM Mono', monospace",
         }}
@@ -1669,7 +1669,7 @@ function IconBrowser({
                       fontFamily: "'Syne', sans-serif",
                       fontSize: 15,
                       fontWeight: 700,
-                      color: "var(--text-primary, #E8EFED)",
+                      color: "var(--text-primary, var(--text-primary, #E8EFED))",
                     }}
                   >
                     {catInfo.label}
@@ -1678,7 +1678,7 @@ function IconBrowser({
                     style={{
                       fontFamily: "'DM Mono', monospace",
                       fontSize: 11,
-                      color: "var(--text-tertiary, #5A706A)",
+                      color: "var(--text-tertiary, var(--text-tertiary, #5A706A))",
                       marginLeft: "auto",
                     }}
                   >
@@ -1693,7 +1693,7 @@ function IconBrowser({
       ) : filtered.length > 0 ? (
         <IconGrid icons={filtered} size={iconSize} />
       ) : (
-        <p style={{ color: "var(--text-tertiary, #5A706A)", fontSize: 13 }}>
+        <p style={{ color: "var(--text-tertiary, var(--text-tertiary, #5A706A))", fontSize: 13 }}>
           No icons found for &quot;{query}&quot;
         </p>
       )}
@@ -1736,7 +1736,7 @@ export const AllIcons: Story = {
             fontWeight: 700,
             letterSpacing: "0.12em",
             textTransform: "uppercase",
-            color: "#10C9A0",
+            color: "var(--mint-400, #10C9A0)",
             marginBottom: 6,
             display: "block",
           }}
@@ -1748,7 +1748,7 @@ export const AllIcons: Story = {
             fontFamily: "'Syne', sans-serif",
             fontSize: 32,
             fontWeight: 800,
-            color: "var(--text-primary, #E8EFED)",
+            color: "var(--text-primary, var(--text-primary, #E8EFED))",
             letterSpacing: "-1px",
             marginBottom: 8,
           }}
@@ -1758,7 +1758,7 @@ export const AllIcons: Story = {
         <p
           style={{
             fontSize: 14,
-            color: "var(--text-secondary, #9BACA6)",
+            color: "var(--text-secondary, var(--text-secondary, #9BACA6))",
             maxWidth: 520,
           }}
         >
@@ -1863,7 +1863,7 @@ export const SizingSystem: Story = {
             fontFamily: "'Syne', sans-serif",
             fontSize: 20,
             fontWeight: 700,
-            color: "var(--text-primary, #E8EFED)",
+            color: "var(--text-primary, var(--text-primary, #E8EFED))",
             marginBottom: 24,
           }}
         >
@@ -1875,7 +1875,7 @@ export const SizingSystem: Story = {
             alignItems: "flex-end",
             gap: 32,
             padding: 28,
-            background: "var(--bg-surface, #0D1614)",
+            background: "var(--bg-surface, var(--bg-surface, #0D1614))",
             border: "1px solid rgba(232,239,237,0.08)",
             borderRadius: 14,
             flexWrap: "wrap",
@@ -1893,7 +1893,7 @@ export const SizingSystem: Story = {
             >
               <TrendingUp
                 size={px}
-                color={px >= 24 ? "#10C9A0" : "var(--text-primary, #E8EFED)"}
+                color={px >= 24 ? "var(--mint-400, #10C9A0)" : "var(--text-primary, var(--text-primary, #E8EFED))"}
                 strokeWidth={px >= 32 ? 1.6 : px <= 12 ? 2 : 1.8}
               />
               <div style={{ textAlign: "center" }}>
@@ -1901,7 +1901,7 @@ export const SizingSystem: Story = {
                   style={{
                     fontFamily: "'DM Mono', monospace",
                     fontSize: 11,
-                    color: "var(--text-primary, #E8EFED)",
+                    color: "var(--text-primary, var(--text-primary, #E8EFED))",
                     fontWeight: 600,
                   }}
                 >
@@ -1911,7 +1911,7 @@ export const SizingSystem: Story = {
                   style={{
                     fontFamily: "'DM Mono', monospace",
                     fontSize: 9,
-                    color: "var(--text-tertiary, #5A706A)",
+                    color: "var(--text-tertiary, var(--text-tertiary, #5A706A))",
                     marginTop: 2,
                   }}
                 >
@@ -1927,7 +1927,7 @@ export const SizingSystem: Story = {
             fontFamily: "'Syne', sans-serif",
             fontSize: 20,
             fontWeight: 700,
-            color: "var(--text-primary, #E8EFED)",
+            color: "var(--text-primary, var(--text-primary, #E8EFED))",
             margin: "32px 0 16px",
           }}
         >
@@ -1935,19 +1935,19 @@ export const SizingSystem: Story = {
         </h2>
         <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
           {[
-            { label: "brand", color: "#10C9A0", bg: "rgba(0,179,138,0.1)" },
+            { label: "brand", color: "var(--mint-400, #10C9A0)", bg: "rgba(0,179,138,0.1)" },
             {
               label: "primary",
-              color: "var(--text-primary, #E8EFED)",
+              color: "var(--text-primary, var(--text-primary, #E8EFED))",
               bg: "rgba(232,239,237,0.06)",
             },
             {
               label: "muted",
-              color: "var(--text-tertiary, #5A706A)",
+              color: "var(--text-tertiary, var(--text-tertiary, #5A706A))",
               bg: "rgba(232,239,237,0.06)",
             },
-            { label: "success", color: "#22C55E", bg: "rgba(34,197,94,0.08)" },
-            { label: "danger", color: "#F87171", bg: "rgba(248,113,113,0.08)" },
+            { label: "success", color: "var(--chart-bullish, var(--chart-bullish, #22C55E))", bg: "rgba(34,197,94,0.08)" },
+            { label: "danger", color: "var(--chart-bearish, var(--chart-bearish, #F87171))", bg: "rgba(248,113,113,0.08)" },
             { label: "warning", color: "#FBBF24", bg: "rgba(251,191,36,0.08)" },
             { label: "info", color: "#60A5FA", bg: "rgba(96,165,250,0.08)" },
             { label: "inverse", color: "#3DDCBA", bg: "#141F1D" },
@@ -1978,7 +1978,7 @@ export const SizingSystem: Story = {
                 style={{
                   fontFamily: "'DM Mono', monospace",
                   fontSize: 10,
-                  color: "var(--text-tertiary, #5A706A)",
+                  color: "var(--text-tertiary, var(--text-tertiary, #5A706A))",
                 }}
               >
                 {label}
@@ -2010,7 +2010,7 @@ export const AnimatedStates: Story = {
           fontFamily: "'Syne', sans-serif",
           fontSize: 20,
           fontWeight: 700,
-          color: "var(--text-primary, #E8EFED)",
+          color: "var(--text-primary, var(--text-primary, #E8EFED))",
           marginBottom: 24,
         }}
       >
@@ -2022,7 +2022,7 @@ export const AnimatedStates: Story = {
           gap: 24,
           flexWrap: "wrap",
           padding: 24,
-          background: "var(--bg-surface, #0D1614)",
+          background: "var(--bg-surface, var(--bg-surface, #0D1614))",
           border: "1px solid rgba(232,239,237,0.08)",
           borderRadius: 14,
           marginBottom: 32,
@@ -2033,7 +2033,7 @@ export const AnimatedStates: Story = {
             label: "Loader2 · spin",
             node: (
               <span className="mintx-spin" style={{ display: "inline-flex" }}>
-                <Loader2 size={22} color="#10C9A0" strokeWidth={1.8} />
+                <Loader2 size={22} color="var(--mint-400, #10C9A0)" strokeWidth={1.8} />
               </span>
             ),
             bg: "rgba(0,179,138,0.08)",
@@ -2047,7 +2047,7 @@ export const AnimatedStates: Story = {
                   width: 10,
                   height: 10,
                   borderRadius: "50%",
-                  background: "#22C55E",
+                  background: "var(--chart-bullish, var(--chart-bullish, #22C55E))",
                   display: "inline-block",
                 }}
               />
@@ -2113,7 +2113,7 @@ export const AnimatedStates: Story = {
               style={{
                 fontFamily: "'DM Mono', monospace",
                 fontSize: 9,
-                color: "var(--text-tertiary, #5A706A)",
+                color: "var(--text-tertiary, var(--text-tertiary, #5A706A))",
                 textAlign: "center",
                 lineHeight: 1.4,
               }}
@@ -2129,7 +2129,7 @@ export const AnimatedStates: Story = {
           fontFamily: "'Syne', sans-serif",
           fontSize: 18,
           fontWeight: 700,
-          color: "var(--text-primary, #E8EFED)",
+          color: "var(--text-primary, var(--text-primary, #E8EFED))",
           marginBottom: 16,
         }}
       >
@@ -2145,17 +2145,17 @@ export const AnimatedStates: Story = {
       >
         {[
           {
-            icon: <CheckCircle2 size={16} color="#22C55E" strokeWidth={2} />,
+            icon: <CheckCircle2 size={16} color="var(--chart-bullish, var(--chart-bullish, #22C55E))" strokeWidth={2} />,
             text: "Position logged to your tracker",
           },
           {
-            icon: <XCircle size={16} color="#F87171" strokeWidth={2} />,
+            icon: <XCircle size={16} color="var(--chart-bearish, var(--chart-bearish, #F87171))" strokeWidth={2} />,
             text: "Data connection lost — retrying",
           },
           {
             icon: (
               <span className="mintx-spin" style={{ display: "inline-flex" }}>
-                <Loader2 size={16} color="#10C9A0" strokeWidth={2} />
+                <Loader2 size={16} color="var(--mint-400, #10C9A0)" strokeWidth={2} />
               </span>
             ),
             text: "Fetching live market data…",
@@ -2168,7 +2168,7 @@ export const AnimatedStates: Story = {
           <div
             key={i}
             style={{
-              background: "var(--bg-surface, #0D1614)",
+              background: "var(--bg-surface, var(--bg-surface, #0D1614))",
               border: "1px solid rgba(232,239,237,0.08)",
               borderRadius: 10,
               padding: "12px 16px",
@@ -2177,7 +2177,7 @@ export const AnimatedStates: Story = {
               gap: 10,
               boxShadow: "0 4px 16px rgba(0,0,0,0.3)",
               fontSize: 13,
-              color: "var(--text-primary, #E8EFED)",
+              color: "var(--text-primary, var(--text-primary, #E8EFED))",
             }}
           >
             {icon}
@@ -2355,7 +2355,7 @@ export const MUSRMapping: Story = {
             fontFamily: "'Syne', sans-serif",
             fontSize: 20,
             fontWeight: 700,
-            color: "var(--text-primary, #E8EFED)",
+            color: "var(--text-primary, var(--text-primary, #E8EFED))",
             marginBottom: 8,
           }}
         >
@@ -2364,7 +2364,7 @@ export const MUSRMapping: Story = {
         <p
           style={{
             fontSize: 13,
-            color: "var(--text-secondary, #9BACA6)",
+            color: "var(--text-secondary, var(--text-secondary, #9BACA6))",
             marginBottom: 28,
           }}
         >
@@ -2373,7 +2373,7 @@ export const MUSRMapping: Story = {
         </p>
         <div
           style={{
-            background: "var(--bg-surface, #0D1614)",
+            background: "var(--bg-surface, var(--bg-surface, #0D1614))",
             border: "1px solid rgba(232,239,237,0.08)",
             borderRadius: 12,
             overflow: "hidden",
@@ -2397,7 +2397,7 @@ export const MUSRMapping: Story = {
                   fontWeight: 700,
                   textTransform: "uppercase",
                   letterSpacing: "0.1em",
-                  color: "var(--text-tertiary, #5A706A)",
+                  color: "var(--text-tertiary, var(--text-tertiary, #5A706A))",
                 }}
               >
                 {h}
@@ -2423,7 +2423,7 @@ export const MUSRMapping: Story = {
                 style={{
                   fontFamily: "'DM Mono', monospace",
                   fontSize: 11,
-                  color: "#10C9A0",
+                  color: "var(--mint-400, #10C9A0)",
                   fontWeight: 500,
                 }}
               >
@@ -2432,7 +2432,7 @@ export const MUSRMapping: Story = {
               <span
                 style={{
                   fontSize: 12,
-                  color: "var(--text-secondary, #9BACA6)",
+                  color: "var(--text-secondary, var(--text-secondary, #9BACA6))",
                   lineHeight: 1.5,
                 }}
               >
@@ -2442,7 +2442,7 @@ export const MUSRMapping: Story = {
                 style={{
                   fontFamily: "'DM Mono', monospace",
                   fontSize: 11,
-                  color: "var(--text-tertiary, #5A706A)",
+                  color: "var(--text-tertiary, var(--text-tertiary, #5A706A))",
                 }}
               >
                 {icons.length} icons
@@ -2464,7 +2464,7 @@ export const InstallCode: Story = {
           fontFamily: "'Syne', sans-serif",
           fontSize: 20,
           fontWeight: 700,
-          color: "var(--text-primary, #E8EFED)",
+          color: "var(--text-primary, var(--text-primary, #E8EFED))",
           marginBottom: 24,
         }}
       >
@@ -2500,7 +2500,7 @@ size={48}  strokeWidth={1.4}    // 3xl — empty state`,
               style={{
                 fontSize: 11,
                 fontWeight: 700,
-                color: "var(--text-tertiary, #5A706A)",
+                color: "var(--text-tertiary, var(--text-tertiary, #5A706A))",
                 textTransform: "uppercase",
                 letterSpacing: "0.08em",
                 marginBottom: 8,
@@ -2513,7 +2513,7 @@ size={48}  strokeWidth={1.4}    // 3xl — empty state`,
                 fontFamily: "'DM Mono', monospace",
                 fontSize: 12,
                 lineHeight: 1.7,
-                color: "var(--text-secondary, #9BACA6)",
+                color: "var(--text-secondary, var(--text-secondary, #9BACA6))",
                 background: "var(--bg-elevated, #141F1D)",
                 border: "1px solid rgba(232,239,237,0.08)",
                 borderRadius: 10,

@@ -41,7 +41,7 @@ export const Controlled: Story = {
     return (
       <div style={{ display: "flex", flexDirection: "column", gap: 8 }}>
         <Toggle label={on ? "Enabled" : "Disabled"} checked={on} onChange={setOn} />
-        <p style={{ fontSize: 12, color: "var(--text-tertiary, #748A83)" }}>
+        <p style={{ fontSize: 12, color: "var(--text-tertiary, var(--chart-neutral, var(--chart-neutral, #748A83)))" }}>
           Value: <strong>{String(on)}</strong>
         </p>
       </div>
@@ -98,7 +98,7 @@ export const SettingsPanel: Story = {
             fontWeight: 700,
             textTransform: "uppercase",
             letterSpacing: "0.1em",
-            color: "var(--text-tertiary, #748A83)",
+            color: "var(--text-tertiary, var(--chart-neutral, var(--chart-neutral, #748A83)))",
             marginBottom: 16,
           }}
         >

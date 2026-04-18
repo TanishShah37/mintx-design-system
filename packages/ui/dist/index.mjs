@@ -5681,6 +5681,29 @@ var semanticColors = {
   blue: { 400: "#60A5FA", 500: "#2563EB" },
   purple: { 400: "#A78BFA" }
 };
+var chartColors = {
+  // Primary series colors (distinct for multi-line charts)
+  primary: mintColors[400],
+  // #10C9A0 - Brand/Mint
+  secondary: semanticColors.blue[500],
+  // #2563EB - Blue
+  tertiary: semanticColors.purple[400],
+  // #A78BFA - Purple
+  quaternary: "#F97316",
+  // Orange-500
+  // Status colors
+  bullish: semanticColors.green[500],
+  // #16A34A
+  bearish: semanticColors.red[500],
+  // #DC2626
+  neutral: neutralColors[400],
+  // #748A83
+  // Volume/indicator colors
+  volumeUp: "#22C55E",
+  // Green-500
+  volumeDown: "#EF4444"
+  // Red-500
+};
 var spacing = {
   1: "4px",
   2: "8px",
@@ -5832,7 +5855,8 @@ var tokens = {
   colors: {
     mint: mintColors,
     neutral: neutralColors,
-    semantic: semanticColors
+    semantic: semanticColors,
+    charts: chartColors
   },
   spacing,
   radius,
@@ -6048,7 +6072,7 @@ var buttonVariants = cva(
   {
     variants: {
       variant: {
-        primary: "bg-mint-400 text-[#001A13] border-mint-400 shadow-[0_4px_16px_rgba(0,179,138,0.25)] hover:bg-mint-300 hover:border-mint-300 hover:-translate-y-[1px] hover:shadow-[0_6px_24px_rgba(0,179,138,0.38)]",
+        primary: "bg-mint-400 text-[var(--n-950, #001A13)] border-mint-400 shadow-[0_4px_16px_rgba(0,179,138,0.25)] hover:bg-mint-300 hover:border-mint-300 hover:-translate-y-[1px] hover:shadow-[0_6px_24px_rgba(0,179,138,0.38)]",
         secondary: "bg-surface text-neutral-900 border-neutral-200 shadow-sm hover:border-mint-400 hover:text-mint-600 hover:bg-mint-50",
         ghost: "bg-transparent text-neutral-600 border-transparent hover:bg-neutral-100 hover:text-neutral-900",
         danger: "bg-red-500/10 text-red-600 border-red-500/20 hover:bg-red-600 hover:text-white hover:border-red-600",
@@ -8268,7 +8292,7 @@ var itemVariants = cva(
     },
     compoundVariants: [
       { variant: "default", isActive: true, className: "bg-surface text-neutral-900 shadow-sm font-semibold" },
-      { variant: "brand", isActive: true, className: "bg-mint-400 text-[#001A13] font-bold shadow-[0_4px_16px_rgba(0,179,138,0.25)]" },
+      { variant: "brand", isActive: true, className: "bg-mint-400 text-[var(--n-950, #001A13)] font-bold shadow-[0_4px_16px_rgba(0,179,138,0.25)]" },
       { variant: "pills", isActive: true, className: "bg-mint-50 text-mint-600 border-mint-400/25" },
       { variant: "underline", isActive: true, className: "text-mint-600 border-b-mint-400 font-semibold" }
     ],
@@ -9706,9 +9730,9 @@ function normalise(data, h) {
   }).join(" ");
 }
 var colorMap = {
-  up: { stroke: "#22C55E", fill: "rgba(34,197,94,0.1)" },
-  down: { stroke: "#EF4444", fill: "rgba(239,68,68,0.1)" },
-  flat: { stroke: "#94A3B8", fill: "rgba(148,163,184,0.1)" }
+  up: { stroke: "var(--green-400, var(--chart-bullish, var(--chart-bullish, #22C55E)))", fill: "rgba(34, 197, 94, 0.1)" },
+  down: { stroke: "var(--red-400, var(--chart-bearish, var(--chart-bearish, #F87171)))", fill: "rgba(239, 68, 68, 0.1)" },
+  flat: { stroke: "var(--n-400, var(--chart-neutral, var(--chart-neutral, #748A83)))", fill: "rgba(148, 163, 184, 0.1)" }
 };
 function Sparkline({
   data,
@@ -9825,6 +9849,9 @@ function StockCard({
   );
 }
 StockCard.displayName = "StockCard";
+tokens.colors.charts.primary;
+tokens.colors.charts.bullish;
+tokens.colors.charts.bearish;
 function CustomTickerTape({
   items,
   speed = 20,
@@ -9971,8 +9998,8 @@ function Logo({ collapsed = false }) {
       children: [
         /* @__PURE__ */ jsxs("svg", { width: "26", height: "26", viewBox: "0 0 96 96", fill: "none", "aria-hidden": true, children: [
           /* @__PURE__ */ jsx("rect", { width: "96", height: "96", rx: "20", fill: "var(--mint)" }),
-          /* @__PURE__ */ jsx("path", { d: "M20 64L34 42L44 52L62 30", stroke: "#001A13", strokeWidth: "5", strokeLinecap: "round", strokeLinejoin: "round" }),
-          /* @__PURE__ */ jsx("circle", { cx: "62", cy: "30", r: "6", fill: "#001A13" })
+          /* @__PURE__ */ jsx("path", { d: "M20 64L34 42L44 52L62 30", stroke: "var(--n-950, var(--n-950, #001A13))", strokeWidth: "5", strokeLinecap: "round", strokeLinejoin: "round" }),
+          /* @__PURE__ */ jsx("circle", { cx: "62", cy: "30", r: "6", fill: "var(--n-950, var(--n-950, #001A13))" })
         ] }),
         !collapsed && /* @__PURE__ */ jsxs("span", { children: [
           "Mintx",
@@ -10107,7 +10134,7 @@ function UserMenu({
         "aria-label": "Open user menu",
         className: "flex items-center gap-2 rounded-[var(--r2)] px-2 py-1.5 transition-colors hover:bg-[var(--bd2)]",
         children: [
-          /* @__PURE__ */ jsx("div", { className: "flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-[var(--mint)] to-[var(--mint-d)] font-display text-[11px] font-bold text-[#001A13]", children: user.avatarUrl ? /* @__PURE__ */ jsx("img", { src: user.avatarUrl, alt: user.name, className: "h-7 w-7 rounded-full object-cover" }) : initials }),
+          /* @__PURE__ */ jsx("div", { className: "flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-[var(--mint)] to-[var(--mint-d)] font-display text-[11px] font-bold text-[var(--n-950, var(--n-950, #001A13))]", children: user.avatarUrl ? /* @__PURE__ */ jsx("img", { src: user.avatarUrl, alt: user.name, className: "h-7 w-7 rounded-full object-cover" }) : initials }),
           user.plan === "pro" && /* @__PURE__ */ jsx("span", { className: "rounded-full bg-[var(--mint-l)] px-1.5 py-px font-mono text-[9px] font-bold text-[var(--mint-d)]", children: "PRO" }),
           /* @__PURE__ */ jsx("svg", { width: "10", height: "10", viewBox: "0 0 24 24", fill: "none", stroke: "currentColor", strokeWidth: "2.5", strokeLinecap: "round", strokeLinejoin: "round", className: cn("opacity-40 transition-transform duration-150", open && "rotate-180"), children: /* @__PURE__ */ jsx("path", { d: "m6 9 6 6 6-6" }) })
         ]
@@ -10142,7 +10169,7 @@ function UserMenu({
         {
           href: "/pricing",
           onClick: () => setOpen(false),
-          className: "block w-full rounded-[var(--r1)] bg-[var(--mint)] px-3 py-2 text-center text-[12px] font-semibold text-[#001A13] shadow-[var(--sh-brand)] hover:bg-[var(--mint-300)] transition-colors",
+          className: "block w-full rounded-[var(--r1)] bg-[var(--mint)] px-3 py-2 text-center text-[12px] font-semibold text-[var(--n-950, var(--n-950, #001A13))] shadow-[var(--sh-brand)] hover:bg-[var(--mint-300)] transition-colors",
           children: "Upgrade to Pro \u2197"
         }
       ) }),
@@ -10268,7 +10295,7 @@ function MobileMenu({
         {
           href: "/pricing",
           onClick: onClose,
-          className: "w-full rounded-[var(--r2)] bg-[var(--mint)] py-2.5 text-center text-sm font-semibold text-[#001A13]",
+          className: "w-full rounded-[var(--r2)] bg-[var(--mint)] py-2.5 text-center text-sm font-semibold text-[var(--n-950, var(--n-950, #001A13))]",
           children: "Upgrade to Pro"
         }
       ),
@@ -10298,7 +10325,7 @@ function MobileMenu({
         {
           href: "/auth/signup",
           onClick: onClose,
-          className: "w-full rounded-[var(--r2)] bg-[var(--mint)] py-2.5 text-center text-sm font-semibold text-[#001A13] shadow-[var(--sh-brand)]",
+          className: "w-full rounded-[var(--r2)] bg-[var(--mint)] py-2.5 text-center text-sm font-semibold text-[var(--n-950, var(--n-950, #001A13))] shadow-[var(--sh-brand)]",
           children: "Get started free"
         }
       )
@@ -10370,7 +10397,7 @@ function AppHeader({
                 import_link.default,
                 {
                   href: "/auth/signup",
-                  className: "rounded-[var(--r2)] bg-[var(--mint)] px-3.5 py-1.5 text-[13px] font-semibold text-[#001A13] shadow-[var(--sh-brand)] hover:bg-[var(--mint-300)] transition-all",
+                  className: "rounded-[var(--r2)] bg-[var(--mint)] px-3.5 py-1.5 text-[13px] font-semibold text-[var(--n-950, var(--n-950, #001A13))] shadow-[var(--sh-brand)] hover:bg-[var(--mint-300)] transition-all",
                   children: "Get started"
                 }
               )
@@ -10503,8 +10530,8 @@ var FooterLogo = () => /* @__PURE__ */ jsxs(
     children: [
       /* @__PURE__ */ jsxs("svg", { width: "26", height: "26", viewBox: "0 0 96 96", fill: "none", "aria-hidden": true, children: [
         /* @__PURE__ */ jsx("rect", { width: "96", height: "96", rx: "20", fill: "var(--mint)" }),
-        /* @__PURE__ */ jsx("path", { d: "M20 64L34 42L44 52L62 30", stroke: "#001A13", strokeWidth: "5", strokeLinecap: "round", strokeLinejoin: "round" }),
-        /* @__PURE__ */ jsx("circle", { cx: "62", cy: "30", r: "6", fill: "#001A13" })
+        /* @__PURE__ */ jsx("path", { d: "M20 64L34 42L44 52L62 30", stroke: "var(--n-950, var(--n-950, #001A13))", strokeWidth: "5", strokeLinecap: "round", strokeLinejoin: "round" }),
+        /* @__PURE__ */ jsx("circle", { cx: "62", cy: "30", r: "6", fill: "var(--n-950, var(--n-950, #001A13))" })
       ] }),
       "Mintx",
       /* @__PURE__ */ jsx("span", { className: "text-[var(--mint)]", children: "." })
@@ -10637,8 +10664,8 @@ function IconMark({
   size,
   theme
 }) {
-  const bgColor = theme === "white" ? "#FFFFFF" : theme === "light" ? "#F5F8F7" : "#00B38A";
-  const strokeColor = theme === "white" || theme === "light" ? "#00B38A" : "#001A13";
+  const bgColor = theme === "white" ? "#FFFFFF" : theme === "light" ? "var(--n-50, #F5F8F7)" : "var(--mint-400, #00B38A)";
+  const strokeColor = theme === "white" || theme === "light" ? "var(--mint-400, #00B38A)" : "var(--n-950, var(--n-950, #001A13))";
   const rx = Math.round(size * 0.25);
   return /* @__PURE__ */ jsxs(
     "svg",
@@ -10690,8 +10717,8 @@ function Wordmark({
   fontSize,
   theme
 }) {
-  const primaryColor = theme === "white" ? "#FFFFFF" : theme === "dark" ? "#E8EFED" : "#141F1D";
-  const accentColor = theme === "white" ? "rgba(255,255,255,0.7)" : "#00B38A";
+  const primaryColor = theme === "white" ? "#FFFFFF" : theme === "dark" ? "var(--text-primary, var(--text-primary, #E8EFED))" : "var(--text-primary, #141F1D)";
+  const accentColor = theme === "white" ? "rgba(255,255,255,0.7)" : "var(--mint-400, #00B38A)";
   return /* @__PURE__ */ jsxs(
     "span",
     {
@@ -11016,7 +11043,7 @@ function BottomNav({
     "nav",
     {
       className: cn(
-        "fixed bottom-0 left-0 right-0 z-100 bg-surface/90 border-t border-neutral-100 pb-[env(safe-area-inset-bottom,0px)] backdrop-blur-xl dark:bg-[#0D1614]/90",
+        "fixed bottom-0 left-0 right-0 z-100 bg-surface/90 border-t border-neutral-100 pb-[env(safe-area-inset-bottom,0px)] backdrop-blur-xl dark:bg-surface/90",
         className
       ),
       "aria-label": "Mobile navigation",
@@ -11477,8 +11504,8 @@ function Hero({
   chips
 }) {
   const dark = theme === "dark";
-  const t3 = dark ? "#5A706A" : "#748A83";
-  const t4 = dark ? "#3A524D" : "#9BACA6";
+  const t3 = dark ? "var(--text-tertiary, #5A706A)" : "var(--chart-neutral, var(--chart-neutral, #748A83))";
+  const t4 = dark ? "#3A524D" : "var(--text-secondary, #9BACA6)";
   return /* @__PURE__ */ jsx("section", { className: cn("relative z-10 mx-auto max-w-7xl px-6 pb-20 pt-10 lg:px-12 lg:pt-14", className), children: /* @__PURE__ */ jsxs("div", { className: "grid grid-cols-1 items-center gap-12 lg:grid-cols-2 lg:gap-20", children: [
     /* @__PURE__ */ jsxs("div", { className: "flex flex-col lg:max-w-2xl", children: [
       tag && /* @__PURE__ */ jsx("div", { className: "rev-up mb-6 flex items-center gap-3", children: /* @__PURE__ */ jsxs(
@@ -11549,7 +11576,7 @@ function Hero({
           style: {
             fontFamily: "DM Mono, monospace",
             fontSize: "11px",
-            color: dark ? "#9BACA6" : "#3A524D",
+            color: dark ? "var(--text-secondary, #9BACA6)" : "#3A524D",
             background: dark ? "rgba(232,239,237,0.05)" : "rgba(20,31,29,0.05)",
             border: `1px solid ${dark ? "rgba(232,239,237,0.08)" : "rgba(20,31,29,0.09)"}`
           },
@@ -11604,7 +11631,7 @@ function Hero({
                 style: {
                   fontFamily: "DM Mono, monospace",
                   fontSize: "10px",
-                  color: "#22C55E"
+                  color: "var(--chart-bullish, var(--chart-bullish, #22C55E))"
                 },
                 children: chips.left.sub
               }
@@ -11737,7 +11764,7 @@ function HowItWorks({
                 fontSize: "10px",
                 textTransform: "uppercase",
                 letterSpacing: "0.22em",
-                color: dark ? "#3A524D" : "#9BACA6"
+                color: dark ? "#3A524D" : "var(--text-secondary, #9BACA6)"
               },
               children: label
             }
@@ -11779,12 +11806,12 @@ function HowItWorks({
                   fontWeight: 800,
                   fontSize: "18px",
                   lineHeight: 1.2,
-                  color: dark ? "#E8EFED" : "#141F1D"
+                  color: dark ? "var(--text-primary, #E8EFED)" : "#141F1D"
                 },
                 children: step.title
               }
             ),
-            /* @__PURE__ */ jsx("p", { style: { fontSize: "13px", lineHeight: 1.7, color: dark ? "#5A706A" : "#748A83" }, children: step.body })
+            /* @__PURE__ */ jsx("p", { style: { fontSize: "13px", lineHeight: 1.7, color: dark ? "var(--text-tertiary, #5A706A)" : "var(--chart-neutral, var(--chart-neutral, #748A83))" }, children: step.body })
           ] }, step.n))
         ] })
       ] })
@@ -11826,7 +11853,7 @@ function DiffCard({ item, i, theme = "dark" }) {
               style: {
                 background: hovered ? `${item.accent}18` : dark ? "rgba(232,239,237,0.05)" : "rgba(20,31,29,0.04)",
                 border: `1px solid ${hovered ? `${item.accent}30` : dark ? "rgba(232,239,237,0.08)" : "rgba(20,31,29,0.08)"}`,
-                color: hovered ? item.accent : dark ? "#5A706A" : "#748A83"
+                color: hovered ? item.accent : dark ? "var(--text-tertiary, #5A706A)" : "var(--chart-neutral, var(--chart-neutral, #748A83))"
               },
               children: item.icon
             }
@@ -11857,7 +11884,7 @@ function DiffCard({ item, i, theme = "dark" }) {
               fontFamily: "Syne, sans-serif",
               fontWeight: 800,
               fontSize: "clamp(20px, 2.2vw, 26px)",
-              color: dark ? "#E8EFED" : "#141F1D",
+              color: dark ? "var(--text-primary, #E8EFED)" : "#141F1D",
               whiteSpace: "pre-line"
             },
             children: item.title
@@ -11869,7 +11896,7 @@ function DiffCard({ item, i, theme = "dark" }) {
             style: {
               fontSize: "13px",
               lineHeight: 1.7,
-              color: dark ? "#5A706A" : "#748A83"
+              color: dark ? "var(--text-tertiary, #5A706A)" : "var(--chart-neutral, var(--chart-neutral, #748A83))"
             },
             children: item.body
           }
@@ -11902,7 +11929,7 @@ function DiffCard({ item, i, theme = "dark" }) {
                     style: {
                       fontFamily: "DM Mono, monospace",
                       fontSize: "10px",
-                      color: dark ? "#3A524D" : "#9BACA6",
+                      color: dark ? "#3A524D" : "var(--text-secondary, #9BACA6)",
                       marginTop: "4px"
                     },
                     children: item.metricSub
@@ -11959,7 +11986,7 @@ function Differentiators({
             fontSize: "10px",
             textTransform: "uppercase",
             letterSpacing: "0.22em",
-            color: dark ? "#3A524D" : "#9BACA6"
+            color: dark ? "#3A524D" : "var(--text-secondary, #9BACA6)"
           },
           children: title
         }
@@ -12057,7 +12084,7 @@ function WaitlistForm({
                 fontFamily: "Syne, sans-serif",
                 fontWeight: 800,
                 fontSize: "18px",
-                color: dark ? "#E8EFED" : "#141F1D"
+                color: dark ? "var(--text-primary, #E8EFED)" : "#141F1D"
               },
               children: [
                 "You\u2019re in",
@@ -12065,10 +12092,10 @@ function WaitlistForm({
               ]
             }
           ),
-          /* @__PURE__ */ jsxs("p", { style: { fontSize: "13px", color: dark ? "#5A706A" : "#748A83" }, children: [
+          /* @__PURE__ */ jsxs("p", { style: { fontSize: "13px", color: dark ? "var(--text-tertiary, #5A706A)" : "var(--chart-neutral, var(--chart-neutral, #748A83))" }, children: [
             "We\u2019ll email",
             " ",
-            /* @__PURE__ */ jsx("span", { style: { color: dark ? "#9BACA6" : "#3A524D" }, children: email }),
+            /* @__PURE__ */ jsx("span", { style: { color: dark ? "var(--text-secondary, #9BACA6)" : "#3A524D" }, children: email }),
             " ",
             "when early access opens."
           ] })
@@ -12109,11 +12136,11 @@ function WaitlistForm({
                 padding: size === "sm" ? "12px 20px" : "15px 20px",
                 fontFamily: "DM Sans, sans-serif",
                 fontSize: "14px",
-                color: dark ? "#E8EFED" : "#141F1D",
+                color: dark ? "var(--text-primary, #E8EFED)" : "#141F1D",
                 outline: "none",
                 border: "none"
               },
-              className: "placeholder:text-[#5A706A]"
+              className: "placeholder:text-[var(--text-tertiary, #5A706A)]"
             }
           ),
           /* @__PURE__ */ jsx(
@@ -12128,7 +12155,7 @@ function WaitlistForm({
                 fontFamily: "DM Sans, sans-serif",
                 fontSize: "13px",
                 fontWeight: 600,
-                color: "#001A13",
+                color: "var(--n-950, #001A13)",
                 boxShadow: "0 4px 20px rgba(0,179,138,0.32)",
                 whiteSpace: "nowrap"
               },
@@ -12177,7 +12204,7 @@ function WaitlistForm({
       "p",
       {
         className: "mt-2 text-center text-xs",
-        style: { color: "#EF4444" },
+        style: { color: "var(--chart-bearish, var(--chart-bearish, #EF4444))" },
         role: "alert",
         children: error
       }
@@ -12189,7 +12216,7 @@ function WaitlistForm({
         style: {
           fontFamily: "DM Sans, sans-serif",
           fontSize: "11px",
-          color: dark ? "#3A524D" : "#9BACA6"
+          color: dark ? "#3A524D" : "var(--text-secondary, #9BACA6)"
         },
         children: [
           "No spam. Unsubscribe anytime.",
@@ -12199,7 +12226,7 @@ function WaitlistForm({
             {
               href: "/privacy",
               className: "underline underline-offset-2 transition-colors",
-              style: { color: dark ? "#5A706A" : "#748A83" },
+              style: { color: dark ? "var(--text-tertiary, #5A706A)" : "var(--chart-neutral, var(--chart-neutral, #748A83))" },
               children: "Privacy policy"
             }
           )
@@ -12216,8 +12243,8 @@ function StatsSection({
   const dark = theme === "dark";
   const divider = dark ? "rgba(232,239,237,0.05)" : "rgba(20,31,29,0.06)";
   const bg = dark ? "#080E0D" : "#F5F8F7";
-  const t1 = dark ? "#E8EFED" : "#141F1D";
-  const t4 = dark ? "#3A524D" : "#9BACA6";
+  const t1 = dark ? "var(--text-primary, #E8EFED)" : "#141F1D";
+  const t4 = dark ? "#3A524D" : "var(--text-secondary, #9BACA6)";
   return /* @__PURE__ */ jsx(
     "div",
     {
@@ -12274,9 +12301,9 @@ function CommunitySection({
   children
 }) {
   const dark = theme === "dark";
-  const t1 = dark ? "#E8EFED" : "#141F1D";
-  const t3 = dark ? "#5A706A" : "#748A83";
-  const t4 = dark ? "#3A524D" : "#9BACA6";
+  const t1 = dark ? "var(--text-primary, #E8EFED)" : "#141F1D";
+  const t3 = dark ? "var(--text-tertiary, #5A706A)" : "var(--chart-neutral, var(--chart-neutral, #748A83))";
+  const t4 = dark ? "#3A524D" : "var(--text-secondary, #9BACA6)";
   return /* @__PURE__ */ jsxs("section", { className: cn("relative overflow-hidden", className), children: [
     /* @__PURE__ */ jsx(
       "div",
@@ -12963,8 +12990,8 @@ function normalise2(data, h) {
 }
 var colorMap2 = {
   up: { stroke: "#00B38A", fill: "rgba(0,179,138,0.1)" },
-  down: { stroke: "#EF4444", fill: "rgba(239,68,68,0.1)" },
-  flat: { stroke: "#9BACA6", fill: "rgba(155,172,166,0.1)" }
+  down: { stroke: "var(--chart-bearish, var(--chart-bearish, #EF4444))", fill: "rgba(239,68,68,0.1)" },
+  flat: { stroke: "var(--text-secondary, #9BACA6)", fill: "rgba(155,172,166,0.1)" }
 };
 function Sparkline2({
   data,
@@ -13639,7 +13666,7 @@ var BaseChart = ({
         chart = LWT.createChart(containerRef.current, {
           layout: {
             background: { type: "solid", color: "transparent" },
-            textColor: theme === "dark" ? "#9BACA6" : "#3A524D",
+            textColor: theme === "dark" ? "var(--text-secondary, #9BACA6)" : "#3A524D",
             fontFamily: "'DM Sans', sans-serif"
           },
           grid: {
@@ -13686,7 +13713,7 @@ var BaseChart = ({
     };
   }, [theme, height]);
   if (error) {
-    return /* @__PURE__ */ jsxs("div", { style: { height, display: "flex", alignItems: "center", justifyContent: "center", color: "#EF4444", fontSize: 13, borderRadius: 12, border: "1px solid rgba(239,68,68,0.3)", background: "rgba(239,68,68,0.05)" }, children: [
+    return /* @__PURE__ */ jsxs("div", { style: { height, display: "flex", alignItems: "center", justifyContent: "center", color: "var(--chart-bearish, var(--chart-bearish, #EF4444))", fontSize: 13, borderRadius: 12, border: "1px solid rgba(239,68,68,0.3)", background: "rgba(239,68,68,0.05)" }, children: [
       "Chart failed to load: ",
       error
     ] });
@@ -13729,10 +13756,10 @@ var CandlestickChart = ({ data, ...props }) => /* @__PURE__ */ jsx(
     renderFn: (_LWT, chart) => {
       const series = chart.addCandlestickSeries({
         upColor: "#00B38A",
-        downColor: "#EF4444",
+        downColor: "var(--chart-bearish, var(--chart-bearish, #EF4444))",
         borderVisible: false,
         wickUpColor: "#00B38A",
-        wickDownColor: "#EF4444"
+        wickDownColor: "var(--chart-bearish, var(--chart-bearish, #EF4444))"
       });
       series.setData(data);
     }
@@ -13749,7 +13776,7 @@ var BaselineChart = ({ data, color = "#00B38A", ...props }) => /* @__PURE__ */ j
         topLineColor: color,
         bottomFillColor1: "rgba(239,68,68,0)",
         bottomFillColor2: "rgba(239,68,68,0.3)",
-        bottomLineColor: "#EF4444",
+        bottomLineColor: "var(--chart-bearish, var(--chart-bearish, #EF4444))",
         lineWidth: 2
       });
       series.setData(data);
@@ -13772,7 +13799,7 @@ var VolumeChart = ({ data, color = "#00B38A", ...props }) => /* @__PURE__ */ jsx
         data.map((d) => ({
           time: d.time,
           value: d.value ?? 0,
-          color: (d.value ?? 0) > 25 ? `${color}B3` : "#EF444480"
+          color: (d.value ?? 0) > 25 ? `${color}B3` : "var(--chart-bearish, var(--chart-bearish, #EF4444))80"
         }))
       );
     }
@@ -15567,62 +15594,62 @@ var ILLUSTRATIONS = [
   }
 ];
 var SVGS = {
-  "svg-empty-watchlist": '<svg width="160" height="160" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">\n          <circle cx="80" cy="80" r="60" fill="#E6FBF5" opacity="0.8"/>\n          <rect x="44" y="52" width="72" height="56" rx="8" fill="#0D1614" stroke="rgba(232,239,237,0.12)" stroke-width="1.5"/>\n          <line x1="55" y1="68" x2="105" y2="68" stroke="rgba(232,239,237,0.12)" stroke-width="2" stroke-linecap="round"/>\n          <line x1="55" y1="80" x2="95" y2="80" stroke="rgba(232,239,237,0.12)" stroke-width="2" stroke-linecap="round"/>\n          <line x1="55" y1="92" x2="88" y2="92" stroke="rgba(232,239,237,0.12)" stroke-width="2" stroke-linecap="round"/>\n          <circle cx="108" cy="98" r="18" fill="#10C9A0"/>\n          <line x1="108" y1="91" x2="108" y2="105" stroke="#001A13" stroke-width="2.5" stroke-linecap="round"/>\n          <line x1="101" y1="98" x2="115" y2="98" stroke="#001A13" stroke-width="2.5" stroke-linecap="round"/>\n          <path d="M62 60 L66 56 L70 60" stroke="#10C9A0" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>\n        </svg>',
-  "svg-empty-portfolio": '<svg width="160" height="160" viewBox="0 0 160 160" fill="none">\n          <circle cx="80" cy="80" r="60" fill="#E6FBF5" opacity="0.6"/>\n          <rect x="48" y="60" width="64" height="48" rx="8" fill="#0D1614" stroke="rgba(232,239,237,0.12)" stroke-width="1.5"/>\n          <rect x="48" y="60" width="64" height="14" rx="8" fill="#E6FBF5"/>\n          <rect x="48" y="67" width="64" height="7" rx="0" fill="#E6FBF5"/>\n          <path d="M56 88 L66 76 L76 82 L88 70 L98 74" stroke="rgba(232,239,237,0.12)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>\n          <circle cx="56" cy="88" r="2.5" fill="#5A706A"/>\n          <circle cx="66" cy="76" r="2.5" fill="#5A706A"/>\n          <circle cx="88" cy="70" r="2.5" fill="#10C9A0"/>\n          <text x="80" y="75" font-family="DM Sans" font-size="8" fill="#5A706A" text-anchor="middle">No positions yet</text>\n          <circle cx="106" cy="102" r="16" fill="#10C9A0"/>\n          <line x1="106" y1="96" x2="106" y2="108" stroke="#001A13" stroke-width="2.5" stroke-linecap="round"/>\n          <line x1="100" y1="102" x2="112" y2="102" stroke="#001A13" stroke-width="2.5" stroke-linecap="round"/>\n        </svg>',
-  "svg-empty-feed": '<svg width="160" height="160" viewBox="0 0 160 160" fill="none">\n          <circle cx="80" cy="80" r="60" fill="rgba(59,130,246,.07)"/>\n          <rect x="40" y="46" width="80" height="22" rx="6" fill="#0D1614" stroke="rgba(232,239,237,0.12)" stroke-width="1.5"/>\n          <rect x="40" y="76" width="80" height="22" rx="6" fill="#0D1614" stroke="rgba(232,239,237,0.12)" stroke-width="1.5"/>\n          <rect x="40" y="106" width="80" height="22" rx="6" fill="#0D1614" stroke="rgba(232,239,237,0.12)" stroke-width="1.5"/>\n          <circle cx="50" cy="57" r="5" fill="rgba(232,239,237,0.12)"/>\n          <rect x="60" y="53" width="40" height="4" rx="2" fill="rgba(232,239,237,0.12)"/>\n          <rect x="60" y="59" width="25" height="3" rx="1.5" fill="rgba(232,239,237,0.06)"/>\n          <circle cx="50" cy="87" r="5" fill="rgba(232,239,237,0.12)"/>\n          <rect x="60" y="83" width="35" height="4" rx="2" fill="rgba(232,239,237,0.12)"/>\n          <rect x="60" y="89" width="20" height="3" rx="1.5" fill="rgba(232,239,237,0.06)"/>\n          <circle cx="50" cy="117" r="5" fill="rgba(232,239,237,0.12)"/>\n          <rect x="60" y="113" width="45" height="4" rx="2" fill="rgba(232,239,237,0.12)"/>\n          <rect x="60" y="119" width="28" height="3" rx="1.5" fill="rgba(232,239,237,0.06)"/>\n          <circle cx="112" cy="68" r="14" fill="#10C9A0"/>\n          <line x1="112" y1="63" x2="112" y2="73" stroke="#001A13" stroke-width="2.5" stroke-linecap="round"/>\n          <line x1="107" y1="68" x2="117" y2="68" stroke="#001A13" stroke-width="2.5" stroke-linecap="round"/>\n        </svg>',
-  "svg-empty-notifs": '<svg width="160" height="160" viewBox="0 0 160 160" fill="none">\n          <circle cx="80" cy="80" r="60" fill="rgba(245,158,11,.07)"/>\n          <path d="M64 68a16 16 0 0 1 32 0c0 18 8 24 8 24H56s8-6 8-24z" fill="#0D1614" stroke="rgba(232,239,237,0.12)" stroke-width="1.5"/>\n          <path d="M74 92a6 6 0 0 0 12 0" fill="none" stroke="rgba(232,239,237,0.12)" stroke-width="1.5"/>\n          <circle cx="80" cy="68" r="3" fill="#FBBF24" opacity="0.4"/>\n          <line x1="68" y1="54" x2="92" y2="54" stroke="rgba(232,239,237,0.06)" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="3 2"/>\n          <path d="M72 110 L80 124 L88 110" stroke="#10C9A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>\n          <text x="80" y="138" font-family="DM Sans" font-size="9" fill="#5A706A" text-anchor="middle">All caught up!</text>\n        </svg>',
-  "svg-empty-search": '<svg width="160" height="160" viewBox="0 0 160 160" fill="none">\n          <circle cx="80" cy="80" r="60" fill="rgba(232,239,237,0.06)"/>\n          <circle cx="74" cy="74" r="26" fill="#0D1614" stroke="rgba(232,239,237,0.12)" stroke-width="2"/>\n          <line x1="93" y1="93" x2="110" y2="110" stroke="rgba(232,239,237,0.12)" stroke-width="3.5" stroke-linecap="round"/>\n          <path d="M66 74 Q72 66 80 70" stroke="rgba(232,239,237,0.12)" stroke-width="1.5" stroke-linecap="round" fill="none"/>\n          <text x="74" y="81" font-family="DM Sans" font-size="14" fill="rgba(232,239,237,0.12)" text-anchor="middle">?</text>\n          <circle cx="110" cy="110" r="8" fill="rgba(232,239,237,0.12)" opacity="0.4"/>\n        </svg>',
-  "svg-empty-community": '<svg width="160" height="160" viewBox="0 0 160 160" fill="none">\n          <circle cx="80" cy="80" r="60" fill="rgba(139,92,246,.07)"/>\n          <circle cx="58" cy="72" r="14" fill="#0D1614" stroke="rgba(232,239,237,0.12)" stroke-width="1.5"/>\n          <circle cx="102" cy="72" r="14" fill="#0D1614" stroke="rgba(232,239,237,0.12)" stroke-width="1.5"/>\n          <circle cx="80" cy="66" r="16" fill="#0D1614" stroke="#10C9A0" stroke-width="1.5"/>\n          <path d="M44 100 Q44 90 58 90 Q64 90 70 93" stroke="rgba(232,239,237,0.12)" stroke-width="1.5" stroke-linecap="round" fill="none"/>\n          <path d="M116 100 Q116 90 102 90 Q96 90 90 93" stroke="rgba(232,239,237,0.12)" stroke-width="1.5" stroke-linecap="round" fill="none"/>\n          <path d="M64 94 Q64 82 80 82 Q96 82 96 94" stroke="#10C9A0" stroke-width="1.5" stroke-linecap="round" fill="none"/>\n          <circle cx="80" cy="60" r="5" fill="#E6FBF5"/>\n          <line x1="80" y1="57" x2="80" y2="63" stroke="#10C9A0" stroke-width="1.5" stroke-linecap="round"/>\n          <line x1="77" y1="60" x2="83" y2="60" stroke="#10C9A0" stroke-width="1.5" stroke-linecap="round"/>\n        </svg>',
-  "svg-onboard-welcome": '<svg width="140" height="140" viewBox="0 0 140 140" fill="none">\n          <circle cx="70" cy="70" r="55" fill="#E6FBF5"/>\n          <circle cx="70" cy="58" r="20" fill="#10C9A0" opacity="0.9"/>\n          <path d="M50 95 Q50 78 70 78 Q90 78 90 95" fill="#10C9A0" opacity="0.7"/>\n          <path d="M38 62 L46 58 L38 54" stroke="#3DDCBA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>\n          <path d="M102 62 L94 58 L102 54" stroke="#3DDCBA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>\n          <circle cx="64" cy="55" r="2" fill="#001A13" opacity="0.7"/>\n          <circle cx="76" cy="55" r="2" fill="#001A13" opacity="0.7"/>\n          <path d="M65 65 Q70 70 75 65" stroke="#001A13" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.7"/>\n          <text x="70" y="118" font-family="DM Sans" font-size="10" font-weight="600" fill="#006B52" text-anchor="middle">Welcome!</text>\n        </svg>',
-  "svg-onboard-experience": '<svg width="140" height="140" viewBox="0 0 140 140" fill="none">\n          <circle cx="70" cy="70" r="55" fill="rgba(59,130,246,.07)"/>\n          <rect x="30" y="52" width="80" height="56" rx="10" fill="#0D1614" stroke="rgba(232,239,237,0.12)" stroke-width="1.5"/>\n          <rect x="38" y="64" width="64" height="12" rx="6" fill="#E6FBF5" stroke="#10C9A0" stroke-width="1"/>\n          <rect x="38" y="82" width="64" height="12" rx="6" fill="rgba(232,239,237,0.06)" stroke="rgba(232,239,237,0.12)" stroke-width="1"/>\n          <rect x="38" y="100" width="64" height="12" rx="6" fill="rgba(232,239,237,0.06)" stroke="rgba(232,239,237,0.12)" stroke-width="1"/>\n          <circle cx="44" cy="70" r="3" fill="#10C9A0"/>\n          <text x="52" y="73" font-family="DM Sans" font-size="7" fill="#006B52">Complete beginner</text>\n          <circle cx="44" cy="88" r="3" fill="rgba(232,239,237,0.12)"/>\n          <text x="52" y="91" font-family="DM Sans" font-size="7" fill="#5A706A">Some knowledge</text>\n          <circle cx="44" cy="106" r="3" fill="rgba(232,239,237,0.12)"/>\n          <text x="52" y="109" font-family="DM Sans" font-size="7" fill="#5A706A">Experienced</text>\n        </svg>',
-  "svg-onboard-goals": '<svg width="140" height="140" viewBox="0 0 140 140" fill="none">\n          <circle cx="70" cy="70" r="55" fill="rgba(245,158,11,.07)"/>\n          <circle cx="70" cy="70" r="32" fill="none" stroke="rgba(232,239,237,0.12)" stroke-width="2"/>\n          <circle cx="70" cy="70" r="22" fill="none" stroke="rgba(232,239,237,0.12)" stroke-width="2"/>\n          <circle cx="70" cy="70" r="12" fill="none" stroke="#10C9A0" stroke-width="2.5"/>\n          <circle cx="70" cy="70" r="4" fill="#10C9A0"/>\n          <line x1="70" y1="38" x2="70" y2="45" stroke="rgba(232,239,237,0.12)" stroke-width="1.5" stroke-linecap="round"/>\n          <line x1="70" y1="95" x2="70" y2="102" stroke="rgba(232,239,237,0.12)" stroke-width="1.5" stroke-linecap="round"/>\n          <line x1="38" y1="70" x2="45" y2="70" stroke="rgba(232,239,237,0.12)" stroke-width="1.5" stroke-linecap="round"/>\n          <line x1="95" y1="70" x2="102" y2="70" stroke="rgba(232,239,237,0.12)" stroke-width="1.5" stroke-linecap="round"/>\n          <path d="M102 45 L74 70" stroke="#FBBF24" stroke-width="2" stroke-linecap="round"/>\n          <circle cx="102" cy="45" r="4" fill="#FBBF24"/>\n          <text x="70" y="118" font-family="DM Sans" font-size="9" font-weight="600" fill="#9BACA6" text-anchor="middle">Set your goals</text>\n        </svg>',
+  "svg-empty-watchlist": '<svg width="160" height="160" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">\n          <circle cx="80" cy="80" r="60" fill="var(--bg-brand-soft, #E6FBF5)" opacity="0.8"/>\n          <rect x="44" y="52" width="72" height="56" rx="8" fill="var(--bg-surface, #0D1614)" stroke="rgba(232,239,237,0.12)" stroke-width="1.5"/>\n          <line x1="55" y1="68" x2="105" y2="68" stroke="rgba(232,239,237,0.12)" stroke-width="2" stroke-linecap="round"/>\n          <line x1="55" y1="80" x2="95" y2="80" stroke="rgba(232,239,237,0.12)" stroke-width="2" stroke-linecap="round"/>\n          <line x1="55" y1="92" x2="88" y2="92" stroke="rgba(232,239,237,0.12)" stroke-width="2" stroke-linecap="round"/>\n          <circle cx="108" cy="98" r="18" fill="var(--mint-400, #10C9A0)"/>\n          <line x1="108" y1="91" x2="108" y2="105" stroke="var(--n-950, #001A13)" stroke-width="2.5" stroke-linecap="round"/>\n          <line x1="101" y1="98" x2="115" y2="98" stroke="var(--n-950, #001A13)" stroke-width="2.5" stroke-linecap="round"/>\n          <path d="M62 60 L66 56 L70 60" stroke="var(--mint-400, #10C9A0)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>\n        </svg>',
+  "svg-empty-portfolio": '<svg width="160" height="160" viewBox="0 0 160 160" fill="none">\n          <circle cx="80" cy="80" r="60" fill="var(--bg-brand-soft, #E6FBF5)" opacity="0.6"/>\n          <rect x="48" y="60" width="64" height="48" rx="8" fill="var(--bg-surface, #0D1614)" stroke="rgba(232,239,237,0.12)" stroke-width="1.5"/>\n          <rect x="48" y="60" width="64" height="14" rx="8" fill="var(--bg-brand-soft, #E6FBF5)"/>\n          <rect x="48" y="67" width="64" height="7" rx="0" fill="var(--bg-brand-soft, #E6FBF5)"/>\n          <path d="M56 88 L66 76 L76 82 L88 70 L98 74" stroke="rgba(232,239,237,0.12)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>\n          <circle cx="56" cy="88" r="2.5" fill="var(--text-tertiary, #5A706A)"/>\n          <circle cx="66" cy="76" r="2.5" fill="var(--text-tertiary, #5A706A)"/>\n          <circle cx="88" cy="70" r="2.5" fill="var(--mint-400, #10C9A0)"/>\n          <text x="80" y="75" font-family="DM Sans" font-size="8" fill="var(--text-tertiary, #5A706A)" text-anchor="middle">No positions yet</text>\n          <circle cx="106" cy="102" r="16" fill="var(--mint-400, #10C9A0)"/>\n          <line x1="106" y1="96" x2="106" y2="108" stroke="var(--n-950, #001A13)" stroke-width="2.5" stroke-linecap="round"/>\n          <line x1="100" y1="102" x2="112" y2="102" stroke="var(--n-950, #001A13)" stroke-width="2.5" stroke-linecap="round"/>\n        </svg>',
+  "svg-empty-feed": '<svg width="160" height="160" viewBox="0 0 160 160" fill="none">\n          <circle cx="80" cy="80" r="60" fill="rgba(59,130,246,.07)"/>\n          <rect x="40" y="46" width="80" height="22" rx="6" fill="var(--bg-surface, #0D1614)" stroke="rgba(232,239,237,0.12)" stroke-width="1.5"/>\n          <rect x="40" y="76" width="80" height="22" rx="6" fill="var(--bg-surface, #0D1614)" stroke="rgba(232,239,237,0.12)" stroke-width="1.5"/>\n          <rect x="40" y="106" width="80" height="22" rx="6" fill="var(--bg-surface, #0D1614)" stroke="rgba(232,239,237,0.12)" stroke-width="1.5"/>\n          <circle cx="50" cy="57" r="5" fill="rgba(232,239,237,0.12)"/>\n          <rect x="60" y="53" width="40" height="4" rx="2" fill="rgba(232,239,237,0.12)"/>\n          <rect x="60" y="59" width="25" height="3" rx="1.5" fill="rgba(232,239,237,0.06)"/>\n          <circle cx="50" cy="87" r="5" fill="rgba(232,239,237,0.12)"/>\n          <rect x="60" y="83" width="35" height="4" rx="2" fill="rgba(232,239,237,0.12)"/>\n          <rect x="60" y="89" width="20" height="3" rx="1.5" fill="rgba(232,239,237,0.06)"/>\n          <circle cx="50" cy="117" r="5" fill="rgba(232,239,237,0.12)"/>\n          <rect x="60" y="113" width="45" height="4" rx="2" fill="rgba(232,239,237,0.12)"/>\n          <rect x="60" y="119" width="28" height="3" rx="1.5" fill="rgba(232,239,237,0.06)"/>\n          <circle cx="112" cy="68" r="14" fill="var(--mint-400, #10C9A0)"/>\n          <line x1="112" y1="63" x2="112" y2="73" stroke="var(--n-950, #001A13)" stroke-width="2.5" stroke-linecap="round"/>\n          <line x1="107" y1="68" x2="117" y2="68" stroke="var(--n-950, #001A13)" stroke-width="2.5" stroke-linecap="round"/>\n        </svg>',
+  "svg-empty-notifs": '<svg width="160" height="160" viewBox="0 0 160 160" fill="none">\n          <circle cx="80" cy="80" r="60" fill="rgba(245,158,11,.07)"/>\n          <path d="M64 68a16 16 0 0 1 32 0c0 18 8 24 8 24H56s8-6 8-24z" fill="var(--bg-surface, #0D1614)" stroke="rgba(232,239,237,0.12)" stroke-width="1.5"/>\n          <path d="M74 92a6 6 0 0 0 12 0" fill="none" stroke="rgba(232,239,237,0.12)" stroke-width="1.5"/>\n          <circle cx="80" cy="68" r="3" fill="#FBBF24" opacity="0.4"/>\n          <line x1="68" y1="54" x2="92" y2="54" stroke="rgba(232,239,237,0.06)" stroke-width="1.5" stroke-linecap="round" stroke-dasharray="3 2"/>\n          <path d="M72 110 L80 124 L88 110" stroke="var(--mint-400, #10C9A0)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>\n          <text x="80" y="138" font-family="DM Sans" font-size="9" fill="var(--text-tertiary, #5A706A)" text-anchor="middle">All caught up!</text>\n        </svg>',
+  "svg-empty-search": '<svg width="160" height="160" viewBox="0 0 160 160" fill="none">\n          <circle cx="80" cy="80" r="60" fill="rgba(232,239,237,0.06)"/>\n          <circle cx="74" cy="74" r="26" fill="var(--bg-surface, #0D1614)" stroke="rgba(232,239,237,0.12)" stroke-width="2"/>\n          <line x1="93" y1="93" x2="110" y2="110" stroke="rgba(232,239,237,0.12)" stroke-width="3.5" stroke-linecap="round"/>\n          <path d="M66 74 Q72 66 80 70" stroke="rgba(232,239,237,0.12)" stroke-width="1.5" stroke-linecap="round" fill="none"/>\n          <text x="74" y="81" font-family="DM Sans" font-size="14" fill="rgba(232,239,237,0.12)" text-anchor="middle">?</text>\n          <circle cx="110" cy="110" r="8" fill="rgba(232,239,237,0.12)" opacity="0.4"/>\n        </svg>',
+  "svg-empty-community": '<svg width="160" height="160" viewBox="0 0 160 160" fill="none">\n          <circle cx="80" cy="80" r="60" fill="rgba(139,92,246,.07)"/>\n          <circle cx="58" cy="72" r="14" fill="var(--bg-surface, #0D1614)" stroke="rgba(232,239,237,0.12)" stroke-width="1.5"/>\n          <circle cx="102" cy="72" r="14" fill="var(--bg-surface, #0D1614)" stroke="rgba(232,239,237,0.12)" stroke-width="1.5"/>\n          <circle cx="80" cy="66" r="16" fill="var(--bg-surface, #0D1614)" stroke="var(--mint-400, #10C9A0)" stroke-width="1.5"/>\n          <path d="M44 100 Q44 90 58 90 Q64 90 70 93" stroke="rgba(232,239,237,0.12)" stroke-width="1.5" stroke-linecap="round" fill="none"/>\n          <path d="M116 100 Q116 90 102 90 Q96 90 90 93" stroke="rgba(232,239,237,0.12)" stroke-width="1.5" stroke-linecap="round" fill="none"/>\n          <path d="M64 94 Q64 82 80 82 Q96 82 96 94" stroke="var(--mint-400, #10C9A0)" stroke-width="1.5" stroke-linecap="round" fill="none"/>\n          <circle cx="80" cy="60" r="5" fill="var(--bg-brand-soft, #E6FBF5)"/>\n          <line x1="80" y1="57" x2="80" y2="63" stroke="var(--mint-400, #10C9A0)" stroke-width="1.5" stroke-linecap="round"/>\n          <line x1="77" y1="60" x2="83" y2="60" stroke="var(--mint-400, #10C9A0)" stroke-width="1.5" stroke-linecap="round"/>\n        </svg>',
+  "svg-onboard-welcome": '<svg width="140" height="140" viewBox="0 0 140 140" fill="none">\n          <circle cx="70" cy="70" r="55" fill="var(--bg-brand-soft, #E6FBF5)"/>\n          <circle cx="70" cy="58" r="20" fill="var(--mint-400, #10C9A0)" opacity="0.9"/>\n          <path d="M50 95 Q50 78 70 78 Q90 78 90 95" fill="var(--mint-400, #10C9A0)" opacity="0.7"/>\n          <path d="M38 62 L46 58 L38 54" stroke="#3DDCBA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>\n          <path d="M102 62 L94 58 L102 54" stroke="#3DDCBA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>\n          <circle cx="64" cy="55" r="2" fill="var(--n-950, #001A13)" opacity="0.7"/>\n          <circle cx="76" cy="55" r="2" fill="var(--n-950, #001A13)" opacity="0.7"/>\n          <path d="M65 65 Q70 70 75 65" stroke="var(--n-950, #001A13)" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.7"/>\n          <text x="70" y="118" font-family="DM Sans" font-size="10" font-weight="600" fill="#006B52" text-anchor="middle">Welcome!</text>\n        </svg>',
+  "svg-onboard-experience": '<svg width="140" height="140" viewBox="0 0 140 140" fill="none">\n          <circle cx="70" cy="70" r="55" fill="rgba(59,130,246,.07)"/>\n          <rect x="30" y="52" width="80" height="56" rx="10" fill="var(--bg-surface, #0D1614)" stroke="rgba(232,239,237,0.12)" stroke-width="1.5"/>\n          <rect x="38" y="64" width="64" height="12" rx="6" fill="var(--bg-brand-soft, #E6FBF5)" stroke="var(--mint-400, #10C9A0)" stroke-width="1"/>\n          <rect x="38" y="82" width="64" height="12" rx="6" fill="rgba(232,239,237,0.06)" stroke="rgba(232,239,237,0.12)" stroke-width="1"/>\n          <rect x="38" y="100" width="64" height="12" rx="6" fill="rgba(232,239,237,0.06)" stroke="rgba(232,239,237,0.12)" stroke-width="1"/>\n          <circle cx="44" cy="70" r="3" fill="var(--mint-400, #10C9A0)"/>\n          <text x="52" y="73" font-family="DM Sans" font-size="7" fill="#006B52">Complete beginner</text>\n          <circle cx="44" cy="88" r="3" fill="rgba(232,239,237,0.12)"/>\n          <text x="52" y="91" font-family="DM Sans" font-size="7" fill="var(--text-tertiary, #5A706A)">Some knowledge</text>\n          <circle cx="44" cy="106" r="3" fill="rgba(232,239,237,0.12)"/>\n          <text x="52" y="109" font-family="DM Sans" font-size="7" fill="var(--text-tertiary, #5A706A)">Experienced</text>\n        </svg>',
+  "svg-onboard-goals": '<svg width="140" height="140" viewBox="0 0 140 140" fill="none">\n          <circle cx="70" cy="70" r="55" fill="rgba(245,158,11,.07)"/>\n          <circle cx="70" cy="70" r="32" fill="none" stroke="rgba(232,239,237,0.12)" stroke-width="2"/>\n          <circle cx="70" cy="70" r="22" fill="none" stroke="rgba(232,239,237,0.12)" stroke-width="2"/>\n          <circle cx="70" cy="70" r="12" fill="none" stroke="var(--mint-400, #10C9A0)" stroke-width="2.5"/>\n          <circle cx="70" cy="70" r="4" fill="var(--mint-400, #10C9A0)"/>\n          <line x1="70" y1="38" x2="70" y2="45" stroke="rgba(232,239,237,0.12)" stroke-width="1.5" stroke-linecap="round"/>\n          <line x1="70" y1="95" x2="70" y2="102" stroke="rgba(232,239,237,0.12)" stroke-width="1.5" stroke-linecap="round"/>\n          <line x1="38" y1="70" x2="45" y2="70" stroke="rgba(232,239,237,0.12)" stroke-width="1.5" stroke-linecap="round"/>\n          <line x1="95" y1="70" x2="102" y2="70" stroke="rgba(232,239,237,0.12)" stroke-width="1.5" stroke-linecap="round"/>\n          <path d="M102 45 L74 70" stroke="#FBBF24" stroke-width="2" stroke-linecap="round"/>\n          <circle cx="102" cy="45" r="4" fill="#FBBF24"/>\n          <text x="70" y="118" font-family="DM Sans" font-size="9" font-weight="600" fill="var(--text-secondary, #9BACA6)" text-anchor="middle">Set your goals</text>\n        </svg>',
   "svg-onboard-ready": `<svg width="140" height="140" viewBox="0 0 140 140" fill="none">
-          <circle cx="70" cy="70" r="55" fill="#E6FBF5"/>
-          <circle cx="70" cy="70" r="32" fill="#10C9A0" opacity="0.9"/>
-          <path d="M52 70 L65 83 L88 58" stroke="#001A13" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <circle cx="70" cy="70" r="55" fill="var(--bg-brand-soft, #E6FBF5)"/>
+          <circle cx="70" cy="70" r="32" fill="var(--mint-400, #10C9A0)" opacity="0.9"/>
+          <path d="M52 70 L65 83 L88 58" stroke="var(--n-950, #001A13)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
           <!-- Sparkles -->
-          <line x1="32" y1="32" x2="32" y2="42" stroke="#10C9A0" stroke-width="2" stroke-linecap="round"/>
-          <line x1="27" y1="37" x2="37" y2="37" stroke="#10C9A0" stroke-width="2" stroke-linecap="round"/>
+          <line x1="32" y1="32" x2="32" y2="42" stroke="var(--mint-400, #10C9A0)" stroke-width="2" stroke-linecap="round"/>
+          <line x1="27" y1="37" x2="37" y2="37" stroke="var(--mint-400, #10C9A0)" stroke-width="2" stroke-linecap="round"/>
           <line x1="108" y1="28" x2="108" y2="36" stroke="#3DDCBA" stroke-width="2" stroke-linecap="round"/>
           <line x1="104" y1="32" x2="112" y2="32" stroke="#3DDCBA" stroke-width="2" stroke-linecap="round"/>
           <line x1="118" y1="95" x2="118" y2="101" stroke="#FBBF24" stroke-width="2" stroke-linecap="round"/>
           <line x1="115" y1="98" x2="121" y2="98" stroke="#FBBF24" stroke-width="2" stroke-linecap="round"/>
           <text x="70" y="118" font-family="DM Sans" font-size="10" font-weight="700" fill="#006B52" text-anchor="middle">You're all set! \u{1F389}</text>
         </svg>`,
-  "svg-pro-locked": '<svg width="160" height="160" viewBox="0 0 160 160" fill="none">\n          <circle cx="80" cy="80" r="55" fill="rgba(0,179,138,.1)"/>\n          <rect x="56" y="74" width="48" height="38" rx="8" fill="rgba(0,179,138,.15)" stroke="rgba(0,179,138,.4)" stroke-width="1.5"/>\n          <path d="M66 74 L66 64 Q66 52 80 52 Q94 52 94 64 L94 74" fill="none" stroke="rgba(0,179,138,.5)" stroke-width="2.5" stroke-linecap="round"/>\n          <rect x="72" y="88" width="16" height="14" rx="4" fill="#10C9A0" opacity="0.9"/>\n          <line x1="80" y1="92" x2="80" y2="98" stroke="#001A13" stroke-width="2.5" stroke-linecap="round"/>\n          <!-- Crown -->\n          <path d="M62 46 L70 56 L80 44 L90 56 L98 46 L96 62 L64 62 Z" fill="#FBBF24" opacity="0.9"/>\n          <circle cx="80" cy="44" r="3" fill="#FBBF24"/>\n          <circle cx="62" cy="46" r="2.5" fill="#FBBF24"/>\n          <circle cx="98" cy="46" r="2.5" fill="#FBBF24"/>\n          <text x="80" y="126" font-family="DM Sans" font-size="10" font-weight="600" fill="#3DDCBA" text-anchor="middle">Pro Feature</text>\n        </svg>',
-  "svg-pro-rocket": '<svg width="160" height="160" viewBox="0 0 160 160" fill="none">\n          <circle cx="80" cy="80" r="55" fill="rgba(0,179,138,.08)"/>\n          <!-- Chart going up -->\n          <path d="M36 110 L52 92 L68 98 L84 74 L100 66 L116 48" stroke="rgba(0,179,138,.4)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>\n          <path d="M36 110 L52 92 L68 98 L84 74 L100 66 L116 48 L116 110 Z" fill="rgba(0,179,138,.08)"/>\n          <!-- Rocket -->\n          <path d="M80 54 Q88 44 96 42 Q98 50 94 58 L86 66 Z" fill="#10C9A0" opacity="0.9"/>\n          <circle cx="84" cy="60" r="5" fill="#001A13" opacity="0.4"/>\n          <path d="M80 54 L72 70 L80 66 L86 66 Z" fill="#006B52"/>\n          <path d="M86 66 L94 72 L94 58" fill="#3DDCBA" opacity="0.6"/>\n          <path d="M76 66 Q72 74 74 80" stroke="#FBBF24" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.7"/>\n          <path d="M80 68 Q76 76 78 82" stroke="#FBBF24" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.5"/>\n          <text x="80" y="122" font-family="DM Sans" font-size="10" font-weight="600" fill="#3DDCBA" text-anchor="middle">Unlock Pro Analytics</text>\n        </svg>',
-  "svg-pro-crown": '<svg width="160" height="160" viewBox="0 0 160 160" fill="none">\n          <circle cx="80" cy="80" r="55" fill="rgba(245,158,11,.07)"/>\n          <!-- Stars -->\n          <polygon points="80,42 83,52 93,52 85,58 88,68 80,62 72,68 75,58 67,52 77,52" fill="#FBBF24" opacity="0.9"/>\n          <polygon points="46,74 48,80 54,80 49,84 51,90 46,86 41,90 43,84 38,80 44,80" fill="#FBBF24" opacity="0.5" transform="scale(0.7) translate(20,38)"/>\n          <polygon points="114,74 116,80 122,80 117,84 119,90 114,86 109,90 111,84 106,80 112,80" fill="#FBBF24" opacity="0.5" transform="scale(0.7) translate(-28,38)"/>\n          <rect x="52" y="88" width="56" height="8" rx="4" fill="rgba(245,158,11,.2)" stroke="#FBBF24" stroke-width="1"/>\n          <rect x="56" y="100" width="48" height="20" rx="6" fill="#0D1614" stroke="rgba(232,239,237,0.12)" stroke-width="1.5"/>\n          <text x="80" y="114" font-family="DM Sans" font-size="9" font-weight="700" fill="#E8EFED" text-anchor="middle">Mintx Pro</text>\n          <text x="80" y="123" font-family="DM Mono" font-size="8" fill="#10C9A0" text-anchor="middle">\u20B9999/mo</text>\n        </svg>',
-  "svg-404": '<svg width="140" height="140" viewBox="0 0 140 140" fill="none">\n          <circle cx="70" cy="70" r="52" fill="rgba(232,239,237,0.06)"/>\n          <text x="70" y="82" font-family="Syne" font-size="36" font-weight="800" fill="rgba(232,239,237,0.12)" text-anchor="middle">404</text>\n          <circle cx="70" cy="68" r="28" fill="none" stroke="rgba(232,239,237,0.12)" stroke-width="2" stroke-dasharray="4 3"/>\n          <path d="M54 56 L86 84" stroke="#F87171" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>\n          <path d="M86 56 L54 84" stroke="#F87171" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>\n          <text x="70" y="112" font-family="DM Sans" font-size="9" fill="#5A706A" text-anchor="middle">Page not found</text>\n        </svg>',
-  "svg-500": '<svg width="140" height="140" viewBox="0 0 140 140" fill="none">\n          <circle cx="70" cy="70" r="52" fill="rgba(239,68,68,.05)"/>\n          <rect x="40" y="50" width="60" height="48" rx="8" fill="#0D1614" stroke="rgba(232,239,237,0.12)" stroke-width="1.5"/>\n          <rect x="40" y="50" width="60" height="12" rx="8" fill="rgba(239,68,68,.1)"/>\n          <rect x="40" y="56" width="60" height="6" rx="0" fill="rgba(239,68,68,.1)"/>\n          <circle cx="50" cy="56" r="2.5" fill="rgba(239,68,68,.4)"/>\n          <circle cx="58" cy="56" r="2.5" fill="rgba(245,158,11,.4)"/>\n          <circle cx="66" cy="56" r="2.5" fill="rgba(34,197,94,.4)"/>\n          <path d="M52 74 Q70 66 88 74" stroke="#F87171" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.5"/>\n          <text x="70" y="82" font-family="DM Mono" font-size="9" fill="#F87171" text-anchor="middle">Error 500</text>\n          <text x="70" y="92" font-family="DM Sans" font-size="7" fill="#5A706A" text-anchor="middle">Something went wrong</text>\n          <path d="M62 104 L70 116 L78 104" stroke="#10C9A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>\n          <text x="70" y="126" font-family="DM Sans" font-size="8" fill="#10C9A0" text-anchor="middle">Retry</text>\n        </svg>',
-  "svg-offline": '<svg width="140" height="140" viewBox="0 0 140 140" fill="none">\n          <circle cx="70" cy="70" r="52" fill="rgba(232,239,237,0.06)"/>\n          <path d="M30 54 Q70 34 110 54" stroke="rgba(232,239,237,0.12)" stroke-width="2.5" stroke-linecap="round" fill="none"/>\n          <path d="M42 66 Q70 50 98 66" stroke="rgba(232,239,237,0.12)" stroke-width="2.5" stroke-linecap="round" fill="none"/>\n          <path d="M54 78 Q70 66 86 78" stroke="rgba(232,239,237,0.12)" stroke-width="2.5" stroke-linecap="round" fill="none"/>\n          <circle cx="70" cy="90" r="5" fill="rgba(232,239,237,0.12)"/>\n          <line x1="30" y1="34" x2="110" y2="106" stroke="#F87171" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>\n          <text x="70" y="118" font-family="DM Sans" font-size="9" fill="#5A706A" text-anchor="middle">No connection</text>\n        </svg>',
-  "svg-session": '<svg width="140" height="140" viewBox="0 0 140 140" fill="none">\n          <circle cx="70" cy="70" r="52" fill="rgba(245,158,11,.07)"/>\n          <rect x="50" y="60" width="40" height="36" rx="7" fill="#0D1614" stroke="rgba(232,239,237,0.12)" stroke-width="1.5"/>\n          <path d="M60 60 L60 52 Q60 44 70 44 Q80 44 80 52 L80 60" fill="none" stroke="rgba(232,239,237,0.12)" stroke-width="2" stroke-linecap="round"/>\n          <rect x="62" y="74" width="16" height="12" rx="3" fill="#FBBF24" opacity="0.7"/>\n          <line x1="70" y1="77" x2="70" y2="82" stroke="#fff" stroke-width="2" stroke-linecap="round"/>\n          <path d="M58 44 Q50 42 46 50" stroke="#FBBF24" stroke-width="1.5" stroke-linecap="round" fill="none" stroke-dasharray="2 2"/>\n          <circle cx="44" cy="52" r="3" fill="#FBBF24" opacity="0.5"/>\n          <text x="70" y="110" font-family="DM Sans" font-size="9" fill="#5A706A" text-anchor="middle">Session expired</text>\n          <text x="70" y="120" font-family="DM Sans" font-size="8" fill="#10C9A0" text-anchor="middle">Sign in again</text>\n        </svg>',
+  "svg-pro-locked": '<svg width="160" height="160" viewBox="0 0 160 160" fill="none">\n          <circle cx="80" cy="80" r="55" fill="rgba(0,179,138,.1)"/>\n          <rect x="56" y="74" width="48" height="38" rx="8" fill="rgba(0,179,138,.15)" stroke="rgba(0,179,138,.4)" stroke-width="1.5"/>\n          <path d="M66 74 L66 64 Q66 52 80 52 Q94 52 94 64 L94 74" fill="none" stroke="rgba(0,179,138,.5)" stroke-width="2.5" stroke-linecap="round"/>\n          <rect x="72" y="88" width="16" height="14" rx="4" fill="var(--mint-400, #10C9A0)" opacity="0.9"/>\n          <line x1="80" y1="92" x2="80" y2="98" stroke="var(--n-950, #001A13)" stroke-width="2.5" stroke-linecap="round"/>\n          <!-- Crown -->\n          <path d="M62 46 L70 56 L80 44 L90 56 L98 46 L96 62 L64 62 Z" fill="#FBBF24" opacity="0.9"/>\n          <circle cx="80" cy="44" r="3" fill="#FBBF24"/>\n          <circle cx="62" cy="46" r="2.5" fill="#FBBF24"/>\n          <circle cx="98" cy="46" r="2.5" fill="#FBBF24"/>\n          <text x="80" y="126" font-family="DM Sans" font-size="10" font-weight="600" fill="#3DDCBA" text-anchor="middle">Pro Feature</text>\n        </svg>',
+  "svg-pro-rocket": '<svg width="160" height="160" viewBox="0 0 160 160" fill="none">\n          <circle cx="80" cy="80" r="55" fill="rgba(0,179,138,.08)"/>\n          <!-- Chart going up -->\n          <path d="M36 110 L52 92 L68 98 L84 74 L100 66 L116 48" stroke="rgba(0,179,138,.4)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>\n          <path d="M36 110 L52 92 L68 98 L84 74 L100 66 L116 48 L116 110 Z" fill="rgba(0,179,138,.08)"/>\n          <!-- Rocket -->\n          <path d="M80 54 Q88 44 96 42 Q98 50 94 58 L86 66 Z" fill="var(--mint-400, #10C9A0)" opacity="0.9"/>\n          <circle cx="84" cy="60" r="5" fill="var(--n-950, #001A13)" opacity="0.4"/>\n          <path d="M80 54 L72 70 L80 66 L86 66 Z" fill="#006B52"/>\n          <path d="M86 66 L94 72 L94 58" fill="#3DDCBA" opacity="0.6"/>\n          <path d="M76 66 Q72 74 74 80" stroke="#FBBF24" stroke-width="2" stroke-linecap="round" fill="none" opacity="0.7"/>\n          <path d="M80 68 Q76 76 78 82" stroke="#FBBF24" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.5"/>\n          <text x="80" y="122" font-family="DM Sans" font-size="10" font-weight="600" fill="#3DDCBA" text-anchor="middle">Unlock Pro Analytics</text>\n        </svg>',
+  "svg-pro-crown": '<svg width="160" height="160" viewBox="0 0 160 160" fill="none">\n          <circle cx="80" cy="80" r="55" fill="rgba(245,158,11,.07)"/>\n          <!-- Stars -->\n          <polygon points="80,42 83,52 93,52 85,58 88,68 80,62 72,68 75,58 67,52 77,52" fill="#FBBF24" opacity="0.9"/>\n          <polygon points="46,74 48,80 54,80 49,84 51,90 46,86 41,90 43,84 38,80 44,80" fill="#FBBF24" opacity="0.5" transform="scale(0.7) translate(20,38)"/>\n          <polygon points="114,74 116,80 122,80 117,84 119,90 114,86 109,90 111,84 106,80 112,80" fill="#FBBF24" opacity="0.5" transform="scale(0.7) translate(-28,38)"/>\n          <rect x="52" y="88" width="56" height="8" rx="4" fill="rgba(245,158,11,.2)" stroke="#FBBF24" stroke-width="1"/>\n          <rect x="56" y="100" width="48" height="20" rx="6" fill="var(--bg-surface, #0D1614)" stroke="rgba(232,239,237,0.12)" stroke-width="1.5"/>\n          <text x="80" y="114" font-family="DM Sans" font-size="9" font-weight="700" fill="var(--text-primary, #E8EFED)" text-anchor="middle">Mintx Pro</text>\n          <text x="80" y="123" font-family="DM Mono" font-size="8" fill="var(--mint-400, #10C9A0)" text-anchor="middle">\u20B9999/mo</text>\n        </svg>',
+  "svg-404": '<svg width="140" height="140" viewBox="0 0 140 140" fill="none">\n          <circle cx="70" cy="70" r="52" fill="rgba(232,239,237,0.06)"/>\n          <text x="70" y="82" font-family="Syne" font-size="36" font-weight="800" fill="rgba(232,239,237,0.12)" text-anchor="middle">404</text>\n          <circle cx="70" cy="68" r="28" fill="none" stroke="rgba(232,239,237,0.12)" stroke-width="2" stroke-dasharray="4 3"/>\n          <path d="M54 56 L86 84" stroke="var(--chart-bearish, var(--chart-bearish, #F87171))" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>\n          <path d="M86 56 L54 84" stroke="var(--chart-bearish, var(--chart-bearish, #F87171))" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>\n          <text x="70" y="112" font-family="DM Sans" font-size="9" fill="var(--text-tertiary, #5A706A)" text-anchor="middle">Page not found</text>\n        </svg>',
+  "svg-500": '<svg width="140" height="140" viewBox="0 0 140 140" fill="none">\n          <circle cx="70" cy="70" r="52" fill="rgba(239,68,68,.05)"/>\n          <rect x="40" y="50" width="60" height="48" rx="8" fill="var(--bg-surface, #0D1614)" stroke="rgba(232,239,237,0.12)" stroke-width="1.5"/>\n          <rect x="40" y="50" width="60" height="12" rx="8" fill="rgba(239,68,68,.1)"/>\n          <rect x="40" y="56" width="60" height="6" rx="0" fill="rgba(239,68,68,.1)"/>\n          <circle cx="50" cy="56" r="2.5" fill="rgba(239,68,68,.4)"/>\n          <circle cx="58" cy="56" r="2.5" fill="rgba(245,158,11,.4)"/>\n          <circle cx="66" cy="56" r="2.5" fill="rgba(34,197,94,.4)"/>\n          <path d="M52 74 Q70 66 88 74" stroke="var(--chart-bearish, var(--chart-bearish, #F87171))" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.5"/>\n          <text x="70" y="82" font-family="DM Mono" font-size="9" fill="var(--chart-bearish, var(--chart-bearish, #F87171))" text-anchor="middle">Error 500</text>\n          <text x="70" y="92" font-family="DM Sans" font-size="7" fill="var(--text-tertiary, #5A706A)" text-anchor="middle">Something went wrong</text>\n          <path d="M62 104 L70 116 L78 104" stroke="var(--mint-400, #10C9A0)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>\n          <text x="70" y="126" font-family="DM Sans" font-size="8" fill="var(--mint-400, #10C9A0)" text-anchor="middle">Retry</text>\n        </svg>',
+  "svg-offline": '<svg width="140" height="140" viewBox="0 0 140 140" fill="none">\n          <circle cx="70" cy="70" r="52" fill="rgba(232,239,237,0.06)"/>\n          <path d="M30 54 Q70 34 110 54" stroke="rgba(232,239,237,0.12)" stroke-width="2.5" stroke-linecap="round" fill="none"/>\n          <path d="M42 66 Q70 50 98 66" stroke="rgba(232,239,237,0.12)" stroke-width="2.5" stroke-linecap="round" fill="none"/>\n          <path d="M54 78 Q70 66 86 78" stroke="rgba(232,239,237,0.12)" stroke-width="2.5" stroke-linecap="round" fill="none"/>\n          <circle cx="70" cy="90" r="5" fill="rgba(232,239,237,0.12)"/>\n          <line x1="30" y1="34" x2="110" y2="106" stroke="var(--chart-bearish, var(--chart-bearish, #F87171))" stroke-width="2.5" stroke-linecap="round" opacity="0.6"/>\n          <text x="70" y="118" font-family="DM Sans" font-size="9" fill="var(--text-tertiary, #5A706A)" text-anchor="middle">No connection</text>\n        </svg>',
+  "svg-session": '<svg width="140" height="140" viewBox="0 0 140 140" fill="none">\n          <circle cx="70" cy="70" r="52" fill="rgba(245,158,11,.07)"/>\n          <rect x="50" y="60" width="40" height="36" rx="7" fill="var(--bg-surface, #0D1614)" stroke="rgba(232,239,237,0.12)" stroke-width="1.5"/>\n          <path d="M60 60 L60 52 Q60 44 70 44 Q80 44 80 52 L80 60" fill="none" stroke="rgba(232,239,237,0.12)" stroke-width="2" stroke-linecap="round"/>\n          <rect x="62" y="74" width="16" height="12" rx="3" fill="#FBBF24" opacity="0.7"/>\n          <line x1="70" y1="77" x2="70" y2="82" stroke="#fff" stroke-width="2" stroke-linecap="round"/>\n          <path d="M58 44 Q50 42 46 50" stroke="#FBBF24" stroke-width="1.5" stroke-linecap="round" fill="none" stroke-dasharray="2 2"/>\n          <circle cx="44" cy="52" r="3" fill="#FBBF24" opacity="0.5"/>\n          <text x="70" y="110" font-family="DM Sans" font-size="9" fill="var(--text-tertiary, #5A706A)" text-anchor="middle">Session expired</text>\n          <text x="70" y="120" font-family="DM Sans" font-size="8" fill="var(--mint-400, #10C9A0)" text-anchor="middle">Sign in again</text>\n        </svg>',
   "svg-market-closed": '<svg width="160" height="160" viewBox="0 0 160 160" fill="none">\n          <circle cx="80" cy="80" r="56" fill="rgba(0,179,138,.07)"/>\n          <!-- Moon + stars = market closed at night -->\n          <path d="M92 52 Q78 56 76 70 Q74 86 86 92 Q68 96 58 82 Q50 66 60 54 Q72 44 92 52Z" fill="rgba(255,255,255,.12)" stroke="rgba(255,255,255,.2)" stroke-width="1.5"/>\n          <circle cx="108" cy="42" r="2" fill="rgba(255,255,255,.4)"/>\n          <circle cx="118" cy="58" r="1.5" fill="rgba(255,255,255,.3)"/>\n          <circle cx="104" cy="62" r="1" fill="rgba(255,255,255,.3)"/>\n          <circle cx="40" cy="46" r="1.5" fill="rgba(255,255,255,.3)"/>\n          <circle cx="50" cy="36" r="2" fill="rgba(255,255,255,.4)"/>\n          <rect x="48" y="96" width="64" height="24" rx="2" fill="rgba(0,179,138,.15)" stroke="rgba(0,179,138,.3)" stroke-width="1"/>\n          <rect x="60" y="90" width="40" height="8" rx="1" fill="rgba(0,179,138,.2)"/>\n          <line x1="60" y1="104" x2="60" y2="120" stroke="rgba(0,179,138,.3)" stroke-width="1"/>\n          <line x1="72" y1="104" x2="72" y2="120" stroke="rgba(0,179,138,.3)" stroke-width="1"/>\n          <line x1="88" y1="104" x2="88" y2="120" stroke="rgba(0,179,138,.3)" stroke-width="1"/>\n          <line x1="100" y1="104" x2="100" y2="120" stroke="rgba(0,179,138,.3)" stroke-width="1"/>\n          <text x="80" y="135" font-family="DM Sans" font-size="9" font-weight="600" fill="rgba(0,179,138,.6)" text-anchor="middle">Market Closed</text>\n          <text x="80" y="145" font-family="DM Mono" font-size="8" fill="rgba(255,255,255,.3)" text-anchor="middle">Opens Mon 9:15 AM IST</text>\n        </svg>',
-  "svg-loading-data": '<svg width="160" height="160" viewBox="0 0 160 160" fill="none">\n          <circle cx="80" cy="80" r="56" fill="#E6FBF5" opacity="0.5"/>\n          <rect x="44" y="100" width="12" height="24" rx="3" fill="rgba(232,239,237,0.12)"/>\n          <rect x="62" y="82" width="12" height="42" rx="3" fill="rgba(232,239,237,0.12)"/>\n          <rect x="80" y="68" width="12" height="56" rx="3" fill="#10C9A0" opacity="0.5"/>\n          <rect x="98" y="76" width="12" height="48" rx="3" fill="rgba(232,239,237,0.12)"/>\n          <rect x="116" y="90" width="12" height="34" rx="3" fill="rgba(232,239,237,0.12)"/>\n          <rect x="44" y="100" width="12" height="24" rx="3" fill="url(#shimmerGrad)" opacity="0.6"/>\n          <rect x="62" y="82" width="12" height="42" rx="3" fill="url(#shimmerGrad)" opacity="0.4"/>\n          <defs><linearGradient id="shimmerGrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="transparent"/><stop offset="50%" stop-color="rgba(255,255,255,.4)"/><stop offset="100%" stop-color="transparent"/></linearGradient></defs>\n          <circle cx="80" cy="50" r="12" fill="none" stroke="rgba(232,239,237,0.12)" stroke-width="3"/>\n          <path d="M80 38 A12 12 0 0 1 92 50" stroke="#10C9A0" stroke-width="3" stroke-linecap="round" fill="none"/>\n          <text x="80" y="140" font-family="DM Sans" font-size="9" fill="#5A706A" text-anchor="middle">Loading market data\u2026</text>\n        </svg>',
-  "svg-pre-open": '<svg width="160" height="160" viewBox="0 0 160 160" fill="none">\n          <circle cx="80" cy="80" r="56" fill="rgba(245,158,11,.07)"/>\n          <!-- Rising sun = pre-open -->\n          <path d="M46 96 Q80 50 114 96" fill="rgba(245,158,11,.15)" stroke="#FBBF24" stroke-width="1.5"/>\n          <circle cx="80" cy="80" r="20" fill="#FBBF24" opacity="0.7"/>\n          <!-- Sun rays -->\n          <line x1="80" y1="46" x2="80" y2="54" stroke="#FBBF24" stroke-width="2" stroke-linecap="round"/>\n          <line x1="104" y1="56" x2="99" y2="61" stroke="#FBBF24" stroke-width="2" stroke-linecap="round"/>\n          <line x1="56" y1="56" x2="61" y2="61" stroke="#FBBF24" stroke-width="2" stroke-linecap="round"/>\n          <line x1="112" y1="80" x2="104" y2="80" stroke="#FBBF24" stroke-width="2" stroke-linecap="round"/>\n          <line x1="48" y1="80" x2="56" y2="80" stroke="#FBBF24" stroke-width="2" stroke-linecap="round"/>\n          <!-- Horizon line -->\n          <line x1="36" y1="100" x2="124" y2="100" stroke="rgba(232,239,237,0.12)" stroke-width="1.5" stroke-linecap="round"/>\n          <text x="80" y="118" font-family="DM Sans" font-size="9" font-weight="600" fill="#9BACA6" text-anchor="middle">Pre-Open Session</text>\n          <text x="80" y="128" font-family="DM Mono" font-size="8" fill="#FBBF24" text-anchor="middle">9:00 \u2013 9:15 AM IST</text>\n        </svg>',
-  "svg-payment-success": '<svg width="140" height="140" viewBox="0 0 140 140" fill="none">\n          <circle cx="70" cy="70" r="52" fill="#E6FBF5"/>\n          <circle cx="70" cy="66" r="28" fill="#10C9A0" opacity="0.9"/>\n          <path d="M54 66 L65 77 L86 54" stroke="#001A13" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>\n          <rect x="48" y="96" width="44" height="18" rx="6" fill="#0D1614" stroke="rgba(232,239,237,0.12)" stroke-width="1"/>\n          <text x="70" y="109" font-family="DM Sans" font-size="9" font-weight="700" fill="#22C55E" text-anchor="middle">Payment Successful!</text>\n          <!-- Confetti -->\n          <rect x="36" y="44" width="5" height="5" rx="1" fill="#FBBF24" transform="rotate(20 36 44)" opacity="0.8"/>\n          <rect x="96" y="38" width="4" height="4" rx="1" fill="#60A5FA" transform="rotate(-15 96 38)" opacity="0.8"/>\n          <rect x="108" y="60" width="4" height="6" rx="1" fill="#A78BFA" transform="rotate(30 108 60)" opacity="0.7"/>\n          <rect x="30" y="68" width="5" height="4" rx="1" fill="#3DDCBA" transform="rotate(-20 30 68)" opacity="0.7"/>\n        </svg>',
-  "svg-referral-earned": '<svg width="140" height="140" viewBox="0 0 140 140" fill="none">\n          <circle cx="70" cy="70" r="52" fill="#E6FBF5"/>\n          <circle cx="50" cy="70" r="16" fill="#10C9A0" opacity="0.8"/>\n          <circle cx="90" cy="70" r="16" fill="#006B52"/>\n          <line x1="66" y1="70" x2="74" y2="70" stroke="#3DDCBA" stroke-width="2.5" stroke-linecap="round"/>\n          <path d="M70 66 L74 70 L70 74" stroke="#3DDCBA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>\n          <circle cx="50" cy="66" r="4" fill="#001A13" opacity="0.3"/>\n          <circle cx="90" cy="66" r="4" fill="rgba(255,255,255,.3)"/>\n          <rect x="46" y="92" width="48" height="16" rx="6" fill="#0D1614" stroke="rgba(232,239,237,0.12)" stroke-width="1"/>\n          <text x="70" y="104" font-family="DM Mono" font-size="9" font-weight="700" fill="#10C9A0" text-anchor="middle">+1 Month Free!</text>\n        </svg>',
-  "svg-module-complete": '<svg width="140" height="140" viewBox="0 0 140 140" fill="none">\n          <circle cx="70" cy="70" r="52" fill="rgba(59,130,246,.07)"/>\n          <!-- Graduation cap -->\n          <polygon points="70,42 96,54 70,66 44,54" fill="#60A5FA" opacity="0.8"/>\n          <path d="M96 54 L96 70 Q96 78 82 82" fill="none" stroke="#60A5FA" stroke-width="2" stroke-linecap="round" opacity="0.6"/>\n          <path d="M44 54 L44 68" fill="none" stroke="#60A5FA" stroke-width="2" stroke-linecap="round" opacity="0.4"/>\n          <rect x="52" y="68" width="36" height="22" rx="6" fill="#0D1614" stroke="rgba(59,130,246,.3)" stroke-width="1.5"/>\n          <path d="M60 79 L67 86 L82 72" stroke="#60A5FA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>\n          <text x="70" y="106" font-family="DM Sans" font-size="8" font-weight="700" fill="#60A5FA" text-anchor="middle">Module Complete!</text>\n          <text x="70" y="116" font-family="DM Mono" font-size="8" fill="#10C9A0" text-anchor="middle">+75 XP earned</text>\n        </svg>',
-  "svg-streak-done": '<svg width="140" height="140" viewBox="0 0 140 140" fill="none">\n          <circle cx="70" cy="70" r="52" fill="rgba(245,158,11,.07)"/>\n          <text x="70" y="82" font-size="52" text-anchor="middle">\u{1F525}</text>\n          <rect x="42" y="94" width="56" height="16" rx="6" fill="#0D1614" stroke="rgba(232,239,237,0.12)" stroke-width="1"/>\n          <text x="70" y="106" font-family="DM Sans" font-size="9" font-weight="700" fill="#FBBF24" text-anchor="middle">15-Day Streak! \u{1F389}</text>\n          <!-- Small dots for days -->\n          <circle cx="46" cy="116" r="3" fill="#FBBF24"/>\n          <circle cx="54" cy="116" r="3" fill="#FBBF24"/>\n          <circle cx="62" cy="116" r="3" fill="#FBBF24"/>\n          <circle cx="70" cy="116" r="3" fill="#FBBF24"/>\n          <circle cx="78" cy="116" r="3" fill="#FBBF24"/>\n          <circle cx="86" cy="116" r="3" fill="#FBBF24"/>\n          <circle cx="94" cy="116" r="3.5" fill="#10C9A0" stroke="#006B52" stroke-width="1"/>\n        </svg>',
+  "svg-loading-data": '<svg width="160" height="160" viewBox="0 0 160 160" fill="none">\n          <circle cx="80" cy="80" r="56" fill="var(--bg-brand-soft, #E6FBF5)" opacity="0.5"/>\n          <rect x="44" y="100" width="12" height="24" rx="3" fill="rgba(232,239,237,0.12)"/>\n          <rect x="62" y="82" width="12" height="42" rx="3" fill="rgba(232,239,237,0.12)"/>\n          <rect x="80" y="68" width="12" height="56" rx="3" fill="var(--mint-400, #10C9A0)" opacity="0.5"/>\n          <rect x="98" y="76" width="12" height="48" rx="3" fill="rgba(232,239,237,0.12)"/>\n          <rect x="116" y="90" width="12" height="34" rx="3" fill="rgba(232,239,237,0.12)"/>\n          <rect x="44" y="100" width="12" height="24" rx="3" fill="url(#shimmerGrad)" opacity="0.6"/>\n          <rect x="62" y="82" width="12" height="42" rx="3" fill="url(#shimmerGrad)" opacity="0.4"/>\n          <defs><linearGradient id="shimmerGrad" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="transparent"/><stop offset="50%" stop-color="rgba(255,255,255,.4)"/><stop offset="100%" stop-color="transparent"/></linearGradient></defs>\n          <circle cx="80" cy="50" r="12" fill="none" stroke="rgba(232,239,237,0.12)" stroke-width="3"/>\n          <path d="M80 38 A12 12 0 0 1 92 50" stroke="var(--mint-400, #10C9A0)" stroke-width="3" stroke-linecap="round" fill="none"/>\n          <text x="80" y="140" font-family="DM Sans" font-size="9" fill="var(--text-tertiary, #5A706A)" text-anchor="middle">Loading market data\u2026</text>\n        </svg>',
+  "svg-pre-open": '<svg width="160" height="160" viewBox="0 0 160 160" fill="none">\n          <circle cx="80" cy="80" r="56" fill="rgba(245,158,11,.07)"/>\n          <!-- Rising sun = pre-open -->\n          <path d="M46 96 Q80 50 114 96" fill="rgba(245,158,11,.15)" stroke="#FBBF24" stroke-width="1.5"/>\n          <circle cx="80" cy="80" r="20" fill="#FBBF24" opacity="0.7"/>\n          <!-- Sun rays -->\n          <line x1="80" y1="46" x2="80" y2="54" stroke="#FBBF24" stroke-width="2" stroke-linecap="round"/>\n          <line x1="104" y1="56" x2="99" y2="61" stroke="#FBBF24" stroke-width="2" stroke-linecap="round"/>\n          <line x1="56" y1="56" x2="61" y2="61" stroke="#FBBF24" stroke-width="2" stroke-linecap="round"/>\n          <line x1="112" y1="80" x2="104" y2="80" stroke="#FBBF24" stroke-width="2" stroke-linecap="round"/>\n          <line x1="48" y1="80" x2="56" y2="80" stroke="#FBBF24" stroke-width="2" stroke-linecap="round"/>\n          <!-- Horizon line -->\n          <line x1="36" y1="100" x2="124" y2="100" stroke="rgba(232,239,237,0.12)" stroke-width="1.5" stroke-linecap="round"/>\n          <text x="80" y="118" font-family="DM Sans" font-size="9" font-weight="600" fill="var(--text-secondary, #9BACA6)" text-anchor="middle">Pre-Open Session</text>\n          <text x="80" y="128" font-family="DM Mono" font-size="8" fill="#FBBF24" text-anchor="middle">9:00 \u2013 9:15 AM IST</text>\n        </svg>',
+  "svg-payment-success": '<svg width="140" height="140" viewBox="0 0 140 140" fill="none">\n          <circle cx="70" cy="70" r="52" fill="var(--bg-brand-soft, #E6FBF5)"/>\n          <circle cx="70" cy="66" r="28" fill="var(--mint-400, #10C9A0)" opacity="0.9"/>\n          <path d="M54 66 L65 77 L86 54" stroke="var(--n-950, #001A13)" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>\n          <rect x="48" y="96" width="44" height="18" rx="6" fill="var(--bg-surface, #0D1614)" stroke="rgba(232,239,237,0.12)" stroke-width="1"/>\n          <text x="70" y="109" font-family="DM Sans" font-size="9" font-weight="700" fill="var(--chart-bullish, var(--chart-bullish, #22C55E))" text-anchor="middle">Payment Successful!</text>\n          <!-- Confetti -->\n          <rect x="36" y="44" width="5" height="5" rx="1" fill="#FBBF24" transform="rotate(20 36 44)" opacity="0.8"/>\n          <rect x="96" y="38" width="4" height="4" rx="1" fill="#60A5FA" transform="rotate(-15 96 38)" opacity="0.8"/>\n          <rect x="108" y="60" width="4" height="6" rx="1" fill="#A78BFA" transform="rotate(30 108 60)" opacity="0.7"/>\n          <rect x="30" y="68" width="5" height="4" rx="1" fill="#3DDCBA" transform="rotate(-20 30 68)" opacity="0.7"/>\n        </svg>',
+  "svg-referral-earned": '<svg width="140" height="140" viewBox="0 0 140 140" fill="none">\n          <circle cx="70" cy="70" r="52" fill="var(--bg-brand-soft, #E6FBF5)"/>\n          <circle cx="50" cy="70" r="16" fill="var(--mint-400, #10C9A0)" opacity="0.8"/>\n          <circle cx="90" cy="70" r="16" fill="#006B52"/>\n          <line x1="66" y1="70" x2="74" y2="70" stroke="#3DDCBA" stroke-width="2.5" stroke-linecap="round"/>\n          <path d="M70 66 L74 70 L70 74" stroke="#3DDCBA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>\n          <circle cx="50" cy="66" r="4" fill="var(--n-950, #001A13)" opacity="0.3"/>\n          <circle cx="90" cy="66" r="4" fill="rgba(255,255,255,.3)"/>\n          <rect x="46" y="92" width="48" height="16" rx="6" fill="var(--bg-surface, #0D1614)" stroke="rgba(232,239,237,0.12)" stroke-width="1"/>\n          <text x="70" y="104" font-family="DM Mono" font-size="9" font-weight="700" fill="var(--mint-400, #10C9A0)" text-anchor="middle">+1 Month Free!</text>\n        </svg>',
+  "svg-module-complete": '<svg width="140" height="140" viewBox="0 0 140 140" fill="none">\n          <circle cx="70" cy="70" r="52" fill="rgba(59,130,246,.07)"/>\n          <!-- Graduation cap -->\n          <polygon points="70,42 96,54 70,66 44,54" fill="#60A5FA" opacity="0.8"/>\n          <path d="M96 54 L96 70 Q96 78 82 82" fill="none" stroke="#60A5FA" stroke-width="2" stroke-linecap="round" opacity="0.6"/>\n          <path d="M44 54 L44 68" fill="none" stroke="#60A5FA" stroke-width="2" stroke-linecap="round" opacity="0.4"/>\n          <rect x="52" y="68" width="36" height="22" rx="6" fill="var(--bg-surface, #0D1614)" stroke="rgba(59,130,246,.3)" stroke-width="1.5"/>\n          <path d="M60 79 L67 86 L82 72" stroke="#60A5FA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>\n          <text x="70" y="106" font-family="DM Sans" font-size="8" font-weight="700" fill="#60A5FA" text-anchor="middle">Module Complete!</text>\n          <text x="70" y="116" font-family="DM Mono" font-size="8" fill="var(--mint-400, #10C9A0)" text-anchor="middle">+75 XP earned</text>\n        </svg>',
+  "svg-streak-done": '<svg width="140" height="140" viewBox="0 0 140 140" fill="none">\n          <circle cx="70" cy="70" r="52" fill="rgba(245,158,11,.07)"/>\n          <text x="70" y="82" font-size="52" text-anchor="middle">\u{1F525}</text>\n          <rect x="42" y="94" width="56" height="16" rx="6" fill="var(--bg-surface, #0D1614)" stroke="rgba(232,239,237,0.12)" stroke-width="1"/>\n          <text x="70" y="106" font-family="DM Sans" font-size="9" font-weight="700" fill="#FBBF24" text-anchor="middle">15-Day Streak! \u{1F389}</text>\n          <!-- Small dots for days -->\n          <circle cx="46" cy="116" r="3" fill="#FBBF24"/>\n          <circle cx="54" cy="116" r="3" fill="#FBBF24"/>\n          <circle cx="62" cy="116" r="3" fill="#FBBF24"/>\n          <circle cx="70" cy="116" r="3" fill="#FBBF24"/>\n          <circle cx="78" cy="116" r="3" fill="#FBBF24"/>\n          <circle cx="86" cy="116" r="3" fill="#FBBF24"/>\n          <circle cx="94" cy="116" r="3.5" fill="var(--mint-400, #10C9A0)" stroke="#006B52" stroke-width="1"/>\n        </svg>',
   "svg-course-fundamentals": '<svg width="120" height="100" viewBox="0 0 120 100" fill="none">\n          <path d="M20 80 L35 58 L50 64 L65 48 L80 52 L95 34" stroke="rgba(255,255,255,.8)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>\n          <circle cx="65" cy="48" r="5" fill="#fff"/>\n          <path d="M20 80 L35 58 L50 64 L65 48 L80 52 L95 34 L95 80 Z" fill="rgba(255,255,255,.1)"/>\n          <text x="60" y="94" font-family="DM Sans" font-size="9" font-weight="600" fill="rgba(255,255,255,.8)" text-anchor="middle">Fundamentals</text>\n        </svg>',
-  "svg-course-fibonacci": '<svg width="120" height="100" viewBox="0 0 120 100" fill="none">\n          <!-- Fibonacci spiral hint -->\n          <rect x="10" y="10" width="100" height="80" rx="4" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="1"/>\n          <line x1="10" y1="50" x2="110" y2="50" stroke="rgba(255,255,255,.2)" stroke-width="1"/>\n          <line x1="72" y1="10" x2="72" y2="90" stroke="rgba(255,255,255,.2)" stroke-width="1"/>\n          <!-- Golden ratio spiral approximation -->\n          <path d="M72 50 Q72 20 100 20 Q110 20 110 50 Q110 90 60 90 Q10 90 10 40 Q10 10 50 10 Q72 10 72 50" fill="none" stroke="rgba(255,255,255,.6)" stroke-width="2"/>\n          <!-- Fib level lines -->\n          <line x1="10" y1="19" x2="110" y2="19" stroke="#22C55E" stroke-width="1" opacity="0.5"/>\n          <line x1="10" y1="34" x2="110" y2="34" stroke="#FBBF24" stroke-width="1" opacity="0.5"/>\n          <line x1="10" y1="50" x2="110" y2="50" stroke="rgba(0,179,138,.8)" stroke-width="1.5"/>\n          <line x1="10" y1="66" x2="110" y2="66" stroke="#60A5FA" stroke-width="1" opacity="0.5"/>\n          <text x="60" y="98" font-family="DM Sans" font-size="9" font-weight="600" fill="rgba(255,255,255,.8)" text-anchor="middle">Fibonacci</text>\n        </svg>',
-  "svg-course-ipo": '<svg width="120" height="100" viewBox="0 0 120 100" fill="none">\n          <rect x="20" y="28" width="80" height="50" rx="6" fill="rgba(255,255,255,.1)" stroke="rgba(255,255,255,.2)" stroke-width="1"/>\n          <text x="60" y="46" font-family="Syne" font-size="12" font-weight="800" fill="#fff" text-anchor="middle">IPO</text>\n          <line x1="28" y1="54" x2="92" y2="54" stroke="rgba(255,255,255,.2)" stroke-width="1"/>\n          <text x="60" y="64" font-family="DM Mono" font-size="8" fill="rgba(255,255,255,.6)" text-anchor="middle">\u20B9450 \u2013 \u20B9475</text>\n          <text x="60" y="73" font-family="DM Sans" font-size="7" fill="rgba(255,255,255,.4)" text-anchor="middle">Issue Price</text>\n          <!-- Confetti -->\n          <circle cx="28" cy="24" r="2" fill="#FBBF24" opacity="0.8"/>\n          <circle cx="92" cy="20" r="2.5" fill="#22C55E" opacity="0.8"/>\n          <rect x="98" y="28" width="4" height="4" rx="1" fill="rgba(255,255,255,.4)" transform="rotate(30 98 28)"/>\n          <text x="60" y="98" font-family="DM Sans" font-size="9" font-weight="600" fill="rgba(255,255,255,.8)" text-anchor="middle">IPO Analysis</text>\n        </svg>',
-  "svg-quiz-correct": '<svg width="140" height="120" viewBox="0 0 140 120" fill="none">\n          <circle cx="70" cy="54" r="34" fill="#E6FBF5"/>\n          <circle cx="70" cy="54" r="24" fill="#10C9A0" opacity="0.9"/>\n          <path d="M56 54 L66 64 L84 44" stroke="#001A13" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>\n          <text x="70" y="96" font-family="DM Sans" font-size="11" font-weight="700" fill="#22C55E" text-anchor="middle">Correct! +25 XP</text>\n          <text x="70" y="110" font-family="DM Sans" font-size="9" fill="#5A706A" text-anchor="middle">The golden ratio \u2728</text>\n        </svg>',
-  "svg-first-post": '<svg width="160" height="160" viewBox="0 0 160 160" fill="none">\n          <circle cx="80" cy="80" r="58" fill="rgba(139,92,246,.07)"/>\n          <!-- Chat bubble -->\n          <rect x="36" y="46" width="88" height="62" rx="12" fill="#0D1614" stroke="#A78BFA" stroke-width="1.5"/>\n          <path d="M50 108 L44 120 L62 108" fill="#0D1614" stroke="#A78BFA" stroke-width="1.5" stroke-linejoin="round"/>\n          <line x1="48" y1="62" x2="112" y2="62" stroke="rgba(232,239,237,0.12)" stroke-width="1.5" stroke-linecap="round"/>\n          <line x1="48" y1="72" x2="100" y2="72" stroke="rgba(232,239,237,0.12)" stroke-width="1.5" stroke-linecap="round"/>\n          <line x1="48" y1="82" x2="88" y2="82" stroke="rgba(232,239,237,0.12)" stroke-width="1.5" stroke-linecap="round"/>\n          <!-- Sparkle on first post -->\n          <circle cx="108" cy="52" r="12" fill="#A78BFA" opacity="0.8"/>\n          <text x="108" y="56" font-size="12" text-anchor="middle">\u2728</text>\n          <text x="80" y="136" font-family="DM Sans" font-size="9" font-weight="600" fill="#9BACA6" text-anchor="middle">First post published!</text>\n        </svg>',
-  "svg-verified": '<svg width="160" height="160" viewBox="0 0 160 160" fill="none">\n          <circle cx="80" cy="80" r="58" fill="#E6FBF5" opacity="0.6"/>\n          <circle cx="80" cy="72" r="22" fill="#10C9A0" opacity="0.85"/>\n          <path d="M68 72 L77 81 L93 63" stroke="#001A13" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>\n          <path d="M80 94 Q80 100 80 106" stroke="rgba(232,239,237,0.12)" stroke-width="1.5" stroke-linecap="round"/>\n          <rect x="56" y="106" width="48" height="20" rx="8" fill="#10C9A0" opacity="0.9"/>\n          <text x="80" y="120" font-family="DM Sans" font-size="9" font-weight="700" fill="#001A13" text-anchor="middle">Verified Analyst</text>\n          <!-- Badge stars -->\n          <circle cx="52" cy="56" r="4" fill="#3DDCBA" opacity="0.6"/>\n          <circle cx="108" cy="50" r="5" fill="#3DDCBA" opacity="0.5"/>\n          <circle cx="116" cy="76" r="3" fill="#3DDCBA" opacity="0.4"/>\n          <circle cx="44" cy="78" r="3" fill="#3DDCBA" opacity="0.4"/>\n        </svg>',
-  "svg-ambassador": '<svg width="160" height="160" viewBox="0 0 160 160" fill="none">\n          <circle cx="80" cy="80" r="58" fill="rgba(245,158,11,.07)"/>\n          <!-- Ambassador badge -->\n          <polygon points="80,38 86,56 106,56 91,68 97,86 80,74 63,86 69,68 54,56 74,56" fill="#FBBF24" opacity="0.9"/>\n          <polygon points="80,46 84,58 98,58 87,66 91,78 80,70 69,78 73,66 62,58 76,58" fill="rgba(255,255,255,.3)"/>\n          <rect x="52" y="96" width="56" height="20" rx="8" fill="#0D1614" stroke="rgba(232,239,237,0.12)" stroke-width="1.5"/>\n          <text x="80" y="107" font-family="DM Sans" font-size="8" font-weight="700" fill="#FBBF24" text-anchor="middle">Mintx Ambassador</text>\n          <text x="80" y="116" font-family="DM Mono" font-size="7" fill="#5A706A" text-anchor="middle">25+ referrals</text>\n          <text x="80" y="132" font-family="DM Sans" font-size="8" fill="#5A706A" text-anchor="middle">Annual Pro \u2014 free forever</text>\n        </svg>'
+  "svg-course-fibonacci": '<svg width="120" height="100" viewBox="0 0 120 100" fill="none">\n          <!-- Fibonacci spiral hint -->\n          <rect x="10" y="10" width="100" height="80" rx="4" fill="none" stroke="rgba(255,255,255,.1)" stroke-width="1"/>\n          <line x1="10" y1="50" x2="110" y2="50" stroke="rgba(255,255,255,.2)" stroke-width="1"/>\n          <line x1="72" y1="10" x2="72" y2="90" stroke="rgba(255,255,255,.2)" stroke-width="1"/>\n          <!-- Golden ratio spiral approximation -->\n          <path d="M72 50 Q72 20 100 20 Q110 20 110 50 Q110 90 60 90 Q10 90 10 40 Q10 10 50 10 Q72 10 72 50" fill="none" stroke="rgba(255,255,255,.6)" stroke-width="2"/>\n          <!-- Fib level lines -->\n          <line x1="10" y1="19" x2="110" y2="19" stroke="var(--chart-bullish, var(--chart-bullish, #22C55E))" stroke-width="1" opacity="0.5"/>\n          <line x1="10" y1="34" x2="110" y2="34" stroke="#FBBF24" stroke-width="1" opacity="0.5"/>\n          <line x1="10" y1="50" x2="110" y2="50" stroke="rgba(0,179,138,.8)" stroke-width="1.5"/>\n          <line x1="10" y1="66" x2="110" y2="66" stroke="#60A5FA" stroke-width="1" opacity="0.5"/>\n          <text x="60" y="98" font-family="DM Sans" font-size="9" font-weight="600" fill="rgba(255,255,255,.8)" text-anchor="middle">Fibonacci</text>\n        </svg>',
+  "svg-course-ipo": '<svg width="120" height="100" viewBox="0 0 120 100" fill="none">\n          <rect x="20" y="28" width="80" height="50" rx="6" fill="rgba(255,255,255,.1)" stroke="rgba(255,255,255,.2)" stroke-width="1"/>\n          <text x="60" y="46" font-family="Syne" font-size="12" font-weight="800" fill="#fff" text-anchor="middle">IPO</text>\n          <line x1="28" y1="54" x2="92" y2="54" stroke="rgba(255,255,255,.2)" stroke-width="1"/>\n          <text x="60" y="64" font-family="DM Mono" font-size="8" fill="rgba(255,255,255,.6)" text-anchor="middle">\u20B9450 \u2013 \u20B9475</text>\n          <text x="60" y="73" font-family="DM Sans" font-size="7" fill="rgba(255,255,255,.4)" text-anchor="middle">Issue Price</text>\n          <!-- Confetti -->\n          <circle cx="28" cy="24" r="2" fill="#FBBF24" opacity="0.8"/>\n          <circle cx="92" cy="20" r="2.5" fill="var(--chart-bullish, var(--chart-bullish, #22C55E))" opacity="0.8"/>\n          <rect x="98" y="28" width="4" height="4" rx="1" fill="rgba(255,255,255,.4)" transform="rotate(30 98 28)"/>\n          <text x="60" y="98" font-family="DM Sans" font-size="9" font-weight="600" fill="rgba(255,255,255,.8)" text-anchor="middle">IPO Analysis</text>\n        </svg>',
+  "svg-quiz-correct": '<svg width="140" height="120" viewBox="0 0 140 120" fill="none">\n          <circle cx="70" cy="54" r="34" fill="var(--bg-brand-soft, #E6FBF5)"/>\n          <circle cx="70" cy="54" r="24" fill="var(--mint-400, #10C9A0)" opacity="0.9"/>\n          <path d="M56 54 L66 64 L84 44" stroke="var(--n-950, #001A13)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>\n          <text x="70" y="96" font-family="DM Sans" font-size="11" font-weight="700" fill="var(--chart-bullish, var(--chart-bullish, #22C55E))" text-anchor="middle">Correct! +25 XP</text>\n          <text x="70" y="110" font-family="DM Sans" font-size="9" fill="var(--text-tertiary, #5A706A)" text-anchor="middle">The golden ratio \u2728</text>\n        </svg>',
+  "svg-first-post": '<svg width="160" height="160" viewBox="0 0 160 160" fill="none">\n          <circle cx="80" cy="80" r="58" fill="rgba(139,92,246,.07)"/>\n          <!-- Chat bubble -->\n          <rect x="36" y="46" width="88" height="62" rx="12" fill="var(--bg-surface, #0D1614)" stroke="#A78BFA" stroke-width="1.5"/>\n          <path d="M50 108 L44 120 L62 108" fill="var(--bg-surface, #0D1614)" stroke="#A78BFA" stroke-width="1.5" stroke-linejoin="round"/>\n          <line x1="48" y1="62" x2="112" y2="62" stroke="rgba(232,239,237,0.12)" stroke-width="1.5" stroke-linecap="round"/>\n          <line x1="48" y1="72" x2="100" y2="72" stroke="rgba(232,239,237,0.12)" stroke-width="1.5" stroke-linecap="round"/>\n          <line x1="48" y1="82" x2="88" y2="82" stroke="rgba(232,239,237,0.12)" stroke-width="1.5" stroke-linecap="round"/>\n          <!-- Sparkle on first post -->\n          <circle cx="108" cy="52" r="12" fill="#A78BFA" opacity="0.8"/>\n          <text x="108" y="56" font-size="12" text-anchor="middle">\u2728</text>\n          <text x="80" y="136" font-family="DM Sans" font-size="9" font-weight="600" fill="var(--text-secondary, #9BACA6)" text-anchor="middle">First post published!</text>\n        </svg>',
+  "svg-verified": '<svg width="160" height="160" viewBox="0 0 160 160" fill="none">\n          <circle cx="80" cy="80" r="58" fill="var(--bg-brand-soft, #E6FBF5)" opacity="0.6"/>\n          <circle cx="80" cy="72" r="22" fill="var(--mint-400, #10C9A0)" opacity="0.85"/>\n          <path d="M68 72 L77 81 L93 63" stroke="var(--n-950, #001A13)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>\n          <path d="M80 94 Q80 100 80 106" stroke="rgba(232,239,237,0.12)" stroke-width="1.5" stroke-linecap="round"/>\n          <rect x="56" y="106" width="48" height="20" rx="8" fill="var(--mint-400, #10C9A0)" opacity="0.9"/>\n          <text x="80" y="120" font-family="DM Sans" font-size="9" font-weight="700" fill="var(--n-950, #001A13)" text-anchor="middle">Verified Analyst</text>\n          <!-- Badge stars -->\n          <circle cx="52" cy="56" r="4" fill="#3DDCBA" opacity="0.6"/>\n          <circle cx="108" cy="50" r="5" fill="#3DDCBA" opacity="0.5"/>\n          <circle cx="116" cy="76" r="3" fill="#3DDCBA" opacity="0.4"/>\n          <circle cx="44" cy="78" r="3" fill="#3DDCBA" opacity="0.4"/>\n        </svg>',
+  "svg-ambassador": '<svg width="160" height="160" viewBox="0 0 160 160" fill="none">\n          <circle cx="80" cy="80" r="58" fill="rgba(245,158,11,.07)"/>\n          <!-- Ambassador badge -->\n          <polygon points="80,38 86,56 106,56 91,68 97,86 80,74 63,86 69,68 54,56 74,56" fill="#FBBF24" opacity="0.9"/>\n          <polygon points="80,46 84,58 98,58 87,66 91,78 80,70 69,78 73,66 62,58 76,58" fill="rgba(255,255,255,.3)"/>\n          <rect x="52" y="96" width="56" height="20" rx="8" fill="var(--bg-surface, #0D1614)" stroke="rgba(232,239,237,0.12)" stroke-width="1.5"/>\n          <text x="80" y="107" font-family="DM Sans" font-size="8" font-weight="700" fill="#FBBF24" text-anchor="middle">Mintx Ambassador</text>\n          <text x="80" y="116" font-family="DM Mono" font-size="7" fill="var(--text-tertiary, #5A706A)" text-anchor="middle">25+ referrals</text>\n          <text x="80" y="132" font-family="DM Sans" font-size="8" fill="var(--text-tertiary, #5A706A)" text-anchor="middle">Annual Pro \u2014 free forever</text>\n        </svg>'
 };
 function AssetLibrary({
   showHeader = true,
   mode
 }) {
   const [activeTab, setActiveTab] = useState(mode || "icons");
-  return /* @__PURE__ */ jsxs("div", { style: { fontFamily: "'DM Sans', sans-serif", color: "var(--text-primary, #E8EFED)", background: "var(--bg-base, #080E0D)", padding: "24px", borderRadius: "16px", border: "1px solid rgba(232,239,237,0.08)" }, children: [
+  return /* @__PURE__ */ jsxs("div", { style: { fontFamily: "'DM Sans', sans-serif", color: "var(--text-primary, var(--text-primary, #E8EFED))", background: "var(--bg-base, #080E0D)", padding: "24px", borderRadius: "16px", border: "1px solid rgba(232,239,237,0.08)" }, children: [
     showHeader && /* @__PURE__ */ jsxs("div", { style: { display: "flex", gap: "8px", marginBottom: "24px", borderBottom: "1px solid rgba(232,239,237,0.08)", paddingBottom: "12px" }, children: [
       /* @__PURE__ */ jsx(
         "button",
         {
           onClick: () => setActiveTab("icons"),
-          style: { padding: "8px 16px", borderRadius: "8px", border: "none", cursor: "pointer", background: activeTab === "icons" ? "var(--bg-brand, #10C9A0)" : "transparent", color: activeTab === "icons" ? "#001A13" : "var(--text-tertiary)", fontWeight: 600 },
+          style: { padding: "8px 16px", borderRadius: "8px", border: "none", cursor: "pointer", background: activeTab === "icons" ? "var(--bg-brand, var(--mint-400, #10C9A0))" : "transparent", color: activeTab === "icons" ? "var(--n-950, #001A13)" : "var(--text-tertiary)", fontWeight: 600 },
           children: "Icons"
         }
       ),
@@ -15630,7 +15657,7 @@ function AssetLibrary({
         "button",
         {
           onClick: () => setActiveTab("illustrations"),
-          style: { padding: "8px 16px", borderRadius: "8px", border: "none", cursor: "pointer", background: activeTab === "illustrations" ? "var(--bg-brand, #10C9A0)" : "transparent", color: activeTab === "illustrations" ? "#001A13" : "var(--text-tertiary)", fontWeight: 600 },
+          style: { padding: "8px 16px", borderRadius: "8px", border: "none", cursor: "pointer", background: activeTab === "illustrations" ? "var(--bg-brand, var(--mint-400, #10C9A0))" : "transparent", color: activeTab === "illustrations" ? "var(--n-950, #001A13)" : "var(--text-tertiary)", fontWeight: 600 },
           children: "Illustrations"
         }
       )
@@ -15643,14 +15670,14 @@ function IconLibrary() {
   const filtered = useMemo(() => ICONS.filter((i) => i.name.toLowerCase().includes(query.toLowerCase())), [query]);
   return /* @__PURE__ */ jsxs("div", { children: [
     /* @__PURE__ */ jsxs("div", { style: { position: "relative", marginBottom: "20px" }, children: [
-      /* @__PURE__ */ jsx(Search, { size: 16, style: { position: "absolute", left: "12px", top: "50%", transform: "translateY(-50%)", color: "#5A706A" } }),
+      /* @__PURE__ */ jsx(Search, { size: 16, style: { position: "absolute", left: "12px", top: "50%", transform: "translateY(-50%)", color: "var(--text-tertiary, #5A706A)" } }),
       /* @__PURE__ */ jsx(
         "input",
         {
           value: query,
           onChange: (e) => setQuery(e.target.value),
           placeholder: "Search icons...",
-          style: { width: "100%", padding: "10px 12px 10px 40px", borderRadius: "10px", background: "var(--bg-surface, #0D1614)", border: "1px solid rgba(232,239,237,0.1)", color: "#fff", outline: "none" }
+          style: { width: "100%", padding: "10px 12px 10px 40px", borderRadius: "10px", background: "var(--bg-surface, var(--bg-surface, #0D1614))", border: "1px solid rgba(232,239,237,0.1)", color: "#fff", outline: "none" }
         }
       )
     ] }),
@@ -15662,14 +15689,14 @@ function IllustrationLibrary() {
   const filtered = useMemo(() => ILLUSTRATIONS.filter((i) => i.name.toLowerCase().includes(query.toLowerCase())), [query]);
   return /* @__PURE__ */ jsxs("div", { children: [
     /* @__PURE__ */ jsxs("div", { style: { position: "relative", marginBottom: "20px" }, children: [
-      /* @__PURE__ */ jsx(Search, { size: 16, style: { position: "absolute", left: "12px", top: "50%", transform: "translateY(-50%)", color: "#5A706A" } }),
+      /* @__PURE__ */ jsx(Search, { size: 16, style: { position: "absolute", left: "12px", top: "50%", transform: "translateY(-50%)", color: "var(--text-tertiary, #5A706A)" } }),
       /* @__PURE__ */ jsx(
         "input",
         {
           value: query,
           onChange: (e) => setQuery(e.target.value),
           placeholder: "Search illustrations...",
-          style: { width: "100%", padding: "10px 12px 10px 40px", borderRadius: "10px", background: "var(--bg-surface, #0D1614)", border: "1px solid rgba(232,239,237,0.1)", color: "#fff", outline: "none" }
+          style: { width: "100%", padding: "10px 12px 10px 40px", borderRadius: "10px", background: "var(--bg-surface, var(--bg-surface, #0D1614))", border: "1px solid rgba(232,239,237,0.1)", color: "#fff", outline: "none" }
         }
       )
     ] }),
@@ -15689,9 +15716,9 @@ function AssetCard({ name, id, type }) {
     "div",
     {
       onClick: handleCopy,
-      style: { background: "var(--bg-surface, #0D1614)", border: "1px solid rgba(232,239,237,0.08)", borderRadius: "12px", padding: "16px", display: "flex", flexDirection: "column", alignItems: "center", gap: "8px", cursor: "pointer", position: "relative", transition: "all 0.2s" },
+      style: { background: "var(--bg-surface, var(--bg-surface, #0D1614))", border: "1px solid rgba(232,239,237,0.08)", borderRadius: "12px", padding: "16px", display: "flex", flexDirection: "column", alignItems: "center", gap: "8px", cursor: "pointer", position: "relative", transition: "all 0.2s" },
       children: [
-        copied && /* @__PURE__ */ jsx("span", { style: { position: "absolute", top: "5px", right: "5px", background: "#22C55E", color: "#fff", fontSize: "10px", padding: "2px 6px", borderRadius: "4px" }, children: "Copied!" }),
+        copied && /* @__PURE__ */ jsx("span", { style: { position: "absolute", top: "5px", right: "5px", background: "var(--chart-bullish, var(--chart-bullish, #22C55E))", color: "#fff", fontSize: "10px", padding: "2px 6px", borderRadius: "4px" }, children: "Copied!" }),
         /* @__PURE__ */ jsx("div", { style: { height: type === "icon" ? "24px" : "80px", display: "flex", alignItems: "center", justifyContent: "center" }, children: type === "icon" ? (() => {
           const Icon3 = LucideIcons[name];
           return Icon3 ? /* @__PURE__ */ jsx(Icon3, { size: 20 }) : null;
@@ -17494,6 +17521,6 @@ var TooltipContent2 = React27__default.forwardRef(({ className, sideOffset = 6, 
 ));
 TooltipContent2.displayName = TooltipPrimitive.Content.displayName;
 
-export { Accordion, AccordionContent, AccordionItem, AccordionTrigger, AdvancedRealTimeChart, Alert, AppBar, AppFooter, AppHeader, AreaChart, AssetLibrary, Autocomplete, Avatar, AvatarFallback, AvatarImage, Backdrop, Badge, BaselineChart, BoneyardSkeleton, BottomNav, BottomNavigation, Box, Breadcrumbs, Button, CandlestickChart, Card, Carousel, CheckBox, Chip, Collapsible, CommunitySection, ConfirmDialog, CustomTickerTape, DataTable, DatePicker, DateRangePicker, Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogOverlay, DialogPortal, DialogTitle, DialogTrigger, DiffCard, Differentiators, DigitInput, Divider, Drawer, EmptyState, Nudge2 as EngagementNudge, NudgesPanel2 as EngagementNudgesPanel, ErrorBoundary, Fab, FadeIn, FibSpiral, FileUploader, Hero, HowItWorks, ICONS, ILLUSTRATIONS, IconButton, Image2 as Image, ImageList, Input, InsightCard, Link, List, ListItem, Loader, LoadingOverlay, MarketStatus3 as MarketDataStatus, DataTable2 as MarketDataTable, MetricCard2 as MarketMetricCard, MarketOverview, Pagination2 as MarketPagination, PriceChange2 as MarketPriceChange, Sparkline2 as MarketSparkline, MarketStatus, Status2 as MarketStatusIndicator, StockCard2 as MarketStockCard, Table2 as MarketTable, CustomTickerTape2 as MarketTickerTape, Menu, MenuContent, MenuGroup, MenuItem, MenuLabel, MenuPortal, MenuSeparator, MenuSub, MenuTrigger, MetricCard, MintxLogo, NotiStackProvider, Nudge, NudgesPanel, NumberInput, Breadcrumbs2 as OnboardingBreadcrumbs, Dialog2 as OnboardingDialog, Drawer2 as OnboardingDrawer, Fab2 as OnboardingFab, Menu2 as OnboardingMenu, SupportLiveBar2 as OnboardingSupportLiveBar, Pagination, Popover, PopoverContent, PopoverTrigger, PriceChange, Progress, ProgressIndicator, ProgressTracker, RadioGroup, RadioGroupItem, Rating, SVGS, ScaleIn, SearchInput, Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectSeparator, SelectTrigger, SelectValue, Separator3 as Separator, Accordion2 as SharedAccordion, Alert2 as SharedAlert, Autocomplete2 as SharedAutocomplete, Avatar2 as SharedAvatar, Backdrop2 as SharedBackdrop, Badge2 as SharedBadge, Box2 as SharedBox, Button2 as SharedButton, Card2 as SharedCard, Carousel2 as SharedCarousel, CheckBox2 as SharedCheckBox, Chip2 as SharedChip, DatePicker2 as SharedDatePicker, DigitInput2 as SharedDigitInput, Divider2 as SharedDivider, FadeIn2 as SharedFadeIn, FileUploader2 as SharedFileUploader, IconButton2 as SharedIconButton, Image4 as SharedImage, ImageList2 as SharedImageList, Input2 as SharedInput, Link5 as SharedLink, List2 as SharedList, Loader2 as SharedLoader, Popover2 as SharedPopover, Progress2 as SharedProgress, ProgressIndicator2 as SharedProgressIndicator, ProgressTracker2 as SharedProgressTracker, RadioGroup2 as SharedRadioGroup, RadioGroupItem2 as SharedRadioGroupItem, Rating2 as SharedRating, ScaleIn2 as SharedScaleIn, Select2 as SharedSelect, Separator5 as SharedSeparator, Skeleton2 as SharedSkeleton, SlideIn2 as SharedSlideIn, Slider2 as SharedSlider, Stack2 as SharedStack, Switch2 as SharedSwitch, Tabs2 as SharedTabs, Tag2 as SharedTag, TagGroup2 as SharedTagGroup, TextArea2 as SharedTextArea, TextField2 as SharedTextField, TextFieldPassword2 as SharedTextFieldPassword, Toast2 as SharedToast, Toggle2 as SharedToggle, Tooltip2 as SharedTooltip, Sidebar, Skeleton, SlideIn, Slider, Sparkline, Stack, StatsSection, Status, Stepper, StockCard, SupportLiveBar, Switch, SymbolOverviewMini, Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow, Tabs, Tag, TagGroup, TechnicalAnalysis, TextArea, TextField, TextFieldPassword, ThemeProvider, ThemeToggle, Ticker, TickerTape, Toast, ToastAction, ToastClose, ToastContext, ToastDescription, ToastProvider, ToastTitle, ToastViewport, Toggle, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger, VolumeChart, WaitlistForm, NotiStackProvider2 as WrapperNotiStackProvider, animation, backdrop, badgeVariants, borderWidth, cn, elevation, getCommonClasses, mintColors, motion, neutralColors, opacity, radius, semanticColors, shadows, spacing, tokens, transition, typography, useCountUp, useDisclosure, useDotButton, useIsMobile, useLocalStorage, useMediaQuery, usePrevNextButtons, usePriceDirection, useTheme, useToast, zIndex };
+export { Accordion, AccordionContent, AccordionItem, AccordionTrigger, AdvancedRealTimeChart, Alert, AppBar, AppFooter, AppHeader, AreaChart, AssetLibrary, Autocomplete, Avatar, AvatarFallback, AvatarImage, Backdrop, Badge, BaselineChart, BoneyardSkeleton, BottomNav, BottomNavigation, Box, Breadcrumbs, Button, CandlestickChart, Card, Carousel, CheckBox, Chip, Collapsible, CommunitySection, ConfirmDialog, CustomTickerTape, DataTable, DatePicker, DateRangePicker, Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogOverlay, DialogPortal, DialogTitle, DialogTrigger, DiffCard, Differentiators, DigitInput, Divider, Drawer, EmptyState, Nudge2 as EngagementNudge, NudgesPanel2 as EngagementNudgesPanel, ErrorBoundary, Fab, FadeIn, FibSpiral, FileUploader, Hero, HowItWorks, ICONS, ILLUSTRATIONS, IconButton, Image2 as Image, ImageList, Input, InsightCard, Link, List, ListItem, Loader, LoadingOverlay, MarketStatus3 as MarketDataStatus, DataTable2 as MarketDataTable, MetricCard2 as MarketMetricCard, MarketOverview, Pagination2 as MarketPagination, PriceChange2 as MarketPriceChange, Sparkline2 as MarketSparkline, MarketStatus, Status2 as MarketStatusIndicator, StockCard2 as MarketStockCard, Table2 as MarketTable, CustomTickerTape2 as MarketTickerTape, Menu, MenuContent, MenuGroup, MenuItem, MenuLabel, MenuPortal, MenuSeparator, MenuSub, MenuTrigger, MetricCard, MintxLogo, NotiStackProvider, Nudge, NudgesPanel, NumberInput, Breadcrumbs2 as OnboardingBreadcrumbs, Dialog2 as OnboardingDialog, Drawer2 as OnboardingDrawer, Fab2 as OnboardingFab, Menu2 as OnboardingMenu, SupportLiveBar2 as OnboardingSupportLiveBar, Pagination, Popover, PopoverContent, PopoverTrigger, PriceChange, Progress, ProgressIndicator, ProgressTracker, RadioGroup, RadioGroupItem, Rating, SVGS, ScaleIn, SearchInput, Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectSeparator, SelectTrigger, SelectValue, Separator3 as Separator, Accordion2 as SharedAccordion, Alert2 as SharedAlert, Autocomplete2 as SharedAutocomplete, Avatar2 as SharedAvatar, Backdrop2 as SharedBackdrop, Badge2 as SharedBadge, Box2 as SharedBox, Button2 as SharedButton, Card2 as SharedCard, Carousel2 as SharedCarousel, CheckBox2 as SharedCheckBox, Chip2 as SharedChip, DatePicker2 as SharedDatePicker, DigitInput2 as SharedDigitInput, Divider2 as SharedDivider, FadeIn2 as SharedFadeIn, FileUploader2 as SharedFileUploader, IconButton2 as SharedIconButton, Image4 as SharedImage, ImageList2 as SharedImageList, Input2 as SharedInput, Link5 as SharedLink, List2 as SharedList, Loader2 as SharedLoader, Popover2 as SharedPopover, Progress2 as SharedProgress, ProgressIndicator2 as SharedProgressIndicator, ProgressTracker2 as SharedProgressTracker, RadioGroup2 as SharedRadioGroup, RadioGroupItem2 as SharedRadioGroupItem, Rating2 as SharedRating, ScaleIn2 as SharedScaleIn, Select2 as SharedSelect, Separator5 as SharedSeparator, Skeleton2 as SharedSkeleton, SlideIn2 as SharedSlideIn, Slider2 as SharedSlider, Stack2 as SharedStack, Switch2 as SharedSwitch, Tabs2 as SharedTabs, Tag2 as SharedTag, TagGroup2 as SharedTagGroup, TextArea2 as SharedTextArea, TextField2 as SharedTextField, TextFieldPassword2 as SharedTextFieldPassword, Toast2 as SharedToast, Toggle2 as SharedToggle, Tooltip2 as SharedTooltip, Sidebar, Skeleton, SlideIn, Slider, Sparkline, Stack, StatsSection, Status, Stepper, StockCard, SupportLiveBar, Switch, SymbolOverviewMini, Table, TableBody, TableCaption, TableCell, TableFooter, TableHead, TableHeader, TableRow, Tabs, Tag, TagGroup, TechnicalAnalysis, TextArea, TextField, TextFieldPassword, ThemeProvider, ThemeToggle, Ticker, TickerTape, Toast, ToastAction, ToastClose, ToastContext, ToastDescription, ToastProvider, ToastTitle, ToastViewport, Toggle, Tooltip, TooltipContent, TooltipProvider, TooltipTrigger, VolumeChart, WaitlistForm, NotiStackProvider2 as WrapperNotiStackProvider, animation, backdrop, badgeVariants, borderWidth, chartColors, cn, elevation, getCommonClasses, mintColors, motion, neutralColors, opacity, radius, semanticColors, shadows, spacing, tokens, transition, typography, useCountUp, useDisclosure, useDotButton, useIsMobile, useLocalStorage, useMediaQuery, usePrevNextButtons, usePriceDirection, useTheme, useToast, zIndex };
 //# sourceMappingURL=index.mjs.map
 //# sourceMappingURL=index.mjs.map

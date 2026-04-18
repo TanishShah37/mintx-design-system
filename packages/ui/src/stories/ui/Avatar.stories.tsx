@@ -55,23 +55,23 @@ export const WithStatus: Story = {
     <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
         <Avatar initials="LV" size="md" status="live" />
-        <span style={{ fontSize: 10, color: "var(--text-tertiary, #748A83)" }}>live</span>
+        <span style={{ fontSize: 10, color: "var(--text-tertiary, var(--chart-neutral, var(--chart-neutral, #748A83)))" }}>live</span>
       </div>
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
         <Avatar initials="PA" size="md" status="paused" />
-        <span style={{ fontSize: 10, color: "var(--text-tertiary, #748A83)" }}>paused</span>
+        <span style={{ fontSize: 10, color: "var(--text-tertiary, var(--chart-neutral, var(--chart-neutral, #748A83)))" }}>paused</span>
       </div>
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
         <Avatar initials="OF" size="md" status="offline" />
-        <span style={{ fontSize: 10, color: "var(--text-tertiary, #748A83)" }}>offline</span>
+        <span style={{ fontSize: 10, color: "var(--text-tertiary, var(--chart-neutral, var(--chart-neutral, #748A83)))" }}>offline</span>
       </div>
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
         <Avatar initials="ER" size="md" status="error" />
-        <span style={{ fontSize: 10, color: "var(--text-tertiary, #748A83)" }}>error</span>
+        <span style={{ fontSize: 10, color: "var(--text-tertiary, var(--chart-neutral, var(--chart-neutral, #748A83)))" }}>error</span>
       </div>
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
         <Avatar initials="PR" size="md" status="pro" />
-        <span style={{ fontSize: 10, color: "var(--text-tertiary, #748A83)" }}>pro</span>
+        <span style={{ fontSize: 10, color: "var(--text-tertiary, var(--chart-neutral, var(--chart-neutral, #748A83)))" }}>pro</span>
       </div>
     </div>
   ),
@@ -131,18 +131,18 @@ export const RMCard: Story = {
         >
           Vikram Bose
         </p>
-        <p style={{ fontSize: 12, color: "var(--text-tertiary, #748A83)" }}>
+        <p style={{ fontSize: 12, color: "var(--text-tertiary, var(--chart-neutral, var(--chart-neutral, #748A83)))" }}>
           Relationship Manager · Mintx Enterprise
         </p>
-        <p style={{ fontSize: 12, color: "#22C55E", marginTop: 4, fontWeight: 500 }}>
+        <p style={{ fontSize: 12, color: "var(--chart-bullish, var(--chart-bullish, #22C55E))", marginTop: 4, fontWeight: 500 }}>
           ● Available now
         </p>
       </div>
       <button
         style={{
           padding: "7px 14px",
-          background: "#10C9A0",
-          color: "#001A13",
+          background: "var(--mint-400, #10C9A0)",
+          color: "var(--n-950, #001A13)",
           borderRadius: 8,
           border: "none",
           fontSize: 12,
@@ -188,7 +188,7 @@ export const AvatarGroup: Story = {
           justifyContent: "center",
           fontSize: 11,
           fontWeight: 700,
-          color: "var(--text-tertiary, #748A83)",
+          color: "var(--text-tertiary, var(--chart-neutral, var(--chart-neutral, #748A83)))",
           zIndex: 6,
         }}
       >

@@ -24,7 +24,7 @@ export function BottomNav({
 }: BottomNavProps): React.JSX.Element { return (
   <nav
     className={cn(
-      "fixed bottom-0 left-0 right-0 z-100 bg-surface/90 border-t border-neutral-100 pb-[env(safe-area-inset-bottom,0px)] backdrop-blur-xl dark:bg-[#0D1614]/90",
+      "fixed bottom-0 left-0 right-0 z-100 bg-surface/90 border-t border-neutral-100 pb-[env(safe-area-inset-bottom,0px)] backdrop-blur-xl dark:bg-surface/90",
       className
     )}
     aria-label="Mobile navigation"

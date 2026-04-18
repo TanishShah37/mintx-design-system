@@ -151,8 +151,8 @@ const FooterLogo = () => (
   >
     <svg width="26" height="26" viewBox="0 0 96 96" fill="none" aria-hidden>
       <rect width="96" height="96" rx="20" fill="var(--mint)" />
-      <path d="M20 64L34 42L44 52L62 30" stroke="#001A13" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
-      <circle cx="62" cy="30" r="6" fill="#001A13" />
+      <path d="M20 64L34 42L44 52L62 30" stroke="var(--n-950, var(--n-950, #001A13))" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
+      <circle cx="62" cy="30" r="6" fill="var(--n-950, var(--n-950, #001A13))" />
     </svg>
     Mintx<span className="text-[var(--mint)]">.</span>
   </Link>

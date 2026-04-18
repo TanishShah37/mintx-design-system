@@ -81,7 +81,7 @@ export const RemixIconDemo: StoryObj = {
       ].map((icon) => (
         <div key={icon} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
           <RemixIcon name={icon} size={24} color="var(--text-brand, #00B38A)" />
-          <span style={{ fontSize: 10, color: "var(--text-tertiary, #748A83)", fontFamily: "monospace" }}>{icon}</span>
+          <span style={{ fontSize: 10, color: "var(--text-tertiary, var(--chart-neutral, var(--chart-neutral, #748A83)))", fontFamily: "monospace" }}>{icon}</span>
         </div>
       ))}
     </div>

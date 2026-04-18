@@ -30,5 +30,5 @@ body {
 /* Base styles for the demo */
 [data-theme="dark"] {
   background: #080E0D;
-  color: #E8EFED;
+  color: var(--text-primary, #E8EFED);
 }

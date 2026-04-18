@@ -64,7 +64,7 @@ type Story = StoryObj<typeof BottomNav>;
 export const Default: Story = {
   render: () => (
     <div style={{ position: "relative", height: 400, background: "#080E0D", overflow: "hidden" }}>
-      <div style={{ padding: 24, color: "#9BACA6", fontSize: 14 }}>
+      <div style={{ padding: 24, color: "var(--text-secondary, #9BACA6)", fontSize: 14 }}>
         Mobile screen content
       </div>
       <BottomNav items={defaultItems} activeId="home" />
@@ -95,8 +95,8 @@ export const Interactive: Story = {
     };
     return (
       <div style={{ position: "relative", height: 500, background: "#080E0D", overflow: "hidden" }}>
-        <div style={{ padding: "32px 24px", color: "#E8EFED" }}>
-          <p style={{ fontSize: 11, color: "#5A706A", fontFamily: "'DM Mono', monospace", marginBottom: 6 }}>
+        <div style={{ padding: "32px 24px", color: "var(--text-primary, #E8EFED)" }}>
+          <p style={{ fontSize: 11, color: "var(--text-tertiary, #5A706A)", fontFamily: "'DM Mono', monospace", marginBottom: 6 }}>
             Active screen:
           </p>
           <p
@@ -108,7 +108,7 @@ export const Interactive: Story = {
           >
             {labels[active]}
           </p>
-          <p style={{ fontSize: 13, color: "#748A83", marginTop: 8 }}>
+          <p style={{ fontSize: 13, color: "var(--chart-neutral, var(--chart-neutral, #748A83))", marginTop: 8 }}>
             Tap the bottom nav tabs to switch screens.
           </p>
         </div>

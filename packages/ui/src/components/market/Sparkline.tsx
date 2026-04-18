@@ -28,8 +28,8 @@ function normalise(data: number[], h: number): string {
 
 const colorMap = {
   up: { stroke: "#00B38A", fill: "rgba(0,179,138,0.1)" },
-  down: { stroke: "#EF4444", fill: "rgba(239,68,68,0.1)" },
-  flat: { stroke: "#9BACA6", fill: "rgba(155,172,166,0.1)" },
+  down: { stroke: "var(--chart-bearish, var(--chart-bearish, #EF4444))", fill: "rgba(239,68,68,0.1)" },
+  flat: { stroke: "var(--text-secondary, #9BACA6)", fill: "rgba(155,172,166,0.1)" },
 };
 
 export function Sparkline({

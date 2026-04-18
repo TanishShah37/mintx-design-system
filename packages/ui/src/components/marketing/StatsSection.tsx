@@ -23,8 +23,8 @@ export function StatsSection({
   const dark = theme === 'dark'
   const divider = dark ? 'rgba(232,239,237,0.05)' : 'rgba(20,31,29,0.06)'
   const bg = dark ? '#080E0D' : '#F5F8F7'
-  const t1 = dark ? '#E8EFED' : '#141F1D'
-  const t4 = dark ? '#3A524D' : '#9BACA6'
+  const t1 = dark ? 'var(--text-primary, #E8EFED)' : '#141F1D'
+  const t4 = dark ? '#3A524D' : 'var(--text-secondary, #9BACA6)'
 
   return (
     <div

@@ -105,7 +105,7 @@ export const AllSessions: Story = {
         <div
           key={status.session}
           style={{
-            background: "var(--bg-surface, #0D1614)",
+            background: "var(--bg-surface, var(--bg-surface, #0D1614))",
             border: "1px solid rgba(232,239,237,0.08)",
             borderRadius: 10,
             overflow: "hidden",
@@ -137,7 +137,7 @@ export const InMobileLayout: Story = {
         maxWidth: 390,
       }}
     >
-      <div style={{ padding: 24, color: "#9BACA6", fontSize: 14 }}>
+      <div style={{ padding: 24, color: "var(--text-secondary, #9BACA6)", fontSize: 14 }}>
         Mobile app content area
       </div>
       {/* SupportLiveBar sits above the BottomNav */}
@@ -159,7 +159,7 @@ export const InMobileLayout: Story = {
           left: 0,
           right: 0,
           height: 64,
-          background: "#0D1614",
+          background: "var(--bg-surface, #0D1614)",
           borderTop: "1px solid rgba(232,239,237,0.08)",
           display: "flex",
           alignItems: "center",
@@ -175,7 +175,7 @@ export const InMobileLayout: Story = {
               flexDirection: "column",
               alignItems: "center",
               gap: 3,
-              color: i === 0 ? "#10C9A0" : "#5A706A",
+              color: i === 0 ? "var(--mint-400, #10C9A0)" : "var(--text-tertiary, #5A706A)",
               fontSize: 20,
               padding: "8px 12px",
             }}

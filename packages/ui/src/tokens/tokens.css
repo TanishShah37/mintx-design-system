@@ -44,6 +44,19 @@
   --blue-400:  #60A5FA;
   --blue-500:  #2563EB;
   --purple-400:#A78BFA;
+  
+  /* ── CHART COLOURS ── */
+  --chart-primary:    var(--mint-400);
+  --chart-secondary:  var(--blue-500);
+  --chart-tertiary:   var(--purple-400);
+  --chart-quaternary: #F97316;
+  
+  --chart-bullish:    var(--green-500);
+  --chart-bearish:    var(--red-500);
+  --chart-neutral:    var(--n-400);
+  
+  --chart-volume-up:  #22C55E;
+  --chart-volume-down:#EF4444;
 
   /* ── TYPOGRAPHY ── */
   --font-display: 'Syne', sans-serif;
@@ -145,8 +158,8 @@
   --text-disabled:  #9BACA6;
   --text-inverse:   #FFFFFF;
   --text-brand:     var(--mint-600);
-  --text-success:   var(--green-500);
-  --text-danger:    var(--red-500);
+  --text-success:   var(--chart-bullish, #16A34A);
+  --text-danger:    var(--chart-bearish, #DC2626);
   --text-warning:   var(--amber-500);
   --text-info:      var(--blue-500);
 
@@ -186,8 +199,8 @@
   --text-disabled:  #3A524D;
   --text-inverse:   #080E0D;
   --text-brand:     var(--mint-300);
-  --text-success:   var(--green-400);
-  --text-danger:    var(--red-400);
+  --text-success:   var(--chart-bullish, #22C55E);
+  --text-danger:    var(--chart-bearish, #F87171);
   --text-warning:   var(--amber-400);
   --text-info:      var(--blue-400);
 

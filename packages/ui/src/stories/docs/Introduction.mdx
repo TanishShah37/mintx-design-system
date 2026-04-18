@@ -9,7 +9,7 @@ import { Meta } from "@storybook/blocks";
   background: "rgba(0,179,138,0.1)", border: "1px solid rgba(0,179,138,0.25)",
   borderRadius: 999, padding: "4px 14px", marginBottom: 24
 }}>
-  <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#10C9A0", display: "inline-block" }} />
+  <span style={{ width: 7, height: 7, borderRadius: "50%", background: "var(--mint-400, #10C9A0)", display: "inline-block" }} />
   <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: "0.08em", textTransform: "uppercase", color: "#008F6E" }}>
     Mintx UI v1.0 · Storybook
   </span>
@@ -64,8 +64,8 @@ const config: Config = {
     extend: {
       colors: {
         mint: {
-          50: "#E6FBF5",
-          400: "#10C9A0",   // ★ Primary brand
+          50: "var(--bg-brand-soft, #E6FBF5)",
+          400: "var(--mint-400, #10C9A0)",   // ★ Primary brand
           600: "#008F6E",
           // ... full scale in tailwind.config.ts
         },
@@ -158,8 +158,8 @@ All components consume CSS variables defined in `tokens.css`. The `data-theme` a
 
 /* Dark */
 [data-theme="dark"] {
-  --bg-surface:    #0D1614;
-  --text-primary:  #E8EFED;
+  --bg-surface:    var(--bg-surface, #0D1614);
+  --text-primary:  var(--text-primary, #E8EFED);
   --text-brand:    #3DDCBA;
   --border-default: rgba(232,239,237,0.10);
 }

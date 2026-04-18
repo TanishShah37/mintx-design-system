@@ -96,7 +96,7 @@ export const AllDirections: Story = {
             style={{
               fontFamily: "var(--font-mono, 'DM Mono', monospace)",
               fontSize: 11,
-              color: "var(--text-tertiary, #748A83)",
+              color: "var(--text-tertiary, var(--chart-neutral, var(--chart-neutral, #748A83)))",
               marginBottom: 6,
             }}
           >
@@ -121,7 +121,7 @@ export const DifferentHeights: Story = {
             style={{
               fontFamily: "var(--font-mono, 'DM Mono', monospace)",
               fontSize: 11,
-              color: "var(--text-tertiary, #748A83)",
+              color: "var(--text-tertiary, var(--chart-neutral, var(--chart-neutral, #748A83)))",
               width: 60,
               flexShrink: 0,
             }}
@@ -160,7 +160,7 @@ export const InCardContext: Story = {
   render: () => (
     <div
       style={{
-        background: "var(--bg-surface, #0D1614)",
+        background: "var(--bg-surface, var(--bg-surface, #0D1614))",
         border: "1px solid rgba(232,239,237,0.08)",
         borderRadius: 14,
         padding: 16,
@@ -169,16 +169,16 @@ export const InCardContext: Story = {
     >
       <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 12 }}>
         <div>
-          <p style={{ fontFamily: "'Syne', sans-serif", fontSize: 18, fontWeight: 700, color: "#E8EFED" }}>
+          <p style={{ fontFamily: "'Syne', sans-serif", fontSize: 18, fontWeight: 700, color: "var(--text-primary, #E8EFED)" }}>
             TCS
           </p>
-          <p style={{ fontSize: 11, color: "#5A706A" }}>Tata Consultancy</p>
+          <p style={{ fontSize: 11, color: "var(--text-tertiary, #5A706A)" }}>Tata Consultancy</p>
         </div>
         <div style={{ textAlign: "right" }}>
-          <p style={{ fontSize: 18, fontWeight: 700, color: "#22C55E", fontFamily: "'Syne', sans-serif" }}>
+          <p style={{ fontSize: 18, fontWeight: 700, color: "var(--chart-bullish, var(--chart-bullish, #22C55E))", fontFamily: "'Syne', sans-serif" }}>
             ₹3,847
           </p>
-          <p style={{ fontSize: 12, color: "#22C55E", fontFamily: "'DM Mono', monospace" }}>
+          <p style={{ fontSize: 12, color: "var(--chart-bullish, var(--chart-bullish, #22C55E))", fontFamily: "'DM Mono', monospace" }}>
             +2.34%
           </p>
         </div>

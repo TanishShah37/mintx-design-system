@@ -27,9 +27,9 @@ function normalise(data: number[], h: number): string {
 }
 
 const colorMap = {
-  up: { stroke: "#22C55E", fill: "rgba(34,197,94,0.1)" },
-  down: { stroke: "#EF4444", fill: "rgba(239,68,68,0.1)" },
-  flat: { stroke: "#94A3B8", fill: "rgba(148,163,184,0.1)" },
+  up: { stroke: "var(--green-400, var(--chart-bullish, var(--chart-bullish, #22C55E)))", fill: "rgba(34, 197, 94, 0.1)" },
+  down: { stroke: "var(--red-400, var(--chart-bearish, var(--chart-bearish, #F87171)))", fill: "rgba(239, 68, 68, 0.1)" },
+  flat: { stroke: "var(--n-400, var(--chart-neutral, var(--chart-neutral, #748A83)))", fill: "rgba(148, 163, 184, 0.1)" },
 };
 
 export function Sparkline({
