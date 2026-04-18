@@ -1,3 +1,7 @@
+// @ts-nocheck
+// This file is only used by tsup for building @mintx/ui.
+// The @ts-nocheck prevents errors when a consumer app's TypeScript
+// compiler scans this file (tsup types won't be in their node_modules).
 import { defineConfig } from "tsup";
 
 export default defineConfig({
