@@ -4,8 +4,6 @@ const path = require("path");
 const nextConfig = {
   reactStrictMode: true,
   transpilePackages: ["@mintx/ui"],
-  output: "standalone",
-  outputFileTracingRoot: path.resolve(__dirname, "../../"),
 };
 
 module.exports = nextConfig;

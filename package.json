@@ -13,10 +13,7 @@
     "storybook": "turbo storybook --filter=@mintx/ui",
     "build:storybook": "turbo build-storybook --filter=@mintx/ui",
     "build:design-system": "turbo build --filter=@mintx/design-system",
-    "build:all": "npm run build:storybook && npm run build:design-system",
-    "clone-design-system": "rm -rf packages/mintx-design-system && mkdir -p packages && git clone https://github.com/TanishShah37/mintx-design-system packages/mintx-design-system && cd packages/mintx-design-system && npm ci && npm run build:design-system && cd ../..",
-    "update:design-system": "cd packages/mintx-design-system && git pull && npm ci && cd ../..",
-    "vercel-build": "npm run clone-design-system && npm run build"
+    "build:all": "npm run build:storybook && npm run build:design-system"
   },
   "devDependencies": {
     "@storybook/addon-essentials": "^8.6.2",
