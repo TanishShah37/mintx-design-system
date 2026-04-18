@@ -25,9 +25,12 @@ export const CheckBox = React.forwardRef<
         <CheckboxPrimitive.Root
           ref={ref}
           className={cn(
-            "flex h-5 w-5 shrink-0 items-center justify-center rounded border transition-all duration-200 focus-visible:outline-none",
+            "flex h-5 w-5 shrink-0 items-center justify-center rounded border transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint-500 focus-visible:ring-offset-2 relative",
             "border-border bg-surface hover:border-mint-500",
             "data-[state=checked]:bg-mint-500 data-[state=checked]:border-mint-500",
+            "active:scale-90", // Rule §7: Interaction feedback
+            // Rule §2: Expanded hit area for accessibility
+            "before:absolute before:inset-[-12px] before:content-['']",
             error && "border-red-500 text-red-500",
             getCommonClasses(props),
             className

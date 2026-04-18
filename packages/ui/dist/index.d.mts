@@ -270,10 +270,10 @@ declare const typography: {
     readonly fontBody: "'DM Sans', sans-serif";
     readonly fontMono: "'DM Mono', monospace";
     readonly scale: {
-        readonly xs: "11px";
-        readonly sm: "13px";
-        readonly base: "15px";
-        readonly lg: "17px";
+        readonly xs: "12px";
+        readonly sm: "14px";
+        readonly base: "16px";
+        readonly lg: "18px";
         readonly xl: "20px";
         readonly "2xl": "24px";
         readonly "3xl": "30px";
@@ -286,10 +286,10 @@ declare const motion: {
     readonly easeOut: "cubic-bezier(0.16, 1, 0.3, 1)";
     readonly easeSpring: "cubic-bezier(0.34, 1.56, 0.64, 1)";
     readonly easeSmooth: "cubic-bezier(0.4, 0, 0.2, 1)";
-    readonly fast: "120ms";
-    readonly base: "200ms";
-    readonly slow: "350ms";
-    readonly page: "600ms";
+    readonly fast: "150ms";
+    readonly base: "250ms";
+    readonly slow: "300ms";
+    readonly page: "500ms";
 };
 declare const animation: {
     readonly fade: {
@@ -569,10 +569,10 @@ declare const tokens: {
         readonly fontBody: "'DM Sans', sans-serif";
         readonly fontMono: "'DM Mono', monospace";
         readonly scale: {
-            readonly xs: "11px";
-            readonly sm: "13px";
-            readonly base: "15px";
-            readonly lg: "17px";
+            readonly xs: "12px";
+            readonly sm: "14px";
+            readonly base: "16px";
+            readonly lg: "18px";
             readonly xl: "20px";
             readonly "2xl": "24px";
             readonly "3xl": "30px";
@@ -585,10 +585,10 @@ declare const tokens: {
         readonly easeOut: "cubic-bezier(0.16, 1, 0.3, 1)";
         readonly easeSpring: "cubic-bezier(0.34, 1.56, 0.64, 1)";
         readonly easeSmooth: "cubic-bezier(0.4, 0, 0.2, 1)";
-        readonly fast: "120ms";
-        readonly base: "200ms";
-        readonly slow: "350ms";
-        readonly page: "600ms";
+        readonly fast: "150ms";
+        readonly base: "250ms";
+        readonly slow: "300ms";
+        readonly page: "500ms";
     };
     readonly animation: {
         readonly fade: {

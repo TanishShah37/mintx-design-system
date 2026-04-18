@@ -34,10 +34,13 @@ export function Drawer({
   return (
     <DialogPrimitive.Root open={open} onOpenChange={onOpenChange}>
       <DialogPrimitive.Portal>
-        <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm animate-in fade-in" />
+        <DialogPrimitive.Overlay className="fixed inset-0 z-50 bg-black/60 backdrop-blur-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=fade-in-0] data-[state=closed]:fade-out-0 transition-opacity" />
         <DialogPrimitive.Content
           className={cn(
-            "fixed z-50 bg-background p-6 shadow-xl outline-none duration-300",
+            "fixed z-50 bg-background p-6 shadow-2xl outline-none",
+            "data-[state=open]:animate-in data-[state=closed]:animate-out duration-300 ease-out",
+            "data-[state=open]:duration-300 data-[state=closed]:duration-200", // Rule §7: Exit faster than enter
+            side === "bottom" && "pb-safe-offset-6", // Rule §5: Safe area compliance
             sideClasses[side],
             className
           )}
@@ -46,17 +49,17 @@ export function Drawer({
             <div className="flex items-center justify-between mb-4">
               <div className="flex flex-col gap-1">
                 {title && (
-                  <DialogPrimitive.Title className="text-lg font-bold leading-none tracking-tight">
+                  <DialogPrimitive.Title className="text-xl font-bold leading-tight tracking-tight text-foreground">
                     {title}
                   </DialogPrimitive.Title>
                 )}
                 {description && (
-                  <DialogPrimitive.Description className="text-sm text-muted-foreground">
+                  <DialogPrimitive.Description className="text-sm text-muted-foreground leading-relaxed">
                     {description}
                   </DialogPrimitive.Description>
                 )}
               </div>
-              <DialogPrimitive.Close className="rounded-md opacity-70 transition-opacity hover:opacity-100 focus:outline-none disabled:pointer-events-none">
+              <DialogPrimitive.Close className="rounded-full opacity-70 p-2 transition-all hover:opacity-100 hover:bg-neutral-100 focus:outline-none focus:ring-2 focus:ring-mint-500 min-h-[44px] min-w-[44px] flex items-center justify-center">
                 <X className="h-5 w-5" />
                 <span className="sr-only">Close</span>
               </DialogPrimitive.Close>

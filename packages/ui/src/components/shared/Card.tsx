@@ -41,7 +41,7 @@ const cardVariants = cva(
         true: "hover:shadow-lg hover:-translate-y-0.5",
       },
       interactive: {
-        true: "cursor-pointer active:scale-[0.98] active:shadow-sm",
+        true: "cursor-pointer active:scale-95 active:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint-500 focus-visible:ring-offset-2",
       },
     },
     defaultVariants: {
