@@ -1,3 +1,7 @@
+// @ts-nocheck
+// This file is only used by Vite/tsup for building @mintx/ui.
+// The @ts-nocheck prevents TypeScript "Excessive stack depth" errors
+// when this file is scanned by a consumer app's TypeScript compiler.
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "tailwindcss";
@@ -16,4 +20,4 @@ export default defineConfig({
       "@": resolve(__dirname, "./src"),
     },
   },
-});
+} as any);
