@@ -30,7 +30,7 @@
     "lucide-react": "^0.473.0",
     "remixicon": "^4.6.0",
     "tailwind-merge": "^2.5.5",
-    "boneyard-js": "^1.0.1"
+    "boneyard-js": "^1.7.7"
   },
   "devDependencies": {
     "@storybook/addon-essentials": "^8.6.2",
