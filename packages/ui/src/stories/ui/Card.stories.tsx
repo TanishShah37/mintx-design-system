@@ -25,9 +25,9 @@ const meta: Meta<typeof Card> = {
       control: "select",
       options: ["none", "xs", "sm", "md", "lg", "xl"],
     },
-    shadow: {
+    elevation: {
       control: "select",
-      options: ["none", "xs", "sm", "md", "lg", "xl", "2xl", "inner"],
+      options: ["none", "sm", "md", "lg", "xl", "2xl", "inner"],
     },
     borderWidth: {
       control: "select",
@@ -57,7 +57,7 @@ export const Default: Story = {
 export const Raised: Story = {
   args: {
     variant: "raised",
-    shadow: "lg",
+    elevation: "lg",
     padding: "md",
     children: (
       <div className="flex flex-col gap-2">
@@ -73,7 +73,7 @@ export const Interactivity: Story = {
     variant: "flat",
     hover: true,
     interactive: true,
-    shadow: "sm",
+    elevation: "sm",
     children: (
       <div className="flex flex-col gap-2">
         <h4 className="font-bold">Clickable Tile</h4>
@@ -90,15 +90,14 @@ export const FinancialContext: Story = {
     <Card 
       variant="raised" 
       padding="lg" 
-      shadow="xl" 
-      borderLeft="thick" 
-      borderColor="mint-500"
+      elevation="xl" 
+      borderWidth="thick" 
       className="max-w-[340px]"
     >
       <div className="flex justify-between items-start mb-4">
         <div>
           <h3 className="text-lg font-bold tracking-tight text-text-primary">Portfolio Summary</h3>
-          <Badge variant="primary" style="solid" size="sm">Pro Plan</Badge>
+          <Badge color="primary" variant="solid" size="sm">Pro Plan</Badge>
         </div>
       </div>
       <p className="text-3xl font-bold tracking-tighter text-emerald-500">
@@ -118,11 +117,11 @@ export const LayoutGrid: Story = {
   name: "Layout Chunks",
   render: () => (
     <div className="grid grid-cols-2 gap-4">
-      <Card variant="outlined" padding="md" shadow="xs">
+      <Card variant="outlined" padding="md" elevation="sm">
         <h4 className="font-bold mb-2">Fundamental Data</h4>
         <p className="text-xs opacity-70">Quarterly results, balance sheets and peer comparisons.</p>
       </Card>
-      <Card variant="outlined" padding="md" shadow="xs">
+      <Card variant="outlined" padding="md" elevation="sm">
         <h4 className="font-bold mb-2">Technical Analysis</h4>
         <p className="text-xs opacity-70">View charts, patterns and indicators for various timeframes.</p>
       </Card>

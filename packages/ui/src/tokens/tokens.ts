@@ -181,6 +181,7 @@ export const typography = {
     "4xl": "38px",
     "5xl": "48px",
     "6xl": "60px",
+    "7xl": "72px",
   },
 } as const;
 

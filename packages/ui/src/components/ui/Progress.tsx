@@ -47,9 +47,10 @@ export interface ProgressProps
   label?: string;
   showValue?: boolean;
   color?: ProgressColor;
+  animated?: boolean;
 }
 
-export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(({ className, value, max = 100, size, color = "brand", label, showValue, ...props }, ref): React.JSX.Element => {
+export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(({ className, value, max = 100, size, color = "brand", label, showValue, animated, ...props }, ref): React.JSX.Element => {
     const pct = Math.min(100, Math.max(0, (value / max) * 100));
 
     return (
@@ -74,7 +75,10 @@ export const Progress = React.forwardRef<HTMLDivElement, ProgressProps>(({ class
         )}
         <div className={cn(progressVariants({ size }))}>
           <div
-            className={cn(barVariants({ color }))}
+            className={cn(
+              barVariants({ color }),
+              animated && "relative overflow-hidden before:absolute before:inset-0 before:-translate-x-full before:animate-shimmer before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent"
+            )}
             style={{ transform: `translateX(-${100 - pct}%)` }}
           />
         </div>

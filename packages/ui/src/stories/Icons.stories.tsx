@@ -208,12 +208,12 @@ type IconCategory =
 
 interface IconDef {
   name: string;
-  component: (props: {
-    size?: number;
+  component: React.ComponentType<{
+    size?: number | string;
     color?: string;
-    strokeWidth?: number;
+    strokeWidth?: number | string;
     className?: string;
-  }) => React.JSX.Element;
+  }>;
   category: IconCategory;
   musrStories: string[];
 }

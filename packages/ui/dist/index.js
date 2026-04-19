@@ -3,10 +3,10 @@
 var clsx = require('clsx');
 var tailwindMerge = require('tailwind-merge');
 var React27 = require('react');
+var LucideIcons = require('lucide-react');
 var classVarianceAuthority = require('class-variance-authority');
 var TooltipPrimitive = require('@radix-ui/react-tooltip');
 var jsxRuntime = require('react/jsx-runtime');
-var LucideIcons = require('lucide-react');
 var DialogPrimitive2 = require('@radix-ui/react-dialog');
 var DropdownMenuPrimitive = require('@radix-ui/react-dropdown-menu');
 var PopoverPrimitive = require('@radix-ui/react-popover');
@@ -46,8 +46,8 @@ function _interopNamespace(e) {
 }
 
 var React27__namespace = /*#__PURE__*/_interopNamespace(React27);
-var TooltipPrimitive__namespace = /*#__PURE__*/_interopNamespace(TooltipPrimitive);
 var LucideIcons__namespace = /*#__PURE__*/_interopNamespace(LucideIcons);
+var TooltipPrimitive__namespace = /*#__PURE__*/_interopNamespace(TooltipPrimitive);
 var DialogPrimitive2__namespace = /*#__PURE__*/_interopNamespace(DialogPrimitive2);
 var DropdownMenuPrimitive__namespace = /*#__PURE__*/_interopNamespace(DropdownMenuPrimitive);
 var PopoverPrimitive__namespace = /*#__PURE__*/_interopNamespace(PopoverPrimitive);
@@ -5855,7 +5855,8 @@ var typography = {
     "3xl": "30px",
     "4xl": "38px",
     "5xl": "48px",
-    "6xl": "60px"
+    "6xl": "60px",
+    "7xl": "72px"
   }
 };
 var motion = {
@@ -6383,6 +6384,7 @@ function Card({
   variant,
   hover = false,
   interactive = false,
+  elevation: elevation2,
   padding,
   onClick,
   className,
@@ -6395,6 +6397,7 @@ function Card({
     {
       className: cn(
         cardVariants({ variant, padding, hover, interactive: isClickable }),
+        elevation2 && `shadow-${elevation2}`,
         getCommonClasses(props),
         className
       ),
@@ -8100,15 +8103,45 @@ var TableCaption = React27__namespace.default.forwardRef(({ className, ...props 
 TableCaption.displayName = "TableCaption";
 function Skeleton({
   className,
+  width,
+  height,
+  circle,
+  rounded,
+  lines = 1,
+  style,
   ...props
 }) {
+  const baseStyle = {
+    width,
+    height,
+    borderRadius: circle ? "50%" : void 0,
+    ...style
+  };
+  if (lines > 1) {
+    return /* @__PURE__ */ jsxRuntime.jsx("div", { className: "flex flex-col gap-2 w-full", children: Array.from({ length: lines }).map((_, i) => /* @__PURE__ */ jsxRuntime.jsx(
+      "div",
+      {
+        className: cn(
+          "bg-mint-500/10 animate-gentle-pulse h-4 w-full",
+          rounded ? "rounded-full" : "rounded-md",
+          i === lines - 1 && lines > 1 && "w-3/4",
+          className
+        ),
+        style: i === 0 ? baseStyle : void 0,
+        ...props
+      },
+      i
+    )) });
+  }
   return /* @__PURE__ */ jsxRuntime.jsx(
     "div",
     {
       className: cn(
-        "bg-mint-500/10 rounded-md animate-gentle-pulse",
+        "bg-mint-500/10 animate-gentle-pulse",
+        rounded ? "rounded-full" : "rounded-md",
         className
       ),
+      style: baseStyle,
       ...props
     }
   );
@@ -8296,7 +8329,7 @@ var barVariants = classVarianceAuthority.cva(
   }
 );
 var Progress = React27__namespace.default.forwardRef(
-  ({ className, value, max = 100, size, color = "brand", label, showValue, ...props }, ref) => {
+  ({ className, value, max = 100, size, color = "brand", label, showValue, animated, ...props }, ref) => {
     const pct = Math.min(100, Math.max(0, value / max * 100));
     return /* @__PURE__ */ jsxRuntime.jsxs(
       "div",
@@ -8315,7 +8348,10 @@ var Progress = React27__namespace.default.forwardRef(
           /* @__PURE__ */ jsxRuntime.jsx("div", { className: cn(progressVariants({ size })), children: /* @__PURE__ */ jsxRuntime.jsx(
             "div",
             {
-              className: cn(barVariants({ color })),
+              className: cn(
+                barVariants({ color }),
+                animated && "relative overflow-hidden before:absolute before:inset-0 before:-translate-x-full before:animate-shimmer before:bg-gradient-to-r before:from-transparent before:via-white/20 before:to-transparent"
+              ),
               style: { transform: `translateX(-${100 - pct}%)` }
             }
           ) })
@@ -9767,10 +9803,11 @@ var cardVariants2 = classVarianceAuthority.cva(
 function MetricCard({
   data,
   className,
-  compact = false
+  compact = false,
+  ...props
 }) {
   const dir = data.direction ?? (data.delta !== void 0 ? getDirection(data.delta) : "flat");
-  return /* @__PURE__ */ jsxRuntime.jsxs("div", { className: cn(cardVariants2({ compact }), className), children: [
+  return /* @__PURE__ */ jsxRuntime.jsxs("div", { className: cn(cardVariants2({ compact }), className), ...props, children: [
     /* @__PURE__ */ jsxRuntime.jsx("div", { className: "text-[11px] text-neutral-400 font-medium uppercase tracking-widest mb-2", children: data.label }),
     /* @__PURE__ */ jsxRuntime.jsxs("div", { className: cn(
       "font-display font-bold text-neutral-900 leading-none tabular-nums tracking-[-0.5px] mb-2",
@@ -13332,41 +13369,29 @@ var MenuSeparator2 = React27__namespace.default.forwardRef(({ className, ...prop
 ));
 MenuSeparator2.displayName = DropdownMenuPrimitive__namespace.Separator.displayName;
 var buttonVariants2 = classVarianceAuthority.cva(
-  "inline-flex items-center justify-center gap-sp-2 font-body font-medium tracking-tight cursor-pointer border border-transparent relative overflow-hidden select-none whitespace-nowrap transition-all duration-120 ease-out focus-visible:outline-2 focus-visible:outline-mint-400 focus-visible:outline-offset-2 active:scale-[0.97] disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none",
+  "inline-flex items-center justify-center gap-sp-2 font-body font-medium tracking-tight cursor-pointer border border-transparent relative overflow-hidden select-none whitespace-nowrap transition-all duration-200 ease-out focus-visible:outline-2 focus-visible:outline-mint-400 focus-visible:outline-offset-2 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none before:absolute before:inset-[-8px] before:content-['']",
   {
     variants: {
       variant: {
         primary: "bg-mint-400 text-neutral-900 border-mint-400 shadow-[0_4px_16px_rgba(0,179,138,0.25)] hover:bg-mint-300 hover:border-mint-300 hover:-translate-y-[1px] hover:shadow-[0_6px_24px_rgba(0,179,138,0.38)]",
-        secondary: "bg-surface text-text-primary border-border-default shadow-sm hover:border-mint-400 hover:text-text-brand hover:bg-surface-overlay",
-        ghost: "bg-transparent text-text-secondary border-transparent hover:bg-surface-overlay hover:text-text-primary",
-        danger: "bg-red-500/10 text-red-600 border-red-500/20 hover:bg-red-600 hover:text-neutral-0 hover:border-red-600",
-        "outline-brand": "bg-transparent text-text-brand border-mint-400 hover:bg-surface-overlay",
-        dark: "bg-neutral-800 text-mint-300 border-mint-300/20 shadow-[0_4px_20px_rgba(0,0,0,0.4)] hover:bg-neutral-700 hover:border-mint-400"
+        secondary: "bg-surface text-neutral-900 border-neutral-200 shadow-sm hover:border-mint-400 hover:text-mint-600 hover:bg-mint-50",
+        ghost: "bg-transparent text-neutral-600 border-transparent hover:bg-neutral-100 hover:text-neutral-900",
+        outline: "bg-transparent border border-neutral-300 text-neutral-700 hover:bg-neutral-50 hover:border-neutral-400",
+        "brand-outline": "bg-transparent text-mint-600 border-mint-400 hover:bg-mint-50"
       },
       size: {
-        xs: "text-xs py-1 px-2.5 rounded-sm",
-        sm: "text-sm py-1.5 px-3.5 rounded-md",
-        md: "text-base py-[9px] px-5 rounded-md",
-        lg: "text-lg py-3 px-[26px] rounded-lg",
-        xl: "text-xl py-3.5 px-8 rounded-lg font-semibold"
+        sm: "text-sm py-1.5 px-3.5 rounded-md min-h-[36px]",
+        md: "text-base py-[11px] px-6 rounded-md min-h-[44px]",
+        lg: "text-lg py-3.5 px-8 rounded-lg min-h-[52px]",
+        icon: "p-2 rounded-md aspect-square min-h-[44px] min-w-[44px]"
       },
       fullWidth: {
         true: "w-full"
       },
       loading: {
-        true: "cursor-wait"
-      },
-      iconOnly: {
-        true: "p-0 aspect-square"
+        true: "cursor-wait active:scale-100"
       }
     },
-    compoundVariants: [
-      { size: "xs", iconOnly: true, className: "w-7 h-7" },
-      { size: "sm", iconOnly: true, className: "w-8 h-8" },
-      { size: "md", iconOnly: true, className: "w-[38px] h-[38px]" },
-      { size: "lg", iconOnly: true, className: "w-[46px] h-[46px]" },
-      { size: "xl", iconOnly: true, className: "w-[52px] h-[52px]" }
-    ],
     defaultVariants: {
       variant: "primary",
       size: "md"
@@ -13378,23 +13403,34 @@ var Button2 = React27.forwardRef(
     variant,
     size,
     loading = false,
-    iconOnly = false,
     leftIcon,
     rightIcon,
+    iconOnly = false,
     fullWidth,
     disabled,
     className,
+    style,
     children,
-    ...rest
+    ...props
   }, ref) => {
     return /* @__PURE__ */ jsxRuntime.jsxs(
       "button",
       {
         ref,
-        className: cn(buttonVariants2({ variant, size, fullWidth, loading, iconOnly }), className),
+        className: cn(
+          buttonVariants2({
+            variant,
+            size: iconOnly ? "icon" : size,
+            fullWidth,
+            loading
+          }),
+          getCommonClasses(props),
+          className
+        ),
+        style,
         disabled: disabled || loading,
         "aria-busy": loading,
-        ...rest,
+        ...props,
         children: [
           loading && /* @__PURE__ */ jsxRuntime.jsx(
             "span",
@@ -13405,8 +13441,7 @@ var Button2 = React27.forwardRef(
           ),
           /* @__PURE__ */ jsxRuntime.jsxs("span", { className: cn("flex items-center gap-sp-2", loading && "opacity-0"), children: [
             !loading && leftIcon && /* @__PURE__ */ jsxRuntime.jsx("span", { className: "inline-flex items-center shrink-0", children: leftIcon }),
-            !iconOnly && /* @__PURE__ */ jsxRuntime.jsx("span", { children }),
-            iconOnly && !loading && children,
+            /* @__PURE__ */ jsxRuntime.jsx("span", { children }),
             !loading && rightIcon && /* @__PURE__ */ jsxRuntime.jsx("span", { className: "inline-flex items-center shrink-0", children: rightIcon })
           ] })
         ]
@@ -16149,39 +16184,68 @@ function Autocomplete2({
   ] });
 }
 Autocomplete2.displayName = "Autocomplete";
-var Avatar2 = React27__namespace.default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsxRuntime.jsx(
-  AvatarPrimitive__namespace.Root,
+var avatarVariants = classVarianceAuthority.cva(
+  "relative flex shrink-0 overflow-hidden rounded-full border-2 border-surface shadow-md",
   {
-    ref,
-    className: cn(
-      "relative flex h-10 w-10 shrink-0 overflow-hidden rounded-full border-2 border-surface shadow-md",
-      className
-    ),
-    ...props
+    variants: {
+      size: {
+        xs: "h-6 w-6 text-[10px]",
+        sm: "h-8 w-8 text-xs",
+        md: "h-10 w-10 text-sm",
+        lg: "h-12 w-12 text-base",
+        xl: "h-16 w-16 text-xl",
+        "2xl": "h-20 w-20 text-2xl"
+      }
+    },
+    defaultVariants: {
+      size: "md"
+    }
   }
-));
-Avatar2.displayName = AvatarPrimitive__namespace.Root.displayName;
-var AvatarImage2 = React27__namespace.default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsxRuntime.jsx(
-  AvatarPrimitive__namespace.Image,
+);
+var statusVariants3 = classVarianceAuthority.cva(
+  "absolute bottom-0 right-0 h-[25%] w-[25%] rounded-full border-2 border-surface shadow-sm",
   {
-    ref,
-    className: cn("aspect-square h-full w-full object-cover", className),
-    ...props
+    variants: {
+      status: {
+        online: "bg-emerald-500",
+        offline: "bg-neutral-400",
+        away: "bg-amber-400",
+        busy: "bg-red-500",
+        live: "bg-purple-500 animate-pulse",
+        pro: "bg-mint-500"
+      }
+    }
   }
-));
-AvatarImage2.displayName = AvatarPrimitive__namespace.Image.displayName;
-var AvatarFallback2 = React27__namespace.default.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ jsxRuntime.jsx(
-  AvatarPrimitive__namespace.Fallback,
-  {
-    ref,
-    className: cn(
-      "flex h-full w-full items-center justify-center rounded-full bg-mint-500/15 text-mint-500 text-[0.7em] font-bold uppercase tracking-widest font-body",
-      className
-    ),
-    ...props
-  }
-));
-AvatarFallback2.displayName = AvatarPrimitive__namespace.Fallback.displayName;
+);
+var Avatar2 = React27__namespace.default.forwardRef(({ className, src, alt, initials, size, status, ...props }, ref) => /* @__PURE__ */ jsxRuntime.jsxs("div", { className: "relative inline-block", children: [
+  /* @__PURE__ */ jsxRuntime.jsxs(
+    AvatarPrimitive__namespace.Root,
+    {
+      ref,
+      className: cn(avatarVariants({ size }), className),
+      ...props,
+      children: [
+        /* @__PURE__ */ jsxRuntime.jsx(
+          AvatarPrimitive__namespace.Image,
+          {
+            src,
+            alt,
+            className: "aspect-square h-full w-full object-cover"
+          }
+        ),
+        /* @__PURE__ */ jsxRuntime.jsx(
+          AvatarPrimitive__namespace.Fallback,
+          {
+            className: "flex h-full w-full items-center justify-center rounded-full bg-mint-500/15 text-mint-500 font-bold uppercase tracking-widest font-body",
+            children: initials
+          }
+        )
+      ]
+    }
+  ),
+  status && /* @__PURE__ */ jsxRuntime.jsx("span", { className: statusVariants3({ status }) })
+] }));
+Avatar2.displayName = "Avatar";
 function Backdrop2({
   show,
   onClick,
@@ -16235,91 +16299,71 @@ var badgeVariants2 = classVarianceAuthority.cva(
 function Badge2({ className, variant, size, ...props }) {
   return /* @__PURE__ */ jsxRuntime.jsx("div", { className: cn(badgeVariants2({ variant, size }), className), ...props });
 }
-function Box2({
-  as: Component2 = "div",
-  className,
-  children,
-  ...props
-}) {
-  return /* @__PURE__ */ jsxRuntime.jsx(Component2, { className: cn(className), ...props, children });
-}
+var Box2 = React27.forwardRef(
+  ({ as: Component2 = "div", className, children, ...props }, ref) => {
+    return /* @__PURE__ */ jsxRuntime.jsx(
+      Component2,
+      {
+        ref,
+        className: cn(getCommonClasses(props), className),
+        ...props,
+        children
+      }
+    );
+  }
+);
 Box2.displayName = "Box";
 var cardVariants4 = classVarianceAuthority.cva(
-  "rounded-lg overflow-hidden transition-all duration-200 ease-smooth",
+  "rounded-2xl overflow-hidden transition-all duration-200 ease-out",
   {
     variants: {
       variant: {
-        flat: "bg-surface border border-neutral-100",
-        raised: "bg-surface shadow-md",
-        glass: "bg-white/40 backdrop-blur-md border border-white/20 shadow-lg",
-        outlined: "bg-transparent border border-neutral-200"
+        default: "bg-surface border border-neutral-150 shadow-sm",
+        elevated: "bg-surface shadow-md border border-neutral-100",
+        outline: "bg-transparent border border-neutral-200"
       },
       padding: {
         none: "p-0",
         xs: "p-2",
+        // spacing[2]
         sm: "p-4",
+        // spacing[4]
         md: "p-6",
-        lg: "p-8",
-        xl: "p-10"
+        // spacing[6] (24px) - As confirmed by user
+        lg: "p-10",
+        // spacing[10]
+        xl: "p-16"
+        // spacing[16]
       },
       hover: {
-        true: "hover:shadow-lg hover:-translate-y-0.5"
-      },
-      interactive: {
-        true: "cursor-pointer active:scale-95 active:shadow-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-mint-500 focus-visible:ring-offset-2"
+        true: "hover:shadow-lg hover:-translate-y-1 hover:border-mint-400/30"
       }
     },
     defaultVariants: {
-      variant: "flat",
+      variant: "default",
       padding: "md"
     }
   }
 );
-function Card2({
-  variant = "flat",
-  hover = false,
-  interactive = false,
-  padding = "md",
-  shadow,
-  border,
-  borderColor,
-  borderLeft,
-  borderLeftColor,
-  borderWidth: borderWidth2,
-  onClick,
-  className,
-  style,
-  children,
-  ...props
-}) {
-  const isClickable = !!onClick || interactive;
-  const shadowClass = shadow ? `shadow-${shadow}` : "";
-  const borderClass = border === true ? "border" : border === false ? "border-0" : "";
-  const borderLeftClass = borderLeft ? `border-l-${borderWidth2 === "thick" ? "4" : borderWidth2 === "medium" ? "2" : "1"}` : "";
-  return /* @__PURE__ */ jsxRuntime.jsx(
-    "div",
-    {
-      className: cn(
-        cardVariants4({ variant, padding, hover, interactive: isClickable }),
-        shadowClass,
-        borderClass,
-        borderLeftClass,
-        borderColor,
-        borderLeftColor,
-        getCommonClasses(props),
-        className
-      ),
-      style,
-      onClick,
-      role: isClickable ? "button" : void 0,
-      tabIndex: isClickable ? 0 : void 0,
-      onKeyDown: isClickable ? (e) => {
-        if (e.key === "Enter" || e.key === " ") onClick?.();
-      } : void 0,
-      children
-    }
-  );
-}
+var Card2 = React27.forwardRef(
+  ({ variant, padding, hover, elevation: elevation2, className, style, children, ...props }, ref) => {
+    return /* @__PURE__ */ jsxRuntime.jsx(
+      "div",
+      {
+        ref,
+        className: cn(
+          cardVariants4({ variant, padding, hover }),
+          elevation2 && `shadow-${elevation2}`,
+          getCommonClasses(props),
+          className
+        ),
+        style,
+        ...props,
+        children
+      }
+    );
+  }
+);
 Card2.displayName = "Card";
 function Carousel2({
   children,
@@ -17211,59 +17255,62 @@ var Slider2 = React27__namespace.default.forwardRef(({ label, error, className, 
   error && /* @__PURE__ */ jsxRuntime.jsx("p", { className: "text-xs text-red-500 font-medium", children: error })
 ] }));
 Slider2.displayName = "Slider";
-function Stack2({
-  direction = "column",
-  align = "stretch",
-  justify = "start",
-  gap = 4,
-  wrap = false,
-  className,
-  children,
-  ...props
-}) {
-  const justifyMap = {
-    start: "justify-start",
-    center: "justify-center",
-    end: "justify-end",
-    between: "justify-between",
-    around: "justify-around",
-    evenly: "justify-evenly"
-  };
-  const alignMap = {
-    start: "items-start",
-    center: "items-center",
-    end: "items-end",
-    stretch: "items-stretch",
-    baseline: "items-baseline"
-  };
-  const directionMap = {
-    row: "flex-row",
-    column: "flex-col",
-    "row-reverse": "flex-row-reverse",
-    "column-reverse": "flex-col-reverse"
-  };
-  return /* @__PURE__ */ jsxRuntime.jsx(
-    "div",
-    {
-      className: cn(
-        "flex",
-        directionMap[direction],
-        alignMap[align],
-        justifyMap[justify],
-        wrap && "flex-wrap",
-        // Using Tailwind dynamic gap is risky if not safelisted, but gap-1, 2, 4 etc are common.
-        // We'll use a safer approach with a style object if it's a number
-        className
-      ),
-      style: {
-        gap: typeof gap === "number" ? `${gap * 0.25}rem` : gap,
-        ...props.style
-      },
-      ...props,
-      children
-    }
-  );
-}
+var Stack2 = React27.forwardRef(
+  ({
+    as: Component2 = "div",
+    direction = "column",
+    align = "stretch",
+    justify = "start",
+    gap = 4,
+    wrap = false,
+    className,
+    children,
+    ...props
+  }, ref) => {
+    const justifyMap = {
+      start: "justify-start",
+      center: "justify-center",
+      end: "justify-end",
+      between: "justify-between",
+      around: "justify-around",
+      evenly: "justify-evenly"
+    };
+    const alignMap = {
+      start: "items-start",
+      center: "items-center",
+      end: "items-end",
+      stretch: "items-stretch",
+      baseline: "items-baseline"
+    };
+    const directionMap = {
+      row: "flex-row",
+      column: "flex-col",
+      "row-reverse": "flex-row-reverse",
+      "column-reverse": "flex-col-reverse"
+    };
+    return /* @__PURE__ */ jsxRuntime.jsx(
+      Component2,
+      {
+        ref,
+        className: cn(
+          "flex",
+          directionMap[direction],
+          alignMap[align],
+          justifyMap[justify],
+          wrap && "flex-wrap",
+          getCommonClasses(props),
+          className
+        ),
+        style: {
+          gap: typeof gap === "number" ? `${gap * 0.25}rem` : gap,
+          ...props.style
+        },
+        ...props,
+        children
+      }
+    );
+  }
+);
 Stack2.displayName = "Stack";
 var Switch2 = React27__namespace.default.forwardRef(({ label, className, ...props }, ref) => {
   return /* @__PURE__ */ jsxRuntime.jsxs("div", { className: cn(
@@ -17598,6 +17645,69 @@ var TooltipContent2 = React27__namespace.default.forwardRef(({ className, sideOf
   }
 ));
 TooltipContent2.displayName = TooltipPrimitive__namespace.Content.displayName;
+var typographyVariants = classVarianceAuthority.cva("", {
+  variants: {
+    variant: {
+      display: "font-display font-bold tracking-tight",
+      h1: "font-display font-bold tracking-tight",
+      h2: "font-display font-bold tracking-tight",
+      h3: "font-display font-bold tracking-tight",
+      h4: "font-display font-semibold tracking-tight",
+      h5: "font-display font-semibold tracking-tight",
+      h6: "font-display font-semibold tracking-tight",
+      body: "font-body",
+      label: "font-body font-medium uppercase tracking-wider",
+      mono: "font-mono"
+    },
+    size: {
+      xs: "text-xs",
+      sm: "text-sm",
+      base: "text-base",
+      lg: "text-lg",
+      xl: "text-xl",
+      "2xl": "text-2xl",
+      "3xl": "text-3xl",
+      "4xl": "text-4xl",
+      "5xl": "text-5xl",
+      "6xl": "text-6xl",
+      "7xl": "text-7xl",
+      "8xl": "text-8xl",
+      "9xl": "text-9xl"
+    },
+    weight: {
+      light: "font-light",
+      normal: "font-normal",
+      medium: "font-medium",
+      semibold: "font-semibold",
+      bold: "font-bold"
+    },
+    align: {
+      left: "text-left",
+      center: "text-center",
+      right: "text-right",
+      justify: "text-justify"
+    }
+  },
+  defaultVariants: {
+    variant: "body",
+    size: "base"
+  }
+});
+var Typography = React27.forwardRef(
+  ({ as: Component2 = "span", variant, size, weight, align, className, children, ...props }, ref) => {
+    const DefaultComponent = variant === "h1" ? "h1" : variant === "h2" ? "h2" : variant === "h3" ? "h3" : variant === "h4" ? "h4" : variant === "h5" ? "h5" : variant === "h6" ? "h6" : Component2;
+    return /* @__PURE__ */ jsxRuntime.jsx(
+      DefaultComponent,
+      {
+        ref,
+        className: cn(typographyVariants({ variant, size, weight, align }), className),
+        ...props,
+        children
+      }
+    );
+  }
+);
+Typography.displayName = "Typography";
 
 exports.Accordion = Accordion;
 exports.AccordionContent = AccordionContent;
@@ -17743,6 +17853,7 @@ exports.SharedChip = Chip2;
 exports.SharedDatePicker = DatePicker2;
 exports.SharedDigitInput = DigitInput2;
 exports.SharedDivider = Divider2;
+exports.SharedEmptyState = EmptyState;
 exports.SharedFadeIn = FadeIn2;
 exports.SharedFileUploader = FileUploader2;
 exports.SharedIconButton = IconButton2;
@@ -17760,6 +17871,7 @@ exports.SharedRadioGroup = RadioGroup2;
 exports.SharedRadioGroupItem = RadioGroupItem2;
 exports.SharedRating = Rating2;
 exports.SharedScaleIn = ScaleIn2;
+exports.SharedSearchInput = SearchInput;
 exports.SharedSelect = Select2;
 exports.SharedSeparator = Separator5;
 exports.SharedSkeleton = Skeleton2;
@@ -17776,6 +17888,7 @@ exports.SharedTextFieldPassword = TextFieldPassword2;
 exports.SharedToast = Toast2;
 exports.SharedToggle = Toggle2;
 exports.SharedTooltip = Tooltip2;
+exports.SharedTypography = Typography;
 exports.Sidebar = Sidebar;
 exports.Skeleton = Skeleton;
 exports.SlideIn = SlideIn;
@@ -17855,5 +17968,11 @@ exports.usePriceDirection = usePriceDirection;
 exports.useTheme = useTheme;
 exports.useToast = useToast;
 exports.zIndex = zIndex;
+Object.keys(LucideIcons).forEach(function (k) {
+  if (k !== 'default' && !Object.prototype.hasOwnProperty.call(exports, k)) Object.defineProperty(exports, k, {
+    enumerable: true,
+    get: function () { return LucideIcons[k]; }
+  });
+});
 //# sourceMappingURL=index.js.map
 //# sourceMappingURL=index.js.map

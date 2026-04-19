@@ -10,6 +10,17 @@ export * from "lucide-react";
 
 // ── Canonical UI Components ─────────────────────────────────
 export * from "./components/ui";
+// Explicit re-exports to resolve lucide-react collisions
+export {
+  Badge,
+  Box,
+  Image,
+  Link,
+  List,
+  Loader,
+  Menu,
+  Tag,
+} from "./components/ui";
 
 // ── Specialized Domains ─────────────────────────────────────
 // Note: Omitted TradingViewChart and LightweightChart as they are canonical in charts/
@@ -23,12 +34,13 @@ export {
   MarketStatus,
 } from "./components/financial";
 export * from "./components/shell";
+export { Sidebar } from "./components/shell";
 export * from "./components/mobile";
 export * from "./components/marketing";
 
 // ── Colliding Market Components ─────────────────────────────
 // (Exported with Market prefix to avoid ambiguity with ui/ & financial/)
-export { 
+export {
   DataTable as MarketDataTable,
   Pagination as MarketPagination,
   Table as MarketTable,
@@ -61,6 +73,7 @@ export {
 
 // ── Charts & Visualization ─────────────────────────────────
 export * from "./components/charts";
+export { AreaChart, CandlestickChart } from "./components/charts";
 
 // ── Asset Library & Metadata ────────────────────────────────
 export * from "./components/AssetLibrary";
@@ -68,9 +81,7 @@ export * from "./components/AssetData";
 
 // ── Utilities & Layout ──────────────────────────────────────
 // Resolve NotiStackProvider overlap with ui/
-export {
-  NotiStackProvider as WrapperNotiStackProvider,
-} from "./components/wrappers";
+export { NotiStackProvider as WrapperNotiStackProvider } from "./components/wrappers";
 export * from "./components/layout";
 
 // ── Shared Components ───────────────────────────────────────
@@ -124,4 +135,22 @@ export {
   Toast as SharedToast,
   Toggle as SharedToggle,
   Tooltip as SharedTooltip,
+  Typography as SharedTypography,
 } from "./components/shared";
+
+// Explicit UI components as Shared aliases (Requested by web-app)
+export {
+  EmptyState as SharedEmptyState,
+  SearchInput as SharedSearchInput,
+} from "./components/ui";
+
+// Explicit Table Exports (Requested for source of truth)
+export {
+  Table,
+  TableHeader,
+  TableBody,
+  TableFooter,
+  TableRow,
+  TableHead,
+  TableCell,
+} from "./components/ui/Table";

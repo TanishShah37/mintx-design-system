@@ -24,10 +24,10 @@ export const AlertVariants: StoryObj = {
   name: "Alert",
   render: () => (
     <div style={{ display: "flex", flexDirection: "column", gap: 12, maxWidth: 480 }}>
-      <Alert variant="info" title="Market Update" description="Trading will be halted for 15 minutes due to circuit breaker." />
-      <Alert variant="success" title="Order Executed" description="Buy 100 RELIANCE @ ₹2450.00 successful." />
-      <Alert variant="warning" title="KYC Pending" description="Please complete your KYC to avoid account restrictions." />
-      <Alert variant="destructive" title="System Error" description="Unable to connect to live data stream. Retrying..." />
+      <Alert status="info" title="Market Update" description="Trading will be halted for 15 minutes due to circuit breaker." />
+      <Alert status="success" title="Order Executed" description="Buy 100 RELIANCE @ ₹2450.00 successful." />
+      <Alert status="warning" title="KYC Pending" description="Please complete your KYC to avoid account restrictions." />
+      <Alert status="error" title="System Error" description="Unable to connect to live data stream. Retrying..." />
     </div>
   ),
 };
@@ -37,9 +37,9 @@ export const ProgressVariants: StoryObj = {
   render: () => (
     <div style={{ display: "flex", flexDirection: "column", gap: 20, maxWidth: 400 }}>
       <Progress value={75} label="Portfolio Completion" showValue color="brand" />
-      <Progress value={45} label="Risk Exposure" showValue color="amber" size="md" />
-      <Progress value={90} label="Capital Deployed" showValue color="green" />
-      <Progress value={20} label="Available Cash" showValue color="blue" size="xs" />
+      <Progress value={45} label="Risk Exposure" showValue color="warning" size="md" />
+      <Progress value={90} label="Capital Deployed" showValue color="success" />
+      <Progress value={20} label="Available Cash" showValue color="info" size="xs" />
       <Progress value={60} color="brand" size="sm" />
     </div>
   ),
@@ -78,7 +78,7 @@ export const DialogDemo: StoryObj = {
           </DialogDescription>
         </DialogHeader>
         <div style={{ padding: "8px 0" }}>
-          <Alert variant="warning" title="Market Risk" description="Stock prices fluctuate. Please review before confirming." />
+          <Alert status="warning" title="Market Risk" description="Stock prices fluctuate. Please review before confirming." />
         </div>
         <DialogFooter>
           <Button variant="ghost">Cancel</Button>

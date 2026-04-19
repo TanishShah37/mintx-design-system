@@ -28,22 +28,24 @@ const cardVariants = cva(
   }
 );
 
-interface MetricCardProps extends VariantProps<typeof cardVariants> {
+interface MetricCardProps 
+  extends React.HTMLAttributes<HTMLDivElement>, 
+    VariantProps<typeof cardVariants> {
   data: MetricData;
-  className?: string;
 }
 
 export function MetricCard({
   data,
   className,
   compact = false,
+  ...props
 }: MetricCardProps): React.JSX.Element {
   const dir =
     data.direction ??
     (data.delta !== undefined ? getDirection(data.delta) : "flat");
 
   return (
-    <div className={cn(cardVariants({ compact }), className)}>
+    <div className={cn(cardVariants({ compact }), className)} {...props}>
       <div className="text-[11px] text-neutral-400 font-medium uppercase tracking-widest mb-2">
         {data.label}
       </div>

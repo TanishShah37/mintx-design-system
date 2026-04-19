@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { Avatar } from "../../components/ui/Avatar";
+import { Avatar } from "../../components/shared/Avatar";
 import React from "react";
 
 const meta: Meta<typeof Avatar> = {
@@ -18,7 +18,7 @@ const meta: Meta<typeof Avatar> = {
     size: { control: "select", options: ["xs", "sm", "md", "lg", "xl"] },
     status: {
       control: "select",
-      options: [undefined, "live", "paused", "offline", "error", "pro"],
+      options: [undefined, "online", "offline", "away", "busy", "live", "pro"],
     },
     initials: { control: "text" },
     alt: { control: "text" },
@@ -58,16 +58,20 @@ export const WithStatus: Story = {
         <span style={{ fontSize: 10, color: "var(--text-tertiary, var(--chart-neutral, var(--chart-neutral, #748A83)))" }}>live</span>
       </div>
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
-        <Avatar initials="PA" size="md" status="paused" />
-        <span style={{ fontSize: 10, color: "var(--text-tertiary, var(--chart-neutral, var(--chart-neutral, #748A83)))" }}>paused</span>
+        <Avatar initials="ON" size="md" status="online" />
+        <span style={{ fontSize: 10, color: "var(--text-tertiary, var(--chart-neutral, var(--chart-neutral, #748A83)))" }}>online</span>
       </div>
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
         <Avatar initials="OF" size="md" status="offline" />
         <span style={{ fontSize: 10, color: "var(--text-tertiary, var(--chart-neutral, var(--chart-neutral, #748A83)))" }}>offline</span>
       </div>
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
-        <Avatar initials="ER" size="md" status="error" />
-        <span style={{ fontSize: 10, color: "var(--text-tertiary, var(--chart-neutral, var(--chart-neutral, #748A83)))" }}>error</span>
+        <Avatar initials="AW" size="md" status="away" />
+        <span style={{ fontSize: 10, color: "var(--text-tertiary, var(--chart-neutral, var(--chart-neutral, #748A83)))" }}>away</span>
+      </div>
+      <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
+        <Avatar initials="BS" size="md" status="busy" />
+        <span style={{ fontSize: 10, color: "var(--text-tertiary, var(--chart-neutral, var(--chart-neutral, #748A83)))" }}>busy</span>
       </div>
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
         <Avatar initials="PR" size="md" status="pro" />

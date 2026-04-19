@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react'
-import ComingSoonPage from '../../../../apps/coming-soon/src/app/page'
+import ComingSoonPage from "../../../../apps/design-system/src/app/coming-soon/page";
 import { AppHeader } from '../components/shell/AppHeader'
 import { AppFooter } from '../components/shell/AppFooter'
 import React from 'react'

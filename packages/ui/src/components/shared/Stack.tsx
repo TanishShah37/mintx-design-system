@@ -1,7 +1,10 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import { cn } from "../../tokens/cn";
+import { BaseProps } from "../../types";
+import { getCommonClasses } from "../../tokens/common-props";
 
-export interface StackProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface StackProps extends React.HTMLAttributes<HTMLElement>, BaseProps {
+  as?: React.ElementType;
   direction?: "row" | "column" | "row-reverse" | "column-reverse";
   align?: "start" | "center" | "end" | "stretch" | "baseline";
   justify?: "start" | "center" | "end" | "between" | "around" | "evenly";
@@ -9,61 +12,67 @@ export interface StackProps extends React.HTMLAttributes<HTMLDivElement> {
   wrap?: boolean;
 }
 
-export function Stack({
-  direction = "column",
-  align = "stretch",
-  justify = "start",
-  gap = 4,
-  wrap = false,
-  className,
-  children,
-  ...props
-}: StackProps): React.JSX.Element {
-  const justifyMap = {
-    start: "justify-start",
-    center: "justify-center",
-    end: "justify-end",
-    between: "justify-between",
-    around: "justify-around",
-    evenly: "justify-evenly",
+export const Stack = forwardRef<HTMLElement, StackProps>(
+  (
+    {
+      as: Component = "div",
+      direction = "column",
+      align = "stretch",
+      justify = "start",
+      gap = 4,
+      wrap = false,
+      className,
+      children,
+      ...props
+    },
+    ref
+  ) => {
+    const justifyMap = {
+      start: "justify-start",
+      center: "justify-center",
+      end: "justify-end",
+      between: "justify-between",
+      around: "justify-around",
+      evenly: "justify-evenly",
+    };
+
+    const alignMap = {
+      start: "items-start",
+      center: "items-center",
+      end: "items-end",
+      stretch: "items-stretch",
+      baseline: "items-baseline",
+    };
+
+    const directionMap = {
+      row: "flex-row",
+      column: "flex-col",
+      "row-reverse": "flex-row-reverse",
+      "column-reverse": "flex-col-reverse",
+    };
+
+    return (
+      <Component
+        ref={ref}
+        className={cn(
+          "flex",
+          directionMap[direction],
+          alignMap[align],
+          justifyMap[justify],
+          wrap && "flex-wrap",
+          getCommonClasses(props),
+          className
+        )}
+        style={{
+          gap: typeof gap === "number" ? `${gap * 0.25}rem` : gap,
+          ...props.style,
+        }}
+        {...props}
+      >
+        {children}
+      </Component>
+    );
   }
-
-  const alignMap = {
-    start: "items-start",
-    center: "items-center",
-    end: "items-end",
-    stretch: "items-stretch",
-    baseline: "items-baseline",
-  };
-
-  const directionMap = {
-    row: "flex-row",
-    column: "flex-col",
-    "row-reverse": "flex-row-reverse",
-    "column-reverse": "flex-col-reverse",
-  };
-
-  return (
-    <div
-      className={cn(
-        "flex",
-        directionMap[direction],
-        alignMap[align],
-        justifyMap[justify],
-        wrap && "flex-wrap",
-        // Using Tailwind dynamic gap is risky if not safelisted, but gap-1, 2, 4 etc are common.
-        // We'll use a safer approach with a style object if it's a number
-        className
-      )}
-      style={{
-        gap: typeof gap === "number" ? `${gap * 0.25}rem` : gap,
-        ...props.style,
-      }}
-      {...props}
-    >
-      {children}
-    </div>
-  );
-}
+);
 
 Stack.displayName = "Stack";

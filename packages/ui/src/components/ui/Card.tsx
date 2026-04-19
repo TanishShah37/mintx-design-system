@@ -1,12 +1,16 @@
 import React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "../../tokens/cn";
-import { BaseProps } from "../../types";
+import { BaseProps, Elevation } from "../../types";
 import { getCommonClasses } from "../../tokens/common-props";
-
-export interface CardProps extends React.HTMLAttributes<HTMLDivElement>, VariantProps<typeof cardVariants>, BaseProps {
+export interface CardProps
+  extends
+    React.HTMLAttributes<HTMLDivElement>,
+    VariantProps<typeof cardVariants>,
+    BaseProps {
   hover?: boolean;
   interactive?: boolean;
+  elevation?: Elevation;
 }
 
 const cardVariants = cva(
@@ -38,13 +42,14 @@ const cardVariants = cva(
       variant: "flat",
       padding: "md",
     },
-  }
+  },
 );
 
 export function Card({
   variant,
   hover = false,
   interactive = false,
+  elevation,
   padding,
   onClick,
   className,
@@ -57,8 +62,9 @@ export function Card({
     <div
       className={cn(
         cardVariants({ variant, padding, hover, interactive: isClickable }),
+        elevation && `shadow-${elevation}`,
         getCommonClasses(props),
-        className
+        className,
       )}
       onClick={onClick}
       role={isClickable ? "button" : undefined}

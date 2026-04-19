@@ -43,7 +43,7 @@ export function SignalBadge({ signal, showLabel = true, className = '' }: Signal
 
   return (
     <Badge
-      variant={config.variant}
+      color={config.variant}
       className={cn(signalVariants({ variant: config.variant }), className)}
     >
       <span className="text-[10px] leading-none" aria-hidden>{config.icon}</span>

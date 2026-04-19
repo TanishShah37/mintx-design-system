@@ -19,7 +19,7 @@ const meta: Meta<typeof Progress> = {
     max: { control: { type: "number" } },
     color: {
       control: "select",
-      options: ["brand", "green", "red", "amber", "blue"],
+      options: ["brand", "success", "danger", "warning", "info"],
     },
     size: { control: "select", options: ["xs", "sm", "md"] },
     showValue: { control: "boolean" },
@@ -45,10 +45,10 @@ export const AllColors: Story = {
   render: () => (
     <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
       <Progress value={78} color="brand" label="Brand (Mint) — Portfolio health" showValue />
-      <Progress value={82} color="green" label="Green — Bullish signal strength" showValue />
-      <Progress value={37} color="red" label="Red — Drawdown risk" showValue />
-      <Progress value={60} color="amber" label="Amber — Volatility index" showValue />
-      <Progress value={91} color="blue" label="Blue — Data confidence" showValue />
+      <Progress value={82} color="success" label="Success (Green) — Bullish signal strength" showValue />
+      <Progress value={37} color="danger" label="Danger (Red) — Drawdown risk" showValue />
+      <Progress value={60} color="warning" label="Warning (Amber) — Volatility index" showValue />
+      <Progress value={91} color="info" label="Info (Blue) — Data confidence" showValue />
     </div>
   ),
 };

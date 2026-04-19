@@ -63,7 +63,7 @@ const columns: ColumnDef<Transaction>[] = [
         pending: "warning",
         failed: "danger",
       };
-      return <Badge variant={variants[item.status] || "neutral"} style="subtle" size="sm" dot>{item.status}</Badge>;
+      return <Badge color={variants[item.status] || "neutral"} variant="subtle" size="sm" dot>{item.status}</Badge>;
     },
   },
   {
@@ -72,7 +72,7 @@ const columns: ColumnDef<Transaction>[] = [
     accessorKey: "risk",
     cell: (item) => (
       <div className="flex items-center gap-2 min-w-[100px]">
-        <Progress value={item.risk} className="h-1.5" color={item.risk > 70 ? "red" : item.risk > 30 ? "amber" : "brand"} />
+        <Progress value={item.risk} className="h-1.5" color={item.risk > 70 ? "danger" : item.risk > 30 ? "warning" : "brand"} />
         <span className="text-[11px] font-bold text-text-tertiary">{item.risk}%</span>
       </div>
     ),
@@ -117,8 +117,12 @@ export const Empty: Story = {
   args: {
     columns,
     data: [],
-    emptyStateTitle: "No transactions found",
-    emptyStateDescription: "Try adjusting your filters or search terms.",
+    emptyState: (
+      <div className="flex flex-col items-center justify-center py-10">
+        <h3 className="text-lg font-bold">No transactions found</h3>
+        <p className="text-sm text-neutral-500">Try adjusting your filters or search terms.</p>
+      </div>
+    ),
   },
 };
 
@@ -126,9 +130,7 @@ export const Styled: Story = {
   args: {
     columns,
     data,
+    loading: false, // Ensure maxHeight is handled by container if not in props
     striped: true,
-    compact: true,
-    stickyHeader: true,
-    maxHeight: "300px",
   },
 };

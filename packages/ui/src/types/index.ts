@@ -8,7 +8,7 @@ import type {
 } from "react";
 
 // ── SHARED BASE ────────────────────────────────────────────
-export type Elevation = "none" | "sm" | "md" | "lg" | "xl" | "2xl" | "inner";
+export type Elevation = "none" | "sm" | "md" | "lg" | "xl" | "2xl" | "inner" | "sm-dark" | "md-dark";
 export type BorderWidth = "none" | "thin" | "medium" | "thick";
 export type ZIndex = 
   | "hide" | "base" | "docked" | "dropdown" | "sticky" 

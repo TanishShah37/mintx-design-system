@@ -2,7 +2,6 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { Loader } from "../../components/ui/Loader";
 import { Carousel } from "../../components/ui/Carousel";
 import { FadeIn, SlideIn, ScaleIn } from "../../components/ui/Animations";
-import { RemixIcon } from "../../components/ui/RemixIcon";
 import { Badge } from "../../components/ui/Badge";
 import React from "react";
 
@@ -55,35 +54,10 @@ export const AnimationsDemo: StoryObj = {
   name: "Animations",
   render: () => (
     <div style={{ display: "flex", gap: 12, flexWrap: "wrap" }}>
-      <FadeIn><Badge variant="mint">Fade In</Badge></FadeIn>
-      <SlideIn direction="up"><Badge variant="blue">Slide Up</Badge></SlideIn>
-      <SlideIn direction="left"><Badge variant="purple">Slide Left</Badge></SlideIn>
-      <ScaleIn><Badge variant="success">Scale In</Badge></ScaleIn>
-    </div>
-  ),
-};
-
-export const RemixIconDemo: StoryObj = {
-  name: "RemixIcon",
-  render: () => (
-    <div style={{ display: "flex", flexWrap: "wrap", gap: 20, padding: 8 }}>
-      {[
-        "ri-home-line",
-        "ri-user-line",
-        "ri-settings-4-line",
-        "ri-notification-3-line",
-        "ri-line-chart-line",
-        "ri-money-rupee-circle-line",
-        "ri-shield-check-line",
-        "ri-search-line",
-        "ri-bar-chart-2-line",
-        "ri-wallet-3-line",
-      ].map((icon) => (
-        <div key={icon} style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 6 }}>
-          <RemixIcon name={icon} size={24} color="var(--text-brand, #00B38A)" />
-          <span style={{ fontSize: 10, color: "var(--text-tertiary, var(--chart-neutral, var(--chart-neutral, #748A83)))", fontFamily: "monospace" }}>{icon}</span>
-        </div>
-      ))}
+      <FadeIn><Badge color="primary">Fade In</Badge></FadeIn>
+      <SlideIn direction="up"><Badge color="info">Slide Up</Badge></SlideIn>
+      <SlideIn direction="left"><Badge color="warning">Slide Left</Badge></SlideIn>
+      <ScaleIn><Badge color="success">Scale In</Badge></ScaleIn>
     </div>
   ),
 };
