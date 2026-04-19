@@ -44,6 +44,16 @@ const typographyVariants = cva("", {
       right: "text-right",
       justify: "text-justify",
     },
+    color: {
+      brand: "text-[var(--text-brand)]",
+      primary: "text-[var(--text-primary)]",
+      secondary: "text-[var(--text-secondary)]",
+      success: "text-[var(--text-success)]",
+      warning: "text-[var(--text-warning)]",
+      danger: "text-[var(--text-danger)]",
+      info: "text-[var(--text-info)]",
+      white: "text-white",
+    },
   },
   defaultVariants: {
     variant: "body",
@@ -52,13 +62,13 @@ const typographyVariants = cva("", {
 });
 
 export interface TypographyProps
-  extends React.HTMLAttributes<HTMLElement>,
+  extends Omit<React.HTMLAttributes<HTMLElement>, "color">,
     VariantProps<typeof typographyVariants> {
   as?: React.ElementType;
 }
 
 export const Typography = forwardRef<HTMLElement, TypographyProps>(
-  ({ as: Component = "span", variant, size, weight, align, className, children, ...props }, ref) => {
+  ({ as: Component = "span", variant, size, weight, align, color, className, children, ...props }, ref) => {
     // Default components for header variants
     const DefaultComponent = 
       variant === "h1" ? "h1" :
@@ -72,7 +82,7 @@ export const Typography = forwardRef<HTMLElement, TypographyProps>(
     return (
       <DefaultComponent
         ref={ref}
-        className={cn(typographyVariants({ variant, size, weight, align }), className)}
+        className={cn(typographyVariants({ variant, size, weight, align, color }), className)}
         {...props}
       >
         {children}

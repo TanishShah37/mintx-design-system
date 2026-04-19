@@ -6227,6 +6227,7 @@ var badgeVariants = cva(
       variant: {
         solid: "border-transparent",
         subtle: "border-transparent",
+        secondary: "border-transparent",
         outline: "bg-transparent",
         ghost: "bg-transparent border-transparent"
       },
@@ -17649,6 +17650,16 @@ var typographyVariants = cva("", {
       center: "text-center",
       right: "text-right",
       justify: "text-justify"
+    },
+    color: {
+      brand: "text-[var(--text-brand)]",
+      primary: "text-[var(--text-primary)]",
+      secondary: "text-[var(--text-secondary)]",
+      success: "text-[var(--text-success)]",
+      warning: "text-[var(--text-warning)]",
+      danger: "text-[var(--text-danger)]",
+      info: "text-[var(--text-info)]",
+      white: "text-white"
     }
   },
   defaultVariants: {
@@ -17657,13 +17668,13 @@ var typographyVariants = cva("", {
   }
 });
 var Typography = forwardRef(
-  ({ as: Component2 = "span", variant, size, weight, align, className, children, ...props }, ref) => {
+  ({ as: Component2 = "span", variant, size, weight, align, color, className, children, ...props }, ref) => {
     const DefaultComponent = variant === "h1" ? "h1" : variant === "h2" ? "h2" : variant === "h3" ? "h3" : variant === "h4" ? "h4" : variant === "h5" ? "h5" : variant === "h6" ? "h6" : Component2;
     return /* @__PURE__ */ jsx(
       DefaultComponent,
       {
         ref,
-        className: cn(typographyVariants({ variant, size, weight, align }), className),
+        className: cn(typographyVariants({ variant, size, weight, align, color }), className),
         ...props,
         children
       }

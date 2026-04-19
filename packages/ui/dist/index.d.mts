@@ -713,7 +713,7 @@ declare const Button$1: React__default.ForwardRefExoticComponent<ButtonProps$1 &
 
 declare const badgeVariants$1: (props?: ({
     color?: "primary" | "danger" | "success" | "warning" | "info" | "neutral" | null | undefined;
-    variant?: "ghost" | "outline" | "subtle" | "solid" | null | undefined;
+    variant?: "secondary" | "ghost" | "outline" | "subtle" | "solid" | null | undefined;
     size?: "sm" | "md" | "lg" | null | undefined;
 } & class_variance_authority_types.ClassProp) | undefined) => string;
 interface BadgeProps$1 extends Omit<React__default.HTMLAttributes<HTMLDivElement>, "color">, VariantProps<typeof badgeVariants$1>, BaseProps {
@@ -2570,8 +2570,9 @@ declare const typographyVariants: (props?: ({
     size?: "sm" | "lg" | "xl" | "2xl" | "base" | "xs" | "3xl" | "4xl" | "5xl" | "6xl" | "7xl" | "8xl" | "9xl" | null | undefined;
     weight?: "medium" | "bold" | "normal" | "light" | "semibold" | null | undefined;
     align?: "center" | "right" | "left" | "justify" | null | undefined;
+    color?: "primary" | "secondary" | "danger" | "success" | "warning" | "info" | "white" | "brand" | null | undefined;
 } & class_variance_authority_types.ClassProp) | undefined) => string;
-interface TypographyProps extends React__default.HTMLAttributes<HTMLElement>, VariantProps<typeof typographyVariants> {
+interface TypographyProps extends Omit<React__default.HTMLAttributes<HTMLElement>, "color">, VariantProps<typeof typographyVariants> {
     as?: React__default.ElementType;
 }
 declare const Typography: React__default.ForwardRefExoticComponent<TypographyProps & React__default.RefAttributes<HTMLElement>>;
