@@ -88,6 +88,9 @@ export * from "./components/layout";
 // (Exported with Shared prefix to avoid ambiguity with ui/)
 export {
   Accordion as SharedAccordion,
+  AccordionItem as SharedAccordionItem,
+  AccordionTrigger as SharedAccordionTrigger,
+  AccordionContent as SharedAccordionContent,
   Alert as SharedAlert,
   Backdrop as SharedBackdrop,
   Badge as SharedBadge,
@@ -121,12 +124,19 @@ export {
   RadioGroupItem as SharedRadioGroupItem,
   Rating as SharedRating,
   Select as SharedSelect,
+  SelectTrigger as SharedSelectTrigger,
+  SelectValue as SharedSelectValue,
+  SelectContent as SharedSelectContent,
+  SelectItem as SharedSelectItem,
   Separator as SharedSeparator,
   Skeleton as SharedSkeleton,
   Slider as SharedSlider,
   Stack as SharedStack,
   Switch as SharedSwitch,
   Tabs as SharedTabs,
+  TabsList as SharedTabsList,
+  TabsTrigger as SharedTabsTrigger,
+  TabsContent as SharedTabsContent,
   Tag as SharedTag,
   TagGroup as SharedTagGroup,
   TextArea as SharedTextArea,
@@ -135,6 +145,9 @@ export {
   Toast as SharedToast,
   Toggle as SharedToggle,
   Tooltip as SharedTooltip,
+  TooltipProvider as SharedTooltipProvider,
+  TooltipTrigger as SharedTooltipTrigger,
+  TooltipContent as SharedTooltipContent,
   Typography as SharedTypography,
 } from "./components/shared";
 
@@ -153,4 +166,5 @@ export {
   TableRow,
   TableHead,
   TableCell,
+  TableCaption,
 } from "./components/ui/Table";

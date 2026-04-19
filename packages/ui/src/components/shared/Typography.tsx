@@ -15,6 +15,8 @@ const typographyVariants = cva("", {
       body: "font-body",
       label: "font-body font-medium uppercase tracking-wider",
       mono: "font-mono",
+      table: "font-body font-bold uppercase tracking-wider",
+      sharedcard: "font-display font-bold tracking-tight",
     },
     size: {
       xs: "text-xs",

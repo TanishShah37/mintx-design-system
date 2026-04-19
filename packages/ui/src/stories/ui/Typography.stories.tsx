@@ -17,7 +17,7 @@ const meta: Meta<typeof Typography> = {
   argTypes: {
     variant: {
       control: "select",
-      options: ["display", "h1", "h2", "h3", "h4", "h5", "h6", "body", "label", "mono"],
+      options: ["display", "h1", "h2", "h3", "h4", "h5", "h6", "body", "label", "mono", "table", "sharedcard"],
     },
     size: {
       control: "select",
@@ -72,6 +72,8 @@ export const BodyAndLabels: Story = {
       </Typography>
       <Typography variant="label">Market Indicator — NSE</Typography>
       <Typography variant="mono">0x1234567890abcdef</Typography>
+      <Typography variant="table">Table Header Content</Typography>
+      <Typography variant="sharedcard">Card Heading Content</Typography>
     </div>
   ),
 };

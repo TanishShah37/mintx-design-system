@@ -21,6 +21,7 @@ const badgeVariants = cva(
         blue: "border-transparent bg-blue-500/10 text-blue-600",
         purple: "border-transparent bg-purple-500/10 text-purple-600",
         neutral: "border-transparent bg-neutral-100 text-neutral-500",
+        subtle: "border-transparent bg-neutral-100 text-neutral-600 hover:bg-neutral-200",
       },
       size: {
         sm: "px-2 py-0.5 text-[10px]",
