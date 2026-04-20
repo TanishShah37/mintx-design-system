@@ -17627,7 +17627,8 @@ var typographyVariants = cva("", {
       label: "font-body font-medium uppercase tracking-wider",
       mono: "font-mono",
       table: "font-body font-bold uppercase tracking-wider",
-      sharedcard: "font-display font-bold tracking-tight"
+      sharedcard: "font-display font-bold tracking-tight",
+      ghost: "font-body opacity-60"
     },
     size: {
       xs: "text-xs",
@@ -17661,6 +17662,7 @@ var typographyVariants = cva("", {
       brand: "text-[var(--text-brand)]",
       primary: "text-[var(--text-primary)]",
       secondary: "text-[var(--text-secondary)]",
+      tertiary: "text-[var(--text-tertiary)]",
       success: "text-[var(--text-success)]",
       warning: "text-[var(--text-warning)]",
       danger: "text-[var(--text-danger)]",

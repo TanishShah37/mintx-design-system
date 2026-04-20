@@ -2583,11 +2583,11 @@ declare const TooltipTrigger: React__default.ForwardRefExoticComponent<TooltipPr
 declare const TooltipContent: React__default.ForwardRefExoticComponent<Omit<TooltipPrimitive.TooltipContentProps & React__default.RefAttributes<HTMLDivElement>, "ref"> & React__default.RefAttributes<HTMLDivElement>>;
 
 declare const typographyVariants: (props?: ({
-    variant?: "h2" | "h3" | "label" | "body" | "h1" | "h4" | "h5" | "h6" | "table" | "display" | "mono" | "sharedcard" | null | undefined;
+    variant?: "h2" | "h3" | "label" | "body" | "h1" | "h4" | "h5" | "h6" | "table" | "ghost" | "display" | "mono" | "sharedcard" | null | undefined;
     size?: "sm" | "lg" | "xl" | "2xl" | "base" | "xs" | "3xl" | "4xl" | "5xl" | "6xl" | "7xl" | "8xl" | "9xl" | null | undefined;
     weight?: "medium" | "bold" | "normal" | "light" | "semibold" | null | undefined;
     align?: "center" | "right" | "left" | "justify" | null | undefined;
-    color?: "primary" | "secondary" | "danger" | "success" | "warning" | "info" | "white" | "brand" | null | undefined;
+    color?: "primary" | "secondary" | "danger" | "success" | "warning" | "info" | "white" | "brand" | "tertiary" | null | undefined;
 } & class_variance_authority_types.ClassProp) | undefined) => string;
 interface TypographyProps extends Omit<React__default.HTMLAttributes<HTMLElement>, "color">, VariantProps<typeof typographyVariants> {
     as?: React__default.ElementType;
