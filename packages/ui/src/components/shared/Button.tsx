@@ -3,6 +3,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "../../tokens/cn";
 import { BaseProps } from "../../types";
 import { getCommonClasses } from "../../tokens/common-props";
+import { PolymorphicComponentProps, PolymorphicForwardRef } from "../../types/polymorphic";
 
 const buttonVariants = cva(
   "inline-flex items-center justify-center gap-sp-2 font-body font-medium tracking-tight cursor-pointer border border-transparent relative overflow-hidden select-none whitespace-nowrap transition-all duration-200 ease-out focus-visible:outline-2 focus-visible:outline-mint-400 focus-visible:outline-offset-2 active:scale-95 disabled:opacity-40 disabled:cursor-not-allowed disabled:pointer-events-none before:absolute before:inset-[-8px] before:content-['']",
@@ -35,70 +36,75 @@ const buttonVariants = cva(
   }
 );
 
-export interface ButtonProps 
-  extends React.ButtonHTMLAttributes<HTMLButtonElement>,
-    VariantProps<typeof buttonVariants>,
-    BaseProps {
+export interface ButtonOwnProps extends VariantProps<typeof buttonVariants>, BaseProps {
   loading?: boolean;
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
   iconOnly?: boolean;
 }
 
-export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  (
-    {
-      variant,
-      size,
-      loading = false,
-      leftIcon,
-      rightIcon,
-      iconOnly = false,
-      fullWidth,
-      disabled,
-      className,
-      style,
-      children,
-      ...props
-    },
-    ref,
-  ): React.JSX.Element => {
-    return (
-      <button
-        ref={ref}
-        className={cn(
-          buttonVariants({ 
-            variant, 
-            size: iconOnly ? "icon" : size, 
-            fullWidth, 
-            loading 
-          }),
-          getCommonClasses(props),
-          className
+export type ButtonProps<T extends React.ElementType = "button"> = PolymorphicComponentProps<
+  T,
+  ButtonOwnProps
+>;
+
+const ButtonInner = (
+  {
+    as,
+    variant,
+    size,
+    loading = false,
+    leftIcon,
+    rightIcon,
+    iconOnly = false,
+    fullWidth,
+    disabled,
+    className,
+    style,
+    children,
+    ...props
+  }: any,
+  ref: React.ForwardedRef<any>
+) => {
+  const Component = as || "button";
+
+  return (
+    <Component
+      ref={ref}
+      className={cn(
+        buttonVariants({ 
+          variant, 
+          size: iconOnly ? "icon" : size, 
+          fullWidth, 
+          loading 
+        }),
+        getCommonClasses(props),
+        className
+      )}
+      style={style}
+      disabled={disabled || loading}
+      aria-busy={loading}
+      {...props}
+    >
+      {loading && (
+        <span 
+          className="absolute w-3.5 h-3.5 border-2 border-current border-t-transparent rounded-full animate-spin" 
+          aria-hidden="true" 
+        />
+      )}
+      <span className={cn("flex items-center gap-sp-2 justify-center", loading && "opacity-0")}>
+        {!loading && leftIcon && (
+          <span className="inline-flex items-center shrink-0">{leftIcon}</span>
         )}
-        style={style}
-        disabled={disabled || loading}
-        aria-busy={loading}
-        {...props}
-      >
-        {loading && (
-          <span 
-            className="absolute w-3.5 h-3.5 border-2 border-current border-t-transparent rounded-full animate-spin" 
-            aria-hidden="true" 
-          />
+        <span>{children}</span>
+        {!loading && rightIcon && (
+          <span className="inline-flex items-center shrink-0">{rightIcon}</span>
         )}
-        <span className={cn("flex items-center gap-sp-2", loading && "opacity-0")}>
-          {!loading && leftIcon && (
-            <span className="inline-flex items-center shrink-0">{leftIcon}</span>
-          )}
-          <span>{children}</span>
-          {!loading && rightIcon && (
-            <span className="inline-flex items-center shrink-0">{rightIcon}</span>
-          )}
-        </span>
-      </button>
-    );
-  },
-);
+      </span>
+    </Component>
+  );
+};
+
+export const Button = forwardRef(ButtonInner) as PolymorphicForwardRef<ButtonOwnProps, "button">;
 
 Button.displayName = "Button";

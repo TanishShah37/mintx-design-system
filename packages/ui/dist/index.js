@@ -13399,57 +13399,58 @@ var buttonVariants2 = classVarianceAuthority.cva(
     }
   }
 );
-var Button2 = React27.forwardRef(
-  ({
-    variant,
-    size,
-    loading = false,
-    leftIcon,
-    rightIcon,
-    iconOnly = false,
-    fullWidth,
-    disabled,
-    className,
-    style,
-    children,
-    ...props
-  }, ref) => {
-    return /* @__PURE__ */ jsxRuntime.jsxs(
-      "button",
-      {
-        ref,
-        className: cn(
-          buttonVariants2({
-            variant,
-            size: iconOnly ? "icon" : size,
-            fullWidth,
-            loading
-          }),
-          getCommonClasses(props),
-          className
+var ButtonInner = ({
+  as,
+  variant,
+  size,
+  loading = false,
+  leftIcon,
+  rightIcon,
+  iconOnly = false,
+  fullWidth,
+  disabled,
+  className,
+  style,
+  children,
+  ...props
+}, ref) => {
+  const Component2 = as || "button";
+  return /* @__PURE__ */ jsxRuntime.jsxs(
+    Component2,
+    {
+      ref,
+      className: cn(
+        buttonVariants2({
+          variant,
+          size: iconOnly ? "icon" : size,
+          fullWidth,
+          loading
+        }),
+        getCommonClasses(props),
+        className
+      ),
+      style,
+      disabled: disabled || loading,
+      "aria-busy": loading,
+      ...props,
+      children: [
+        loading && /* @__PURE__ */ jsxRuntime.jsx(
+          "span",
+          {
+            className: "absolute w-3.5 h-3.5 border-2 border-current border-t-transparent rounded-full animate-spin",
+            "aria-hidden": "true"
+          }
         ),
-        style,
-        disabled: disabled || loading,
-        "aria-busy": loading,
-        ...props,
-        children: [
-          loading && /* @__PURE__ */ jsxRuntime.jsx(
-            "span",
-            {
-              className: "absolute w-3.5 h-3.5 border-2 border-current border-t-transparent rounded-full animate-spin",
-              "aria-hidden": "true"
-            }
-          ),
-          /* @__PURE__ */ jsxRuntime.jsxs("span", { className: cn("flex items-center gap-sp-2", loading && "opacity-0"), children: [
-            !loading && leftIcon && /* @__PURE__ */ jsxRuntime.jsx("span", { className: "inline-flex items-center shrink-0", children: leftIcon }),
-            /* @__PURE__ */ jsxRuntime.jsx("span", { children }),
-            !loading && rightIcon && /* @__PURE__ */ jsxRuntime.jsx("span", { className: "inline-flex items-center shrink-0", children: rightIcon })
-          ] })
-        ]
-      }
-    );
-  }
-);
+        /* @__PURE__ */ jsxRuntime.jsxs("span", { className: cn("flex items-center gap-sp-2 justify-center", loading && "opacity-0"), children: [
+          !loading && leftIcon && /* @__PURE__ */ jsxRuntime.jsx("span", { className: "inline-flex items-center shrink-0", children: leftIcon }),
+          /* @__PURE__ */ jsxRuntime.jsx("span", { children }),
+          !loading && rightIcon && /* @__PURE__ */ jsxRuntime.jsx("span", { className: "inline-flex items-center shrink-0", children: rightIcon })
+        ] })
+      ]
+    }
+  );
+};
+var Button2 = React27.forwardRef(ButtonInner);
 Button2.displayName = "Button";
 var Fab2 = React27__namespace.default.forwardRef(
   ({ icon, children, position = "none", className, ...props }, ref) => {
@@ -16284,7 +16285,9 @@ var badgeVariants2 = classVarianceAuthority.cva(
         blue: "border-transparent bg-blue-500/10 text-blue-600",
         purple: "border-transparent bg-purple-500/10 text-purple-600",
         neutral: "border-transparent bg-neutral-100 text-neutral-500",
-        subtle: "border-transparent bg-neutral-100 text-neutral-600 hover:bg-neutral-200"
+        primary: "border-transparent bg-mint-500/10 text-mint-600",
+        subtle: "border-transparent bg-neutral-100 text-neutral-600 hover:bg-neutral-200",
+        ghost: "bg-transparent border-transparent text-neutral-500 opacity-[var(--ghost-opacity,0.6)]"
       },
       size: {
         sm: "px-2 py-0.5 text-[10px]",
@@ -16299,7 +16302,13 @@ var badgeVariants2 = classVarianceAuthority.cva(
   }
 );
 function Badge2({ className, variant, size, ...props }) {
-  return /* @__PURE__ */ jsxRuntime.jsx("div", { className: cn(badgeVariants2({ variant, size }), className), ...props });
+  return /* @__PURE__ */ jsxRuntime.jsx(
+    "div",
+    {
+      className: cn(badgeVariants2({ variant, size }), getCommonClasses(props), className),
+      ...props
+    }
+  );
 }
 var Box2 = React27.forwardRef(
   ({ as: Component2 = "div", className, children, ...props }, ref) => {
@@ -16327,18 +16336,13 @@ var cardVariants4 = classVarianceAuthority.cva(
       padding: {
         none: "p-0",
         xs: "p-2",
-        // spacing[2]
         sm: "p-4",
-        // spacing[4]
         md: "p-6",
-        // spacing[6] (24px) - As confirmed by user
         lg: "p-10",
-        // spacing[10]
         xl: "p-16"
-        // spacing[16]
       },
       hover: {
-        true: "hover:shadow-lg hover:-translate-y-1 hover:border-mint-400/30"
+        true: "hover:shadow-lg hover:-translate-y-1 hover:border-mint-400/30 cursor-pointer"
       }
     },
     defaultVariants: {
@@ -16347,25 +16351,41 @@ var cardVariants4 = classVarianceAuthority.cva(
     }
   }
 );
-var Card2 = React27.forwardRef(
-  ({ variant, padding, hover, elevation: elevation2, className, style, children, ...props }, ref) => {
-    return /* @__PURE__ */ jsxRuntime.jsx(
-      "div",
-      {
-        ref,
-        className: cn(
-          cardVariants4({ variant, padding, hover }),
-          elevation2 && `shadow-${elevation2}`,
-          getCommonClasses(props),
-          className
-        ),
-        style,
-        ...props,
-        children
-      }
-    );
-  }
-);
+var CardInner = ({
+  as,
+  variant,
+  padding,
+  hover,
+  interactive,
+  elevation: elevation2,
+  className,
+  style,
+  children,
+  ...props
+}, ref) => {
+  const Component2 = as || "div";
+  const isInteractive = interactive || hover;
+  return /* @__PURE__ */ jsxRuntime.jsx(
+    Component2,
+    {
+      ref,
+      className: cn(
+        cardVariants4({
+          variant,
+          padding,
+          hover: isInteractive
+        }),
+        elevation2 && `shadow-${elevation2}`,
+        getCommonClasses(props),
+        className
+      ),
+      style,
+      ...props,
+      children
+    }
+  );
+};
+var Card2 = React27.forwardRef(CardInner);
 Card2.displayName = "Card";
 function Carousel2({
   children,
@@ -17650,22 +17670,25 @@ var TooltipContent2 = React27__namespace.default.forwardRef(({ className, sideOf
   }
 ));
 TooltipContent2.displayName = TooltipPrimitive__namespace.Content.displayName;
-var typographyVariants = classVarianceAuthority.cva("", {
+var typographyVariants = classVarianceAuthority.cva("transition-colors", {
   variants: {
     variant: {
-      display: "font-display font-bold tracking-tight",
-      h1: "font-display font-bold tracking-tight",
-      h2: "font-display font-bold tracking-tight",
-      h3: "font-display font-bold tracking-tight",
-      h4: "font-display font-semibold tracking-tight",
-      h5: "font-display font-semibold tracking-tight",
-      h6: "font-display font-semibold tracking-tight",
-      body: "font-body",
-      label: "font-body font-medium uppercase tracking-wider",
-      mono: "font-mono",
-      table: "font-body font-bold uppercase tracking-wider",
-      sharedcard: "font-display font-bold tracking-tight",
-      ghost: "font-body opacity-60"
+      h1: "text-4xl font-black uppercase tracking-tight md:text-5xl",
+      h2: "text-3xl font-black uppercase tracking-tight md:text-4xl",
+      h3: "text-2xl font-black uppercase tracking-tight md:text-3xl",
+      h4: "text-xl font-bold uppercase tracking-tight",
+      h5: "text-lg font-bold uppercase tracking-tight",
+      h6: "text-base font-bold uppercase tracking-tight",
+      body: "text-base font-medium leading-relaxed",
+      body2: "text-sm font-medium leading-relaxed",
+      label: "text-[10px] font-black uppercase tracking-[0.2em]",
+      mono: "font-mono text-sm tracking-tight",
+      display: "font-black uppercase tracking-[-0.02em] leading-[0.9]",
+      sharedcard: "text-sm font-bold leading-snug",
+      tablehead: "text-[10px] font-black uppercase tracking-widest opacity-40",
+      tablecell: "text-sm font-medium",
+      ghost: "opacity-[var(--ghost-opacity,0.6)]",
+      button: "text-[10px] font-black uppercase tracking-widest"
     },
     size: {
       xs: "text-xs",
@@ -17682,50 +17705,48 @@ var typographyVariants = classVarianceAuthority.cva("", {
       "8xl": "text-8xl",
       "9xl": "text-9xl"
     },
-    weight: {
-      light: "font-light",
-      normal: "font-normal",
-      medium: "font-medium",
-      semibold: "font-semibold",
-      bold: "font-bold"
+    color: {
+      default: "text-neutral-900 dark:text-neutral-50",
+      primary: "text-neutral-600 dark:text-neutral-300",
+      secondary: "text-neutral-500 dark:text-neutral-400",
+      tertiary: "text-neutral-400 dark:text-neutral-500",
+      brand: "text-mint-500",
+      white: "text-white",
+      danger: "text-red-500",
+      success: "text-emerald-500",
+      warning: "text-amber-500",
+      info: "text-blue-500"
     },
     align: {
       left: "text-left",
       center: "text-center",
-      right: "text-right",
-      justify: "text-justify"
-    },
-    color: {
-      brand: "text-[var(--text-brand)]",
-      primary: "text-[var(--text-primary)]",
-      secondary: "text-[var(--text-secondary)]",
-      tertiary: "text-[var(--text-tertiary)]",
-      success: "text-[var(--text-success)]",
-      warning: "text-[var(--text-warning)]",
-      danger: "text-[var(--text-danger)]",
-      info: "text-[var(--text-info)]",
-      white: "text-white"
+      right: "text-right"
     }
   },
   defaultVariants: {
     variant: "body",
-    size: "base"
+    color: "default",
+    align: "left"
   }
 });
-var Typography = React27.forwardRef(
-  ({ as: Component2 = "span", variant, size, weight, align, color, className, children, ...props }, ref) => {
-    const DefaultComponent = variant === "h1" ? "h1" : variant === "h2" ? "h2" : variant === "h3" ? "h3" : variant === "h4" ? "h4" : variant === "h5" ? "h5" : variant === "h6" ? "h6" : Component2;
-    return /* @__PURE__ */ jsxRuntime.jsx(
-      DefaultComponent,
-      {
-        ref,
-        className: cn(typographyVariants({ variant, size, weight, align, color }), className),
-        ...props,
-        children
-      }
-    );
-  }
-);
+var TypographyInner = ({ as, variant, size, color, align, className, style, children, ...props }, ref) => {
+  const Component2 = as || (variant && ["h1", "h2", "h3", "h4", "h5", "h6"].includes(variant) ? variant : "span");
+  return /* @__PURE__ */ jsxRuntime.jsx(
+    Component2,
+    {
+      ref,
+      className: cn(
+        typographyVariants({ variant, size, color, align }),
+        getCommonClasses(props),
+        className
+      ),
+      style,
+      ...props,
+      children
+    }
+  );
+};
+var Typography = React27.forwardRef(TypographyInner);
 Typography.displayName = "Typography";
 
 exports.Accordion = Accordion;

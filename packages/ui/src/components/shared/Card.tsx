@@ -3,6 +3,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { BaseProps, Elevation } from "../../types";
 import { cn } from "../../tokens/cn";
 import { getCommonClasses } from "../../tokens/common-props";
+import { PolymorphicComponentProps, PolymorphicForwardRef } from "../../types/polymorphic";
 
 const cardVariants = cva(
   "rounded-2xl overflow-hidden transition-all duration-200 ease-out",
@@ -15,14 +16,14 @@ const cardVariants = cva(
       },
       padding: {
         none: "p-0",
-        xs: "p-2", // spacing[2]
-        sm: "p-4", // spacing[4]
-        md: "p-6", // spacing[6] (24px) - As confirmed by user
-        lg: "p-10", // spacing[10]
-        xl: "p-16", // spacing[16]
+        xs: "p-2",
+        sm: "p-4",
+        md: "p-6",
+        lg: "p-10",
+        xl: "p-16",
       },
       hover: {
-        true: "hover:shadow-lg hover:-translate-y-1 hover:border-mint-400/30",
+        true: "hover:shadow-lg hover:-translate-y-1 hover:border-mint-400/30 cursor-pointer",
       },
     },
     defaultVariants: {
@@ -32,31 +33,53 @@ const cardVariants = cva(
   }
 );
 
-export interface CardProps 
-  extends React.HTMLAttributes<HTMLDivElement>, 
-    VariantProps<typeof cardVariants>,
-    BaseProps {
+export interface CardOwnProps extends VariantProps<typeof cardVariants>, BaseProps {
   elevation?: Elevation;
+  /** Alias for hover variant to match web-app usage */
+  interactive?: boolean;
 }
 
-export const Card = forwardRef<HTMLDivElement, CardProps>(
-  ({ variant, padding, hover, elevation, className, style, children, ...props }, ref) => {
-    return (
-      <div
-        ref={ref}
-        className={cn(
-          cardVariants({ variant, padding, hover }),
-          elevation && `shadow-${elevation}`,
-          getCommonClasses(props),
-          className
-        )}
-        style={style}
-        {...props}
-      >
-        {children}
-      </div>
-    );
-  }
-);
+export type CardProps<T extends React.ElementType = "div"> = PolymorphicComponentProps<T, CardOwnProps>;
+
+const CardInner = (
+  { 
+    as,
+    variant, 
+    padding, 
+    hover, 
+    interactive,
+    elevation, 
+    className, 
+    style, 
+    children, 
+    ...props 
+  }: any, 
+  ref: React.ForwardedRef<any>
+) => {
+  const Component = as || "div";
+  const isInteractive = interactive || hover;
+
+  return (
+    <Component
+      ref={ref}
+      className={cn(
+        cardVariants({ 
+          variant, 
+          padding, 
+          hover: isInteractive 
+        }),
+        elevation && `shadow-${elevation}`,
+        getCommonClasses(props),
+        className
+      )}
+      style={style}
+      {...props}
+    >
+      {children}
+    </Component>
+  );
+};
+
+export const Card = forwardRef(CardInner) as PolymorphicForwardRef<CardOwnProps, "div">;
 
 Card.displayName = "Card";

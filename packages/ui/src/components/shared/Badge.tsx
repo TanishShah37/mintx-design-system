@@ -1,6 +1,8 @@
 import React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "../../tokens/cn";
+import { BaseProps } from "../../types";
+import { getCommonClasses } from "../../tokens/common-props";
 
 const badgeVariants = cva(
   "inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-bold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 uppercase tracking-wider",
@@ -21,7 +23,9 @@ const badgeVariants = cva(
         blue: "border-transparent bg-blue-500/10 text-blue-600",
         purple: "border-transparent bg-purple-500/10 text-purple-600",
         neutral: "border-transparent bg-neutral-100 text-neutral-500",
+        primary: "border-transparent bg-mint-500/10 text-mint-600",
         subtle: "border-transparent bg-neutral-100 text-neutral-600 hover:bg-neutral-200",
+        ghost: "bg-transparent border-transparent text-neutral-500 opacity-[var(--ghost-opacity,0.6)]",
       },
       size: {
         sm: "px-2 py-0.5 text-[10px]",
@@ -38,11 +42,15 @@ const badgeVariants = cva(
 
 export interface BadgeProps
   extends React.HTMLAttributes<HTMLDivElement>,
-    VariantProps<typeof badgeVariants> {}
+    VariantProps<typeof badgeVariants>,
+    BaseProps {}
 
 function Badge({ className, variant, size, ...props }: BadgeProps) {
   return (
-    <div className={cn(badgeVariants({ variant, size }), className)} {...props} />
+    <div 
+      className={cn(badgeVariants({ variant, size }), getCommonClasses(props), className)} 
+      {...props} 
+    />
   );
 }
 

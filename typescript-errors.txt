@@ -3772,10 +3772,6 @@ node_modules/typescript/lib/lib.es5.d.ts(4562,11): error TS6232: Declaration aug
 node_modules/typescript/lib/lib.es5.d.ts(4572,11): error TS6232: Declaration augments declaration in another file. This cannot be serialized.
 node_modules/typescript/lib/lib.es5.d.ts(4581,11): error TS6232: Declaration augments declaration in another file. This cannot be serialized.
 node_modules/vite/types/internal/cssPreprocessorOptions.d.ts(62,13): error TS6232: Declaration augments declaration in another file. This cannot be serialized.
-packages/ui/dist/index.d.mts(1563,15): error TS6232: Declaration augments declaration in another file. This cannot be serialized.
-packages/ui/dist/index.d.mts(2155,15): error TS6232: Declaration augments declaration in another file. This cannot be serialized.
-packages/ui/dist/index.d.ts(1563,15): error TS6232: Declaration augments declaration in another file. This cannot be serialized.
-packages/ui/dist/index.d.ts(2155,15): error TS6232: Declaration augments declaration in another file. This cannot be serialized.
 packages/ui/node_modules/esbuild/lib/main.d.ts(710,13): error TS6232: Declaration augments declaration in another file. This cannot be serialized.
 packages/ui/node_modules/esbuild/lib/main.d.ts(714,13): error TS6232: Declaration augments declaration in another file. This cannot be serialized.
 packages/ui/src/components/charts/TradingViewChart.tsx(285,13): error TS6232: Declaration augments declaration in another file. This cannot be serialized.

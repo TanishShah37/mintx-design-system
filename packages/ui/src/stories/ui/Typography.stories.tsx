@@ -17,23 +17,25 @@ const meta: Meta<typeof Typography> = {
   argTypes: {
     variant: {
       control: "select",
-      options: ["display", "h1", "h2", "h3", "h4", "h5", "h6", "body", "label", "mono", "table", "sharedcard"],
+      options: [
+        "display", 
+        "h1", "h2", "h3", "h4", "h5", "h6", 
+        "body", "body2", "label", "mono", 
+        "sharedcard", "tablehead", "tablecell", 
+        "ghost", "button"
+      ],
     },
     size: {
       control: "select",
-      options: ["xs", "sm", "base", "lg", "xl", "2xl", "3xl", "4xl", "5xl", "6xl"],
-    },
-    weight: {
-      control: "select",
-      options: ["light", "normal", "medium", "semibold", "bold"],
+      options: ["xs", "sm", "base", "lg", "xl", "2xl", "3xl", "4xl", "5xl", "6xl", "7xl", "8xl", "9xl"],
     },
     color: {
       control: "select",
-      options: ["brand", "primary", "secondary", "success", "warning", "danger", "info", "white"],
+      options: ["default", "primary", "secondary", "tertiary", "brand", "success", "warning", "danger", "info", "white"],
     },
     align: {
       control: "select",
-      options: ["left", "center", "right", "justify"],
+      options: ["left", "center", "right"],
     },
   },
 };
@@ -72,7 +74,7 @@ export const BodyAndLabels: Story = {
       </Typography>
       <Typography variant="label">Market Indicator — NSE</Typography>
       <Typography variant="mono">0x1234567890abcdef</Typography>
-      <Typography variant="table">Table Header Content</Typography>
+      <Typography variant="tablehead">Table Header Content</Typography>
       <Typography variant="sharedcard">Card Heading Content</Typography>
     </div>
   ),
