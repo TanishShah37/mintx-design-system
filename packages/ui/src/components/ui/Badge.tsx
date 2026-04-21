@@ -22,6 +22,7 @@ const badgeVariants = cva(
         subtle: "border-transparent",
         secondary: "border-transparent",
         outline: "bg-transparent",
+        soft: "border-transparent bg-mint-500/10 text-mint-700 hover:bg-mint-500/20",
         ghost: "bg-transparent border-transparent",
       },
       size: {

@@ -148,6 +148,7 @@ export {
   TooltipProvider as SharedTooltipProvider,
   TooltipTrigger as SharedTooltipTrigger,
   TooltipContent as SharedTooltipContent,
+  Typography,
   Typography as SharedTypography,
 } from "./components/shared";
 

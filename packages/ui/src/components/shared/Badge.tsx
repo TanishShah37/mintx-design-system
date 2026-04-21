@@ -15,7 +15,7 @@ const badgeVariants = cva(
           "border-transparent bg-neutral-100 text-neutral-600 hover:bg-neutral-200",
         destructive:
           "border-transparent bg-red-500 text-neutral-0 shadow hover:bg-red-600",
-        outline: "text-neutral-900 border-neutral-150",
+        outline: "text-neutral-900 border-neutral-150 bg-transparent",
         success: "border-transparent bg-mint-500/10 text-mint-600",
         warning: "border-transparent bg-amber-500/10 text-amber-600",
         error: "border-transparent bg-red-500/10 text-red-600",
@@ -25,6 +25,7 @@ const badgeVariants = cva(
         neutral: "border-transparent bg-neutral-100 text-neutral-500",
         primary: "border-transparent bg-mint-500/10 text-mint-600",
         subtle: "border-transparent bg-neutral-100 text-neutral-600 hover:bg-neutral-200",
+        soft: "border-transparent bg-mint-500/10 text-mint-700 hover:bg-mint-500/20",
         ghost: "bg-transparent border-transparent text-neutral-500 opacity-[var(--ghost-opacity,0.6)]",
       },
       size: {

@@ -21,6 +21,7 @@ const buttonVariants = cva(
         info: "bg-blue-500 text-white border-blue-500 hover:bg-blue-600 hover:border-blue-600",
         outline: "bg-transparent border border-neutral-300 text-neutral-700 hover:bg-neutral-50 hover:border-neutral-400",
         subtle: "bg-neutral-100 text-neutral-700 border-neutral-100 hover:bg-neutral-200",
+        soft: "bg-mint-500/10 text-mint-700 border-transparent hover:bg-mint-500/20 shadow-none",
         link: "bg-transparent text-mint-600 border-transparent hover:underline hover:text-mint-700 p-0 h-auto before:hidden",
       },
       size: {

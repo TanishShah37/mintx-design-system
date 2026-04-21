@@ -22,7 +22,7 @@ const meta: Meta<typeof Badge> = {
     },
     variant: {
       control: "select",
-      options: ["solid", "subtle", "secondary", "outline", "ghost"],
+      options: ["solid", "subtle", "secondary", "outline", "soft", "ghost"],
       description: "Visual style variant",
     },
     size: {
@@ -54,6 +54,7 @@ export const Styles: Story = {
       <Badge color="primary" variant="subtle">Subtle</Badge>
       <Badge color="primary" variant="secondary">Secondary</Badge>
       <Badge color="primary" variant="outline">Outline</Badge>
+      <Badge color="primary" variant="soft">Soft</Badge>
       <Badge color="primary" variant="ghost">Ghost</Badge>
     </div>
   ),

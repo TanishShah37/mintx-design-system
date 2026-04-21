@@ -242,9 +242,10 @@ npm run storybook
 
 | Component | Props | Available Literals (Variants / Scales) |
 |-----------|---------------|-----------------------------------------|
-| **Button** | `variant`, `size`, `loading`, `iconOnly` | **Variant**: `primary, secondary, ghost, danger, outline-brand, dark, success, warning, info, outline, subtle, link` <br> **Size**: `2xs, xs, sm, md, lg, xl, icon` |
-| **Badge**  | `variant`, `color`, `size`, `pulse` | **Variant**: `solid, subtle, outline, ghost` <br> **Color**: `neutral, primary, success, warning, danger, info` <br> **Size**: `sm, md, lg` |
-| **Card**   | `variant`, `padding`, `hover`, `interactive` | **Variant**: `flat, raised, glass, outlined` <br> **Padding**: `none, xs, sm, md, lg, xl` |
+| **Button** | `variant`, `size`, `loading`, `iconOnly`, `leftIcon`, `rightIcon`, `as` | **Variant**: `primary, secondary, ghost, danger, outline-brand, dark, success, warning, info, outline, subtle, link` <br> **Size**: `2xs, xs, sm, md, lg, xl, icon` |
+| **Badge**  | `variant`, `size`, `pulse` | **Variant**: `solid, subtle, outline, ghost` <br> **Color**: `neutral, primary, success, warning, danger, info, blue, purple` <br> **Size**: `sm, md, lg` |
+| **Card**   | `variant`, `padding`, `hover`, `interactive`, `elevation`, `as` | **Variant**: `flat, raised, glass, outlined` <br> **Padding**: `none, xs, sm, md, lg, xl` |
+| **Typography** | `variant`, `size`, `color`, `align`, `as` | **Variant**: `h1-h6, body, body2, label, mono, display, sharedcard, tablehead, tablecell, ghost, button` <br> **Color**: `default, primary, secondary, tertiary, brand, white, danger, success, warning, info` <br> **Align**: `left, center, right` |
 | **Input**  | `variant`, `size`, `error`, `hint` | **Variant**: `default, filled, flushed, unstyled` <br> **Size**: `sm, md, lg` |
 | **Tag**    | `variant`, `size`, `onRemove` | **Variant**: `default, primary, secondary, outline` <br> **Size**: `sm, md` |
 | **Alert**  | `variant`, `status`, `dismissible` | **Variant**: `subtle, solid, outline, ghost` <br> **Status**: `info, success, warning, error` |
@@ -252,7 +253,7 @@ npm run storybook
 | **CheckBox**| `label`, `checked`, `error` | - |
 | **Select** | `variant`, `size`, `options` | (Wraps Radix Select Primitive) |
 | **Chip** | `variant`, `size`, `color`, `clickable`, `onDelete`, `avatar`, `icon` |
-| **Avatar** | `src`, `alt`, `size` (xs, sm, md, lg, xl, 2xl), `variant` (circular, rounded, square), `fallback` |
+| **Avatar** | `src`, `alt`, `initials`, `size`, `status` | **Size**: `xs, sm, md, lg, xl, 2xl` <br> **Status**: `online, offline, away, busy, live, pro` |
 | **IconButton** | `size`, `variant`, `color`, `loading`, `badge`, `tooltip` |
 | **Fab (Floating Action Button)** | `size`, `variant`, `color`, `icon`, `extended`, `position` |
 | **Rating** | `value`, `max`, `size`, `precision`, `readOnly`, `disabled`, `emptyIcon`, `filledIcon` |
@@ -469,6 +470,22 @@ npm run storybook
 
 MintX is strictly typed to ensure a robust developer experience. Below are the core types and interfaces exported from the library.
 
+### 0. Polymorphic Components (`as` prop)
+Most core components (`Button`, `Typography`, `Card`, etc.) support the `as` prop. This allows you to change the underlying HTML element while keeping the design system styles and props.
+
+```tsx
+// Renders a p tag with h1 styles
+<Typography as="p" variant="h1">
+  SEO-friendly heading
+</Typography>
+
+// Renders a Next.js Link as a MintX Button
+import Link from 'next/link';
+<Button as={Link} href="/dashboard" variant="primary">
+  Go to Dashboard
+</Button>
+```
+
 ### 1. Global Design Unions
 Import these to type-check your custom component wrappers.
 
@@ -476,7 +493,11 @@ Import these to type-check your custom component wrappers.
 |------|-------------|--------------------|
 | **Button** | `ButtonVariant` | `primary, secondary, ghost, danger, outline-brand, dark, success, warning, info, outline, subtle, link` |
 | **Badge** | `BadgeVariant` | `solid, subtle, outline, ghost` |
-| **BadgeColor** | `BadgeColor`| `neutral, primary, success, warning, danger, info` |
+| **BadgeColor** | `BadgeColor`| `neutral, primary, success, warning, danger, info, blue, purple` |
+| **Typography** | `TypographyVariant` | `h1, h2, h3, h4, h5, h6, body, body2, label, mono, display, sharedcard, tablehead, tablecell, ghost, button` |
+| **TypographyColor** | `TypographyColor` | `default, primary, secondary, tertiary, brand, white, danger, success, warning, info` |
+| **AvatarSize** | `AvatarSize` | `xs, sm, md, lg, xl, 2xl` |
+| **AvatarStatus** | `AvatarStatus` | `online, offline, away, busy, live, pro` |
 | **Alert** | `AlertStatus` | `info, success, warning, error` |
 | **ZIndex** | `ZIndex` | `hide, base, docked, dropdown, sticky, banner, overlay, modal, popover, skipLink, toast, tooltip` |
 | **Elevation**| `Elevation` | `none, sm, md, lg, xl, 2xl, inner` |

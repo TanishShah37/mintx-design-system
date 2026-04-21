@@ -20,7 +20,7 @@ const meta: Meta<typeof Typography> = {
       options: [
         "display", 
         "h1", "h2", "h3", "h4", "h5", "h6", 
-        "body", "body2", "label", "mono", 
+        "body", "primary", "body2", "label", "mono", 
         "sharedcard", "tablehead", "tablecell", 
         "ghost", "button"
       ],

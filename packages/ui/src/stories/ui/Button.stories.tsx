@@ -22,6 +22,7 @@ const meta: Meta<typeof Button> = {
         "info",
         "outline",
         "subtle",
+        "soft",
         "link",
       ],
     },
@@ -94,6 +95,13 @@ export const Subtle: Story = {
   args: {
     variant: "subtle",
     children: "Cancel changes",
+  },
+};
+
+export const Soft: Story = {
+  args: {
+    variant: "soft",
+    children: "Mint Active",
   },
 };
 

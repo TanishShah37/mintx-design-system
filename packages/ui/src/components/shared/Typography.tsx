@@ -15,6 +15,7 @@ const typographyVariants = cva("transition-colors", {
       h5: "text-lg font-bold uppercase tracking-tight",
       h6: "text-base font-bold uppercase tracking-tight",
       body: "text-base font-medium leading-relaxed",
+      primary: "text-base font-medium leading-relaxed",
       body2: "text-sm font-medium leading-relaxed",
       label: "text-[10px] font-black uppercase tracking-[0.2em]",
       mono: "font-mono text-sm tracking-tight",
